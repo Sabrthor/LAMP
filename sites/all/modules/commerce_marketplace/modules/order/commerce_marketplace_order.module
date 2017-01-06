@@ -1,0 +1,259 @@
+<?php
+
+/**
+ * @file
+ * Adapts core order features for Commerce Marketplace.
+ */
+
+/**
+ * Implements hook_views_api().
+ */
+function commerce_marketplace_order_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'commerce_marketplace_order') . '/includes/views',
+  );
+}
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function commerce_marketplace_order_views_data_alter(&$data) {
+  $data['commerce_order']['order_total']['area']['handler'] = 'commerce_marketplace_order_handler_area_order_total';
+
+  // Expose the order group ID.
+  $data['commerce_order']['order_group'] = array(
+    'title' => t('Order group ID', array(), array('context' => 'a drupal commerce order')),
+    'help' => t('The unique internal identifier of the order group.'),
+    'field' => array(
+      'handler' => 'commerce_order_handler_field_order',
+      'click sortable' => TRUE,
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_numeric',
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'argument' => array(
+      // TODO: why would we need to override it?
+      'handler' => 'views_handler_argument_numeric',
+      'name field' => 'order_number',
+      'numeric' => TRUE,
+      'validate type' => 'order_id',
+    ),
+  );
+}
+
+/**
+ * Implements hook_commerce_checkout_pane_info_alter().
+ */
+function commerce_marketplace_order_commerce_checkout_pane_info_alter(&$checkout_panes) {
+  $checkout_panes['account']['callbacks']['checkout_form_submit'] = 'commerce_marketplace_order_account_pane_checkout_form_submit';
+}
+
+/**
+ * Account pane: checkout form submission callback.
+ *
+ * Overrides commerce_marketplace_order_account_pane_checkout_form_submit() to
+ * add submitted email address to all orders in the order group.
+ *
+ * @see commerce_marketplace_order_commerce_checkout_pane_info_alter()
+ * @see commerce_order_account_pane_checkout_form_submit()
+ */
+function commerce_marketplace_order_account_pane_checkout_form_submit($form, &$form_state, $checkout_pane, $order) {
+  $orders = commerce_marketplace_order_group_load($order->order_group);
+  foreach ($orders as $group_order) {
+    // We need this funny double-way call to
+    // commerce_order_account_pane_checkout_form_submit(), as if we were calling
+    // it with $group_order each time, the main $order object wouldn't get
+    // updated with the email address, and it wouldn't be available for the
+    // other panes afterwards.
+    if ($group_order->order_id == $order->order_id) {
+      commerce_order_account_pane_checkout_form_submit($form, $form_state, $checkout_pane, $order);
+    }
+    else {
+      commerce_order_account_pane_checkout_form_submit($form, $form_state, $checkout_pane, $group_order);
+      commerce_order_save($group_order);
+    }
+  }
+}
+
+/**
+ * Implements hook_query_TAG_alter() for commerce_order_access.
+ */
+function commerce_store_query_commerce_order_access_alter(QueryAlterableInterface $query) {
+  // Make sure a join with commerce_store table is added to the query.
+  commerce_store_entity_access_query_alter($query, 'commerce_order');
+}
+
+/**
+ * Implements hook_commerce_entity_access_condition_ENTITY_TYPE_alter().
+ *
+ * This alter hook allows the Store module to add conditions to the query used
+ * to determine if a user has view access to a given order. The Store module
+ * will always grant users access to view orders made in stores they own
+ * (independent of any permission settings).
+ */
+function commerce_marketplace_order_commerce_entity_access_condition_commerce_order_alter(&$conditions, $context) {
+  // First, start with "Shopping cart" and "Checkout" views - need to override
+  // commerce_cart_commerce_entity_access_condition_commerce_order_alter()
+  // to make sure that user is granted access to all their orders, not only the
+  // last one.
+  $current_order_ids = commerce_marketplace_cart_order_ids($context['account']->uid);
+  // Always give the current user access to their own carts regardless of order
+  // view permissions.
+  if (!empty($current_order_ids)) {
+    $conditions->condition($context['base_table'] . '.order_id', $current_order_ids, 'IN');
+  }
+
+  // Next, make sure that a merchant (a user which owns at least one store) has
+  // access to all orders made in their store by other users. This is used for
+  // "Merchant orders" view in user profile (/user/%/merchant/orders).
+  if (user_access('view any ' . $context['entity_type'] . ' entity in own store', $context['account'])) {
+    // Actually this condition already is in the query, but we need to add
+    // something to avoid commerce_entity_access_query_alter() adding default
+    // "where('1 = 0')" condition if no other conditions are defined.
+    $conditions->condition('commerce_store_field_data_commerce_store.uid', $context['account']->uid, '=');
+  }
+  // TODO: add access check for specific order types.
+}
+
+/**
+ * Returns all orders from one order group.
+ */
+function commerce_marketplace_order_group_load($order_group) {
+  return !empty($order_group) ? commerce_order_load_multiple(NULL, array('order_group' => array($order_group))) : array();
+}
+
+/**
+ * Returns number of non-empty orders in the order group.
+ *
+ * @param array $orders
+ *   An array of orders in the order group.
+ * @param bool $unpaid_only
+ *   A boolean indicating whether to count all orders (FALSE) or only those
+ *   that haven't been paid for yet (TRUE).
+ *
+ * @return int
+ *   A number of non-empty orders in the order group.
+ */
+function commerce_marketplace_order_count($orders, $unpaid_only = FALSE) {
+  $count = 0;
+  if (is_array($orders) && !empty($orders)) {
+    foreach ($orders as $order) {
+      if ($unpaid_only) {
+        $order_status = commerce_order_status_load($order->status);
+        if (!$order_status['cart']) {
+          continue;
+        }
+      }
+      $wrapper = entity_metadata_wrapper('commerce_order', $order);
+      if (commerce_line_items_quantity($wrapper->commerce_line_items, commerce_product_line_item_types()) > 0) {
+        $count++;
+      }
+    }
+  }
+  return $count;
+}
+
+/**
+ * Overrides commerce_order_calculate_total().
+ *
+ * Calculates the order total, updating the commerce_order_total field data in
+ * the order object this function receives.
+ *
+ * @param object $order
+ *   The order object whose order total should be calculated.
+ * @param string|null $default_currency
+ *   The currency code to return the order total in.
+ *
+ * @see commerce_order_calculate_total()
+ */
+function commerce_marketplace_order_calculate_total($orders, $default_currency = NULL) {
+  // First determine the currency to use for the order total.
+  $currency_code = commerce_default_currency();
+  $currencies = array();
+
+  foreach ($orders as $key => $order) {
+    $order_wrappers[$key] = entity_metadata_wrapper('commerce_order', $order);
+
+    // Populate an array of how many line items on the order use each currency.
+    foreach ($order_wrappers[$key]->commerce_line_items as $delta => $line_item_wrapper) {
+      $line_item_currency_code = $line_item_wrapper->commerce_total->currency_code->value();
+
+      if (!in_array($line_item_currency_code, array_keys($currencies))) {
+        $currencies[$line_item_currency_code] = 1;
+      }
+      else {
+        $currencies[$line_item_currency_code]++;
+      }
+    }
+
+  }
+  reset($currencies);
+
+  // If only one currency is present on the order, use that to calculate the
+  // order total.
+  if (count($currencies) == 1) {
+    $currency_code = key($currencies);
+  }
+  elseif (!empty($default_currency)) {
+    // Otherwise if a specific currency to calculate order total was requested
+    // in the function call, let's use it.
+    $currency_code = $default_currency;
+  }
+  elseif (in_array(commerce_default_currency(), array_keys($currencies))) {
+    // Otherwise use the site default currency if it's in the order.
+    $currency_code = commerce_default_currency();
+  }
+  elseif (count($currencies) > 1) {
+    // Otherwise use the first currency on the order. We do this instead of
+    // trying to determine the most dominant currency for now because using the
+    // first currency leaves the option open for a UI based module to let
+    // customers reorder the items in the cart by currency to get the order
+    // total in a different currency. The currencies array still contains useful
+    // data, though, should we decide to expand on the count by currency approach.
+    $currency_code = key($currencies);
+  }
+
+  // Initialize the order total with the selected currency.
+  $total = array(
+    'amount' => 0,
+    'currency_code' => $currency_code,
+    'data' => array(),
+  );
+
+  // Then loop over each line item in each order
+  // and add its total to the order total.
+  foreach ($order_wrappers as $key => $order_wrapper) {
+    foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+      // Convert the line item's total to the order's currency for totalling.
+      $component_total = commerce_price_component_total($line_item_wrapper->commerce_total->value());
+
+      // Add the totals.
+      $total['amount'] += commerce_currency_convert(
+        $component_total['amount'],
+        $component_total['currency_code'],
+        $currency_code
+      );
+
+      // Combine the line item total's component prices into the order total.
+      $total['data'] = commerce_price_components_combine($total, $line_item_wrapper->commerce_total->value());
+    }
+  }
+
+  return $total;
+}
+
+/**
+ * Returns the total quantity of an array of line items in all orders.
+ */
+function commerce_marketplace_order_quantity($orders) {
+  $quantity = 0;
+  foreach ($orders as $key => $order) {
+    $wrapper = entity_metadata_wrapper('commerce_order', $order);
+    $quantity += commerce_marketplace_line_items_quantity($wrapper->commerce_line_items, commerce_product_line_item_types());
+  }
+  return $quantity;
+}

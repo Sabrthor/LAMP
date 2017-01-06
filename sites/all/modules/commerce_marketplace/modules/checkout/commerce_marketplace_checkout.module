@@ -1,0 +1,679 @@
+<?php
+
+/**
+ * @file
+ * Adapts core checkout features for Commerce Marketplace.
+ */
+
+/**
+ * Implements hook_views_api().
+ */
+function commerce_marketplace_checkout_views_api() {
+  return array(
+    'api' => 3,
+    'path' => drupal_get_path('module', 'commerce_marketplace_checkout') . '/includes/views',
+  );
+}
+
+/**
+ * Implements hook_menu_alter().
+ */
+function commerce_marketplace_checkout_menu_alter(&$items) {
+  $items['checkout/%commerce_order']['page callback'] = 'commerce_marketplace_checkout_router';
+  $items['checkout/%commerce_order']['module'] = 'commerce_marketplace_checkout';
+  $items['checkout/%commerce_order']['file'] = 'commerce_marketplace_checkout.module';
+
+  $items['checkout/%commerce_order/%commerce_checkout_page']['page callback'] = 'commerce_marketplace_checkout_router';
+  $items['checkout/%commerce_order/%commerce_checkout_page']['module'] = 'commerce_marketplace_checkout';
+  $items['checkout/%commerce_order/%commerce_checkout_page']['file'] = 'commerce_marketplace_checkout.module';
+}
+
+/**
+ * Redirects invalid checkout attempts or displays the checkout form if valid.
+ *
+ * Overrides commerce_checkout_router(), with the only difference being
+ * the usage of commerce_marketplace_checkout_order_uri() instead of
+ * commerce_checkout_order_uri() when fetching $target_uri value.
+ *
+ * @see commerce_checkout_router()
+ */
+function commerce_marketplace_checkout_router($order, $checkout_page = NULL) {
+  $checkout_pages = commerce_checkout_pages();
+
+  // If no checkout page is specified, default to the first one.
+  if (empty($checkout_page)) {
+    $checkout_page = reset($checkout_pages);
+  }
+
+  // If the user does not have access to checkout the order, return a 404. We
+  // could return a 403, but then the user would know they've identified a
+  // potentially valid checkout URL.
+  if (!commerce_checkout_access($order)) {
+    return MENU_NOT_FOUND;
+  }
+
+  // If the user is attempting to access an inaccessible page for their order,
+  // redirect them to the proper page.
+  if (!commerce_checkout_page_access($checkout_page, $order)) {
+    $target_uri = commerce_marketplace_checkout_order_uri($order);
+
+    // Only redirect if the target page is different from the page the user was
+    // trying to access. Otherwise give a 403 error.
+    if (!empty($target_uri) && $target_uri !== $_GET['q']) {
+      drupal_goto($target_uri);
+    }
+    else {
+      return MENU_ACCESS_DENIED;
+    }
+  }
+
+  // If there are no line items on any of the orders, redirect away.
+  $orders = commerce_marketplace_order_group_load($order->order_group);
+  if (commerce_marketplace_order_quantity($orders) == 0) {
+    drupal_goto('<front>');
+  }
+
+  // If quantity of any of the orders is 0, remove such order and redirect
+  // to a valid checkout URL (if needed).
+  foreach ($orders as $order_id => $group_order) {
+    if (commerce_marketplace_order_quantity(array($group_order)) == 0) {
+      commerce_order_delete($order_id);
+      // If we have just deleted an order used in the URL, we need to redirect
+      // to a new valid URL.
+      if ($order_id == $order->order_id) {
+        $new_order_id = max(array_diff(array_keys($orders), array($order_id)));
+        if ($target_uri = commerce_marketplace_checkout_order_uri($orders[$new_order_id])) {
+          drupal_goto($target_uri);
+        }
+      }
+    }
+  }
+
+  // Prior to displaying the checkout form, allow other modules to route the
+  // checkout form.
+  module_invoke_all('commerce_checkout_router', $order, $checkout_page);
+
+  // Do the same for marketplace-specific routing too.
+  module_invoke_all('commerce_marketplace_checkout_router', $order, $checkout_page);
+
+  // Update the page title if specified.
+  if (!empty($checkout_page['title'])) {
+    drupal_set_title($checkout_page['title']);
+  }
+
+  // Include file providing main commerce_checkout_form().
+  module_load_include('inc', 'commerce_checkout', 'includes/commerce_checkout.pages');
+  // Special behavior for Marketplace Review page.
+  if ($checkout_page['page_id'] == 'reviews') {
+    $orders = commerce_marketplace_order_group_load($order->order_group);
+    $return = array();
+    foreach ($orders as $group_order) {
+      $order_wrapper = entity_metadata_wrapper('commerce_order', $group_order);
+
+      // If there are one or more products in the cart...
+      if (commerce_line_items_quantity($order_wrapper->commerce_line_items, commerce_product_line_item_types()) > 0) {
+        $store_name = !empty($group_order->commerce_store) ? $order_wrapper->commerce_store->title->value() : variable_get('site_name', 'Drupal');
+        $return[] = array(
+          '#type' => 'markup',
+          '#markup' => '<h2>' . t('Order from @store', array('@store' => $store_name)) . '</h2>',
+        );
+        $form_id = 'commerce_checkout_form_' . $checkout_page['page_id'] . '_' . $group_order->order_id;
+        $return[] = drupal_get_form($form_id, $group_order, $checkout_page);
+      }
+    }
+    return $return;
+  }
+  // Default behavior.
+  else {
+    return drupal_get_form('commerce_checkout_form_' . $checkout_page['page_id'], $order, $checkout_page);
+  }
+
+}
+
+/**
+ * Implements hook_forms().
+ *
+ * Each page of the checkout form is actually a unique form as opposed to a
+ * single multistep form. To accommodate this, we map any form ID beginning with
+ * commerce_checkout_form_ to the same form builder assuming the remainder of
+ * the form ID matches a valid checkout page ID.
+ *
+ * @see commerce_checkout_forms()
+ * @see commerce_marketplace_checkout_router()
+ */
+function commerce_marketplace_checkout_forms($form_id, $args) {
+  $forms = array();
+
+  // All checkout page forms should be built using the same function.
+  if (strpos($form_id, 'commerce_checkout_form_') === 0) {
+    $checkout_page_id = substr($form_id, 23);
+    // In case of the marketplace review checkout page, when we might show
+    // the same form multiple times for each order in the order group, we add
+    // order_id to the form_id (see commerce_marketplace_checkout_router()),
+    // so that the forms are identifiable by the system and validation errors
+    // are displayed in correct places.
+    if (!empty($args[0]->order_id) && strpos($checkout_page_id, '_') !== FALSE) {
+      $page_id_elements = explode('_', $checkout_page_id);
+      if (array_pop($page_id_elements) == $args[0]->order_id) {
+        $checkout_page_id = implode('_', $page_id_elements);
+      }
+      if (commerce_checkout_page_load($checkout_page_id)) {
+        $forms[$form_id] = array(
+          'callback' => 'commerce_checkout_form',
+        );
+      }
+    }
+  }
+
+  return $forms;
+}
+
+/**
+ * Implements hook_commerce_checkout_router().
+ *
+ * If we are routing an order that is already paid for, before redirecting to
+ * 'complete' page, let's first check if we don't have any other orders in the
+ * order group that should be first checked out.
+ *
+ * @see commerce_marketplace_checkout_router()
+ */
+function commerce_marketplace_checkout_commerce_checkout_router($order, $checkout_page) {
+  $order_status = commerce_order_status_load($order->status);
+  // @TODO: Could this check be made any better?
+  if (!$order_status['cart'] && $order_status['name'] != 'checkout_payment') {
+    $orders = commerce_marketplace_order_group_load($order->order_group);
+    foreach ($orders as $group_order) {
+      $order_status = commerce_order_status_load($group_order->status);
+      if ($order_status['cart']) {
+        drupal_goto(commerce_checkout_order_uri($group_order));
+      }
+    }
+  }
+}
+
+/**
+ * Returns the current checkout URI for the given order.
+ *
+ * Overrides commerce_checkout_order_uri().
+ *
+ * @see commerce_checkout_order_uri()
+ */
+function commerce_marketplace_checkout_order_uri($order) {
+  global $user;
+
+  $order_status = commerce_order_status_load($order->status);
+
+  if ($order_status['state'] == 'checkout') {
+    $page_id = '/' . $order_status['checkout_page'];
+  }
+  elseif ($order_status['state'] == 'cart') {
+    $page_id = '';
+  }
+  elseif (commerce_checkout_complete_access($order)) {
+    // Try to find if there are any other orders in the current group
+    // that still should be checked out.
+    if ($orders = commerce_marketplace_cart_order_load_multiple($user->uid)) {
+      foreach ($orders as $group_order) {
+        return commerce_marketplace_checkout_order_uri($group_order);
+      }
+    }
+    $page_id = '/complete';
+  }
+  else {
+    return NULL;
+  }
+
+  return 'checkout/' . $order->order_id . $page_id;
+}
+
+/**
+ * Implements hook_commerce_checkout_pane_info_alter().
+ */
+function commerce_marketplace_checkout_commerce_checkout_pane_info_alter(&$checkout_panes) {
+  // Override "Shopping cart contents" pane on the "Checkout" and "Review order"
+  // steps to show line items from all orders and calculate correct total.
+  $checkout_panes['cart_contents']['callbacks']['checkout_form'] = 'commerce_marketplace_cart_contents_pane_checkout_form';
+  $checkout_panes['cart_contents']['callbacks']['review'] = 'commerce_marketplace_cart_contents_pane_review';
+
+  // Override "Shopping cart contents" pane settings form.
+  $checkout_panes['checkout_review']['callbacks']['settings_form'] = 'commerce_marketplace_checkout_review_pane_settings_form';
+}
+
+/**
+ * Checkout pane callback: returns the Shopping cart contents pane's settings
+ * form.
+ */
+function commerce_marketplace_checkout_review_pane_settings_form($checkout_pane) {
+  $form = array();
+
+  // At the moment of writing this the commerce_checkout_review_pane_settings_form()
+  // (which would be default settings form for the Review pane) does not exist
+  // yet, but in case it is added at any point in the future, let's first try
+  // to fetch and use it too.
+  if (function_exists('commerce_checkout_review_pane_settings_form')) {
+    $form = commerce_checkout_review_pane_settings_form($checkout_pane);
+  }
+
+  $form['commerce_marketplace_checkout_split_cart_contents'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Split <em>Shopping cart contents</em> view for marketplace orders.'),
+    '#description' => t(''),
+    '#default_value' => variable_get('commerce_marketplace_checkout_split_cart_contents', FALSE),
+  );
+
+  return $form;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function commerce_marketplace_checkout_form_alter(&$form, &$form_state, $form_id) {
+
+  // Shopping cart form.
+  if (strpos($form_id, 'views_form_commerce_cart_form_') === 0) {
+    // If the cart form View shows line items, update submits for both buttons
+    // so that when either one is used, statuses of all orders are updated.
+    $view = reset($form_state['build_info']['args']);
+    if (!empty($view->result)) {
+      if (FALSE !== $key = array_search('commerce_checkout_line_item_views_form_submit', $form['actions']['checkout']['#submit'])) {
+        $form['actions']['checkout']['#submit'][$key] = 'commerce_marketplace_checkout_line_item_views_form_submit';
+      }
+    }
+  }
+
+  // Checkout forms.
+  // Add extra submit functions to update statuses of all orders when moving
+  // within checkout steps and back from checkout to shopping cart.
+  if (strpos($form_id, 'commerce_checkout_form_') !== FALSE) {
+    // Add array with all orders in current order group.
+    if (!empty($form_state['order'])) {
+      $form_state['orders'] = !empty($form_state['order']->order_group) ? commerce_marketplace_order_group_load($form_state['order']->order_group) : array($form_state['order']->order_id => $form_state['order']);
+    }
+
+    $form_state['build_info']['files']['form'] = drupal_get_path('module', 'commerce_checkout') . '/includes/commerce_checkout.pages.inc';
+    if (!empty($form['buttons']['continue']['#validate'])) {
+      if (FALSE !== $key = array_search('commerce_checkout_form_validate', $form['buttons']['continue']['#validate'])) {
+        $form['buttons']['continue']['#validate'][$key] = 'commerce_marketplace_checkout_form_validate';
+      }
+    }
+    if (!empty($form['buttons']['continue']['#submit'])) {
+      if (FALSE !== $key = array_search('commerce_checkout_form_submit', $form['buttons']['continue']['#submit'])) {
+        $form['buttons']['continue']['#submit'][$key] = 'commerce_marketplace_checkout_form_submit';
+      }
+    }
+    if (!empty($form['buttons']['back']['#submit'])) {
+      if (FALSE !== $key = array_search('commerce_checkout_form_back_submit', $form['buttons']['back']['#submit'])) {
+        $form['buttons']['back']['#submit'][$key] = 'commerce_marketplace_checkout_form_back_submit';
+      }
+    }
+    if (!empty($form['buttons']['cancel']['#submit'])) {
+      if (FALSE !== $key = array_search('commerce_checkout_form_cancel_submit', $form['buttons']['cancel']['#submit'])) {
+        $form['buttons']['cancel']['#submit'][$key] = 'commerce_marketplace_cart_checkout_form_cancel_submit';
+      }
+      // Original 'commerce_checkout_form_cancel_submit' could already be
+      // overriden by commerce_cart_form_alter() and changed to
+      // 'commerce_cart_checkout_form_cancel_submit', so let's check this too.
+      if (FALSE !== $key = array_search('commerce_cart_checkout_form_cancel_submit', $form['buttons']['cancel']['#submit'])) {
+        $form['buttons']['cancel']['#submit'][$key] = 'commerce_marketplace_cart_checkout_form_cancel_submit';
+      }
+    }
+  }
+
+  if (strpos($form_id, 'commerce_checkout_form_reviews_') === 0) {
+    // @TODO: What is the safest way to check if order has already been paid for?
+    $order_status = commerce_order_status_load($form_state['order']->status);
+    if (!$order_status['cart']) {
+      unset($form['buttons']);
+    } elseif (!variable_get('commerce_marketplace_payment_pane_allow_back', TRUE)) {
+      unset($form['buttons']['back']);
+    }
+  }
+
+}
+
+/**
+ * Submit handler used to redirect to the checkout page.
+ *
+ * Overrides commerce_checkout_line_item_views_form_submit(), updating order
+ * status for all order in the order group.
+ *
+ * @see commerce_marketplace_checkout_form_alter()
+ * @see commerce_checkout_line_item_views_form_submit()
+ */
+function commerce_marketplace_checkout_line_item_views_form_submit($form, &$form_state) {
+  global $user;
+
+  // Set the order status to the first checkout page's status.
+  $order_state = commerce_order_state_load('checkout');
+
+  // Process only orders with the 'cart' status type.
+  if ($orders = commerce_marketplace_cart_order_load_multiple($user->uid)) {
+    foreach ($orders as $group_order) {
+      $group_order = commerce_order_status_update($group_order, $order_state['default_status'], TRUE);
+
+      // Skip saving in the status update and manually save here to force a save
+      // even when the status doesn't actually change.
+      if (variable_get('commerce_order_auto_revision', TRUE)) {
+        $group_order->revision = TRUE;
+        $group_order->log = t('Customer proceeded to checkout using a submit button.');
+      }
+
+      commerce_order_save($group_order);
+
+      // Re-add updated order to the form.
+      if ($group_order->order_id == $form_state['order']->order_id) {
+        $form_state['order'] = $group_order;
+      }
+    }
+  }
+
+  // Redirect to the checkout page if specified.
+  if ($form_state['triggering_element']['#value'] == $form['actions']['checkout']['#value']) {
+    $form_state['redirect'] = 'checkout/' . $form_state['order']->order_id;
+  }
+}
+
+/**
+ * Submit handler to take back the order to cart status on cancel in checkout.
+ *
+ * Overrides commerce_cart_checkout_form_cancel_submit().
+ *
+ * @see commerce_cart_checkout_form_cancel_submit()
+ */
+function commerce_marketplace_cart_checkout_form_cancel_submit($form, &$form_state) {
+  global $user;
+
+  // Process only orders with the 'cart' status type.
+  if ($orders = commerce_marketplace_cart_order_load_multiple($user->uid)) {
+    foreach ($orders as $group_order) {
+      // Update the order to the cart status.
+      $group_order = commerce_order_status_update($group_order, 'cart', TRUE);
+
+      // Skip saving in the status update and manually save here to force a save
+      // even when the status doesn't actually change.
+      if (variable_get('commerce_order_auto_revision', TRUE)) {
+        $group_order->revision = TRUE;
+        $group_order->log = t('Customer manually canceled the checkout process.');
+      }
+
+      commerce_order_save($group_order);
+
+      // Re-add updated order to the form.
+      if ($group_order->order_id == $form_state['order']->order_id) {
+        $form_state['order'] = $group_order;
+      }
+    }
+  }
+
+  drupal_set_message(t('Checkout of your current order has been canceled and may be resumed when you are ready.'));
+
+  // Redirect to cart on cancel.
+  $form_state['redirect'] = 'cart';
+}
+
+/**
+ * Checkout pane callback: returns the cart contents view for inclusion in the
+ * checkout form on the "Checkout" page.
+ *
+ * Overrides commerce_cart_contents_pane_checkout_form(), displaying content
+ * of the shopping cart for all orders in the order group.
+ *
+ * @see commerce_cart_contents_pane_checkout_form()
+ * @see commerce_marketplace_checkout_commerce_checkout_pane_info_alter()
+ */
+function commerce_marketplace_cart_contents_pane_checkout_form($form, &$form_state, $checkout_pane, $order) {
+  global $user;
+  $pane_form = array();
+
+  drupal_add_css(drupal_get_path('module', 'commerce_cart') . '/theme/commerce_cart.theme.css');
+
+  // Extract the View and display keys from the cart contents pane setting.
+  list($view_id, $display_id) = explode('|', variable_get('commerce_cart_contents_pane_view', 'commerce_cart_summary|default'));
+
+  // Display only orders with the 'cart' status type.
+  $orders = commerce_marketplace_cart_order_load_multiple($user->uid);
+  $order_ids = implode(',', array_keys($orders));
+
+  $pane_form['cart_contents_view'] = array(
+    '#markup' => commerce_embed_view($view_id, $display_id, array($order_ids)),
+  );
+
+  return $pane_form;
+}
+
+/**
+ * Checkout pane callback: returns the cart contents view for inclusion in the
+ * checkout form on the "Review" checkout page.
+ *
+ * Overrides commerce_cart_contents_pane_review(), with the only difference
+ * for the moment being an updated title. Perhaps it would be worth removing
+ * completely then and changing the title somewhere else? @TODO?
+ *
+ * @see commerce_cart_contents_pane_review()
+ * @see commerce_marketplace_checkout_commerce_checkout_pane_info_alter()
+ */
+function commerce_marketplace_cart_contents_pane_review($form, $form_state, $checkout_pane, $order) {
+  global $user;
+  drupal_add_css(drupal_get_path('module', 'commerce_cart') . '/theme/commerce_cart.theme.css');
+
+  // Extract the View and display keys from the cart contents pane setting.
+  list($view_id, $display_id) = explode('|', variable_get('commerce_cart_contents_pane_view', 'commerce_cart_summary|default'));
+
+  if ($form_state['checkout_page']['page_id'] != 'reviews') {
+    // Process only orders with the 'cart' status type.
+    $orders = commerce_marketplace_cart_order_load_multiple($user->uid);
+
+    // If 'Split Shopping cart contents view for marketplace orders' checkbox
+    // in Review pane settings form is enabled, we need to display the same
+    // 'Shopping cart contents' view multiple times for each order separately
+    // (see commerce_marketplace_checkout_review_pane_settings_form()).
+    if (
+      variable_get('commerce_marketplace_checkout_split_cart_contents', FALSE)
+      && commerce_marketplace_order_count($orders) > 1
+    ) {
+      $output = '';
+      foreach ($orders as $group_order) {
+        $order_wrapper = entity_metadata_wrapper('commerce_order', $group_order);
+        $store_name = !empty($group_order->commerce_store) ? $order_wrapper->commerce_store->title->value() : variable_get('site_name', 'Drupal');
+        $output .= '<label>' . t('Order from @store', array('@store' => $store_name)) . '</label>';
+        $output .= commerce_embed_view($view_id, $display_id, array($group_order->order_id));
+      }
+      return $output;
+    }
+    // Otherwise all orders should be displayed combined in one view.
+    $order_ids = implode(',', array_keys($orders));
+  }
+  else {
+    $order_ids = $order->order_id;
+  }
+  return commerce_embed_view($view_id, $display_id, array($order_ids));
+}
+
+/**
+ * Validate handler for the continue button of the checkout form.
+ *
+ * This function calls the validation function of each pane, followed by
+ * the submit function if the validation succeeded. As long as one pane
+ * fails validation, we then ask for the form to be rebuilt. Once all the panes
+ * are happy, we move on to the next page.
+ *
+ * @see commerce_checkout_form()
+ * @see commerce_checkout_form_validate()
+ * @see commerce_marketplace_checkout_form_alter()
+ * @see commerce_marketplace_checkout_form_submit()
+ */
+function commerce_marketplace_checkout_form_validate($form, &$form_state) {
+  $checkout_page = $form_state['checkout_page'];
+
+  // Load a fresh copy of all the orders stored in the form.
+  $orders = commerce_order_load_multiple(array_keys($form_state['orders']));
+
+  // Catch and clear already pushed messages.
+  $previous_messages = drupal_get_messages();
+
+  // Load any pre-existing validation errors for the elements.
+  $errors = array();
+
+  foreach ((array) form_get_errors() as $element_path => $error) {
+    list($pane_id, ) = explode('][', $element_path, 2);
+    $errors[$pane_id][$element_path] = $error;
+  }
+
+  // Loop through the enabled checkout panes for the current page.
+  $form_validate = TRUE;
+  foreach (commerce_checkout_panes(array('enabled' => TRUE, 'page' => $checkout_page['page_id'])) as $pane_id => $checkout_pane) {
+    $validate = TRUE;
+
+    // If any element in the pane failed validation, we mark the pane as
+    // unvalidated and replay the validation messages on top of it.
+    if (!empty($errors[$pane_id])) {
+      $validate = FALSE;
+
+      foreach ($errors[$pane_id] as $element_path => $message) {
+        if ($message) {
+          drupal_set_message($message, 'error');
+        }
+      }
+
+      if (isset($previous_messages['error'])) {
+        $previous_messages['error'] = array_values(array_diff($previous_messages['error'], $errors[$pane_id]));
+      }
+    }
+
+    // If the pane has defined a checkout form validate handler...
+    if ($callback = commerce_checkout_pane_callback($checkout_pane, 'checkout_form_validate')) {
+      // Give it a chance to process the submitted data.
+      foreach (element_children($orders) as $order_id) {
+        $validate &= $callback($form, $form_state, $checkout_pane, $orders[$order_id]);
+      }
+    }
+
+    // Catch and clear panes' messages.
+    $pane_messages = drupal_get_messages();
+
+    // Submit the pane if it validated.
+    if ($validate && $callback = commerce_checkout_pane_callback($checkout_pane, 'checkout_form_submit')) {
+      foreach (element_children($orders) as $order_id) {
+        $callback($form, $form_state, $checkout_pane, $orders[$order_id]);
+      }
+    }
+
+    // Generate status messages.
+    $form_state['storage']['messages'][$pane_id] = array_merge_recursive($pane_messages, drupal_get_messages());
+
+    // A failed pane makes the form fail.
+    $form_validate &= $validate;
+  }
+
+  // Restore messages and form errors.
+  $_SESSION['messages'] = array_merge_recursive(array_filter($previous_messages), drupal_get_messages());
+  $form_errors = &drupal_static('form_set_error', array());
+  $form_state['storage']['errors'] = $form_errors;
+  $form_errors = array();
+
+  // Save the updated order object and reset the order in the form cache to
+  // ensure rebuilt forms use the updated order.
+  foreach (element_children($orders) as $order_id) {
+    commerce_order_save($orders[$order_id]);
+    if ($form_state['order']->order_id == $order_id) {
+      $form_state['order'] = $form_state['build_info']['args'][0] = $orders[$order_id];
+    }
+  }
+
+  // If a pane failed validation or the form state has otherwise been altered to
+  // initiate a rebuild, return without moving to the next checkout page.
+  if (!$form_validate || $form_state['rebuild']) {
+    $form_state['rebuild'] = TRUE;
+  }
+}
+
+/**
+ * Special submit handler for the continue button of the checkout form.
+ * Updates all orders statuses to reflect the checkout page.
+ *
+ * Overrides commerce_checkout_form_submit().
+ *
+ * @see commerce_checkout_form()
+ * @see commerce_checkout_form_submit()
+ * @see commerce_marketplace_checkout_form_alter()
+ * @see commerce_marketplace_checkout_form_validate()
+ */
+function commerce_marketplace_checkout_form_submit($form, &$form_state) {
+  $checkout_page = $form_state['checkout_page'];
+
+  // Load a fresh copy of all the orders stored in the form.
+  $orders = commerce_order_load_multiple(array_keys($form_state['orders']));
+
+  // If we are going to redirect with checkout pane messages stored in the form
+  // state, they will not be displayed on a subsequent form build like normal.
+  // Move them out of the form state messages array and into the current
+  // session's general message array instead.
+  if (!empty($form_state['storage']['messages'])) {
+    foreach ($form_state['storage']['messages'] as $pane_id => $pane_messages) {
+      $_SESSION['messages'] = array_merge_recursive($_SESSION['messages'], $pane_messages);
+    }
+  }
+
+  // If the form was submitted via the continue button...
+  if (end($form_state['triggering_element']['#array_parents']) == 'continue') {
+    // If there is another checkout page...
+    if ($checkout_page['next_page']) {
+      // Update all order statuses to reflect the next checkout page.
+      foreach (element_children($orders) as $order_id) {
+        // Do not allow to go change the status of orders already paid.
+        $order_status = commerce_order_status_load($orders[$order_id]->status);
+        if ($order_status['cart']) {
+          $orders[$order_id] = commerce_order_status_update($orders[$order_id], 'checkout_' . $checkout_page['next_page'], FALSE, NULL, t('Customer continued to the next checkout page via a submit button.'));
+
+          // If it happens to be the complete page, process completion now.
+          if ($checkout_page['next_page'] == 'complete') {
+            commerce_checkout_complete($orders[$order_id]);
+          }
+
+          // Re-add updated order to the form.
+          if ($order_id == $form_state['order']->order_id) {
+            $form_state['order'] = $orders[$order_id];
+          }
+        }
+      }
+
+      // Redirect to the next checkout page.
+      $form_state['redirect'] = 'checkout/' . $form_state['order']->order_id . '/' . $checkout_page['next_page'];
+    }
+  }
+}
+
+/**
+ * Special submit handler for the back button to avoid processing orders.
+ * Updates all orders statuses to reflect the checkout page.
+ *
+ * Overrides commerce_checkout_form_back_submit().
+ *
+ * @see commerce_checkout_form_back_submit()
+ */
+function commerce_marketplace_checkout_form_back_submit($form, &$form_state) {
+  global $user;
+
+  // If there is a previous page...
+  if ($previous_page = commerce_checkout_page_load($form_state['checkout_page']['prev_page'])) {
+
+    // Move the form back to that page.
+    if ($previous_page['prev_page']) {
+      $form_state['redirect'] = 'checkout/' . $form_state['order']->order_id . '/' . $previous_page['page_id'];
+    }
+    else {
+      $form_state['redirect'] = 'checkout/' . $form_state['order']->order_id;
+    }
+
+    // Process only orders with the 'cart' status type.
+    $orders = commerce_marketplace_cart_order_load_multiple($user->uid);
+    foreach ($orders as $group_order) {
+      $group_order = commerce_order_status_update($group_order, 'checkout_' . $previous_page['page_id'], FALSE, NULL, t('Customer returned to the previous checkout page via a submit button.'));
+
+      // Re-add updated order to the form.
+      if ($group_order->order_id == $form_state['order']->order_id) {
+        $form_state['order'] = $group_order;
+      }
+    }
+  }
+}
