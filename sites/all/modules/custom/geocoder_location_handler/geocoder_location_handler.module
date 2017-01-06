@@ -1,0 +1,54 @@
+<?php
+/**
+ * Implements hook_block_info().
+ */
+function geocoder_location_handler_block_info() {
+  $blocks = [];
+
+  $blocks['find_or_select_location'] = array(
+    'info' => t('Find or select location'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function geocoder_location_handler_block_view($delta = '') {
+  $block = [];
+
+  switch ($delta) {
+    case 'find_or_select_location':
+        $block['content'] = drupal_get_form('geocoder_location_handler_form');
+    break;
+  }
+
+  return $block;
+}
+
+function geocoder_location_handler_form($node, &$form_state) {
+  $form = [];
+
+  $form['#attached']['js'] = [
+    'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&key=AIzaSyDa2LbHo4xvVQ1QrkvDrJdzhGnID2BJm_E',
+    drupal_get_path('module', 'geocoder_location_handler') . '/js/detect_location.js',
+  ];
+
+  $form['detect_my_location'] = [
+    '#type' => 'button',
+    '#default_value' => t('Detect my location'),
+  ];
+
+  $form['select_location'] = [
+    '#type' => 'textfield',
+    '#attributes' => [
+      'placeholder' => t('Select your location'),
+    ],
+    '#autocomplete_path' => 'geocoder/autocomplete',
+    '#submit' => ['location_location_callback'],
+  ];
+
+  return $form;
+}
