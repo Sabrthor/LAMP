@@ -1,4 +1,25 @@
 <?php
+
+/**
+ * Implements hook_menu().
+ */
+function geocoder_location_handler_menu() {
+  $items = array();
+
+  $items['get_stores_by_coordinate/%/%'] = array(
+    'title' => t('Get stores by coordinates'),
+    //'page callback' => 'location_handler_form',
+    'page callback' => 'geocoder_location_handler_get_stores_by_coordinate',
+    'access arguments' => array('access content'),
+    'file path' => drupal_get_path('module','geocoder_location_handler'),
+    'file' => 'geocoder_location_handler.resource.inc',
+    'page arguments' => array(1, 2),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
 /**
  * Implements hook_block_info().
  */

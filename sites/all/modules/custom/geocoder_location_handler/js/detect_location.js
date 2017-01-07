@@ -11,10 +11,16 @@
 
             console.log(position.coords.latitude + ', ' + position.coords.longitude);
 
+            $.get('https://kirana11revamp.dd:8443/get_stores_by_coordinate/' + position.coords.latitude + '/' + position.coords.longitude, function( result ) {
+              console.log(result);
+            });
+
             geocoder.geocode({'latLng': geolocate}, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
                 var result = (results.length > 1) ? results[1] : results[0];
-                console.log(result.address_components[2].long_name + ', ' + result.address_components[3].long_name);
+                var address = get_address(result.address_components, ['sublocality_level_1', 'locality']);
+
+               console.log(address);
               }  
             });
           }, function(error) {
@@ -35,5 +41,25 @@
       });
     }
   };
+
+  function get_address(address_components, address_types) { 
+    var show_address = '';
+
+    address_types.forEach(function(address_type) {    
+      address_components.forEach(function(address) {
+        address.types.forEach(function(type) {          
+          if (type.localeCompare(address_type) === 0) {
+            show_address += address.long_name + ', ';
+
+            return false;
+          }
+        });  
+      });
+    });
+
+    show_address = show_address.substring(0, show_address.trim().length - 1);
+
+    return show_address;
+  }
 
 })(jQuery);
