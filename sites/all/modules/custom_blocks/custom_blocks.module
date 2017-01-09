@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Custom Blocks feature.
+ */
+
+include_once 'custom_blocks.features.inc';
