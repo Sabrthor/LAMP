@@ -1,4 +1,29 @@
 <?php
+
+/**
+ * Implements hook_menu().
+ */ 
+function geocoder_location_handler_init() {
+  drupal_add_js('https://maps.googleapis.com/maps/api/js?v=3&sensor=false&libraries=places&key=AIzaSyDa2LbHo4xvVQ1QrkvDrJdzhGnID2BJm_E');
+  drupal_add_js(drupal_get_path('module', 'geocoder_location_handler') . '/js/detect_location.js');
+}
+
+function geocoder_location_handler_menu() {
+  $items = array();
+
+  $items['get_stores_by_coordinate/%/%'] = array(
+    'title' => t('Get stores by coordinates'),
+    'page callback' => 'geocoder_location_handler_get_stores_by_coordinate',
+    'access arguments' => array('access content'),
+    'file path' => drupal_get_path('module','geocoder_location_handler'),
+    'file' => 'geocoder_location_handler.resource.inc',
+    'page arguments' => array(1, 2),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
 /**
  * Implements hook_block_info().
  */
@@ -21,34 +46,17 @@ function geocoder_location_handler_block_view($delta = '') {
 
   switch ($delta) {
     case 'find_or_select_location':
-        $block['content'] = drupal_get_form('geocoder_location_handler_form');
+        $block['content'] = geocoder_location_handler_block_content();
     break;
   }
 
   return $block;
 }
 
-function geocoder_location_handler_form($node, &$form_state) {
-  $form = [];
+function geocoder_location_handler_block_content() {
+  $html_location = '<div class="form-item"><div id="edit-detect-my-location">Detect my location</div></div>';
+  $html_location .= '<p>OR</p>'; 
+  $html_location .= '<div class="form-item"><input class="form-text" placeholder="Select your location" type="text" id="edit-select-location" /></div>'; 
 
-  $form['#attached']['js'] = [
-    'https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true&key=AIzaSyDa2LbHo4xvVQ1QrkvDrJdzhGnID2BJm_E',
-    drupal_get_path('module', 'geocoder_location_handler') . '/js/detect_location.js',
-  ];
-
-  $form['detect_my_location'] = [
-    '#type' => 'button',
-    '#default_value' => t('Detect my location'),
-  ];
-
-  $form['select_location'] = [
-    '#type' => 'textfield',
-    '#attributes' => [
-      'placeholder' => t('Select your location'),
-    ],
-    '#autocomplete_path' => 'geocoder/autocomplete',
-    '#submit' => ['location_location_callback'],
-  ];
-
-  return $form;
+  return $html_location;
 }
