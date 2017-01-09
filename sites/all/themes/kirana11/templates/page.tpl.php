@@ -47,7 +47,7 @@
 					</div>
 				</section>
 				<?php else: ?>
-					<section class="col-sm-8 col-sm-offset-2">
+					<section class="col-sm-8 col-sm-offset-2 landing-section">
 					<h2><?php if($form_class_find == 'login_form'): print "Login to your account"; elseif($form_class_find == 'register_form'): print "Create your account"; else: print "Forgot Password"; endif; ?></h2>
 					<!-- Message goes here -->
 	        <?php if ($messages):?>
