@@ -56,6 +56,7 @@ function geocoder_location_handler_block_view($delta = '') {
 function geocoder_location_handler_block_content() {
   $html_location = '<div class="form-item"><div id="edit-detect-my-location">Detect my location</div></div>';
   $html_location .= '<p>OR</p>'; 
+
   $html_location .= '<div class="form-item"><input class="form-text" placeholder="Select your location" type="text" id="edit-select-location" /></div>'; 
 
   return $html_location;
