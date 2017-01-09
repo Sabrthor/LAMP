@@ -70,7 +70,8 @@
 
                   // Redirect to homepage if store(s) available.
                   if (result.length > 0) {
-                    window.location.href = '/';
+                    //window.location.href = '/';
+                    alert("No Location found");
                   }
                 });              
               }  
