@@ -1,0 +1,400 @@
+<?php
+/**
+ * @file
+ * custom_blocks.features.fe_block_settings.inc
+ */
+
+/**
+ * Implements hook_default_fe_block_settings().
+ */
+function custom_blocks_default_fe_block_settings() {
+  $export = array();
+
+  $export['version'] = '2.0';
+
+  $export['block-best_deals'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'machine_name' => 'best_deals',
+    'module' => 'block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'product_slider',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => 'Best Deals',
+    'visibility' => 0,
+  );
+
+  $export['block-shop_by_store'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'machine_name' => 'shop_by_store',
+    'module' => 'block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'store_slider',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => 'Shop by Store',
+    'visibility' => 0,
+  );
+
+  $export['block-top_header'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'machine_name' => 'top_header',
+    'module' => 'block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'top_header',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['commerce_cart-cart'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'cart',
+    'module' => 'commerce_cart',
+    'node_types' => array(),
+    'pages' => 'checkout*',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['geocoder_location_handler-find_or_select_location'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'find_or_select_location',
+    'module' => 'geocoder_location_handler',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['search-form'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'form',
+    'module' => 'search',
+    'node_types' => array(),
+    'pages' => '<front>',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => 'sidebar_first',
+        'status' => 1,
+        'theme' => 'bartik',
+        'weight' => -1,
+      ),
+      'kirana11' => array(
+        'region' => 'sidebar_first',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => -1,
+      ),
+      'seven' => array(
+        'region' => 'dashboard_sidebar',
+        'status' => 1,
+        'theme' => 'seven',
+        'weight' => -10,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['system-navigation'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'navigation',
+    'module' => 'system',
+    'node_types' => array(),
+    'pages' => '<front>',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => 'sidebar_first',
+        'status' => 1,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'sidebar_first',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['system-powered-by'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'powered-by',
+    'module' => 'system',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => 'footer',
+        'status' => 1,
+        'theme' => 'bartik',
+        'weight' => 10,
+      ),
+      'kirana11' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'kirana11',
+        'weight' => -8,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 10,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['user-login'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'login',
+    'module' => 'user',
+    'node_types' => array(),
+    'pages' => '<front>',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => 'sidebar_first',
+        'status' => 1,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'sidebar_first',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => 'content',
+        'status' => 1,
+        'theme' => 'seven',
+        'weight' => 10,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['views-home_banner-block'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'home_banner-block',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'slider',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['views-our_partners-block'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'our_partners-block',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'partners_brands',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => -19,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['views-top_brands-block'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'top_brands-block',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'partners_brands',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => -18,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  return $export;
+}
