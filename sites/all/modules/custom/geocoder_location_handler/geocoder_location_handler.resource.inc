@@ -31,13 +31,22 @@ function geocoder_location_handler_get_stores_by_coordinate($latitude, $longitud
     if (strtoupper($pointLocation->pointInPolygon($userLocation, $storeServingAreaList)) !== 'OUTSIDE' ) {
       $local_store_ids[] =  $store->store_id;
     }
-  }
-
-  $_SESSION['k11_stores_for_user'] = implode(',', $local_store_ids);
+  }  
 
   if(!empty($local_store_ids)) {
+    $_SESSION['k11_stores_for_user'] = implode(',', $local_store_ids);
     return drupal_json_output($local_store_ids);
   } else {
+    $_SESSION['k11_stores_for_user'] = 'NO_STORES';
     return drupal_json_output('NO_STORES');
   }
+}
+
+/**
+ * Set the current location in session.
+ */
+function geocoder_location_handler_set_current_location($location) {
+  $_SESSION['k11_current_location'] = $location;
+
+  return true;
 }
