@@ -144,7 +144,7 @@
 					<!-- Slider ends here -->
 
 					<!-- Store and Product Slider goes here -->
-					<div class="col-xs-12">
+					<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 						<div class="row">
 
 							<!-- Store details goes here -->
