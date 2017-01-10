@@ -95,7 +95,7 @@ function custom_blocks_default_fe_block_settings() {
         'region' => 'top_footer_fifth',
         'status' => 1,
         'theme' => 'kirana11',
-        'weight' => -12,
+        'weight' => 0,
       ),
       'seven' => array(
         'region' => '',
@@ -104,7 +104,7 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => 'Connect with Us',
+    'title' => '',
     'visibility' => 0,
   );
 
@@ -127,7 +127,7 @@ function custom_blocks_default_fe_block_settings() {
         'region' => 'top_footer_fifth',
         'status' => 1,
         'theme' => 'kirana11',
-        'weight' => -11,
+        'weight' => 0,
       ),
       'seven' => array(
         'region' => '',
@@ -200,7 +200,7 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => 'Help',
+    'title' => '',
     'visibility' => 0,
   );
 
@@ -232,7 +232,7 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => 'Delivery Locations',
+    'title' => '',
     'visibility' => 0,
   );
 
@@ -264,7 +264,7 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => 'Payment Options',
+    'title' => '',
     'visibility' => 0,
   );
 
@@ -575,7 +575,7 @@ function custom_blocks_default_fe_block_settings() {
         'region' => 'partners_brands',
         'status' => 1,
         'theme' => 'kirana11',
-        'weight' => -19,
+        'weight' => -12,
       ),
       'seven' => array(
         'region' => '',
@@ -607,7 +607,39 @@ function custom_blocks_default_fe_block_settings() {
         'region' => 'partners_brands',
         'status' => 1,
         'theme' => 'kirana11',
-        'weight' => -18,
+        'weight' => -12,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['webform-client-block-3'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'client-block-3',
+    'module' => 'webform',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'content',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => 0,
       ),
       'seven' => array(
         'region' => '',
