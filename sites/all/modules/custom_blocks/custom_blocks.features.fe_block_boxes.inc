@@ -19,6 +19,28 @@ function custom_blocks_default_fe_block_boxes() {
   $export['best_deals'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
+  $fe_block_boxes->info = 'Display session location front page';
+  $fe_block_boxes->format = 'php_code';
+  $fe_block_boxes->machine_name = 'display_session_location';
+  $fe_block_boxes->body = '<div class="col-xs-12 display-location-container">
+	<div class="col-xs-12 display-location-box">
+		<p>You\'ve selected</p>
+		<h3><?php print $_SESSION[\'k11_current_location\']; ?></h3>
+		<p><i class="fa fa-pencil-square-o"></i> <a class="edit-location-link" href="javascript:">Change your location</a></p>
+	</div>
+	<?php if($_SESSION[\'k11_stores_for_user\'] == \'NO_STORES\'): ?>
+	<div class="col-xs-12">
+		<div class="row">
+			<p>Sorry, we are not currently serving in your area.</p>
+			<p>Please provide your details, we will give you a shout once we arrive.</p>
+		</div>
+	</div>
+	<?php endif; ?>
+</div>';
+
+  $export['display_session_location'] = $fe_block_boxes;
+
+  $fe_block_boxes = new stdClass();
   $fe_block_boxes->info = 'Bottom footer content';
   $fe_block_boxes->format = 'filtered_html';
   $fe_block_boxes->machine_name = 'footer_bottom';
@@ -112,6 +134,32 @@ function custom_blocks_default_fe_block_boxes() {
 </ul>';
 
   $export['footer_third'] = $fe_block_boxes;
+
+  $fe_block_boxes = new stdClass();
+  $fe_block_boxes->info = 'Landing Page Header';
+  $fe_block_boxes->format = 'php_code';
+  $fe_block_boxes->machine_name = 'landing_header';
+  $fe_block_boxes->body = '<div class="row">
+					<div class="col-xs-12 col-sm-6 header-left"> 
+						<a href="<?php print base_path(); ?>"><img src="<?php print base_path() . path_to_theme(); ?>/images/logo.png" alt="Logo" /></a>
+					</div>
+					<div class="col-xs-12 col-sm-6 header-right">
+						<div class="row">
+							<ul>
+								<li>
+									<a href="javascript:" class="whatsapp-link hidden-xs"><i class="fa fa-whatsapp" aria-hidden="true"></i><span >Order on <b>Whatsapp</b> <strong>9341230110</strong></span></a>
+									<a href="intent://send/9341230110#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end" class="whatsapp-link visible-xs"><i class="fa fa-whatsapp" aria-hidden="true"></i><span >Order on <b>Whatsapp</b> <strong>9341230110</strong></span></a>
+								</li>
+								<li>
+									<a href="javascript:" class="hidden-xs"><i class="fa fa-phone" aria-hidden="true"></i><span>Order on <b>Call</b> <strong>1800 123 0110</strong></span></a>
+									<a href="tel:18001230110" class="visible-xs"><i class="fa fa-phone" aria-hidden="true"></i><span>Order on <b>Call</b> <strong>1800 123 0110</strong></span></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>';
+
+  $export['landing_header'] = $fe_block_boxes;
 
   $fe_block_boxes = new stdClass();
   $fe_block_boxes->info = 'Shop by store';
