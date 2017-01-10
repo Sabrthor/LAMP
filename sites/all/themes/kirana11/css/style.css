@@ -273,17 +273,20 @@ footer h2{ font-size: 14px; color: #666666; text-align:left; font-weight: 700;z 
 .find-location-container form .form-actions input{ margin: 0 0 5px 0; padding: 10px 40px; color: #fff !important; }
 .confirm-parent, .password-parent { width: auto; }
 .landing-page form{ position: relative; }
-.otp-send-button{ position: absolute; bottom: 115px; right: 27%; }
+.otp-send-button{ position: absolute; bottom: 115px; right: 27%; color: #fff !important; }
 .landing-page form#user-register-form .ajax-progress{ display: block; }
 .landing-page form#user-register-form .ajax-progress .throbber{ position: absolute; right:25%; bottom: 133px; }
 input[type="text"]#edit-detect-my-location, div#edit-detect-my-location{ background: #356635; color: #fff; cursor: pointer; text-align: center; margin: 0 auto; padding: 10px 20px; border-radius: 5px; font-size: 15px; }
 input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:hover{ background: #cf2127; }
 #edit-select-location{ border: 8px solid #356635 !important; padding: 8px !important; color: #666666;  }
-.display-location-container{ margin: 0px 0 20px; }
+.display-location-container{ margin: 0px 0 20px; z-index: 100; }
 .display-location-container p{ margin: 0; }
 .display-location-container p a{ text-decoration: underline; color: #666666;}
 .display-location-container h3{ color: #356D35; padding:5px 0; font-weight: 700; }
 .display-location-box{ margin-bottom: 20px; }
+.landing-page .error-text-location{ display: none; }
+.landing-page .error-text-location-p{ text-align: center; font-size: 13px; color: #D8000C; }
+
 /* Media query goes here */
 @media (max-width: 1199px) {
 	.container{ width: 100%; }
@@ -298,6 +301,7 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 }
 @media (min-width: 992px) {
 	.landing-page form input[type="text"], .landing-page form input[type="password"], .find-location-container p.regiter-terms, #edit-detect-my-location, .landing-page input[type="text"]{ width:50%; }
+	.landing-page .message-outer, .landing-page .error-text-location{ width: 50%; margin: 0 auto; }
 }
 @media (min-width: 768px) and (max-width: 979px) {
 	/* Footer goes here */

@@ -1,27 +1,12 @@
-<?php /*$_SESSION['k11_stores_for_user'] = 'test'; unset($_SESSION['k11_stores_for_user']);*/ if($form_class_find != 'notfind_form' || empty($_SESSION['k11_stores_for_user'])): ?>
+<?php if($form_class_find != 'notfind_form' || empty($_SESSION['k11_stores_for_user']) || $_SESSION['k11_stores_for_user'] == 'NO_STORES'): ?>
 	<div class="landing-page">
 		<!-- Top Header goes here -->
 		<div class="header">
 			<div class="container">
-				<div class="row">
-					<div class="col-xs-12 col-sm-6 header-left"> 
-						<a href="<?php print $front_page;?>"><img src="<?php print $base_path; ?><?php print $directory; ?>/images/logo.png" alt="Logo" /></a>
-					</div>
-					<div class="col-xs-12 col-sm-6 header-right">
-						<div class="row">
-							<ul>
-								<li>
-									<a href="javascript:" class="whatsapp-link hidden-xs"><i class="fa fa-whatsapp" aria-hidden="true"></i><span >Order on <b>Whatsapp</b> <strong>9341230110</strong></span></a>
-									<a href="intent://send/9341230110#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end" class="whatsapp-link visible-xs"><i class="fa fa-whatsapp" aria-hidden="true"></i><span >Order on <b>Whatsapp</b> <strong>9341230110</strong></span></a>
-								</li>
-								<li>
-									<a href="javascript:" class="hidden-xs"><i class="fa fa-phone" aria-hidden="true"></i><span>Order on <b>Call</b> <strong>1800 123 0110</strong></span></a>
-									<a href="tel:18001230110" class="visible-xs"><i class="fa fa-phone" aria-hidden="true"></i><span>Order on <b>Call</b> <strong>1800 123 0110</strong></span></a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
+				<?php
+					$block = module_invoke('block', 'block_view', '12');
+					print render($block['content']);
+				?>
 			</div>
 		</div>
 
@@ -29,29 +14,18 @@
 		<div id="content">
 			<div class="container">
 				<!-- Page content goes here -->
-				<?php if(empty($_SESSION['k11_stores_for_user']) && $form_class_find != 'login_form' && $form_class_find != 'register_form' && $form_class_find != 'forgot_form'): ?>
+				<?php if(empty($_SESSION['k11_stores_for_user']) && $form_class_find != 'login_form' && $form_class_find != 'register_form' && $form_class_find != 'forgot_form' && isset($_SESSION['k11_stores_for_user']) != 'NO_STORES'): ?>
 				<section class="col-sm-8 col-sm-offset-2 landing-section">
 					<h2>Welcome to Kirana11.com</h2>
 					<h3>Shop from your friendly neighbourhood Kirana store <strong>online!</strong></h3>
+
 					<div class="find-location-container">
 						<?php
 							$block = module_invoke('geocoder_location_handler', 'block_view', 'find_or_select_location');
 							print render($block['content']);
             ?>
 					</div>
-					<div class="col-xs-12 display-location-container">
-						<div class="col-xs-12 display-location-box">
-							<p>You've selected</p>
-							<h3>5th Main, Koramangala</h3>
-							<p><i class="fa fa-pencil-square-o"></i> <a href="javascript:">Change your location</a></p>
-						</div>
-						<div class="col-xs-12">
-							<div class="row">
-								<p>Sorry, we are not currently serving in your area.</p>
-								<p>Please provide your details, we will give you a shout once we arrive.</p>
-							</div>
-						</div>
-					</div>
+					
 					<div class="bottom-login-container">
 						<?php global $user; if(!$user->uid): ?>
 							<p>Already registered? <a href="<?php print $base_path; ?>user/login">Login here</a></p>
@@ -59,20 +33,42 @@
 						<?php endif; ?>
 					</div>
 				</section>
+				<?php elseif(isset($_SESSION['k11_stores_for_user']) && $_SESSION['k11_stores_for_user'] == 'NO_STORES'): ?>
+				<section class="col-sm-8 col-sm-offset-2 landing-section">
+					<h2>Oops! we're not there yet</h2>
+					<div class="find-location-container">
+						<?php
+							$block = module_invoke('block', 'block_view', '11');
+							print render($block['content']);
+						?>
+					</div>
+				</section>
 				<?php else: ?>
 					<section class="col-sm-8 col-sm-offset-2 landing-section">
-					<h2><?php if($form_class_find == 'login_form'): print "Login to your account"; elseif($form_class_find == 'register_form'): print "Create your account"; else: print "Forgot Password"; endif; ?></h2>
+					<h2><?php if($form_class_find == 'login_form'): print "<strong>Login</strong> to your account"; elseif($form_class_find == 'register_form'): print "Create your account"; else: print "Forgot Password"; endif; ?></h2>
 					<!-- Message goes here -->
 	        <?php if ($messages):?>
 	        <div id="messages-console" class="clearfix">
 	          <div class="row">
-	            <div class="col-md-12">
+	            <div class="message-outer">
 	              <?php print $messages; ?>
 	            </div>
 	          </div>
 	        </div>
 	        <?php endif; ?>
 					<div class="find-location-container">
+						<?php if($form_class_find == 'register_form'): if(empty($_SESSION['k11_stores_for_user'])): ?>
+							<?php
+								$block = module_invoke('geocoder_location_handler', 'block_view', 'find_or_select_location');
+								print render($block['content']);
+							?>
+						<?php else: ?>
+							<?php
+									$block = module_invoke('block', 'block_view', '11');
+									print render($block['content']);
+								?>
+						<?php endif; endif; ?>
+
 						<?php print render($page['content']); ?>
 						
 						<?php if($form_class_find == 'register_form'): ?>
@@ -99,7 +95,10 @@
 
 		<!-- Footer goes here -->
 		<div class="footer">
-			<p>© 2017 Kirana11. All rights reserved.</p>
+			<?php
+				$block = module_invoke('block', 'block_view', '2');
+				print render($block['content']);
+			?>
 		</div>
 	</div>
 <?php else: ?>
