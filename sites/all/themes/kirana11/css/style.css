@@ -195,12 +195,11 @@ header .navbar-toggle{ right: 0; }
 .view-our-partners .slide__content{ background: #f0f1f2; margin: 0 2%; padding: 5%; min-height: 180px;}
 .view-top-brands .slide__content{ background: #f0f1f2; margin: 0 2%; padding: 5%;}
 #partners_brands .slide__content .field-content p{ margin: 0 0 15px; font-size: 11px; padding: 10px 10% 0;}
-.view-top-brands{ position: relative; }
-.view-top-brands .slick__arrow{ position: absolute; top:40%; width: 100%  }
-.view-top-brands .slick__arrow button{ background: none; border: 0; font-size: 30px;  }
-.view-top-brands .slick__arrow .slick-prev{ float: left; position: absolute; left: -5%; top: 0; outline: 0; }
-.view-top-brands .slick__arrow .slick-next{ float: right; position: absolute; right: -5%; top: 0; outline: 0;  }
-.view-top-brands .slick__arrow button i {color:#666666;}
+.view-top-brands .slick__arrow button, .view-our-partners .slick__arrow button{ background: none; border: 0; font-size: 30px;  }
+.view-top-brands .slick__arrow i, .view-our-partners .slick__arrow i{ margin: 50px 0 0; color:#666666; }
+.view-our-partners .slick__arrow i{ margin: 70px 0 0; }
+.view-top-brands .slick__arrow .slick-prev, .view-our-partners .slick__arrow .slick-prev{ float: left; position: absolute; left: -50px; top: 0; outline: 0; }
+.view-top-brands .slick__arrow .slick-next, .view-our-partners .slick__arrow .slick-next{ float: right; position: absolute; right: -50px; top: 0; outline: 0;  }
 
 /* Content goes here */
 #content .container{ background: #f7f8f9; box-shadow: 8px 0 8px -4px #ccc, -8px 0 8px -4px #ccc; margin-bottom: 5%; }
@@ -339,10 +338,12 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	#partners_brands h2{ font-size: 18px; }
 	#partners_brands .slide__content .field-content p{ font-size: 7px; }
 	.view-our-partners .slide__content{ min-height: auto;}
-	.view-top-brands .slick__arrow{ top:30%;}
-	.view-top-brands .slick__arrow .slick-prev{ float: left; position: absolute; left: 0; }
-	.view-top-brands .slick__arrow .slick-next{ float: right; position: absolute; right: 0;  }
-	.view-top-brands .slick__arrow button{ font-size: 20px; }
+	.view-top-brands .slick__arrow, .view-our-partners .slick__arrow{ display: block; }
+	.view-top-brands .slick__arrow i{ margin: 40px 0 0; }
+	.view-our-partners .slick__arrow i{ margin: 60px 0 0; }
+	.view-top-brands .slick__arrow .slick-prev, .view-our-partners .slick__arrow .slick-prev{ left: 0; }
+	.view-top-brands .slick__arrow .slick-next, .view-our-partners .slick__arrow .slick-next{ right: 0;  }
+	.view-top-brands .slick__arrow button, .view-our-partners .slick__arrow button{ font-size: 20px; }
 
 	/* Landing page goes here */
 	.landing-page .header { margin: 5px 0 10px;}
