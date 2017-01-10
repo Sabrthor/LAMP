@@ -10,6 +10,75 @@
 function custom_blocks_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance:
+  // 'commerce_store-store-field_formatted_serving_area'.
+  $field_instances['commerce_store-store-field_formatted_serving_area'] = array(
+    'bundle' => 'store',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'commerce_store',
+    'field_name' => 'field_formatted_serving_area',
+    'label' => 'Formatted Serving Area',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 38,
+    ),
+  );
+
+  // Exported field_instance: 'commerce_store-store-field_serving_area'.
+  $field_instances['commerce_store-store-field_serving_area'] = array(
+    'bundle' => 'store',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'commerce_store',
+    'field_name' => 'field_serving_area',
+    'label' => 'Serving Area',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 37,
+    ),
+  );
+
   // Exported field_instance: 'node-home_slider-field_image'.
   $field_instances['node-home_slider-field_image'] = array(
     'bundle' => 'home_slider',
@@ -106,7 +175,7 @@ function custom_blocks_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'body',
     'label' => 'Body',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'display_summary' => 0,
       'text_processing' => 1,
@@ -272,7 +341,9 @@ function custom_blocks_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Banner Image');
   t('Body');
+  t('Formatted Serving Area');
   t('Image');
+  t('Serving Area');
 
   return $field_instances;
 }
