@@ -5,17 +5,17 @@
  */
 function kirana11_preprocess_page(&$vars) {
 	if($vars['page']['sidebar_first'] && $vars['page']['sidebar_second']) { 
-		$vars['sidebar_first_grid_class'] = 'col-sm-3';
-		$vars['sidebar_second_grid_class'] = 'col-sm-3';
-		$vars['main_grid_class'] = 'col-sm-6';
+		$vars['sidebar_first_grid_class'] = 'col-xs-12 col-sm-3';
+		$vars['sidebar_second_grid_class'] = 'col-xs-12 col-sm-3';
+		$vars['main_grid_class'] = 'col-xs-12 col-sm-6';
 	} elseif ($vars['page']['sidebar_first'] && !($vars['page']['sidebar_second'])) {
-		$vars['sidebar_first_grid_class'] = 'col-sm-4';
-		$vars['main_grid_class'] = 'col-sm-8';
+		$vars['sidebar_first_grid_class'] = 'col-xs-12 col-sm-4';
+		$vars['main_grid_class'] = 'col-xs-12 col-sm-8';
 	} elseif (!($vars['page']['sidebar_first']) && $vars['page']['sidebar_second']) {
-		$vars['sidebar_second_grid_class'] = 'col-sm-4';
-		$vars['main_grid_class'] = 'col-sm-8';			
+		$vars['sidebar_second_grid_class'] = 'col-xs-12 col-sm-4';
+		$vars['main_grid_class'] = 'col-xs-12 col-sm-8';			
 	} else {
-		$vars['main_grid_class'] = 'col-sm-12';			
+		$vars['main_grid_class'] = 'col-xs-12';			
 	}
 
   if(isset($vars['page']['content']['system_main']['#form_id'])) {
