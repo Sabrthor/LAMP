@@ -8,6 +8,9 @@
  * Implements hook_ctools_plugin_api().
  */
 function custom_blocks_ctools_plugin_api($module = NULL, $api = NULL) {
+  if ($module == "services" && $api == "services") {
+    return array("version" => "3");
+  }
   if ($module == "slick" && $api == "slick_default_preset") {
     return array("version" => "1");
   }
