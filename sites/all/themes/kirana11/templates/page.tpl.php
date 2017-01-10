@@ -4,10 +4,10 @@
 		<div class="header">
 			<div class="container">
 				<div class="row">
-					<div class="col-xs-6 header-left"> 
+					<div class="col-xs-12 col-sm-6 header-left"> 
 						<a href="<?php print $front_page;?>"><img src="<?php print $base_path; ?><?php print $directory; ?>/images/logo.png" alt="Logo" /></a>
 					</div>
-					<div class="col-xs-6 header-right">
+					<div class="col-xs-12 col-sm-6 header-right">
 						<div class="row">
 							<ul>
 								<li>
@@ -32,12 +32,25 @@
 				<?php if(empty($_SESSION['k11_stores_for_user']) && $form_class_find != 'login_form' && $form_class_find != 'register_form' && $form_class_find != 'forgot_form'): ?>
 				<section class="col-sm-8 col-sm-offset-2 landing-section">
 					<h2>Welcome to Kirana11.com</h2>
-					<h3>Shop from your friendly neighbourhood kirana store online</h3>
+					<h3>Shop from your friendly neighbourhood Kirana store <strong>online!</strong></h3>
 					<div class="find-location-container">
 						<?php
 							$block = module_invoke('geocoder_location_handler', 'block_view', 'find_or_select_location');
 							print render($block['content']);
             ?>
+					</div>
+					<div class="col-xs-12 display-location-container">
+						<div class="col-xs-12 display-location-box">
+							<p>You've selected</p>
+							<h3>5th Main, Koramangala</h3>
+							<p><i class="fa fa-pencil-square-o"></i> <a href="javascript:">Change your location</a></p>
+						</div>
+						<div class="col-xs-12">
+							<div class="row">
+								<p>Sorry, we are not currently serving in your area.</p>
+								<p>Please provide your details, we will give you a shout once we arrive.</p>
+							</div>
+						</div>
 					</div>
 					<div class="bottom-login-container">
 						<?php global $user; if(!$user->uid): ?>
