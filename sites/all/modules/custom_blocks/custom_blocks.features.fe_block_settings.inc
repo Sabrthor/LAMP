@@ -44,6 +44,38 @@ function custom_blocks_default_fe_block_settings() {
     'visibility' => 0,
   );
 
+  $export['block-display_session_location'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'machine_name' => 'display_session_location',
+    'module' => 'block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => 'Display session location front page',
+    'visibility' => 0,
+  );
+
   $export['block-footer_bottom'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -324,6 +356,38 @@ function custom_blocks_default_fe_block_settings() {
       'seven' => array(
         'region' => '',
         'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
+  );
+
+  $export['comment-recent'] = array(
+    'cache' => 1,
+    'custom' => 0,
+    'delta' => 'recent',
+    'module' => 'comment',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => 'dashboard_inactive',
+        'status' => 1,
         'theme' => 'seven',
         'weight' => 0,
       ),

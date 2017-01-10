@@ -6,7 +6,7 @@
         var timeoutVal = 10 * 1000 * 1000;
 
         if(!!navigator.geolocation) {
-          localStorage.setItem('local_address', null); 
+          localStorage.setItem('current_location', null); 
           navigator.geolocation.getCurrentPosition(function(position) {
             var geocoder = new google.maps.Geocoder();
             var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -18,17 +18,35 @@
                 var result = (results.length > 1) ? results[1] : results[0];
                 var address = get_address(result.address_components, ['sublocality_level_1', 'locality']);
 
-                localStorage.setItem('local_address', address); 
+                localStorage.setItem('current_location', address);
 
-                $.get('/get_stores_by_coordinate/' + position.coords.latitude + '/' + position.coords.longitude, function( result ) {
-                  console.log(result);
-                  console.log('Local address:: ' + localStorage.getItem('local_address'));
+                $.post('/set_current_location/' + address, function(result) {
+                  if (result) {
+                    console.log('Current location set in session: ' + localStorage.getItem('current_location'));
+                    $.get('/get_stores_by_coordinate/' + position.coords.latitude + '/' + position.coords.longitude, function( result ) {
+                  
+                      // Redirect to homepage if store(s) available.
+                      if (result.length > 0) {
+                         if (window.location.pathname.localeCompare('/user/register') === 0) {
+                          $(".error-text-location").hide();
+                          window.location.href = '/user/register';
+                         } else {
+                          if(result != 'NO_STORES') {
+                            $(".error-text-location").hide();
+                            console.log("it will goes to home page");
+                            window.location.href = '/';
+                          } else {
+                            window.location.href = '/';
+                          }
+                          
+                         }
+                      }
 
-                  // Redirect to homepage if store(s) available.
-                  if (result.length > 0) {
-                    window.location.href = '/';
-                  }
-                });              
+                    }); 
+                  }    
+                });
+
+                             
               }  
             });                  
           }, function(error) {
@@ -37,6 +55,8 @@
               2: 'Position unavailable',
               3: 'Request timeout'
             };
+            $(".error-text-location").show();
+            $(".error-text-location-p").html(errors[error.code]);
             console.log("Error: " + errors[error.code]);
           }, { 
             enableHighAccuracy: true, 
@@ -62,21 +82,39 @@
                 var result = (results.length > 1) ? results[1] : results[0];
                 var address = get_address(result.address_components, ['sublocality_level_1', 'locality']);
 
-                localStorage.setItem('local_address', address); 
+                localStorage.setItem('current_location', address);
 
-                $.get('/get_stores_by_coordinate/' + place.geometry['location'].lat() + '/' + place.geometry['location'].lng(), function( result ) {
-                  console.log(result);
-                  console.log('Local address:: ' + localStorage.getItem('local_address'));
+                $.post('/set_current_location/' + address, function(result) {
+                  if (result) {
+                    console.log('Current location set in session: ' + localStorage.getItem('current_location'));
+                    $.get('/get_stores_by_coordinate/' + place.geometry['location'].lat() + '/' + place.geometry['location'].lng(), function( result ) {
+                  
+                      // Redirect to homepage if store(s) available.
+                      if (result.length > 0) {
+                        if (window.location.pathname.localeCompare('/user/register') === 0) {
+                          $(".error-text-location").hide();
+                          window.location.href = '/user/register';
+                        } else {
+                          if(result != 'NO_STORES'){
+                            $(".error-text-location").hide();
+                            console.log("it will goes to home page");
+                            window.location.href = '/';
+                          } else {
+                            window.location.href = '/';
+                          }
+                        }
+                      }
+                      
+                    });    
+                  }    
+                });
 
-                  // Redirect to homepage if store(s) available.
-                  if (result.length > 0) {
-                    //window.location.href = '/';
-                    alert("No Location found");
-                  }
-                });              
+                          
               }  
             });  
           } else {
+            $(".error-text-location").show();
+            $(".error-text-location-p").html("Not a valid location");
             console.log('Not a valid location');
           }         
         });
