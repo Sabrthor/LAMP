@@ -71,3 +71,10 @@ function geocoder_location_handler_block_content() {
 
   return $html_location;
 }
+
+/**
+ * Set the value for user location from session's current location.
+ */
+function geocoder_location_handler_form_webform_client_form_3_alter(&$form, &$form_state, $form_id){
+  $form['submitted']['user_location']['#value'] = $_SESSION['k11_current_location'];
+}
