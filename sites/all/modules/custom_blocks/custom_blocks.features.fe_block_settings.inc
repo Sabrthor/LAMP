@@ -18,7 +18,7 @@ function custom_blocks_default_fe_block_settings() {
     'machine_name' => 'best_deals',
     'module' => 'block',
     'node_types' => array(),
-    'pages' => '',
+    'pages' => '<front>',
     'roles' => array(),
     'themes' => array(
       'bartik' => array(
@@ -41,7 +41,7 @@ function custom_blocks_default_fe_block_settings() {
       ),
     ),
     'title' => 'Best Deals',
-    'visibility' => 0,
+    'visibility' => 1,
   );
 
   $export['block-display_session_location'] = array(
@@ -127,7 +127,7 @@ function custom_blocks_default_fe_block_settings() {
         'region' => 'top_footer_fifth',
         'status' => 1,
         'theme' => 'kirana11',
-        'weight' => 0,
+        'weight' => -12,
       ),
       'seven' => array(
         'region' => '',
@@ -136,7 +136,7 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => '',
+    'title' => 'Connect with Us',
     'visibility' => 0,
   );
 
@@ -159,7 +159,7 @@ function custom_blocks_default_fe_block_settings() {
         'region' => 'top_footer_fifth',
         'status' => 1,
         'theme' => 'kirana11',
-        'weight' => 0,
+        'weight' => -11,
       ),
       'seven' => array(
         'region' => '',
@@ -232,7 +232,7 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => '',
+    'title' => 'Help',
     'visibility' => 0,
   );
 
@@ -264,7 +264,7 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => '',
+    'title' => 'Delivery Locations',
     'visibility' => 0,
   );
 
@@ -296,6 +296,38 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
+    'title' => 'Payment Options',
+    'visibility' => 0,
+  );
+
+  $export['block-landing_header'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'machine_name' => 'landing_header',
+    'module' => 'block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
     'title' => '',
     'visibility' => 0,
   );
@@ -306,7 +338,7 @@ function custom_blocks_default_fe_block_settings() {
     'machine_name' => 'shop_by_store',
     'module' => 'block',
     'node_types' => array(),
-    'pages' => '',
+    'pages' => '<front>',
     'roles' => array(),
     'themes' => array(
       'bartik' => array(
@@ -329,7 +361,7 @@ function custom_blocks_default_fe_block_settings() {
       ),
     ),
     'title' => 'Shop by Store',
-    'visibility' => 0,
+    'visibility' => 1,
   );
 
   $export['block-top_header'] = array(
@@ -476,8 +508,8 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => -1,
       ),
       'kirana11' => array(
-        'region' => 'sidebar_first',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'kirana11',
         'weight' => -1,
       ),
@@ -489,7 +521,7 @@ function custom_blocks_default_fe_block_settings() {
       ),
     ),
     'title' => '',
-    'visibility' => 0,
+    'visibility' => 1,
   );
 
   $export['system-navigation'] = array(
@@ -508,8 +540,8 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
       'kirana11' => array(
-        'region' => 'sidebar_first',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'kirana11',
         'weight' => 0,
       ),
@@ -572,8 +604,8 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
       'kirana11' => array(
-        'region' => 'sidebar_first',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'kirana11',
         'weight' => 0,
       ),
@@ -594,7 +626,7 @@ function custom_blocks_default_fe_block_settings() {
     'delta' => 'home_banner-block',
     'module' => 'views',
     'node_types' => array(),
-    'pages' => '',
+    'pages' => '<front>',
     'roles' => array(),
     'themes' => array(
       'bartik' => array(
@@ -617,7 +649,7 @@ function custom_blocks_default_fe_block_settings() {
       ),
     ),
     'title' => '',
-    'visibility' => 0,
+    'visibility' => 1,
   );
 
   $export['views-our_partners-block'] = array(
@@ -626,7 +658,7 @@ function custom_blocks_default_fe_block_settings() {
     'delta' => 'our_partners-block',
     'module' => 'views',
     'node_types' => array(),
-    'pages' => '',
+    'pages' => '<front>',
     'roles' => array(),
     'themes' => array(
       'bartik' => array(
@@ -639,7 +671,7 @@ function custom_blocks_default_fe_block_settings() {
         'region' => 'partners_brands',
         'status' => 1,
         'theme' => 'kirana11',
-        'weight' => -12,
+        'weight' => -19,
       ),
       'seven' => array(
         'region' => '',
@@ -649,7 +681,7 @@ function custom_blocks_default_fe_block_settings() {
       ),
     ),
     'title' => '',
-    'visibility' => 0,
+    'visibility' => 1,
   );
 
   $export['views-top_brands-block'] = array(
@@ -658,7 +690,7 @@ function custom_blocks_default_fe_block_settings() {
     'delta' => 'top_brands-block',
     'module' => 'views',
     'node_types' => array(),
-    'pages' => '',
+    'pages' => '<front>',
     'roles' => array(),
     'themes' => array(
       'bartik' => array(
@@ -671,7 +703,7 @@ function custom_blocks_default_fe_block_settings() {
         'region' => 'partners_brands',
         'status' => 1,
         'theme' => 'kirana11',
-        'weight' => -12,
+        'weight' => -18,
       ),
       'seven' => array(
         'region' => '',
@@ -681,13 +713,13 @@ function custom_blocks_default_fe_block_settings() {
       ),
     ),
     'title' => '',
-    'visibility' => 0,
+    'visibility' => 1,
   );
 
-  $export['webform-client-block-3'] = array(
+  $export['webform-client-block-15'] = array(
     'cache' => -1,
     'custom' => 0,
-    'delta' => 'client-block-3',
+    'delta' => 'client-block-15',
     'module' => 'webform',
     'node_types' => array(),
     'pages' => '',
@@ -700,8 +732,8 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
       'kirana11' => array(
-        'region' => 'content',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'kirana11',
         'weight' => 0,
       ),
