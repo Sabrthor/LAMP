@@ -36,9 +36,22 @@
 				<?php elseif(isset($_SESSION['k11_stores_for_user']) && $_SESSION['k11_stores_for_user'] == 'NO_STORES'): ?>
 				<section class="col-sm-8 col-sm-offset-2 landing-section">
 					<h2>Oops! we're not there yet</h2>
+					<!-- Message goes here -->
+	        <?php if ($messages): ?>
+	        <div id="messages-console" class="clearfix">
+	          <div class="row">
+	            <div class="message-outer">
+	              <?php print $messages; ?>
+	            </div>
+	          </div>
+	        </div>
+	        <?php endif; ?>
 					<div class="find-location-container">
 						<?php
 							$block = module_invoke('block', 'block_view', '11');
+							print render($block['content']);
+
+							$block = module_invoke('webform', 'block_view', 'client-block-15');
 							print render($block['content']);
 						?>
 					</div>
@@ -225,7 +238,7 @@
 
 		        <!-- Title goes here -->
 		        <?php print render($title_prefix); ?>
-						<?php if ($title): ?><h1><?php print $title; ?></h1><?php endif; ?>
+						<?php if ($title): if (!drupal_is_front_page()): ?><h1><?php print $title; ?></h1><?php endif; endif; ?>
 						<?php print render($title_suffix); ?>
 		        <!-- Title ends here -->
 
@@ -242,7 +255,9 @@
 						<!-- Action links ends here -->
 
 						<!-- Page content goes here -->
-						<?php print render($page['content']); ?>
+						<?php if (!drupal_is_front_page()): ?>
+							<?php print render($page['content']); ?>
+						<?php endif; ?>
 						<!-- Page content ends here -->
 					</section>
 	        <!-- Page content ends here -->
