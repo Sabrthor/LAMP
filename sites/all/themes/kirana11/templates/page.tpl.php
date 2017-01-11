@@ -260,10 +260,12 @@
 
 							<!-- Best Deals details goes here -->
 								<div class="col-xs-12 col-sm-8">
-									<div class="product_slider">
-										<?php if ($page['product_slider']):?>
-	                  <?php print render($page['product_slider']); ?>
-	                  <?php endif; ?>
+									<div class="row">
+										<div class="product_slider">
+											<?php if ($page['product_slider']):?>
+		                  <?php print render($page['product_slider']); ?>
+		                  <?php endif; ?>
+										</div>
 									</div>
 								</div>
 							<!-- Best Deals details ends here -->
@@ -279,6 +281,15 @@
 					</div>
 					<?php endif; ?>
 					<!-- Top Brands and Partners goes here -->
+
+					<!-- Recent blogs goes here -->
+					<?php if ($page['recent_blogs']): ?> 
+					<div id="recent_blogs" class="col-xs-12 col-sm-10 col-sm-offset-1">
+						<?php print render($page['recent_blogs']); ?>
+					</div>
+					<div class="col-xs-12 text-center read-all-button"><a href="/blog">Read All</a></div>
+					<?php endif; ?>
+					<!-- Recent blogs ends here -->
 
 					<!-- Message goes here -->
 	        <?php if ($messages):?>
