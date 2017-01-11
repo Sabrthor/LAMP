@@ -492,70 +492,6 @@ function custom_blocks_default_fe_block_settings() {
     'visibility' => 0,
   );
 
-  $export['search-form'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'form',
-    'module' => 'search',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(),
-    'themes' => array(
-      'bartik' => array(
-        'region' => 'sidebar_first',
-        'status' => 1,
-        'theme' => 'bartik',
-        'weight' => -1,
-      ),
-      'kirana11' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'kirana11',
-        'weight' => -1,
-      ),
-      'seven' => array(
-        'region' => 'dashboard_sidebar',
-        'status' => 1,
-        'theme' => 'seven',
-        'weight' => -10,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 1,
-  );
-
-  $export['system-navigation'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'navigation',
-    'module' => 'system',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(),
-    'themes' => array(
-      'bartik' => array(
-        'region' => 'sidebar_first',
-        'status' => 1,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
-      'kirana11' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'kirana11',
-        'weight' => 0,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 0,
-  );
-
   $export['system-powered-by'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -580,38 +516,6 @@ function custom_blocks_default_fe_block_settings() {
       'seven' => array(
         'region' => '',
         'status' => 0,
-        'theme' => 'seven',
-        'weight' => 10,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 0,
-  );
-
-  $export['user-login'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'login',
-    'module' => 'user',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(),
-    'themes' => array(
-      'bartik' => array(
-        'region' => 'sidebar_first',
-        'status' => 1,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
-      'kirana11' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'kirana11',
-        'weight' => 0,
-      ),
-      'seven' => array(
-        'region' => 'content',
-        'status' => 1,
         'theme' => 'seven',
         'weight' => 10,
       ),
