@@ -289,11 +289,12 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 .landing-page .error-text-location-p{ text-align: center; font-size: 13px; color: #D8000C; }
 #webform-client-form-15 .webform-component--email-me-about-kirana11-special-offers .description{ display: inline-block; font-size: 13px; }
 #webform-client-form-15 .webform-component--email-me-about-kirana11-special-offers input{ margin: 0 0 0 -120px; }
+.landing-thank-you-section{ margin: 5% 0; z-index: 9; }
 .landing-thank-you-section .fa-check-square{ color:#cf2127; font-size: 40px; }
 .landing-thank-you-section h4{ margin: 5% 0; position: relative; }
-.heading-line::before, .heading-line::after{ content: ""; position: absolute; border-top:1px solid #ccc; width: 30%; top: 12px;  }
-.heading-line::before { left: 20px; }
-.heading-line::after { right: 20px; }
+.heading-line::before, .heading-line::after{ content: ""; position: absolute; border-top:1px solid #ccc; width: 35%; top: 12px;  }
+.heading-line::before { left: 30px; }
+.heading-line::after { right: 30px; }
 
 /* Media query goes here */
 @media (max-width: 1199px) {
@@ -306,6 +307,8 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.landing-page #content .container h3{ font-size:15px; line-height: 20px;}
 	.landing-page .footer p{ margin: 12% 0 3%; }
 	h2{ font-size: 24px; }
+	.heading-line::before, .heading-line::after{ width: 28%; }
+	.page-node-16 .landing-banner{ bottom: -20%; }
 }
 @media (min-width: 992px) {
 	.landing-page form input[type="text"], .landing-page form input[type="email"], .landing-page form input[type="password"], .find-location-container p.regiter-terms, #edit-detect-my-location, .landing-page input[type="text"]{ width:50%; }
@@ -331,13 +334,17 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 @media (min-width: 768px) {
 	
 }
+@media (min-width: 520px) and (max-width: 767px) {
+	.heading-line::before, .heading-line::after{ width: 30% !important; }
+}
+
 @media (max-width: 767px) {
 	body{ font-size: 11px; }
 	h1, h2, h3, h4, h5, h6{ font-size: 20px; }
 	#logo { float: left; padding: 10px 0; }
 	.navbar { float: left; width: 100%; clear: left; }
 	.navbar-collapse { margin-top: 0px; position: absolute; float: left; width: 100%; background:#8ac249; z-index: 20; border: none; padding: 0 15px; }
-	#toTop{width: 40px; height: 40px; bottom: 35px; right: 25px; padding:7px 0 0 2px; z-index: 99;}
+	#toTop{width: 40px; height: 40px; bottom: 35px; right: 25px; padding:7px 0 0 0px; z-index: 99;}
 	
 	/* Footer goes here */
 	.top-footer-second, .top-footer-third, .top-footer-fourth, .top-footer-fifth{ margin-left: 0; }
@@ -349,8 +356,6 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	#banner .slick-dots{ bottom: 0; }
 	#banner .slick-dots li button{ padding:4px; }
 
-	/* Store and Product slider*/
-	.region-product-slider{ margin: 0 15px; }
 
 	/* Partners and Brands */
 	#partners_brands h2{ font-size: 18px; }
@@ -378,11 +383,19 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.landing-page .bottom-login-container{ font-size: 14px; }
 	.landing-page .bottom-login-container a{ display: block; }
 	#webform-client-form-15 .webform-component--email-me-about-kirana11-special-offers input{ margin-left: 0; }
+	.heading-line::before, .heading-line::after{ width: 10%; }
+	.heading-line::before{ left: 0; }
+	.heading-line::after{ right: 0; }
 
 }
 
 @media (max-width: 520px) {
 	.landing-banner{ bottom: -35px; }
+	.page-node-16 .landing-banner{ bottom: -15%; }
+	.thank-you-video{ width: 100% !important; height: 200px; }
+	
 }
+
+
 
 /*#block-responsive-dropdown-menus-menu-custom-menu .sub-menu{ position: fixed !important; top: 20px !important; left: 0 !important; }*/

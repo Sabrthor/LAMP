@@ -35,7 +35,7 @@
 				</section>
 				<?php elseif(isset($_SESSION['k11_stores_for_user']) && $_SESSION['k11_stores_for_user'] == 'NO_STORES'): ?>
 				<section class="col-sm-8 col-sm-offset-2 landing-section">
-					<h2>Oops! we're not there yet</h2>
+					<h2><strong>Oops!</strong> we're not there yet</h2>
 					<!-- Message goes here -->
 	        <?php if ($messages): ?>
 	        <div id="messages-console" class="clearfix">
@@ -58,7 +58,7 @@
 				</section>
 				<?php else: ?>
 					<section class="col-sm-8 col-sm-offset-2 landing-section">
-					<h2><?php if($form_class_find == 'login_form'): print "<strong>Login</strong> to your account"; elseif($form_class_find == 'register_form'): print "Create your account"; else: print "Forgot Password"; endif; ?></h2>
+					<h2><?php if($form_class_find == 'login_form'): print "<strong>Login</strong> to your account"; elseif($form_class_find == 'register_form'): print "<strong>Create</strong> your account"; else: print "<strong>Forgot</strong> Password"; endif; ?></h2>
 					<!-- Message goes here -->
 	        <?php if ($messages):?>
 	        <div id="messages-console" class="clearfix">
