@@ -15,9 +15,9 @@
 			<div class="col-xs-12 landing-thank-you-section">
 			    <p><i class="fa fa-check-square"></i></p>
 			    <h2>Thank You</h2>
-			    <p>We will notify you once we start serving i your area</p>
+			    <p>We will notify you once we start serving in your area</p>
 			    <h4 class="heading-line">Discover Kirana11.com</h4>
-			    <img src="<?php print $base_path; ?><?php print $directory; ?>/images/video.jpg" alt="video" />
+			    <iframe class="thank-you-video" width="520" height="315" src="https://www.youtube.com/embed/tblozR2uwgM" frameborder="0" allowfullscreen></iframe>
 			</div>
 			<div class="landing-banner">
 				<img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-banner.png" alt="landing banner" />
