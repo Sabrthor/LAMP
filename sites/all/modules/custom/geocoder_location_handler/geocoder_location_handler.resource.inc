@@ -48,5 +48,5 @@ function geocoder_location_handler_get_stores_by_coordinate($latitude, $longitud
 function geocoder_location_handler_set_current_location($location) {
   $_SESSION['k11_current_location'] = $location;
 
-  return drupal_json_output('ÇURRENT_LOCATION_SET');
+  return drupal_json_output('CURRENT_LOCATION_SET');
 }

@@ -67,7 +67,7 @@ function geocoder_location_handler_block_content() {
   $html_location = '<div class="form-item"><div id="edit-detect-my-location">Detect my location</div></div>';
   $html_location .= '<p class="or-text">OR</p>';
   $html_location .= '<div class="form-item"><input class="form-text" placeholder="Preferred Delivery Location" type="text" id="edit-select-location" /></div>'; 
-  $html_location .= '<div class="error-text-location messages message-alert alert alert-block alert-danger"><a href="#" class="close" data-dismiss="alert">×</a><p class="error-text-location-p"></p></div>';
+  $html_location .= '<div class="error-text-location messages message-alert alert alert-block alert-danger"><a href="#" class="close" data-dismiss="alert">x</a><p class="error-text-location-p"></p></div>';
 
   return $html_location;
 }
