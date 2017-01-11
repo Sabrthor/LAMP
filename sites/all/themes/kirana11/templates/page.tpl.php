@@ -1,22 +1,66 @@
-<?php if($form_class_find != 'notfind_form' || empty($_SESSION['k11_stores_for_user']) || $_SESSION['k11_stores_for_user'] == 'NO_STORES'): ?>
-	<div class="landing-page">
-		<!-- Top Header goes here -->
-		<div class="header">
-			<div class="container">
-				<?php
-					$block = module_invoke('block', 'block_view', '12');
-					print render($block['content']);
-				?>
-			</div>
-		</div>
+<?php 
+	$show_landing = false;
+	$show_notify = false;
+	$show_location = false;
+  $show_location_in_register = false;
 
-		<!-- Content goes here -->
-		<div id="content">
-			<div class="container">
-				<!-- Page content goes here -->
-				<?php if(empty($_SESSION['k11_stores_for_user']) && $form_class_find != 'login_form' && $form_class_find != 'register_form' && $form_class_find != 'forgot_form' && isset($_SESSION['k11_stores_for_user']) != 'NO_STORES'): ?>
+	if (!isset($_SESSION['k11_stores_for_user'])) {
+	   $show_landing = true;
+	   $show_location = true;
+	   $show_location_in_register = true;
+	} else {
+	   if (empty($_SESSION['k11_stores_for_user'])) {
+	       $show_landing = true;
+         $show_location_in_register = true;
+
+	       if ($form_class_find == 'notfind_form' && $_SESSION['k11_stores_for_user'] != 'NO_STORES') {
+	       		$show_location = true;
+	       }
+	   } else if($_SESSION['k11_stores_for_user'] == 'NO_STORES') {
+	       $show_landing = true;
+	       $show_notify = true;
+	   }
+	}
+
+	if($form_class_find != 'notfind_form') {
+		 $show_location = false;
+	}
+
+
+	if (in_array('administrator', $user->roles)) {
+		$show_landing = false;
+		
+	}
+	
+
+
+	if($form_class_find != 'notfind_form' || $show_landing):
+?>
+
+<!-- Landing page goes here -->
+<div class="landing-page">
+
+	<!-- Header goes here -->
+	<div class="header">
+		<div class="container">
+			<?php
+				$landing_header = block_get_blocks_by_region('landing_header');
+        print render($landing_header);
+			?>
+		</div>
+	</div>
+	<!-- Header ends here -->
+
+	<!-- Content goes here -->
+	<div id="content">
+		<div class="container">
+
+			<!-- Center content goes here -->
+
+			<!-- Show Location goes here -->
+			<?php if($show_location): ?>
 				<section class="col-sm-8 col-sm-offset-2 landing-section">
-					<h2>Welcome to Kirana11.com</h2>
+					<h2><strong>Welcome</strong> to Kirana11.com</h2>
 					<h3>Shop from your friendly neighbourhood Kirana store <strong>online!</strong></h3>
 
 					<div class="find-location-container">
@@ -33,9 +77,13 @@
 						<?php endif; ?>
 					</div>
 				</section>
-				<?php elseif(isset($_SESSION['k11_stores_for_user']) && $_SESSION['k11_stores_for_user'] == 'NO_STORES'): ?>
+			<!-- Show Location ends here -->
+
+			<!-- Show Notify goes here -->
+			<?php elseif($show_notify): ?>
 				<section class="col-sm-8 col-sm-offset-2 landing-section">
 					<h2><strong>Oops!</strong> we're not there yet</h2>
+
 					<!-- Message goes here -->
 	        <?php if ($messages): ?>
 	        <div id="messages-console" class="clearfix">
@@ -46,19 +94,32 @@
 	          </div>
 	        </div>
 	        <?php endif; ?>
+	        <!-- Message ends here -->
+
 					<div class="find-location-container">
 						<?php
-							$block = module_invoke('block', 'block_view', '11');
-							print render($block['content']);
 
-							$block = module_invoke('webform', 'block_view', 'client-block-15');
-							print render($block['content']);
+							/* Display location goes here */
+							$landing_session = block_get_blocks_by_region('landing_session');
+        			print render($landing_session);
+							/* Display location ends here */
+
+							/* Notify form goes here */
+							if($page['nodify_form']):
+								print render($page['nodify_form']); 
+							endif;
+							/* Notify form ends here */
+
 						?>
 					</div>
 				</section>
-				<?php else: ?>
-					<section class="col-sm-8 col-sm-offset-2 landing-section">
-					<h2><?php if($form_class_find == 'login_form'): print "<strong>Login</strong> to your account"; elseif($form_class_find == 'register_form'): print "<strong>Create</strong> your account"; else: print "<strong>Forgot</strong> Password"; endif; ?></h2>
+			<!-- Show Notify goes here -->
+
+			<!-- User Form goes here -->
+			<?php else: ?>
+				<section class="col-sm-8 col-sm-offset-2 landing-section">
+					<h2><?php if($form_class_find == 'login_form'): print "<strong>Login</strong> to your account"; elseif($form_class_find == 'register_form'): print "<strong>Create</strong> your account"; else: print "<strong>Forgot</strong> password"; endif; ?></h2>
+					
 					<!-- Message goes here -->
 	        <?php if ($messages):?>
 	        <div id="messages-console" class="clearfix">
@@ -69,16 +130,20 @@
 	          </div>
 	        </div>
 	        <?php endif; ?>
+	        <!-- Message ends here -->
+
 					<div class="find-location-container">
-						<?php if($form_class_find == 'register_form'): if(empty($_SESSION['k11_stores_for_user'])): ?>
+						<?php if($form_class_find == 'register_form'): if($show_location_in_register): ?>
 							<?php
 								$block = module_invoke('geocoder_location_handler', 'block_view', 'find_or_select_location');
 								print render($block['content']);
 							?>
 						<?php else: ?>
 							<?php
-									$block = module_invoke('block', 'block_view', '11');
-									print render($block['content']);
+									/* Display location goes here */
+									$landing_session = block_get_blocks_by_region('landing_session');
+		        			print render($landing_session);
+									/* Display location ends here */
 								?>
 						<?php endif; endif; ?>
 
@@ -87,7 +152,7 @@
 						<?php if($form_class_find == 'register_form'): ?>
 							<p class="regiter-terms">By clicking Create Account, you acknowledge you have read and agreed to our <a href="javascript:"">Terms of Use</a> and <a href="javascript:">Privacy Policy</a></p>
 						<?php elseif($form_class_find == 'login_form'): ?>
-							<p class="login-register"><a href="<?php print $base_path; ?>user/password">Forgot Password?</a></p>
+							<p class="login-register"><a href="<?php print $base_path; ?>user/password">Forgot password?</a></p>
 						<?php endif; ?>
 
 					</div>
@@ -99,23 +164,34 @@
 						<?php endif; ?>
 					</div>
 				</section>
-				<?php endif; ?>
-				<div class="landing-banner">
-					<img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-banner.png" alt="landing banner" />
-				</div>
-			</div><!-- container ends -->
-		</div>
+			<!-- User Form ends here -->
+			<?php endif; ?>
+			<!-- Center content ends here -->
 
-		<!-- Footer goes here -->
-		<div class="footer">
-			<?php
-				$block = module_invoke('block', 'block_view', '2');
-				print render($block['content']);
-			?>
+			<!-- Landing banner goes here -->
+			<div class="landing-banner">
+				<img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-banner.png" alt="landing banner" />
+			</div>
+			<!-- Landing banner ends here -->
+
 		</div>
 	</div>
+	<!-- Content ends here -->
+
+	<!-- Footer goes here -->
+	<div class="footer">
+		<?php 
+			$footer_region = block_get_blocks_by_region('footer'); 
+			print render($footer_region); 
+		?>
+	</div>
+	<!-- Footer ends here -->
+
+</div>
+<!-- Landing page ends here -->
+
 <?php else: ?>
-<!-- Scroll to top display -->
+	<!-- Scroll to top display -->
 <?php if (theme_get_setting('scrolltop_display')): ?>
 <div id="toTop"><span class="glyphicon glyphicon-arrow-up"></span></div>
 <?php endif; ?>

@@ -212,7 +212,7 @@ footer{ background: #f0efef; color:#868686; text-align: center; }
 #top-footer-inside{ padding:2% 0; }
 .footer-logo{ max-width: 80% }
 .top-footer-first .content p{ text-align: left; }
-footer h2{ font-size: 14px; color: #666666; text-align:left; font-weight: 700;z }
+footer h2{ font-size: 14px; color: #666666; text-align:left; font-weight: 700; }
 #top-footer-inside ul li, #top-footer-inside ul li a{ color:#666666; list-style: none; font-size: 13px; padding: 3px 0; text-align:left; }
 #top-footer-inside ul li a:hover{ color: #cf2127;  }
 .top-footer-second, .top-footer-third, .top-footer-fourth, .top-footer-fifth{ margin-left:10%; }
