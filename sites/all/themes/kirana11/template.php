@@ -32,6 +32,11 @@ function kirana11_preprocess_page(&$vars) {
   } else{
     $vars['form_class_find'] = 'notfind_form';
   }
+
+  if (isset($vars['node']->type)) {
+      $nodetype = $vars['node']->type;
+      $vars['theme_hook_suggestions'][] = 'page__' . $nodetype;
+  }
 }
 
 /* Tabs alter */
