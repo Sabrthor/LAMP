@@ -75,6 +75,9 @@ function geocoder_location_handler_block_content() {
 /**
  * Set the value for user location from session's current location.
  */
-function geocoder_location_handler_form_webform_client_form_3_alter(&$form, &$form_state, $form_id){
-  $form['submitted']['user_location']['#value'] = $_SESSION['k11_current_location'];
+function geocoder_location_handler_form_alter(&$form, &$form_state, $form_id) {
+  //TOFIX: Need to find the webform by name otherthan id.
+  if (isset($form['#node']) && strtoupper($form['#node']->type) === 'WEBFORM') {
+    $form['submitted']['user_location']['#value'] = $_SESSION['k11_current_location'];  
+  }
 }
