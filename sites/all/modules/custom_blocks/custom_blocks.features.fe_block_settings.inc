@@ -60,8 +60,8 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
       'kirana11' => array(
-        'region' => '',
-        'status' => 0,
+        'region' => 'landing_session',
+        'status' => 1,
         'theme' => 'kirana11',
         'weight' => 0,
       ),
@@ -316,8 +316,8 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
       'kirana11' => array(
-        'region' => '',
-        'status' => 0,
+        'region' => 'landing_header',
+        'status' => 1,
         'theme' => 'kirana11',
         'weight' => 0,
       ),
@@ -636,8 +636,8 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
       'kirana11' => array(
-        'region' => '',
-        'status' => 0,
+        'region' => 'nodify_form',
+        'status' => 1,
         'theme' => 'kirana11',
         'weight' => 0,
       ),
