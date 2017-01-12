@@ -181,6 +181,10 @@ header .navbar-toggle{ right: 0; }
 #banner .slick-dots li.slick-active button{border: 4px solid #ccc; }
 #banner .slick-list.draggable{ padding:0 !important; }
 
+/* header */
+.header-login-container ul li{ list-style: none; float: left; padding: 5px 15px; font-size: 15px; }
+.header-cart-container{ padding: 8px; }
+
 /* Store and Product slider*/
 .store_slider .content{ margin: 8% 0 2%; background: #eeeff0; min-height: 250px;}
 .product_slider .content{ margin: 4% 0 0%; background: #ffffff; border:1px solid #eeeff0; min-height: 250px;}

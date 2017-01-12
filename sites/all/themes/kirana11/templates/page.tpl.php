@@ -214,12 +214,27 @@
 	<nav id="mainNav" class="navbar navbar-inverse" data-spy="affix" data-offset-top="100">
 		<div class="container">
 			<div class="row">
-				<div class="navbar-header">
+				<div class="col-sm-3 navbar-header">
 	        <a href="<?php print $front_page;?>">
 						<img src="<?php print $base_path; ?><?php print $directory; ?>/images/logo.png" alt="<?php print $site_name;?>" height="80" width="200" />
 					</a>
 	      </div>
-	     </div>
+	      <div class="col-sm-6">
+	      	<?php if ($page['header_search']): 
+	      		print render($page['header_search']); 
+	      	endif; ?>
+	      </div>
+	      <div class="col-sm-2 header-login-container">
+	      	<?php if ($page['header_login']): 
+	      		print render($page['header_login']); 
+	      	endif; ?>
+	      </div>
+	      <div class="col-sm-1 header-cart-container">
+	      	<?php if ($page['header_cart']): 
+	      		print render($page['header_cart']); 
+	      	endif; ?>
+	      </div>
+	    </div>
 		</div>
 	</nav>
 
