@@ -4,7 +4,7 @@
  * Implements hook_menu().
  */ 
 function geocoder_location_handler_init() {  
-  drupal_add_js('https://maps.googleapis.com/maps/api/js?v=3&bounds=34.172684,-118.604794%7C34.236144,-118.500938&region=IN&components=country:IN&sensor=false&libraries=places&key=AIzaSyDa2LbHo4xvVQ1QrkvDrJdzhGnID2BJm_E');
+  drupal_add_js('https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDa2LbHo4xvVQ1QrkvDrJdzhGnID2BJm_E');
   drupal_add_js(drupal_get_path('module', 'geocoder_location_handler') . '/js/detect_location.js');
 }
 
