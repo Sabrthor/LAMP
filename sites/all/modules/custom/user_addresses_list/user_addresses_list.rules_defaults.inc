@@ -13,12 +13,9 @@ function user_addresses_list_default_rules_configuration() {
       "LABEL" : "Addressbook Selection",
       "PLUGIN" : "action set",
       "OWNER" : "rules",
-      "REQUIRES" : [ "rules", "php" ],
       "ACCESS_EXPOSED" : "1",
       "USES VARIABLES" : { "commerce_profile" : { "label" : "Commerce Profile", "type" : "commerce_customer_profile" } },
-      "ACTION SET" : [
-        { "php_eval" : { "code" : "return set_addressbook_session([commerce-profile:profile-id]);" } }
-      ]
+      "ACTION SET" : []
     }
   }');
   return $items;

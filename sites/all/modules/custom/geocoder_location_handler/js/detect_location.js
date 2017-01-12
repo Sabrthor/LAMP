@@ -16,7 +16,7 @@
             geocoder.geocode({'latLng': geolocate}, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
                 var result = (results.length > 1) ? results[1] : results[0];
-                var address = get_address(result.address_components, ['sublocality_level_1', 'locality']);
+                var address = Drupal.behaviors.get_address(result.address_components, ['sublocality_level_1', 'locality']);
 
                 localStorage.setItem('current_location', address);
 
@@ -91,7 +91,7 @@
             geocoder.geocode({'latLng': geolocate}, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
                 var result = (results.length > 1) ? results[1] : results[0];
-                var address = get_address(result.address_components, ['sublocality_level_1', 'locality']);
+                var address = Drupal.behaviors.get_address(result.address_components, ['sublocality_level_1', 'locality']);
 
                 localStorage.setItem('current_location', address);
 
@@ -99,7 +99,7 @@
                   if (result) {
                     console.log('Current location set in session: ' + localStorage.getItem('current_location'));
                     $.get('/get_stores_by_coordinate/' + place.geometry['location'].lat() + '/' + place.geometry['location'].lng(), function( result ) {
-                  
+
                       // Redirect to homepage if store(s) available.
                       if (result.length > 0) {
                         if (window.location.pathname.localeCompare('/user/register') === 0) {
@@ -127,13 +127,13 @@
             $(".error-text-location").show();
             $(".error-text-location-p").html("Not a valid location");
             console.log('Not a valid location');
-          }         
+          }
         });
       });      
     }
   };
 
-  function get_address(address_components, address_types) { 
+  Drupal.behaviors.get_address = function(address_components, address_types) {
     var show_address = '';
 
     address_types.forEach(function(address_type) {    
