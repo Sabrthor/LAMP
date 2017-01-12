@@ -52,6 +52,7 @@ features[fe_block_settings][] = system-powered-by
 features[fe_block_settings][] = views-home_banner-block
 features[fe_block_settings][] = views-our_partners-block
 features[fe_block_settings][] = views-top_brands-block
+features[fe_block_settings][] = webform-client-block-15
 features[features_api][] = api:2
 features[field_base][] = body
 features[field_base][] = field_formatted_serving_area

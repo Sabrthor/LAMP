@@ -213,7 +213,7 @@ header .navbar-toggle{ right: 0; }
 #recent_blogs .views-field-body p{ height: 60px; overflow:hidden;   }
 #recent_blogs .views-field-view-node a{ float: right; text-decoration: underline; color: #666; }
 #recent_blogs .views-field-view-node a:hover{ color: #346d35; text-decoration: none;  }
-.read-all-button a{  background: #346d35; color: #fff !important; padding:10px; display: inline-block; border-radius: 5px; margin: 3% 0; width: 100px; text-align: center; }
+.read-all-button a{  background: #346d35; color: #fff !important; padding:10px; display: inline-block; border-radius: 5px; margin: 3% 0; width: 100px; text-align: center; position: relative; z-index: 9; }
 .read-all-button a:hover{  background: #cf2127; }
 
 /* Content goes here */
@@ -301,7 +301,8 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 .display-location-container p{ margin: 0; }
 .display-location-container p a{ text-decoration: underline; color: #666666;}
 .display-location-container h3{ color: #356D35; padding:5px 0; font-weight: 700; }
-.display-location-box{ margin-bottom: 20px; }
+.display-location-box{ background: #fff; padding: 10px; border-radius: 10px; margin: 0 auto 20px; }
+.display-text-box{ margin: 0 auto; }
 .landing-page .error-text-location{ display: none; }
 .landing-page .error-text-location-p{ text-align: center; font-size: 13px; color: #D8000C; }
 #webform-client-form-15 .webform-component--email-me-about-kirana11-special-offers .description{ display: inline-block; font-size: 13px; }
@@ -331,7 +332,7 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.page-node-16 .landing-banner{ bottom: -20%; }
 }
 @media (min-width: 992px) {
-	.landing-page form input[type="text"], .landing-page form input[type="email"], .landing-page form input[type="password"], .find-location-container p.regiter-terms, #edit-detect-my-location, .landing-page input[type="text"]{ width:50%; }
+	.landing-page form input[type="text"], .landing-page form input[type="email"], .landing-page form input[type="password"], .find-location-container p.regiter-terms, #edit-detect-my-location, .landing-page input[type="text"], .display-location-box, .display-text-box{ width:50%; }
 	.landing-page .message-outer, .landing-page .error-text-location{ width: 50%; margin: 0 auto; }
 }
 @media (min-width: 768px) and (max-width: 979px) {
