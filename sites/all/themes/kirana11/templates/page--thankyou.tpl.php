@@ -17,8 +17,16 @@
 			    <h2>Thank You</h2>
 			    <p>We will notify you once we start serving in your area</p>
 			    <h4 class="heading-line">Discover Kirana11.com</h4>
-			    <iframe class="thank-you-video" width="520" height="315" src="https://www.youtube.com/embed/tblozR2uwgM" frameborder="0" allowfullscreen></iframe>
+			    <iframe class="thank-you-video" width="500" height="315" src="https://www.youtube.com/embed/tblozR2uwgM" frameborder="0" allowfullscreen></iframe>
 			</div>
+			<!-- Recent blogs goes here -->
+			<?php if ($page['recent_blogs']): ?> 
+			<div id="recent_blogs" class="col-xs-12 col-sm-10 col-sm-offset-1">
+				<?php print render($page['recent_blogs']); ?>
+			</div>
+			<div class="col-xs-12 text-center read-all-button"><a href="/blog">Read All</a></div>
+			<?php endif; ?>
+			<!-- Recent blogs ends here -->
 			<div class="landing-banner">
 				<img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-banner.png" alt="landing banner" />
 			</div>
