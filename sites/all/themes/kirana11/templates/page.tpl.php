@@ -31,6 +31,12 @@
 		$show_landing = false;
 		
 	}
+
+	if(isset($_GET['uds'])){
+		unset($_SESSION['k11_stores_for_user']);
+		unset($_SESSION['k11_current_location']);
+		drupal_goto('<front>');
+	}
 	
 
 
