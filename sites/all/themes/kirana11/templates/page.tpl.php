@@ -76,7 +76,10 @@
             ?>
             <div class="user-delivery-address">
             	<?php
-								print views_embed_view('user_addressbook', 'block_1');
+            		global $user; 
+            		if($user->uid):
+									print views_embed_view('user_addressbook', 'block_1');
+								endif;
 							?>
             </div>
 					</div>
