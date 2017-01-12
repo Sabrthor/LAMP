@@ -182,8 +182,10 @@ header .navbar-toggle{ right: 0; }
 #banner .slick-list.draggable{ padding:0 !important; }
 
 /* header */
-.header-login-container ul li{ list-style: none; float: left; padding: 5px 15px; font-size: 15px; }
-.header-cart-container{ padding: 8px; }
+.header-search{ background: #346d35; border-radius: 5px; height: 40px; margin-top: 8px;  }
+.header-login-container ul li{ list-style: none; float: left; padding: 5px 0; font-size: 15px; width:50%; text-align: center; }
+.header-cart-container{ padding: 10px; }
+.header-cart-container span{ background: #cf2127; text-align:center; margin-left:-10px; font-weight: 700; width: 25px; border-radius: 50%; padding: 4px 3px; color: #fff; font-size: 11px; position: absolute; top: 0; }
 
 /* Store and Product slider*/
 .store_slider .content{ margin: 8% 0 2%; background: #eeeff0; min-height: 250px;}

@@ -224,20 +224,24 @@
 						<img src="<?php print $base_path; ?><?php print $directory; ?>/images/logo.png" alt="<?php print $site_name;?>" height="80" width="200" />
 					</a>
 	      </div>
-	      <div class="col-sm-6">
+	      <div class="col-sm-6 header-search">
 	      	<?php if ($page['header_search']): 
 	      		print render($page['header_search']); 
 	      	endif; ?>
 	      </div>
 	      <div class="col-sm-2 header-login-container">
-	      	<?php if ($page['header_login']): 
-	      		print render($page['header_login']); 
-	      	endif; ?>
+	      	<div class="row">
+		      	<?php if ($page['header_login']): 
+		      		print render($page['header_login']); 
+		      	endif; ?>
+	      	</div>
 	      </div>
-	      <div class="col-sm-1 header-cart-container">
-	      	<?php if ($page['header_cart']): 
-	      		print render($page['header_cart']); 
-	      	endif; ?>
+	      <div class="col-sm-1 text-center header-cart-container">
+	      	<div class="row">
+		      	<?php if ($page['header_cart']): 
+		      		print render($page['header_cart']); 
+		      	endif; ?>
+		      </div>
 	      </div>
 	    </div>
 		</div>
