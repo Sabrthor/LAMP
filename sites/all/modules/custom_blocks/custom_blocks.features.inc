@@ -44,6 +44,14 @@ function custom_blocks_node_info() {
       'title_label' => t('Title'),
       'help' => '',
     ),
+    'thankyou' => array(
+      'name' => t('Thankyou'),
+      'base' => 'node_content',
+      'description' => '',
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
     'top_brands' => array(
       'name' => t('Top Brands'),
       'base' => 'node_content',
