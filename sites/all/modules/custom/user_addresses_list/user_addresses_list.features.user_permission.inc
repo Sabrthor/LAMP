@@ -21,5 +21,15 @@ function user_addresses_list_user_default_permissions() {
     'module' => 'node',
   );
 
+  // Exported permission: 'use Rules component rules_addressbook_selection'.
+  $permissions['use Rules component rules_addressbook_selection'] = array(
+    'name' => 'use Rules component rules_addressbook_selection',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'customer' => 'customer',
+    ),
+    'module' => 'rules',
+  );
+
   return $permissions;
 }

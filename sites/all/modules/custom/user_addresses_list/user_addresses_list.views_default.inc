@@ -69,7 +69,6 @@ function user_addresses_list_views_default_views() {
   $handler->display->display_options['fields']['field_location_coordinates']['table'] = 'field_data_field_location_coordinates';
   $handler->display->display_options['fields']['field_location_coordinates']['field'] = 'field_location_coordinates';
   $handler->display->display_options['fields']['field_location_coordinates']['label'] = '';
-  $handler->display->display_options['fields']['field_location_coordinates']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_location_coordinates']['element_label_colon'] = FALSE;
   /* Field: Bulk operations: Commerce Customer Profile */
   $handler->display->display_options['fields']['views_bulk_operations']['id'] = 'views_bulk_operations';
