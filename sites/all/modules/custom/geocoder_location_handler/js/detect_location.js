@@ -70,8 +70,8 @@
       $("#edit-select-location").once().click(function() {
         var pyrmont = new google.maps.LatLng(12.9715987, 77.5945627);
         var defaultBounds = new google.maps.LatLngBounds(
-          new google.maps.LatLng(12.838557, 77.677622),
-          new google.maps.LatLng(13.033370, 77.540744));
+          new google.maps.LatLng(12.864162, 77.438610),
+          new google.maps.LatLng(13.139807, 77.711895));
 
         var autocomplete = new google.maps.places.Autocomplete(this, {
           componentRestrictions: {country: 'in'},
