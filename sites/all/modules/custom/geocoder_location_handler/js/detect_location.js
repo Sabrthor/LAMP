@@ -68,7 +68,18 @@
         return false;
       });
       $("#edit-select-location").once().click(function() {
-        var autocomplete = new google.maps.places.Autocomplete(this);
+        var pyrmont = new google.maps.LatLng(12.9715987, 77.5945627);
+        var defaultBounds = new google.maps.LatLngBounds(
+          new google.maps.LatLng(12.864162, 77.438610),
+          new google.maps.LatLng(13.139807, 77.711895));
+
+        var autocomplete = new google.maps.places.Autocomplete(this, {
+          componentRestrictions: {country: 'in'},
+          location: pyrmont,
+          bounds: defaultBounds,
+          radius: 25000,
+          type: ['(regions)'],
+        });
 
         autocomplete.addListener('place_changed', function () {
           var place = autocomplete.getPlace();
