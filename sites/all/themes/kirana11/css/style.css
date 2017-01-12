@@ -206,7 +206,7 @@ header .navbar-toggle{ right: 0; }
 /* Recent blog */
 .region-recent-blogs h2{ text-align: center; margin-bottom: 3%; }
 #recent_blogs .slide__content{ margin: 0 10px;  }
-#recent_blogs .slide__content img{ border:5px solid #fff; }
+#recent_blogs .slide__content img{ border:5px solid #fff; margin: 0 auto; }
 #recent_blogs .views-field-title a{ font-size: 18px; color: #666; margin-top:10px; display: block; }
 #recent_blogs .views-field-created { font-size: 11px; color: #999; }
 #recent_blogs .views-field-body{ margin: 15px 0; }
@@ -282,6 +282,11 @@ footer h2{ font-size: 14px; color: #666666; text-align:left; font-weight: 700; }
 .landing-banner img{ max-width: 100%; }
 .landing-page .footer{ width: 100%; float: left; }
 .landing-page .footer p{ width: 100%; float: left; text-align: center; font-size: 12px; margin: 3% 0; }
+.node-type-thankyou .landing-banner{ bottom: -200px; }
+.node-type-thankyou .landing-page .footer p{ margin: 13% 0 3%; }
+.node-type-thankyou h2{ margin: 0 0 20px !important; }
+.node-type-thankyou .slick-slide{ border:5px solid #fff;  padding: 10px; }
+.node-type-thankyou .slick-slide:nth-child(2), .node-type-thankyou .slick-slide:nth-child(3){ border-left:0; }
 .landing-page form .description, .landing-page form label, .landing-page form .password-strength, .landing-page form div.password-confirm, .landing-page form#user-register-form .ajax-progress .message{ display: none; }
 .find-location-container p.login-register{ margin: 0; font-size: 13px; }
 .find-location-container p.regiter-terms{font-size: 13px; margin: 10px auto;}
@@ -326,10 +331,12 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 }
 @media (max-width: 980px) {
 	.landing-page #content .container h3{ font-size:15px; line-height: 20px;}
-	.landing-page .footer p{ margin: 12% 0 3%; }
 	h2{ font-size: 24px; }
 	.heading-line::before, .heading-line::after{ width: 28%; }
-	.page-node-16 .landing-banner{ bottom: -20%; }
+	.node-type-thankyou .landing-banner{ bottom: -100px; }
+	.landing-page .footer p{ margin: 12% 0 3%; }
+	.node-type-thankyou .landing-banner{ bottom: -150px; }
+	.node-type-thankyou .landing-page .footer p{ margin: 13% 0 3%; }
 }
 @media (min-width: 992px) {
 	.landing-page form input[type="text"], .landing-page form input[type="email"], .landing-page form input[type="password"], .find-location-container p.regiter-terms, #edit-detect-my-location, .landing-page input[type="text"], .display-location-box, .display-text-box{ width:50%; }
@@ -357,6 +364,10 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 }
 @media (min-width: 520px) and (max-width: 767px) {
 	.heading-line::before, .heading-line::after{ width: 30% !important; }
+}
+
+@media (max-width: 520px) {
+	.thank-you-video{ width: 100% !important; height: 200px; }
 }
 
 @media (max-width: 767px) {
@@ -408,16 +419,10 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.heading-line::before, .heading-line::after{ width: 10%; }
 	.heading-line::before{ left: 0; }
 	.heading-line::after{ right: 0; }
+	.node-type-thankyou .landing-banner{ bottom: -8%; }
+	.node-type-thankyou .slick-slide{ border:0; }
 
 }
-
-@media (max-width: 520px) {
-	.landing-banner{ bottom: -35px; }
-	.page-node-16 .landing-banner{ bottom: -15%; }
-	.thank-you-video{ width: 100% !important; height: 200px; }
-	
-}
-
 
 
 /*#block-responsive-dropdown-menus-menu-custom-menu .sub-menu{ position: fixed !important; top: 20px !important; left: 0 !important; }*/
