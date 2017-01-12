@@ -322,6 +322,7 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 .heading-line::before, .heading-line::after{ content: ""; position: absolute; border-top:1px solid #ccc; width: 35%; top: 12px;  }
 .heading-line::before { left: 30px; }
 .heading-line::after { right: 30px; }
+.landing-page  .user-delivery-address fieldset{ display: none; }
 
 /* Blog */
 .page-blog .node-teaser{ padding-bottom: 20px; border-bottom:1px solid #ccc; }
