@@ -1,0 +1,37 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Vimala
+ * Date: 1/11/2017
+ * Time: 5:46 PM
+ */
+
+/**
+ * Implements hook_init().
+ */
+function custom_address_book_init() {
+    drupal_add_js(drupal_get_path('module', 'custom_address_book') . '/js/address_book.js');
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function custom_address_book_form_alter(&$form, &$form_state, $form_id) {
+    if($form_id == 'commerce_addressbook_customer_profile_form') {
+        $form['commerce_customer_address'][LANGUAGE_NONE][0]['street_block']['premise']['#title'] = t('Area');
+        $form['commerce_customer_address'][LANGUAGE_NONE][0]['street_block']['premise']['#disabled'] = TRUE;
+        $form['commerce_customer_address'][LANGUAGE_NONE][0]['street_block']['premise']['#value'] = $_SESSION['k11_current_location'];
+        $form['field_location_coordinates'][LANGUAGE_NONE][0]['value']['#default_value'] = $_SESSION['user_coordinates'];
+        $form['field_location_coordinates']['#access'] = FALSE;
+    }
+}
+
+/**
+ * Function to set the user location session on selection of Address.
+ * @param $profile_id
+ */
+function set_addressbook_session($profile_id){
+    $user_selected_address = commerce_customer_profile_load($profile_id);
+    $_SESSION['user_coordinates'] = $user_selected_address->field_location_coordinates['und'][0]['value'];
+    $_SESSION['k11_current_location'] = $user_selected_address->commerce_customer_address['und'][0]['premise'];
+}
