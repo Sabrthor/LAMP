@@ -74,6 +74,11 @@
 							$block = module_invoke('geocoder_location_handler', 'block_view', 'find_or_select_location');
 							print render($block['content']);
             ?>
+            <div class="user-delivery-address">
+            	<?php
+								print views_embed_view('user_addressbook', 'block_1');
+							?>
+            </div>
 					</div>
 					
 					<div class="bottom-login-container">
