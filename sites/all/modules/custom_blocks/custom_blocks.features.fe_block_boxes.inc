@@ -24,19 +24,19 @@ function custom_blocks_default_fe_block_boxes() {
   $fe_block_boxes->machine_name = 'display_session_location';
   $fe_block_boxes->body = '<?php $show_notify_block = false; if(isset($_SESSION[\'k11_stores_for_user\']) && $_SESSION[\'k11_stores_for_user\'] == \'NO_STORES\') { $show_notify_block = true; } ?>
 <div class="col-xs-12 display-location-container">
-    <div class="col-xs-12 display-location-box">
-        <p>You\'ve selected</p>
-        <h3><?php if (isset($_SESSION[\'k11_current_location\'])) { print $_SESSION[\'k11_current_location\']; } ?></h3>
-        <p><i class="fa fa-pencil-square-o"></i> <a class="edit-location-link" href="javascript:">Change your location</a></p>
-    </div>
-    <?php if($show_notify_block): ?>
-    <div class="col-xs-12">
-        <div class="row">
-            <p>Sorry, we are not currently serving in your area.</p>
-            <p>Please provide your details, we will give you a shout once we arrive.</p>
-        </div>
-    </div>
-    <?php endif; ?>
+	<div class="col-xs-12 display-location-box">
+		<p>You\'ve selected</p>
+		<h3><?php if (isset($_SESSION[\'k11_current_location\'])) { print $_SESSION[\'k11_current_location\']; } ?></h3>
+		<p><i class="fa fa-pencil-square-o"></i> <a class="edit-location-link" href="javascript:">Change your location</a></p>
+	</div>
+	<?php if($show_notify_block): ?>
+	<div class="col-xs-12">
+		<div class="row">
+			<p>Sorry, we are not currently serving in your area.</p>
+			<p>Please provide your details, we will give you a shout once we arrive.</p>
+		</div>
+	</div>
+	<?php endif; ?>
 </div>';
 
   $export['display_session_location'] = $fe_block_boxes;

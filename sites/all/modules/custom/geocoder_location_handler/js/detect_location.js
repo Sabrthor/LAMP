@@ -142,4 +142,14 @@
     return show_address;
   }
 
+  /* Destory session */
+  Drupal.behaviors.destoryLocationSessionVariable = {
+    attach: function (context) {
+      $(".edit-location-link").once().click(function(){
+        window.location.href = '/?uds=clb';
+      });
+    }
+  }
+
+
 })(jQuery);
