@@ -75,13 +75,13 @@
 							print render($block['content']);
             ?>
             <div class="user-delivery-address">
-            	<?php
-            		global $user; 
-            		if($user->uid):
-									print views_embed_view('user_addressbook', 'block_1');
-								endif;
-							?>
-            </div>
+               <?php
+                global $user;
+                if($user->uid):
+                	print "<h4>Select your delivery address</h4>";
+                  print views_embed_view('user_addressbook', 'block_1');
+                endif;?>
+           </div>
 					</div>
 					
 					<div class="bottom-login-container">
@@ -117,14 +117,15 @@
 							$landing_session = block_get_blocks_by_region('landing_session');
         			print render($landing_session);
 							/* Display location ends here */
-
 							/* Notify form goes here */
 							if($page['nodify_form']):
 								print render($page['nodify_form']); 
+
 							endif;
 							/* Notify form ends here */
 
 						?>
+						<p>Already have an account? <a href="<?php print $base_path; ?>user/login">Sign in</a></p>
 					</div>
 				</section>
 			<!-- Show Notify goes here -->
@@ -159,13 +160,17 @@
 		        			print render($landing_session);
 									/* Display location ends here */
 								?>
+								<?php print render($page['content']); ?>
+								<?php if($form_class_find == 'register_form'): ?>
+									<p class="regiter-terms">By clicking Create Account, you acknowledge you have read and agreed to our <a href="javascript:"">Terms of Use</a> and <a href="javascript:">Privacy Policy</a></p>
+								<?php endif; ?>
 						<?php endif; endif; ?>
 
+						<?php if($form_class_find != 'register_form'): ?>
 						<?php print render($page['content']); ?>
+						<?php endif; ?>
 						
-						<?php if($form_class_find == 'register_form'): ?>
-							<p class="regiter-terms">By clicking Create Account, you acknowledge you have read and agreed to our <a href="javascript:"">Terms of Use</a> and <a href="javascript:">Privacy Policy</a></p>
-						<?php elseif($form_class_find == 'login_form'): ?>
+						<?php if($form_class_find == 'login_form'): ?>
 							<p class="login-register"><a href="<?php print $base_path; ?>user/password">Forgot password?</a></p>
 						<?php endif; ?>
 

@@ -105,8 +105,8 @@ function kirana11_form_alter( &$form, &$form_state, $form_id )
     }
     if (in_array( $form_id, array( 'user_register_form')))
     {
-        $form['account']['name']['#attributes']['placeholder'] = t( 'Mobile Number' );
-        $form['account']['mail']['#attributes']['placeholder'] = t( 'Email' );
+        $form['account']['name']['#attributes']['placeholder'] = t( 'Mobile Number *' );
+        $form['account']['mail']['#attributes']['placeholder'] = t( 'Email *' );
          $form['account']['pass']['#process'] = array('form_process_password_confirm', 'register_alter_password_confirm');
     }
     if (in_array( $form_id, array( 'user_pass')))
@@ -119,7 +119,7 @@ function kirana11_form_alter( &$form, &$form_state, $form_id )
  * Alter password and confirm password fields to remove title and insert placeholder.
  */
 function register_alter_password_confirm($element) {
-    $element['pass1']['#attributes']['placeholder'] = t("Password");
-    $element['pass2']['#attributes']['placeholder'] = t("Confirm password");
+    $element['pass1']['#attributes']['placeholder'] = t("Password *");
+    $element['pass2']['#attributes']['placeholder'] = t("Confirm password *");
     return $element;
 }
