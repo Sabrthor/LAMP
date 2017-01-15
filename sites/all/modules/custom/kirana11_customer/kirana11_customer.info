@@ -1,0 +1,11 @@
+name = Kirana11 Customer
+description = Kirana11 Customer
+core = 7.x
+package = Features
+version = 7.x-1.0
+dependencies[] = features
+dependencies[] = text
+features[features_api][] = api:2
+features[field_base][] = field_user_name
+features[field_instance][] = user-user-field_user_name
+project path = sites/all/modules/custom
