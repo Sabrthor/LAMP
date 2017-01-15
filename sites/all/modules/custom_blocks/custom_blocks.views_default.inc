@@ -148,6 +148,18 @@ function custom_blocks_views_default_views() {
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  /* Field: Content: Banner Image */
+  $handler->display->display_options['fields']['field_banner_image']['id'] = 'field_banner_image';
+  $handler->display->display_options['fields']['field_banner_image']['table'] = 'field_data_field_banner_image';
+  $handler->display->display_options['fields']['field_banner_image']['field'] = 'field_banner_image';
+  $handler->display->display_options['fields']['field_banner_image']['label'] = '';
+  $handler->display->display_options['fields']['field_banner_image']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_banner_image']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_banner_image']['settings'] = array(
+    'image_style' => '',
+    'image_link' => '',
+  );
+  $handler->display->display_options['fields']['field_banner_image']['delta_offset'] = '0';
   /* Field: Field: Image */
   $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
@@ -223,7 +235,6 @@ function custom_blocks_views_default_views() {
   );
   $handler->display->display_options['style_options']['slide_caption'] = array(
     'title' => 0,
-    'field_image' => 0,
   );
   $handler->display->display_options['style_options']['slide_overlay'] = '';
   $handler->display->display_options['style_options']['preserve_keys'] = 0;
