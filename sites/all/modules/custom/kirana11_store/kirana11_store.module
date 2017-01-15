@@ -1,0 +1,246 @@
+<?php
+/**
+ * @file
+ * Drupal needs this blank file.
+ */
+
+function kirana11_store_menu(){
+    $items = array();
+
+    $items['admin/commerce/stores/kirana11_store/add'] = array(
+        'title' => 'Create Kirana11 Store',
+        'description' => 'Create Kirana11 Store',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('kirana11_store_form'),
+        'access arguments' => array('administer users'),
+        'type' => MENU_LOCAL_ACTION,
+    );
+
+    return $items;
+}
+
+function kirana11_store_form($form, &$form_state) {
+    global $user;
+
+    $admin = user_access('administer users');
+
+    // Pass access information to the submit handler. Running an access check
+    // inside the submit function interferes with form processing and breaks
+    // hook_form_alter().
+    $form['administer_users'] = array(
+        '#type' => 'value',
+        '#value' => $admin,
+    );
+
+    // If we aren't admin but already logged on, go to the user page instead.
+    if (!$admin && $user->uid) {
+        drupal_goto('user/' . $user->uid);
+    }
+
+    $form['#user'] = drupal_anonymous_user();
+    $form['#user_category'] = 'register';
+
+    $form['#attached']['library'][] = array('system', 'jquery.cookie');
+    $form['#attributes']['class'][] = 'user-info-from-cookie';
+
+    // Start with the default user account fields.
+    user_account_form($form, $form_state);
+
+    // Attach field widgets, and hide the ones where the 'user_register_form'
+    // setting is not on.
+    $langcode = entity_language('user', $form['#user']);
+    field_attach_form('user', $form['#user'], $form, $form_state, $langcode);
+    foreach (field_info_instances('user', 'user') as $field_name => $instance) {
+        if (empty($instance['settings']['user_register_form'])) {
+            $form[$field_name]['#access'] = FALSE;
+        }
+    }
+
+    if ($admin) {
+        // Redirect back to page which initiated the create request;
+        // usually admin/people/create.
+        $form_state['redirect'] = $_GET['q'];
+    }
+
+    $form['account']['status']['#access'] = FALSE;
+    $form['account']['notify']['#access'] = FALSE;
+    $form['account']['roles']['#access'] = FALSE;
+
+    $form['account']['name']['#title'] = t('Mobile Number');
+
+    //Attach Store entity form.
+    $commerce_store = '';
+    if (!$commerce_store) {
+        $commerce_store = commerce_store_new('store');
+    }
+    if (empty($form_state['commerce_store'])) {
+        $form_state['commerce_store'] = $commerce_store;
+    }
+    $form['title'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Store Name'),
+        '#required' => true,
+        '#default_value' => $commerce_store->title,
+        '#weight' => -20,
+    );
+
+    $form['status'] = array(
+        '#type' => 'checkbox',
+        '#title' => t('Active'),
+    );
+
+    $form['field_formatted_serving_area']['#access'] = FALSE;
+
+    field_attach_form('commerce_store', $commerce_store, $form, $form_state);
+
+    $form['actions'] = array('#type' => 'actions');
+    $form['actions']['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Create new store'),
+    );
+
+    //$form['#validate'][] = 'kirana11_store_form_validate';
+    // Add the final user registration form submit handler.
+    $form['#submit'][] = 'kirana11_store_form_submit';
+
+
+    return $form;
+}
+
+function kirana11_store_form_submit($form, &$form_state){
+    //Register Merchant
+    $newMerchant = array(
+        'name' => $form_state['values']['name'],
+        'pass' => $form_state['values']['pass'],
+        'mail' => $form_state['values']['mail'],
+        'status' => 1,
+        'init' => $form_state['values']['mail'],
+        'roles' => array(
+            DRUPAL_AUTHENTICATED_RID  => 'authenticated user',
+            4 => 'merchant',
+        ),
+    );
+
+    $account = user_save('', $newMerchant);
+
+    //Create Store.
+    $entity_type = 'commerce_store';
+    $entity = entity_create($entity_type, array('type' => 'store'));
+    $wrapper = entity_metadata_wrapper($entity_type, $entity);
+
+    $wrapper->uid = $account->uid;
+
+    $wrapper->title = $form_state['values']['title'];
+
+    $wrapper->field_serving_area = $form_state['values']['field_serving_area']['und'][0]['value'];
+
+    $formatted_serving_areas = _parse_serving_areas($form_state['values']['field_serving_area']['und'][0]['value']);
+
+    //$wrapper->field_formatted_serving_area = $formatted_serving_areas;
+
+    $wrapper->field_address->thoroughfare = $form_state['values']['field_address']['und'][0]['thoroughfare'];
+    $wrapper->field_address->premise = $form_state['values']['field_address']['und'][0]['premise'];
+    $wrapper->field_address->locality = $form_state['values']['field_address']['und'][0]['locality'];
+    $wrapper->field_address->administrative_area = $form_state['values']['field_address']['und'][0]['administrative_area'];
+    $wrapper->field_address->postal_code = $form_state['values']['field_address']['und'][0]['postal_code'];
+    $wrapper->field_address->country = $form_state['values']['field_address']['und'][0]['country'];
+
+    if($form_state['values']['field_store_logo']['und'][0]['fid']!=0) {
+        $wrapper->field_store_logo = array(
+            'fid' => $form_state['values']['field_store_logo']['und'][0]['fid'],
+            'alt' => $form_state['values']['field_store_logo']['und'][0]['alt'],
+            'title' => $form_state['values']['field_store_logo']['und'][0]['title'],
+            'width' => $form_state['values']['field_store_logo']['und'][0]['width'],
+            'height' => $form_state['values']['field_store_logo']['und'][0]['height'],
+        );
+    }
+
+    $wrapper->field_tin_number  = $form_state['values']['field_tin_number']['und'][0]['value'];
+
+    $wrapper->field_pan_number  = $form_state['values']['field_pan_number']['und'][0]['value'];
+
+    $wrapper->field_bank_account_number  = $form_state['values']['field_bank_account_number']['und'][0]['value'];
+
+    $wrapper->field_ifsc_code  = $form_state['values']['field_ifsc_code']['und'][0]['value'];
+
+    $merchant_alternative = array();
+    if(!empty($form_state['values']['field_merchant_alternative']['und'][0]['value'])){
+        foreach($form_state['values']['field_merchant_alternative']['und'] as $merchant_alter){
+            if($merchant_alter != 'Add another item') {
+                $merchant_alternative[] = $merchant_alter['value'];
+            }
+        }
+    }
+
+    $wrapper->field_merchant_alternative = $merchant_alternative;
+
+    $open_hours_array = array();
+    if(!empty($form_state['values']['field_open_hours'])){
+        foreach($form_state['values']['field_open_hours']['und'] as $open_hours){
+            if(!empty($open_hours['starthours'])) {
+                $open_hours_array[] = $open_hours;
+            }
+        }
+    }
+
+    $wrapper->field_open_hours = $open_hours_array;
+
+    $delivery_slots_array = array();
+    if(!empty($form_state['values']['field_delivery_slots']['und'][0]['value'])) {
+        foreach ($form_state['values']['field_delivery_slots']['und'] as $delivery_slots) {
+            if($delivery_slots != 'Add another item') {
+                $delivery_slots_array[] = $delivery_slots;
+            }
+        }
+    }
+
+    $wrapper->field_delivery_slots = $delivery_slots_array;
+
+    $wrapper->field_publish_date = strtotime($form_state['values']['field_publish_date']['und'][0]['value']);
+
+    $wrapper->save();
+
+    drupal_set_message(t('Store Created Successfully'));
+    drupal_goto('admin/commerce/stores');
+
+}
+
+/**
+ * Implements hook_entity_presave().
+ * @param $entity
+ * @param $entity_type
+ */
+function kirana11_store_entity_presave($entity, $entity_type){
+    if($entity_type == 'commerce_store'){
+        $formatted_serving_areas = _parse_serving_areas($entity->field_serving_area['und'][0]['value']);
+        $entity->field_formatted_serving_area['und'][0]['value'] = $formatted_serving_areas;
+    }
+}
+
+/**
+ * Parse the Serving Areas Coordinates to Required Format.
+ * @param $coordinates
+ * @return string
+ */
+function _parse_serving_areas($coordinates){
+    $cordinateList = explode(' ', $coordinates);
+    print_r($cordinateList);
+
+    $coordinates = [];
+
+    foreach ($cordinateList as $coordinate) {
+        $coordinateItems = explode(",", $coordinate);
+        //$coordinates[] = '"' . $coordinateItems[0] . ' ' . $coordinateItems[1] . '"';
+        $coordinates[] = $coordinateItems[0] . ' ' . $coordinateItems[1];
+
+        print_r($coordinateItems );
+    }
+
+    return implode(",", $coordinates);
+}
+
+function kirana11_store_form_alter(&$form, $form_state, $form_id){
+    if($form_id == 'commerce_store_ui_store_form'){
+        $form['field_formatted_serving_area']['#access'] = FALSE;
+    }
+}
