@@ -100,13 +100,14 @@ function kirana11_form_alter( &$form, &$form_state, $form_id )
 {
     if (in_array( $form_id, array( 'user_login')))
     {
-        $form['name']['#attributes']['placeholder'] = t( 'Username' );
+        $form['name']['#attributes']['placeholder'] = t( 'Mobile Number' );
         $form['pass']['#attributes']['placeholder'] = t( 'Password' );
     }
     if (in_array( $form_id, array( 'user_register_form')))
     {
         $form['account']['name']['#attributes']['placeholder'] = t( 'Mobile Number *' );
         $form['account']['mail']['#attributes']['placeholder'] = t( 'Email *' );
+        $form['field_user_name']['#attributes']['placeholder'] = t( 'Name' );
          $form['account']['pass']['#process'] = array('form_process_password_confirm', 'register_alter_password_confirm');
     }
     if (in_array( $form_id, array( 'user_pass')))

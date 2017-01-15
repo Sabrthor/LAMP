@@ -6,10 +6,12 @@ core = 7.x
 
 ; Regions goes here
 regions[top_header] = 'Top Header'
+regions[header_location] = 'Header Location'
 regions[header] = 'Header'
 regions[header_search] = 'Header Search'
 regions[header_login] = 'Header Login'
 regions[header_cart] = 'Header Cart'
+regions[header_menu] = 'Header Menu'
 regions[slider] = 'Home Page Banner'
 regions[sidebar_first] = 'Left sidebar'
 regions[sidebar_second] = 'Right sidebar'
