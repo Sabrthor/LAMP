@@ -65,37 +65,70 @@
 
 			<!-- Show Location goes here -->
 			<?php if($show_location): ?>
-				<section class="col-sm-8 col-sm-offset-2 landing-section">
-					<h2><strong>Welcome</strong> to Kirana11.com</h2>
-					<h3>Shop from your friendly neighbourhood Kirana store <strong>online!</strong></h3>
+				<?php global $user; if($user->uid): ?>
+					<section class="col-sm-4 landing-banner-section ">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+						<img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-login-banner.png" alt="landing location banner" />
+					</section>
+					<section class="col-sm-8 landing-content-section landing-address">
+						<h2><strong>Welcome</strong> to Kirana11.com</h2>
+						<!-- <h3>Shop from your friendly neighbourhood Kirana store <strong>online!</strong></h3> -->
 
-					<div class="find-location-container">
-						<?php
-							$block = module_invoke('geocoder_location_handler', 'block_view', 'find_or_select_location');
-							print render($block['content']);
-            ?>
-            <div class="user-delivery-address">
-            	<?php
-            		global $user; 
-            		if($user->uid):
-									print views_embed_view('user_addressbook', 'block_1');
-								endif;
-							?>
-            </div>
-					</div>
-					
-					<div class="bottom-login-container">
-						<?php global $user; if(!$user->uid): ?>
-							<p>Already registered? <a href="<?php print $base_path; ?>user/login">Login here</a></p>
-							<p>Don't have an account? <a href="<?php print $base_path; ?>user/register">Sign-Up now</a></p>
-						<?php endif; ?>
-					</div>
-				</section>
+						<div class="find-location-container">
+							<?php
+								$block = module_invoke('geocoder_location_handler', 'block_view', 'find_or_select_location');
+								print render($block['content']);
+	            ?>
+	            <div class="user-delivery-address">
+	               <?php
+	                global $user;
+	                if($user->uid):
+	                	print "<h4>Select your delivery address</h4>";
+	                  print views_embed_view('user_addressbook', 'block_1');
+	                endif;?>
+	           </div>
+						</div>
+						
+						<div class="bottom-login-container">
+							<?php global $user; if(!$user->uid): ?>
+								<p>Already registered? <a href="<?php print $base_path; ?>user/login">Login here</a></p>
+								<p>Don't have an account? <a href="<?php print $base_path; ?>user/register">Sign-Up now</a></p>
+							<?php endif; ?>
+						</div>
+					</section>
+				<?php else: ?>
+					<section class="col-sm-6 landing-banner-section">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+						<img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-location-banner.png" alt="landing location banner" />
+					</section>
+					<section class="col-sm-6 landing-content-section">
+						<h2><strong>Welcome</strong> to Kirana11.com</h2>
+						<!-- <h3>Shop from your friendly neighbourhood Kirana store <strong>online!</strong></h3> -->
+
+						<div class="find-location-container">
+							<?php
+								$block = module_invoke('geocoder_location_handler', 'block_view', 'find_or_select_location');
+								print render($block['content']);
+	            ?>
+						</div>
+						
+						<div class="bottom-login-container">
+							<?php global $user; if(!$user->uid): ?>
+								<p>Already registered? <a href="<?php print $base_path; ?>user/login">Login here</a></p>
+								<p>Don't have an account? <a href="<?php print $base_path; ?>user/register">Sign-Up now</a></p>
+							<?php endif; ?>
+						</div>
+					</section>
+				<?php endif; ?>
 			<!-- Show Location ends here -->
 
 			<!-- Show Notify goes here -->
 			<?php elseif($show_notify): ?>
-				<section class="col-sm-8 col-sm-offset-2 landing-section">
+				<section class="col-sm-6 landing-banner-section">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+					<img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-thankyou-banner.png" alt="landing thankyou banner" />
+				</section>
+				<section class="col-sm-6 landing-content-section notify">
 					<h2><strong>Oops!</strong> we're not there yet</h2>
 
 					<!-- Message goes here -->
@@ -117,8 +150,8 @@
 							$landing_session = block_get_blocks_by_region('landing_session');
         			print render($landing_session);
 							/* Display location ends here */
-
 							/* Notify form goes here */
+
 							if($page['nodify_form']):
 								print render($page['nodify_form']); 
 							endif;
@@ -126,12 +159,35 @@
 
 						?>
 					</div>
+					<div class="bottom-login-container">
+							<p>Already registered? <a href="<?php print $base_path; ?>user/login">Sign in</a></p>
+					</div>
 				</section>
+				<div class="col-xs-12">
+			    <iframe class="thank-you-video" width="500" height="315" src="https://www.youtube.com/embed/tblozR2uwgM" frameborder="0" allowfullscreen></iframe>
+				</div>
+				<!-- Recent blogs goes here -->
+				<?php if ($page['recent_blogs']): ?> 
+				<div id="recent_blogs" class="col-xs-12 col-sm-10 col-sm-offset-1">
+					<?php print render($page['recent_blogs']); ?>
+				</div>
+				<div class="col-xs-12 text-center read-all-button"><a href="/blog">Read All</a></div>
+				<?php endif; ?>
+				
 			<!-- Show Notify goes here -->
 
 			<!-- User Form goes here -->
 			<?php else: ?>
-				<section class="col-sm-8 col-sm-offset-2 landing-section">
+				<section class="col-sm-6 landing-banner-section">
+				<?php if($form_class_find == 'login_form'): ?>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+					<img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-login-banner.png" alt="landing location banner" />
+				 <?php else: ?>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>	
+					<img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-location-banner.png" alt="landing location banner" />
+				 <?php endif; ?>
+				</section>
+				<section class="col-sm-6 landing-content-section">
 					<h2><?php if($form_class_find == 'login_form'): print "<strong>Login</strong> to your account"; elseif($form_class_find == 'register_form'): print "<strong>Create</strong> your account"; else: print "<strong>Forgot</strong> password"; endif; ?></h2>
 					
 					<!-- Message goes here -->
@@ -159,13 +215,17 @@
 		        			print render($landing_session);
 									/* Display location ends here */
 								?>
+								<?php print render($page['content']); ?>
+								<?php if($form_class_find == 'register_form'): ?>
+									<p class="regiter-terms">By clicking Create Account, you acknowledge you have read and agreed to our <a href="javascript:"">Terms of Use</a> and <a href="javascript:">Privacy Policy</a></p>
+								<?php endif; ?>
 						<?php endif; endif; ?>
 
+						<?php if($form_class_find != 'register_form'): ?>
 						<?php print render($page['content']); ?>
+						<?php endif; ?>
 						
-						<?php if($form_class_find == 'register_form'): ?>
-							<p class="regiter-terms">By clicking Create Account, you acknowledge you have read and agreed to our <a href="javascript:"">Terms of Use</a> and <a href="javascript:">Privacy Policy</a></p>
-						<?php elseif($form_class_find == 'login_form'): ?>
+						<?php if($form_class_find == 'login_form'): ?>
 							<p class="login-register"><a href="<?php print $base_path; ?>user/password">Forgot password?</a></p>
 						<?php endif; ?>
 
@@ -176,17 +236,12 @@
 						<?php else: ?>
 							<p>Already registered? <a href="<?php print $base_path; ?>user/login">Login here</a></p>
 						<?php endif; ?>
+
 					</div>
 				</section>
 			<!-- User Form ends here -->
 			<?php endif; ?>
 			<!-- Center content ends here -->
-
-			<!-- Landing banner goes here -->
-			<div class="landing-banner">
-				<img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-banner.png" alt="landing banner" />
-			</div>
-			<!-- Landing banner ends here -->
 
 		</div>
 	</div>
@@ -211,9 +266,18 @@
 <?php endif; ?>
 
 <!-- Top Header goes here -->
-<div class="top-header">
+<div class="hidden-xs top-header">
 	<div class="container">
-		<?php if ($page['top_header']): print render($page['top_header']); endif; ?>
+		<div class="col-sm-5 col-sm-offset-2 col-md-4  col-md-offset-4  col-lg-offset-5  header-location">
+			<div class="row">
+				<?php if ($page['header_location']): print render($page['header_location']); endif; ?>
+			</div>
+		</div>
+		<div class="col-sm-5 col-md-4 col-lg-3">
+			<div class="row">
+				<?php if ($page['top_header']): print render($page['top_header']); endif; ?>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -222,40 +286,64 @@
 	<nav id="mainNav" class="navbar navbar-inverse" data-spy="affix" data-offset-top="100">
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-3 navbar-header">
+				<div class="col-xs-3 navbar-header">
 	        <a href="<?php print $front_page;?>">
-						<img src="<?php print $base_path; ?><?php print $directory; ?>/images/logo.png" alt="<?php print $site_name;?>" height="80" width="200" />
+						<img class="hidden-xs" src="<?php print $base_path; ?><?php print $directory; ?>/images/logo.png" alt="<?php print $site_name;?>" height="80" width="200" />
+						<img class="visible-xs" src="<?php print $base_path; ?><?php print $directory; ?>/images/mobile_logo.png" alt="<?php print $site_name;?>" width="45" />
 					</a>
 	      </div>
 	      <div class="col-sm-6 header-search">
-	      	<?php if ($page['header_search']): 
-	      		print render($page['header_search']); 
-	      	endif; ?>
+	      	<div class="visible-xs col-xs-12 mobile-header-search">
+		      	<?php if ($page['header_search']): 
+		      		print render($page['header_search']); 
+		      	endif; ?>
+		      </div>
 	      </div>
-	      <div class="col-sm-2 header-login-container">
+	      <div class="col-xs-2 col-xs-offset-3 visible-xs mobile-icon">
+	      	<i class="fa fa-map-marker" class="navbar-toggle" data-toggle="collapse" data-target="#top_header_location"></i>
+	      </div>
+	      <div class="hidden-xs col-xs-2 header-login-container">
 	      	<div class="row">
 		      	<?php if ($page['header_login']): 
 		      		print render($page['header_login']); 
 		      	endif; ?>
 	      	</div>
 	      </div>
-	      <div class="col-sm-1 text-center header-cart-container">
+	      <div class="col-xs-2 col-sm-1 text-center header-cart-container">
 	      	<div class="row">
 		      	<?php if ($page['header_cart']): 
 		      		print render($page['header_cart']); 
 		      	endif; ?>
 		      </div>
 	      </div>
+	      <div class="col-xs-2 visible-xs mobile-icon">
+	      	<i class="fa fa-bars" class="navbar-toggle" data-toggle="collapse" data-target="#top_header"></i>
+	      </div>
+
+	      <div class="visible-xs">
+	      	<div class="mobile-top-header collapse navbar-collapse" id="top_header">
+						<?php if ($page['top_header']): 
+							print render($page['top_header']); 
+						endif; ?>
+						<?php if ($page['header_login']): 
+		      		print render($page['header_login']); 
+		      	endif; ?>
+
+					</div>
+	    		<div class="mobile-header-location collapse navbar-collapse" id="top_header_location">
+	    			<?php if ($page['header_location']): 
+	    				print render($page['header_location']); 
+	    			endif; ?>
+	    		</div>
+	    	</div>
 	    </div>
+	    <div class="row hidden-xs">
+				<?php if ($page['header_menu']): 
+					print render($page['header_menu']); 
+				endif; ?>
+			</div>
 		</div>
 	</nav>
-
-	<!-- Main menu goes here -->
-	<?php if ($main_menu): ?>
-		<div id="main-menu">
-			<?php print theme('links', $main_menu); ?>
-		</div>
-	<?php endif; ?>
 
 </header>
 
@@ -277,8 +365,19 @@
 					<?php endif; ?>
 					<!-- Slider ends here -->
 
+          <div class="col-xs-12 visible-xs mobile-category-section">
+            <div class="col-xs-10 mobile-menu-title">Categories</div>
+            <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-down"></span></div>
+            <div class="mobile-menu-category">
+            	<?php if ($page['header_menu']): 
+								print render($page['header_menu']); 
+							endif; ?>
+            </div>
+            <!-- <div class="mobile-sub-category"><ul></ul></div> -->
+          </div>
+
 					<!-- Store and Product Slider goes here -->
-					<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+					<div class="col-xs-12 col-sm-11 front-content-box">
 						<div class="row">
 
 							<!-- Store details goes here -->
@@ -309,20 +408,11 @@
 
 					<!-- Top Brands and Partners goes here -->
 					<?php if ($page['partners_brands']): ?> 
-					<div id="partners_brands" class="col-xs-12 col-sm-10 col-sm-offset-1">
+					<div id="partners_brands" class="col-xs-12 col-sm-11 front-content-box">
 						<?php print render($page['partners_brands']); ?>
 					</div>
 					<?php endif; ?>
 					<!-- Top Brands and Partners goes here -->
-
-					<!-- Recent blogs goes here -->
-					<?php if ($page['recent_blogs']): ?> 
-					<div id="recent_blogs" class="col-xs-12 col-sm-10 col-sm-offset-1">
-						<?php print render($page['recent_blogs']); ?>
-					</div>
-					<div class="col-xs-12 text-center read-all-button"><a href="/blog">Read All</a></div>
-					<?php endif; ?>
-					<!-- Recent blogs ends here -->
 
 					<!-- Message goes here -->
 	        <?php if ($messages):?>
@@ -393,6 +483,15 @@
 					</aside>
 					<?php endif; ?>
 	        <!-- Sidebar right ends here -->
+
+	        <!-- Recent blogs goes here -->
+					<?php if ($page['recent_blogs']): ?> 
+					<div id="recent_blogs" class="col-xs-12 col-sm-11 front-content-box">
+						<?php print render($page['recent_blogs']); ?>
+					</div>
+					<div class="col-xs-12 text-center read-all-button"><a href="/blog">Read All</a></div>
+					<?php endif; ?>
+					<!-- Recent blogs ends here -->
 
 				</div><!-- row ends here -->
 			</div><!-- container ends here -->
