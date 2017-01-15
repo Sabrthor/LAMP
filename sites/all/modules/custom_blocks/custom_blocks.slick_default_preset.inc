@@ -92,10 +92,7 @@ function custom_blocks_slick_default_presets() {
         0 => array(
           'breakpoint' => 767,
           'unslick' => FALSE,
-          'settings' => array(
-            'slidesPerRow' => 2,
-            'slidesToShow' => 2,
-          ),
+          'settings' => array(),
         ),
       ),
     ),
@@ -125,7 +122,6 @@ function custom_blocks_slick_default_presets() {
     ),
     'settings' => array(
       'asNavFor' => '',
-      'adaptiveHeight' => TRUE,
       'prevArrow' => '<button type="button" data-role="none" class="slick-prev" aria-label="Previous" tabindex="0" role="button"><i class="fa fa-chevron-left" ></i></button>',
       'nextArrow' => '<button type="button" data-role="none" class="slick-next" aria-label="Next" tabindex="0" role="button"><i class="fa fa-chevron-right" ></i></button>',
       'focusOnSelect' => FALSE,
@@ -142,10 +138,7 @@ function custom_blocks_slick_default_presets() {
         0 => array(
           'breakpoint' => 767,
           'unslick' => FALSE,
-          'settings' => array(
-            'slidesPerRow' => 2,
-            'slidesToShow' => 2,
-          ),
+          'settings' => array(),
         ),
       ),
     ),
