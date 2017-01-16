@@ -23,7 +23,7 @@ function custom_address_book_form_alter(&$form, &$form_state, $form_id) {
         $form['commerce_customer_address'][LANGUAGE_NONE][0]['street_block']['premise']['#title'] = t('Area');
         $form['commerce_customer_address'][LANGUAGE_NONE][0]['street_block']['premise']['#disabled'] = TRUE;
         $form['commerce_customer_address'][LANGUAGE_NONE][0]['street_block']['premise']['#value'] = $_SESSION['k11_current_location'];
-        $form['field_location_coordinates'][LANGUAGE_NONE][0]['value']['#default_value'] = $_SESSION['user_coordinates'];
+        $form['field_location_coordinates'][LANGUAGE_NONE][0]['value']['#default_value'] = $_SESSION['k11_user_coordinates'];
         $form['field_location_coordinates']['#access'] = FALSE;
     }
 }
