@@ -19,3 +19,29 @@ function kirana11_store_ctools_plugin_api($module = NULL, $api = NULL) {
 function kirana11_store_views_api($module = NULL, $api = NULL) {
   return array("api" => "3.0");
 }
+
+/**
+ * Implements hook_node_info().
+ */
+function kirana11_store_node_info() {
+  $items = array(
+    'platform_banners' => array(
+      'name' => t('Platform Banners'),
+      'base' => 'node_content',
+      'description' => t('Platform Banners'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+    'store_banners' => array(
+      'name' => t('Store Banners'),
+      'base' => 'node_content',
+      'description' => t('Store Banners'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+  );
+  drupal_alter('node_info', $items);
+  return $items;
+}
