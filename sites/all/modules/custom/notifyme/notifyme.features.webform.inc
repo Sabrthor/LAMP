@@ -78,15 +78,18 @@ $webforms = array();
     ),
   ),
   'webform' => array(
-    'next_serial' => 28,
-    'confirmation' => '',
-    'confirmation_format' => 'filtered_html',
-    'redirect_url' => '/thankyou',
+    'next_serial' => 35,
+    'confirmation' => '<div class="thankyou-content">
+	<h2>Thank You</h2>
+	<p>We will notify you once we start serving in your area.</p>
+</div>',
+    'confirmation_format' => 'full_html',
+    'redirect_url' => '<none>',
     'status' => 1,
     'block' => 1,
     'allow_draft' => 0,
     'auto_save' => 0,
-    'submit_notice' => 1,
+    'submit_notice' => 0,
     'confidential' => 0,
     'submit_text' => 'Notify me',
     'submit_limit' => -1,
@@ -108,6 +111,7 @@ $webforms = array();
     'preview_message_format' => 'filtered_html',
     'preview_excluded_components' => array(),
     'machine_name' => 'notify_me',
+    'webform_ajax' => 1,
     'record_exists' => TRUE,
     'roles' => array(
       0 => 1,
