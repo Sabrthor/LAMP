@@ -196,17 +196,17 @@ header .navbar-toggle{ right: 0; }
 /* header menu */
 .region-header-menu h2{ display: none; }
 .region-header-menu ul.menu{ background: #fff; width: 100%; float: left; padding: 10px; margin-top: 10px; }
-.region-header-menu ul.menu > li{ background: #f1f1f1; padding: 10px 13px; margin-right: 1%}
+.region-header-menu ul.menu > li{ background: #f1f1f1; padding: 10px 13px; margin-right: 1%; cursor: pointer;}
 .region-header-menu ul.menu > li:last-child{ margin-right: 0;  }
 .region-header-menu ul.menu > li a{ color: #666;  }
 .region-header-menu ul.menu > li > a > span.sf-sub-indicator{ display: none; }
 .region-header-menu ul.menu > li:hover{ background: #fff; }
-.region-header-menu ul.menu > li > ul{ margin: 8px 0 0;  }
 .region-header-menu .sf-sub-indicator{ height: 18px; top:8px; }
 .region-header-menu .sf-menu.sf-horizontal.sf-shadow ul, .region-header-menu .sf-menu.sf-vertical.sf-shadow ul, .region-header-menu .sf-menu.sf-navbar.sf-shadow ul ul{ padding: 0 !important; }
-.region-header-menu ul.menu > li ul{ background: #fff !important; border-radius: 0 !important; border:1px solid #ccc; }
+.region-header-menu ul.menu > li ul{ background: #fff !important; border-radius: 0 !important; border:1px solid #ccc; margin-top: -1px; }
 .region-header-menu ul.menu > li ul li{ padding: 0; }
 .region-header-menu ul.menu > li ul li:hover{ background:#346d35; color: #fff !important }
+.region-header-menu ul.menu > li ul ul{ margin-left: -3px; }
 .region-header-menu ul.menu > li ul li ul li a:hover .region-header-menu ul.menu > li ul li a{ color: #fff !important; }
 .region-header-menu ul.menu > li ul li a{ padding: 10px 10px 10px 22px;  width: 100%; float: left; }
 .region-header-menu ul.menu > li ul li a:hover{ background:#346d35; color: #fff; }
@@ -486,16 +486,16 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.overlay-popup-close{ position: absolute; margin-top: 7%; right: 8%; }
 
 	/* header menu*/
-	.mobile-category-section{ font-size: 14px; background: #fff; cursor: pointer; }
+	.mobile-category-section{ font-size: 14px; background: #fff; cursor: pointer; box-shadow: 0 0 2px #ccc; }
 	.mobile-menu-title{ padding: 10px; }
 	.mobile-category-section .glyphicon-chevron-down{ padding-top: 12px; }
 	.overlay-popup-menu{ display: none; background:rgba(0,0,0, 0.8); width: 100%; float: left; position: fixed; z-index: 999; height: 2500px; }
-	.overlay-popup-menu-container{ background: #fff;  margin-top: 20%; border-radius: 5px; }
+	.overlay-popup-menu-container{ background:#fff;  margin-top: 20%; border-radius: 5px; }
 	.overlay-popup-menu-close{ position: absolute; margin-top: 10%; right: 8%; cursor: pointer;  font-size: 24px; color: #fff; }
 	.region-header-menu ul.menu{ border-radius: 5px; }
-	.region-header-menu ul.menu > li{ font-size: 14px !important; background: #fff; width: 100%; float: left; }
-	.region-header-menu ul.menu li a{ width: 100%; }
-	.region-header-menu ul.menu li:hover{ background: #f1f1f1; }
+	.region-header-menu ul.menu > li{ font-size: 14px !important; background: #fff; width: 100%; float: left; padding: 0 10px !important; }
+	.region-header-menu ul.menu li a{ width: 100%; padding: 10px; }
+	.region-header-menu ul.menu li a:hover{ background: #356D35; color:#fff; }
 	.region-header-menu ul.menu > li ul { background: #fff !important; border-radius: 0 !important; border: 0px solid #ccc;}
 
 	/* Footer goes here */
