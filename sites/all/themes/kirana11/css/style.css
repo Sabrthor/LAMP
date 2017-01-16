@@ -169,6 +169,8 @@ ul.menu li.expanded ul { padding-left: 25px; border-top: 1px dashed #ddd; margin
 .top-header .dropdown-menu li a{ padding: 10px 20px; font-size: 12px; }
 .top-header .dropdown-menu .divider{ margin: 0; }
 .region-top-header ul{ padding:10px 0; }
+.region-header-location{ padding: 8px 0; }
+.region-header-location i{ padding: 0 20px; }
 .header-location{ background: #fff; display: inline-block; padding: 13px; text-align: center;}
 
 /* Header goes here */
@@ -329,7 +331,7 @@ footer h2{ font-size: 14px; color: #666666; text-align:left; font-weight: 700; }
 .find-location-container form .form-actions input{ margin: 0 0 5px 0; padding: 10px 40px; color: #fff !important; }
 .confirm-parent, .password-parent { width: auto; }
 .landing-page form{ position: relative;}
-.otp-send-button{ position: absolute; bottom: 140px; right: 27%; color: #fff !important; padding: 6px !important; font-size: 14px !important; }
+.otp-send-button{ position: absolute; bottom: 134px; right: 27%; color: #fff !important; padding: 6px !important; font-size: 14px !important; }
 .landing-page form#user-register-form .ajax-progress{ display: block; }
 .landing-page form#user-register-form .ajax-progress .throbber{ position: absolute; right:25%; bottom: 133px; }
 input[type="text"]#edit-detect-my-location, div#edit-detect-my-location{ background: #356635; color: #fff; cursor: pointer; text-align: center; margin: 0 auto; padding: 10px 20px; border-radius: 5px; font-size: 15px; width: 80%; }
@@ -339,7 +341,7 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 .display-location-container p{ margin: 0; }
 .display-location-container p a{ text-decoration: underline; color: #666666;}
 .display-location-container h3{ color: #356D35; padding:5px 0; font-weight: 700; }
-.display-location-box{ background: #fff; padding: 10px; border-radius: 10px; margin: 0 auto 20px; width: 70%; }
+.display-location-box{ background: #fff; padding: 10px; border-radius: 10px; margin: 0 auto 20px; width: 85%; }
 .display-text-box{ margin: 0 auto; }
 .landing-page .error-text-location{ display: none; }
 .landing-page .error-text-location-p{ text-align: center; font-size: 13px; color: #D8000C; }
@@ -365,12 +367,11 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 .user-delivery-address h4{ background: #fff; margin: 0; padding: 20px 0 10px;  }
 .region-nodify-form{ width: 80%; margin: 0 10% 20px; float: left; background: #fff; border-radius: 10px; padding-bottom: 10px; }
 .region-nodify-form input{ border:1px solid #eeeff0 !important; padding:10px !important; }
-.region-nodify-form h2{ display: none; }
+.region-nodify-form h2, .region-nodify-form .links{ display: none; }
 .region-nodify-form h3{ font-size: 24px !important; padding:15px 0; }
-.region-nodify-form p{ margin: 0 15%; }
+.region-nodify-form p{ margin: 0 12%; }
 .region-nodify-form  .webform-component-boolean input{ position: absolute; left: 25%; width: 10px; }
 .region-nodify-form  .webform-component-boolean .description{ margin-left: 30%; text-align: left; display: block !important;  }
-.page-user-register .display-location-box i, .page-user-register .display-location-box a{ display: none; }
 .notify-signup-link a{ font-weight: 700; font-size: 16px; }
 
 .landing-banner-section{ position: relative; }
@@ -382,7 +383,9 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 .landing-page iframe{ margin: 20px 0 }
 .landing-page .region-recent-blogs h2{ margin: 20px !important; }
 .thankyou-content{ background: #fff; width: 100%; float: left; padding:32% 0; margin: 5% 0 0; }
-
+.thankyou-content h2{ display: block;}
+}
+ 
 /* Blog */
 .page-blog .node-teaser{ padding-bottom: 20px; border-bottom:1px solid #ccc; }
 
@@ -402,7 +405,7 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.node-type-thankyou .landing-banner{ bottom: -100px; }
 	.node-type-thankyou .landing-banner{ bottom: -150px; }
 	.node-type-thankyou .landing-page .footer p{ margin: 13% 0 3%; }
-	.otp-send-button{ right:0px; bottom: 144px; }
+	.otp-send-button{ right:0px; bottom: 135px; }
 	.region-nodify-form input { width: 95%; }
 	.region.region-header-login i, .region.region-header-login ul li a { font-size: 13px;}
 }
@@ -454,7 +457,7 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	header .navbar i { font-size: 24px !important; }
 	.mobile-call-section{ padding:16px 16px 8px; }
 	.mobile-top-header, .mobile-header-location{  background: #f0efef; position: relative; display: none; }
-	.mobile-top-header li span{ width: 80%; float: right; }
+	.mobile-top-header li span{ width: 40%; float: right; margin-right: 40%; }
 	.mobile-top-header li span strong{ border-top:1px solid ; display: block; }
 	.mobile-top-header li i{ padding-top: 10px; }
 	.region-top-header li{ padding: 0 20px; }

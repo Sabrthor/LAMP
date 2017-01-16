@@ -70,4 +70,13 @@
   	}
   }
 
+  Drupal.behaviors.kirana11LandingThankyou = {
+  	attach: function (context) {
+  		$(document).ready(function(){
+	    	$(".thankyou-content").parents(".landing-content-section").children("h2").hide();
+	    	$(".user-info-from-cookie").parents(".find-location-container").find(".display-location-box p > i, .display-location-box p > a").hide();
+	    });
+  	}
+  }
+
 })(jQuery);
