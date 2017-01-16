@@ -1,8 +1,10 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the Kirana11 Store feature.
  */
+
+include_once 'kirana11_store.features.inc';
 
 function kirana11_store_menu(){
     $items = array();
