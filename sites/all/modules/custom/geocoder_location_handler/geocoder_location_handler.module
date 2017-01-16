@@ -82,7 +82,7 @@ function geocoder_location_handler_form_alter(&$form, &$form_state, $form_id) {
       $form['submitted']['user_location']['#value'] = $_SESSION['k11_current_location'];   
     }
     
-    if (isset($_SESSION['user_coordinates'])) {
+    if (isset($_SESSION['k11_user_coordinates'])) {
       $form['submitted']['user_coordinates']['#value'] = $_SESSION['k11_user_coordinates'];   
     }    
   }
