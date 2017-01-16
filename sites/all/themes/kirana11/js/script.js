@@ -65,7 +65,11 @@
   	attach: function (context) {
   		/* mobile Category Menu */
 	    $(".mobile-category-section").once().click(function(){
-	       $(".mobile-menu-category").slideToggle(300);
+	       $(".overlay-popup-menu").show();
+	       $(".overlay-popup-container-menu").show();
+	    });
+	    $(".overlay-popup-menu-close").once().click(function(){
+	      $(".overlay-popup-menu").hide();
 	    });
   	}
   }
@@ -75,6 +79,18 @@
   		$(document).ready(function(){
 	    	$(".thankyou-content").parents(".landing-content-section").children("h2").hide();
 	    	$(".user-info-from-cookie").parents(".find-location-container").find(".display-location-box p > i, .display-location-box p > a").hide();
+	    });
+  	}
+  }
+
+  Drupal.behaviors.kirana11OverlayHeaderLocation = {
+  	attach: function (context) {
+	    $(".region-header-location").once().click(function(){
+	      $(".overlay-popup").show();
+	      $(".overlay-popup-container").show();
+	    });
+	    $(".overlay-popup-close").once().click(function(){
+	      $(".overlay-popup").hide();
 	    });
   	}
   }

@@ -265,6 +265,45 @@
 <div id="toTop"><span class="glyphicon glyphicon-arrow-up"></span></div>
 <?php endif; ?>
 
+	<!-- Overlay location display -->
+<div class="overlay-popup">
+	<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 overlay-popup-container">
+	  <?php
+			$block = module_invoke('commerce_marketplace_kirana11_cart', 'block_view', 'check_location_change');
+
+			//if ($block['content'] == 'NO_LOCATION_CHANGE') {				
+				//$block = module_invoke('geocoder_location_handler', 'block_view', 'find_or_select_location');
+			//} 
+			
+			if ($block['content'] != 'NO_LOCATION_CHANGE') {				
+				print render($block['content']);		
+			} else {
+				
+			}
+							
+	  ?>
+	</div>
+	<div class="col-xs-1 overlay-popup-close">
+		<i class="fa fa-times-circle-o" aria-hidden="true"></i>
+	</div>
+</div>
+
+	<!-- Overlay mobile menu display -->
+<div class="visible-xs">
+	<div class="overlay-popup-menu">
+		<div class="col-xs-10 col-xs-offset-1 overlay-popup-menu-container">
+			<div class="row">
+		  	<?php if ($page['header_menu']): 
+					print render($page['header_menu']); 
+				endif; ?>
+			</div>
+	  </div>
+	  <div class="col-xs-1 overlay-popup-menu-close">
+			<i class="fa fa-times-circle-o" aria-hidden="true"></i>
+		</div>
+	</div>
+</div>
+
 <!-- Top Header goes here -->
 <div class="hidden-xs top-header">
 	<div class="container">
@@ -368,11 +407,6 @@
           <div class="col-xs-12 visible-xs mobile-category-section">
             <div class="col-xs-10 mobile-menu-title">Categories</div>
             <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-down"></span></div>
-            <div class="mobile-menu-category">
-            	<?php if ($page['header_menu']): 
-								print render($page['header_menu']); 
-							endif; ?>
-            </div>
             <!-- <div class="mobile-sub-category"><ul></ul></div> -->
           </div>
 
