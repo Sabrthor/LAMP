@@ -23,7 +23,7 @@ function geocoder_location_handler_get_stores_by_coordinate($latitude, $longitud
 
   $pointLocation = new pointLocation();
   $userLocation = "$longitude $latitude";
-  $_SESSION['user_coordinates'] = "$longitude $latitude";
+  $_SESSION['k11_user_coordinates'] = "$longitude $latitude";
   $local_store_ids = [];
   
   foreach ($stores as $store) {    

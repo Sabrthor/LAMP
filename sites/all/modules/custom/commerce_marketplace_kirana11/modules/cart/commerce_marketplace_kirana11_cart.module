@@ -1,0 +1,45 @@
+<?php
+/**
+ * Implements hook_block_info().
+ */
+function commerce_marketplace_kirana11_cart_block_info() {
+  $blocks = [];
+
+  $blocks['check_location_change'] = array(
+    'info' => t('Check location change with non-empty cart'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function commerce_marketplace_kirana11_cart_block_view($delta = '') {
+  $block = [];
+
+  switch ($delta) {
+    case 'check_location_change':
+        $block['content'] = commerce_marketplace_kirana11_cart_block_content();
+    break;
+  }
+
+  return $block;
+}
+
+function commerce_marketplace_kirana11_cart_block_content() {
+  global $user;
+  $html_location_change = '';
+
+  $user_order_in_cart = commerce_cart_order_load($user->uid);
+  
+
+  if ($user_order_in_cart) {
+    $html_location_change = '<div>';
+    $html_location_change .= 'You have cart item(s). Change location will empty the current cart.';
+    $html_location_change .= '</div>';
+  }
+
+  return $html_location_change;
+}
