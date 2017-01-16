@@ -586,15 +586,186 @@ function kirana11_store_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-platform_banners-field_banner'.
+  $field_instances['node-platform_banners-field_banner'] = array(
+    'bundle' => 'platform_banners',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'linkimagefield',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'linkimagefield',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_banner',
+    'label' => 'Banner',
+    'required' => 1,
+    'settings' => array(
+      'alt_field' => 0,
+      'class_field' => 0,
+      'custom_target' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'longdesc_field' => 0,
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'rel_field' => 0,
+      'target' => '_self',
+      'title_field' => 0,
+      'url' => '',
+      'url_settings' => array(
+        'class_field' => 1,
+        'custom_target' => 0,
+        'rel_field' => 1,
+        'target' => '_self',
+        'url' => '',
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'linkimagefield',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'linkimagefield_widget',
+      'weight' => -4,
+    ),
+  );
+
+  // Exported field_instance: 'node-store_banners-commerce_store'.
+  $field_instances['node-store_banners-commerce_store'] = array(
+    'bundle' => 'store_banners',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'commerce_store',
+    'label' => 'Store',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => -1,
+    ),
+  );
+
+  // Exported field_instance: 'node-store_banners-field_banner'.
+  $field_instances['node-store_banners-field_banner'] = array(
+    'bundle' => 'store_banners',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'linkimagefield',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'linkimagefield',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_banner',
+    'label' => 'Banner',
+    'required' => 1,
+    'settings' => array(
+      'alt_field' => 0,
+      'class_field' => 0,
+      'custom_target' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'longdesc_field' => 0,
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'rel_field' => 0,
+      'target' => '_self',
+      'title_field' => 0,
+      'url' => '',
+      'url_settings' => array(
+        'class_field' => 0,
+        'custom_target' => 0,
+        'rel_field' => 0,
+        'target' => '_self',
+        'url' => '',
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'linkimagefield',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'linkimagefield_widget',
+      'weight' => -3,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Address');
   t('Bank Account Number');
+  t('Banner');
   t('Delivery Slots');
   t('IFSC Code');
   t('Merchant Alternative Number');
   t('PAN Number');
   t('Publish Date');
+  t('Store');
   t('Store Logo');
   t('Store Open Hours');
   t('TIN Number');
