@@ -79,14 +79,19 @@
                 $block = module_invoke('geocoder_location_handler', 'block_view', 'find_or_select_location');
                 print render($block['content']);
               ?>
-              <div class="user-delivery-address">
-                 <?php
-                  global $user;
-                  if($user->uid):
+
+              <?php
+                global $user;
+                if($user->uid):
+                  $user_addressbook = views_embed_view('user_addressbook', 'block_1');
+                  if(!empty($user_addressbook)):
+                    print '<div class="user-delivery-address">';
                     print "<h4>Select your delivery address</h4>";
-                    print views_embed_view('user_addressbook', 'block_1');
-                  endif;?>
-             </div>
+                    print $user_addressbook;
+                    print '</div>';
+                  endif;
+                endif;
+              ?>
             </div>
             
             <div class="bottom-login-container">
