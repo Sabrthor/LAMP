@@ -422,6 +422,7 @@
 							<!-- Best Deals details goes here -->
 								<div class="col-xs-12 col-sm-8">
 									<div class="row">
+                                        <h2><?php print "Best Deals from ".$_SESSION['k11_current_location'];?></h2>
 										<div class="product_slider">
 											<?php if ($page['product_slider']):?>
 		                  <?php print render($page['product_slider']); ?>
