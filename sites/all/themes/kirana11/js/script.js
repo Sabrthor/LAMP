@@ -5,7 +5,7 @@
       $(document).ready(function(){
         $(window).scroll(function() {
           if($(this).scrollTop() != 0) {
-            $("#toTop").fadeIn(); 
+            $("#toTop").fadeIn();
           } else {
             $("#toTop").fadeOut();
           }
@@ -41,7 +41,7 @@
         centerPadding: 0
       });
 
-      
+
     }
   };*/
   Drupal.behaviors.kirana11DropdownMenu = {
@@ -50,7 +50,7 @@
       $('.navbar').on('show.bs.collapse', function () {
           var actives = $(this).find('.collapse.in'),
               hasData;
-          
+
           if (actives && actives.length) {
               hasData = actives.data('collapse')
               if (hasData && hasData.transitioning) return
@@ -96,23 +96,6 @@
       });
       $(".overlay-popup-close").once().click(function(){
         $(".overlay-popup").hide();
-      });
-    }
-  }
-
-  Drupal.behaviors.emptyCartAndChangeLocation = {
-    attach: function (context) {
-      $(".not-empty-location input").once().click(function(){
-        var clickedId = this.id;
-        console.log(clickedId);
-        if(clickedId != "click-yes") {
-          console.log("Clicked No goes here");
-          $(".overlay-popup").hide();
-        }else {
-          console.log("Clicked Yes goes here");
-          $(".find-change-location").show();
-          $(".not-empty-location").hide();
-        }
       });
     }
   }

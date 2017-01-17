@@ -1,5 +1,12 @@
 <?php
 /**
+ * Implements hook_init().
+ */
+function commerce_marketplace_kirana11_cart_init() {
+  drupal_add_js(drupal_get_path('module', 'commerce_marketplace_kirana11_cart') . '/js/script.js');
+}
+
+/**
  * Implements hook_block_info().
  */
 function commerce_marketplace_kirana11_cart_block_info() {
@@ -72,4 +79,5 @@ function commerce_marketplace_kirana11_cart_empty_cart_order() {
     }
   }
 
+  return drupal_json_output('CART_EMPTY');
 }
