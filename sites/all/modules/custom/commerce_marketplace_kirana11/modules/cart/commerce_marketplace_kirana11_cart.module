@@ -43,3 +43,33 @@ function commerce_marketplace_kirana11_cart_block_content() {
 
   return $html_location_change;
 }
+
+/**
+ * Implements hook_menu().
+ */
+function commerce_marketplace_kirana11_cart_menu() {
+  $items = array();
+
+  $items['empty_cart_orders'] = array(
+    'title' => t('Empty the cart orders'),
+    'page callback' => 'commerce_marketplace_kirana11_cart_empty_cart_order',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Remove all the orders (from each store) in the cart for the current logged in user.
+ */
+function commerce_marketplace_kirana11_cart_empty_cart_order() {
+  global $user;
+
+  if ($orders = commerce_marketplace_cart_order_load_multiple($user->uid)) {
+    foreach ($orders as $order) {
+      commerce_cart_order_empty($order);
+    }
+  }
+
+}
