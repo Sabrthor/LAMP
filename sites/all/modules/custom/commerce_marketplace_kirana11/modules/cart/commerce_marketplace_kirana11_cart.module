@@ -30,14 +30,14 @@ function commerce_marketplace_kirana11_cart_block_view($delta = '') {
 
 function commerce_marketplace_kirana11_cart_block_content() {
   global $user;
-  $html_location_change = 'NO_LOCATION_CHANGE';
+  $html_location_change = 'EMPTY_CART';
 
   $user_order_in_cart = commerce_cart_order_load($user->uid);
   
   if ($user_order_in_cart) {
-    $html_location_change = '<div>';
+    $html_location_change = '<div class="not-empty-location">';
     $html_location_change .= 'You have cart item(s). Change location will empty the current cart. Do you want to continue?';
-    $html_location_change .= '<br/><input type="button" value="No" /> <input type="button" value="Yes" />';
+    $html_location_change .= '<br/><input type="button" id="click-no" class="click-no" value="No" /> <input type="button" id="click-yes" class="click-yes" value="Yes" />';
     $html_location_change .= '</div>';
   }
 
