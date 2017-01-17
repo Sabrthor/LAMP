@@ -199,7 +199,7 @@ header .navbar-toggle{ right: 0; }
 .region-header-menu ul.menu{ background: #fff; width: 100%; float: left; padding: 10px; margin-top: 10px; }
 .region-header-menu ul.menu > li{ background: #f1f1f1; padding: 10px 13px; margin-right: 1%; cursor: pointer;}
 .region-header-menu ul.menu > li:last-child{ margin-right: 0;  }
-.region-header-menu ul.menu > li a{ color: #666 !important;  }
+.region-header-menu ul.menu > li a{ color: #666;  }
 .region-header-menu ul.menu > li > a > span.sf-sub-indicator{ display: none; }
 .region-header-menu ul.menu > li:hover{ background: #fff; }
 .region-header-menu .sf-sub-indicator{ height: 18px; top:8px; }
@@ -209,9 +209,9 @@ header .navbar-toggle{ right: 0; }
 .region-header-menu ul.menu > li ul li{ padding: 0;}
 .region-header-menu ul.menu > li ul li:hover{ background:#346d35; color: #fff !important; }
 .region-header-menu ul.menu > li ul li a:hover{ background:#346d35; color: #fff !important; }
-.region-header-menu ul.menu li ul li ul li a:hover ~ .region-header-menu ul.menu li ul li a{ font-size:24px; color: #fff !important; }
 .region-header-menu ul.menu > li ul li a{ padding: 10px 10px 10px 13px;  width: 100%; float: left; }
 .region-header-menu ul.menu > li ul li a:hover{ background:#346d35; color: #fff; }
+.region-header-menu-o{ color: #fff !important; display: none; }
 
 
 /* Banner goes here */
@@ -337,7 +337,7 @@ footer h2{ font-size: 14px; color: #666666; text-align:left; font-weight: 700; }
 .find-location-container form .form-actions input{ margin: 0 0 5px 0; padding: 10px 40px; color: #fff !important; }
 .confirm-parent, .password-parent { width: auto; }
 .landing-page form{ position: relative;}
-.otp-send-button{ position: absolute; bottom: 134px; right: 27%; color: #fff !important; padding: 6px !important; font-size: 14px !important; }
+.otp-send-button{ position: absolute; bottom: 134px; right: 20%; color: #fff !important; padding: 6px !important; font-size: 14px !important; }
 .landing-page form#user-register-form .ajax-progress{ display: block; }
 .landing-page form#user-register-form .ajax-progress .throbber{ position: absolute; right:25%; bottom: 133px; }
 input[type="text"]#edit-detect-my-location, div#edit-detect-my-location{ background: #356635; color: #fff; cursor: pointer; text-align: center; margin: 0 auto; padding: 10px 20px; border-radius: 5px; font-size: 15px; width: 80%; }
@@ -416,9 +416,11 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.otp-send-button{ right:0px; bottom: 135px; }
 	.region-nodify-form input { width: 95%; }
 	.region.region-header-login i, .region.region-header-login ul li a { font-size: 13px;}
+	.region-nodify-form  .webform-component-boolean input{ position: absolute; left: 5%; width: 10px; }
+	.region-nodify-form  .webform-component-boolean .description{ margin-left: 10%; text-align: left; display: block !important;  }
 }
 @media (min-width: 992px) {
-	.landing-page form input[type="text"], .landing-page form input[type="email"], .landing-page form input[type="password"], .find-location-container p.regiter-terms, #edit-detect-my-location, .landing-page input[type="text"], .display-text-box{ width:50%; }
+	.landing-page form input[type="text"], .landing-page form input[type="email"], .landing-page form input[type="password"], .find-location-container p.regiter-terms, #edit-detect-my-location, .landing-page input[type="text"], .display-text-box{ width:65%; }
 	.landing-page .message-outer, .landing-page .error-text-location{ width: 50%; margin: 0 auto; }
 }
 @media (min-width: 768px) and (max-width: 979px) {

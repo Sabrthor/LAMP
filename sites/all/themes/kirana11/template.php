@@ -107,8 +107,8 @@ function kirana11_form_alter( &$form, &$form_state, $form_id )
     {
         $form['account']['name']['#attributes']['placeholder'] = t( 'Mobile Number *' );
         $form['account']['mail']['#attributes']['placeholder'] = t( 'Email *' );
-        $form['field_user_name']['#attributes']['placeholder'] = t( 'Name *' );
-         $form['account']['pass']['#process'] = array('form_process_password_confirm', 'register_alter_password_confirm');
+        $form['field_user_name']['und'][0]['value']['#attributes']['placeholder'] = t( 'Name *' );
+        $form['account']['pass']['#process'] = array('form_process_password_confirm', 'register_alter_password_confirm');
     }
     if (in_array( $form_id, array( 'user_pass')))
     {
