@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Kirana11 Products feature.
+ */
+
+include_once 'kirana11_products.features.inc';
