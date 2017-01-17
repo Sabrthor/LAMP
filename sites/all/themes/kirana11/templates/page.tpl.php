@@ -132,23 +132,22 @@
 					<h2><strong>Oops!</strong> we're not there yet</h2>
 
 					<!-- Message goes here -->
-	        <?php if ($messages): ?>
-	        <div id="messages-console" class="clearfix">
-	          <div class="row">
-	            <div class="message-outer">
-	              <?php print $messages; ?>
-	            </div>
-	          </div>
-	        </div>
-	        <?php endif; ?>
-	        <!-- Message ends here -->
+			        <?php if ($messages): ?>
+			        <div id="messages-console" class="clearfix">
+			          <div class="row">
+			            <div class="message-outer">
+			              <?php print $messages; ?>
+			            </div>
+			          </div>
+			        </div>
+			        <?php endif; ?>
+			        <!-- Message ends here -->
 
 					<div class="find-location-container">
 						<?php
-
 							/* Display location goes here */
 							$landing_session = block_get_blocks_by_region('landing_session');
-        			print render($landing_session);
+        					print render($landing_session);
 							/* Display location ends here */
 							/* Notify form goes here */
 
@@ -156,11 +155,7 @@
 								print render($page['nodify_form']); 
 							endif;
 							/* Notify form ends here */
-
 						?>
-					</div>
-					<div class="bottom-login-container">
-							<p>Already registered? <a href="<?php print $base_path; ?>user/login">Sign in</a></p>
 					</div>
 				</section>
 				<div class="col-xs-12">
