@@ -169,8 +169,9 @@ ul.menu li.expanded ul { padding-left: 25px; border-top: 1px dashed #ddd; margin
 .top-header .dropdown-menu li a{ padding: 10px 20px; font-size: 12px; }
 .top-header .dropdown-menu .divider{ margin: 0; }
 .region-top-header ul{ padding:10px 0; }
-.region-header-location{ padding: 8px 0; cursor: pointer; }
+.region-header-location{ padding: 8px 0; cursor: pointer; text-align: left; }
 .region-header-location i{ padding: 0 20px; }
+.region-header-location i.fa-chevron-down{ position: absolute; right: 0; }
 .header-location{ background: #fff; display: inline-block; padding: 13px; text-align: center;}
 .overlay-popup{ display: none; background:rgba(0,0,0, 0.8); width: 100%; float: left; position: fixed; z-index: 999; height: 2500px; }
 .overlay-popup-container{ background: #fff; padding: 15px; margin-top: 5%; border-radius: 5px; }
@@ -198,17 +199,18 @@ header .navbar-toggle{ right: 0; }
 .region-header-menu ul.menu{ background: #fff; width: 100%; float: left; padding: 10px; margin-top: 10px; }
 .region-header-menu ul.menu > li{ background: #f1f1f1; padding: 10px 13px; margin-right: 1%; cursor: pointer;}
 .region-header-menu ul.menu > li:last-child{ margin-right: 0;  }
-.region-header-menu ul.menu > li a{ color: #666;  }
+.region-header-menu ul.menu > li a{ color: #666 !important;  }
 .region-header-menu ul.menu > li > a > span.sf-sub-indicator{ display: none; }
 .region-header-menu ul.menu > li:hover{ background: #fff; }
 .region-header-menu .sf-sub-indicator{ height: 18px; top:8px; }
 .region-header-menu .sf-menu.sf-horizontal.sf-shadow ul, .region-header-menu .sf-menu.sf-vertical.sf-shadow ul, .region-header-menu .sf-menu.sf-navbar.sf-shadow ul ul{ padding: 0 !important; }
-.region-header-menu ul.menu > li ul{ background: #fff !important; border-radius: 0 !important; border:1px solid #ccc; margin-top: -1px; }
-.region-header-menu ul.menu > li ul li{ padding: 0; }
-.region-header-menu ul.menu > li ul li:hover{ background:#346d35; color: #fff !important }
-.region-header-menu ul.menu > li ul ul{ margin-left: -3px; }
-.region-header-menu ul.menu > li ul li ul li a:hover .region-header-menu ul.menu > li ul li a{ color: #fff !important; }
-.region-header-menu ul.menu > li ul li a{ padding: 10px 10px 10px 22px;  width: 100%; float: left; }
+.region-header-menu ul.menu > li ul{ background: #fff !important; border-radius: 0 !important; box-shadow: 8px 8px 8px -4px #ccc, -8px 8px 8px -4px #ccc; border:0px solid #ccc; margin-top: -1px; }
+.region-header-menu ul.menu > li ul li ul{ box-shadow: none; margin-top: 0px;  }
+.region-header-menu ul.menu > li ul li{ padding: 0;}
+.region-header-menu ul.menu > li ul li:hover{ background:#346d35; color: #fff !important; }
+.region-header-menu ul.menu > li ul li a:hover{ background:#346d35; color: #fff !important; }
+.region-header-menu ul.menu li ul li ul li a:hover ~ .region-header-menu ul.menu li ul li a{ font-size:24px; color: #fff !important; }
+.region-header-menu ul.menu > li ul li a{ padding: 10px 10px 10px 13px;  width: 100%; float: left; }
 .region-header-menu ul.menu > li ul li a:hover{ background:#346d35; color: #fff; }
 
 
@@ -481,7 +483,6 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.region-header-login ul li a span{ width: 100%; }
 	.navbar .fa-bars, .navbar .fa-map-marker{ cursor: pointer; }
 	.region-header-location i{ font-size: 14px !important; }
-	.region-header-location i.fa-chevron-down{ position: absolute; right: 0; }
 	.overlay-popup-container{ margin-top: 20%; }
 	.overlay-popup-close{ position: absolute; margin-top: 7%; right: 8%; }
 

@@ -19,7 +19,7 @@ function kirana11_otp_form_alter(&$form, &$form_state, $form_id) {
         '#type' => 'button',
         '#value' => t('Send OTP'),
         '#submit' => array('poll_more_choices_submit'), // If no javascript action.
-        '#weight' => -2,
+        '#weight' => 3,
         '#ajax' => array(
           'callback' => 'kirana11_otp_send_otp_callback',
         ),
@@ -30,6 +30,7 @@ function kirana11_otp_form_alter(&$form, &$form_state, $form_id) {
         '#type' => 'textfield',
         '#title' => t('OTP'),
         '#size' => 15,
+        '#weight' => 3,
         '#maxlength' => 15,
         '#required' => TRUE,
         '#attributes' => array(
