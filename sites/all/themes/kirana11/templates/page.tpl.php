@@ -267,7 +267,7 @@
 
   <!-- Overlay location display -->
 <div class="overlay-popup">
-  <div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 overlay-popup-container">
+  <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 overlay-popup-container">
     <?php
       $block = module_invoke('commerce_marketplace_kirana11_cart', 'block_view', 'check_location_change');
       

@@ -2,7 +2,7 @@
   Drupal.behaviors.findLocation = {
     attach: function (context) {
       $("#edit-detect-my-location").once().click(function() {
-        console.log('First button');
+        $("#edit-detect-my-location").html("Loding.....");
         var timeoutVal = 10 * 1000 * 1000;
 
         if(!!navigator.geolocation) {
@@ -10,8 +10,6 @@
           navigator.geolocation.getCurrentPosition(function(position) {
             var geocoder = new google.maps.Geocoder();
             var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-            console.log(position.coords.latitude + ', ' + position.coords.longitude);
 
             geocoder.geocode({'latLng': geolocate}, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
@@ -22,7 +20,6 @@
 
                 $.post('/set_current_location/' + address, function(result) {
                   if (result) {
-                    console.log('Current location set in session: ' + localStorage.getItem('current_location'));
                     $.get('/get_stores_by_coordinate/' + position.coords.latitude + '/' + position.coords.longitude, function( result ) {
                   
                       // Redirect to homepage if store(s) available.
@@ -33,7 +30,6 @@
                          } else {
                           if(result != 'NO_STORES') {
                             $(".error-text-location").hide();
-                            console.log("it will goes to home page");
                             window.location.href = '/';
                           } else {
                             window.location.href = '/';
@@ -94,7 +90,6 @@
 
                 $.post('/set_current_location/' + address, function(result) {
                   if (result) {
-                    console.log('Current location set in session: ' + localStorage.getItem('current_location'));
                     $.get('/get_stores_by_coordinate/' + place.geometry['location'].lat() + '/' + place.geometry['location'].lng(), function( result ) {
 
                       // Redirect to homepage if store(s) available.
@@ -105,7 +100,6 @@
                         } else {
                           if(result != 'NO_STORES'){
                             $(".error-text-location").hide();
-                            console.log("it will goes to home page");
                             window.location.href = '/';
                           } else {
                             window.location.href = '/';
