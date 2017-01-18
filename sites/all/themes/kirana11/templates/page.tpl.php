@@ -289,19 +289,23 @@
   </div>
 </div>
 
-  <!-- Overlay mobile menu display -->
+<!-- Overlay mobile menu display -->
 <div class="visible-xs">
   <div class="overlay-popup-menu">
     <div class="col-xs-10 col-xs-offset-1 overlay-popup-menu-container">
       <div class="row">
+        <div class="overlay-popup-menu-title">
+          <h2>Categories</h2>
+          <div class="col-xs-1 overlay-popup-menu-close">
+            <span class="glyphicon glyphicon-remove-circle"></span>
+          </div>
+        </div>
         <?php if ($page['header_menu']): 
           print render($page['header_menu']); 
         endif; ?>
       </div>
     </div>
-    <div class="col-xs-1 overlay-popup-menu-close">
-      <i class="fa fa-times-circle-o" aria-hidden="true"></i>
-    </div>
+    
   </div>
 </div>
 

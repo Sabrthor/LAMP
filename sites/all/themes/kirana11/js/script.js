@@ -100,4 +100,12 @@
     }
   }
 
+  Drupal.behaviors.kirana11ChangeMainCategoryHref = {
+    attach: function (context) {
+      $(document).ready(function(){
+        $(".region-header-menu ul.menu > li > a").attr("href", "javascript:")
+      });
+    }
+  }
+
 })(jQuery);
