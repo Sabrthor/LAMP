@@ -59,7 +59,7 @@
           }
       });
       $(".region-header-menu ul.menu li ul li ul li a").once().hover(function(){
-          $(this).parents("ul").prev("a.active").toggleClass("region-header-menu-o");
+          $(this).parents("ul").prev("li.sf-depth-2 a").toggleClass("region-header-menu-o");
         });
     }
   };
