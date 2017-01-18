@@ -289,7 +289,7 @@
   </div>
 </div>
 
-<!-- Overlay mobile menu display -->
+  <!-- Overlay mobile menu display -->
 <div class="visible-xs">
   <div class="overlay-popup-menu">
     <div class="col-xs-10 col-xs-offset-1 overlay-popup-menu-container">
@@ -337,6 +337,7 @@
           </a>
         </div>
         <div class="col-sm-6 header-search">
+        	<i class="fa fa-search pull-right" ></i>
           <div class="visible-xs col-xs-12 mobile-header-search">
             <?php if ($page['header_search']): 
               print render($page['header_search']); 
