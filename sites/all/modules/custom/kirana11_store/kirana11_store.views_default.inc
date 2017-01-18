@@ -159,6 +159,8 @@ function kirana11_store_views_default_views() {
   $handler->display->display_options['fields']['field_store_logo']['table'] = 'field_data_field_store_logo';
   $handler->display->display_options['fields']['field_store_logo']['field'] = 'field_store_logo';
   $handler->display->display_options['fields']['field_store_logo']['label'] = '';
+  $handler->display->display_options['fields']['field_store_logo']['element_type'] = 'div';
+  $handler->display->display_options['fields']['field_store_logo']['element_class'] = 'store-slider-logo';
   $handler->display->display_options['fields']['field_store_logo']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_store_logo']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_store_logo']['settings'] = array(
@@ -170,6 +172,7 @@ function kirana11_store_views_default_views() {
   $handler->display->display_options['fields']['title']['table'] = 'commerce_store';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['element_type'] = 'h3';
   $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title']['link_to_store'] = 0;
   /* Field: Commerce Store: Address */
@@ -194,6 +197,7 @@ function kirana11_store_views_default_views() {
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
   $handler->display->display_options['fields']['nothing']['alter']['path'] = 'store/[store_id]';
   $handler->display->display_options['fields']['nothing']['element_type'] = 'div';
+  $handler->display->display_options['fields']['nothing']['element_class'] = 'shop-now-button';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['nothing']['element_default_classes'] = FALSE;
   /* Contextual filter: Commerce Store: Store ID */
