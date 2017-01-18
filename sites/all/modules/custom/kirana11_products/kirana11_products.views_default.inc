@@ -34,7 +34,7 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['style_options']['slide_field_wrapper'] = 0;
   $handler->display->display_options['style_options']['cache'] = '';
   $handler->display->display_options['style_options']['mousewheel'] = 0;
-  $handler->display->display_options['style_options']['optionset'] = 'store_details';
+  $handler->display->display_options['style_options']['optionset'] = 'deals_slider';
   $handler->display->display_options['style_options']['override'] = 0;
   $handler->display->display_options['style_options']['overridables'] = array(
     'arrows' => 0,
@@ -49,6 +49,7 @@ function kirana11_products_views_default_views() {
     'field_commerce_saleprice' => 0,
     'title_1' => 0,
     'add_to_cart_form' => 0,
+    'nothing' => 0,
   );
   $handler->display->display_options['style_options']['slide_overlay'] = '';
   $handler->display->display_options['style_options']['preserve_keys'] = 0;
@@ -69,10 +70,12 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
   $handler->display->display_options['fields']['field_image']['relationship'] = 'field_product_product_id';
   $handler->display->display_options['fields']['field_image']['label'] = '';
+  $handler->display->display_options['fields']['field_image']['element_type'] = 'div';
+  $handler->display->display_options['fields']['field_image']['element_class'] = 'product-deals-img';
   $handler->display->display_options['fields']['field_image']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_image']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_image']['settings'] = array(
-    'image_style' => 'thumbnail',
+    'image_style' => 'medium',
     'image_link' => '',
   );
   $handler->display->display_options['fields']['field_image']['delta_offset'] = '0';
@@ -83,12 +86,18 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_type'] = 'h3';
+  $handler->display->display_options['fields']['title']['element_class'] = 'product-title';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
   /* Field: Commerce Product: Price */
   $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
   $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
   $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
   $handler->display->display_options['fields']['commerce_price']['relationship'] = 'field_product_product_id';
   $handler->display->display_options['fields']['commerce_price']['label'] = '';
+  $handler->display->display_options['fields']['commerce_price']['element_type'] = 'div';
+  $handler->display->display_options['fields']['commerce_price']['element_class'] = 'product-price';
   $handler->display->display_options['fields']['commerce_price']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
   $handler->display->display_options['fields']['commerce_price']['settings'] = array(
@@ -100,6 +109,8 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['fields']['field_commerce_saleprice']['field'] = 'field_commerce_saleprice';
   $handler->display->display_options['fields']['field_commerce_saleprice']['relationship'] = 'field_product_product_id';
   $handler->display->display_options['fields']['field_commerce_saleprice']['label'] = '';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['element_type'] = 'div';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['element_class'] = 'product-sale-price';
   $handler->display->display_options['fields']['field_commerce_saleprice']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_commerce_saleprice']['click_sort_column'] = 'amount';
   $handler->display->display_options['fields']['field_commerce_saleprice']['settings'] = array(
@@ -111,6 +122,8 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['fields']['title_1']['field'] = 'title';
   $handler->display->display_options['fields']['title_1']['relationship'] = 'commerce_store_target_id';
   $handler->display->display_options['fields']['title_1']['label'] = 'Sold by';
+  $handler->display->display_options['fields']['title_1']['element_type'] = 'div';
+  $handler->display->display_options['fields']['title_1']['element_class'] = 'sold-by';
   $handler->display->display_options['fields']['title_1']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['title_1']['link_to_store'] = 0;
   /* Field: Commerce Product: Add to Cart form */
@@ -125,6 +138,14 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['fields']['add_to_cart_form']['combine'] = 1;
   $handler->display->display_options['fields']['add_to_cart_form']['display_path'] = 0;
   $handler->display->display_options['fields']['add_to_cart_form']['line_item_type'] = 0;
+  /* Field: Global: Custom text */
+  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['table'] = 'views';
+  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
+  $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['element_type'] = 'div';
+  $handler->display->display_options['fields']['nothing']['element_class'] = 'product-offer-price-image';
+  $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';

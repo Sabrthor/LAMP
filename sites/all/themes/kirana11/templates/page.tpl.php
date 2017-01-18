@@ -66,11 +66,7 @@
       <!-- Show Location goes here -->
       <?php if($show_location): ?>
         <?php global $user; if($user->uid): ?>
-          <section class="col-sm-4 landing-banner-section ">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-            <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-login-banner.png" alt="landing location banner" />
-          </section>
-          <section class="col-sm-8 landing-content-section landing-address">
+          <section class="col-xs-12 col-sm-8 pull-right landing-content-section landing-address">
             <h2><strong>Welcome</strong> to Kirana11.com</h2>
             <!-- <h3>Shop from your friendly neighbourhood Kirana store <strong>online!</strong></h3> -->
 
@@ -101,12 +97,12 @@
               <?php endif; ?>
             </div>
           </section>
-        <?php else: ?>
-          <section class="col-sm-6 landing-banner-section">
+          <section class="col-xs-12 col-sm-4 landing-banner-section ">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-            <img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-location-banner.png" alt="landing location banner" />
+            <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-login-banner.png" alt="landing location banner" />
           </section>
-          <section class="col-sm-6 landing-content-section">
+        <?php else: ?>
+          <section class="col-xs-12 col-sm-6 pull-right landing-content-section">
             <h2><strong>Welcome</strong> to Kirana11.com</h2>
             <!-- <h3>Shop from your friendly neighbourhood Kirana store <strong>online!</strong></h3> -->
 
@@ -124,16 +120,16 @@
               <?php endif; ?>
             </div>
           </section>
+          <section class="col-xs-12 col-sm-6 landing-banner-section">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+            <img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-location-banner.png" alt="landing location banner" />
+          </section>
         <?php endif; ?>
       <!-- Show Location ends here -->
 
       <!-- Show Notify goes here -->
       <?php elseif($show_notify): ?>
-        <section class="col-sm-6 landing-banner-section">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-          <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-thankyou-banner.png" alt="landing thankyou banner" />
-        </section>
-        <section class="col-sm-6 landing-content-section notify">
+        <section class="col-xs-12 col-sm-6 pull-right landing-content-section notify">
           <h2><strong>Oops!</strong> we're not there yet</h2>
 
           <!-- Message goes here -->
@@ -163,8 +159,12 @@
             ?>
           </div>
         </section>
+        <section class="col-xs-12 col-sm-6 landing-banner-section">
+        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+          <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-thankyou-banner.png" alt="landing thankyou banner" />
+        </section>
         <div class="col-xs-12">
-          <iframe class="thank-you-video" width="500" height="315" src="https://www.youtube.com/embed/tblozR2uwgM" frameborder="0" allowfullscreen></iframe>
+          <iframe class="thank-you-video" width="700" height="400" src="https://www.youtube.com/embed/tblozR2uwgM" frameborder="0" allowfullscreen></iframe>
         </div>
         <!-- Recent blogs goes here -->
         <?php if ($page['recent_blogs']): ?> 
@@ -178,16 +178,7 @@
 
       <!-- User Form goes here -->
       <?php else: ?>
-        <section class="col-sm-6 landing-banner-section">
-        <?php if($form_class_find == 'login_form'): ?>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-          <img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-login-banner.png" alt="landing location banner" />
-         <?php else: ?>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p> 
-          <img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-location-banner.png" alt="landing location banner" />
-         <?php endif; ?>
-        </section>
-        <section class="col-sm-6 landing-content-section">
+        <section class="col-xs-12 col-sm-6 pull-right landing-content-section">
           <h2><?php if($form_class_find == 'login_form'): print "<strong>Login</strong> to your account"; elseif($form_class_find == 'register_form'): print "<strong>Create</strong> your account"; else: print "<strong>Forgot</strong> password"; endif; ?></h2>
           
           <!-- Message goes here -->
@@ -238,6 +229,15 @@
             <?php endif; ?>
 
           </div>
+        </section>
+        <section class="col-xs-12 col-sm-6 landing-banner-section">
+        <?php if($form_class_find == 'login_form'): ?>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+          <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-login-banner.png" alt="landing location banner" />
+         <?php else: ?>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p> 
+          <img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-location-banner.png" alt="landing location banner" />
+         <?php endif; ?>
         </section>
       <!-- User Form ends here -->
       <?php endif; ?>
