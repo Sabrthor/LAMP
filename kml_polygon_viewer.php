@@ -1,8 +1,4 @@
 <?php
-
-$xml = simplexml_load_file(__DIR__ . "\\sites\\default\\files\\Kirana11 Shops.kml");
-$placemark = $xml->Document->Folder[0];
-
 $css_style = '<style>
     .example-table {
         font-family: Verdana;
@@ -31,27 +27,38 @@ $css_style = '<style>
         font-family: Tines new roman;
         font-size: 200%;
     }
-    .note {
+    .note, .version {
        background-color: AliceBlue ;     
+       font-family: Tines new roman;
+        font-style: italic;
     }
 </style>';
 
-$i=0;
-$note = '<div class="note"><i>Note: File name should be <strong>Kirana11 Shops.kml</strong></i></div><br />';
-$name = '<p>KML polygon viewer</p><br/>';
-$html = $css_style . $name . $note . '<table class="example-table">';
-$html .= '<tr><th>Sl.No.</th><th>Store name</th><th>Coordinates</th></tr>';
+$kml_path = __DIR__ . "\\sites\\default\\files\\Kirana11 Shops.kml";
 
-foreach ($xml->Document->Folder[0]->Placemark as $_placemark) {  
-    $i++;
+if (!file_exists ($kml_path)) {
+    $html = $css_style . '<div class="note">File not found: \\sites\\default\\files\\Kirana11 Shops.kml</div>'; 
+} else {
+  $xml = simplexml_load_file($kml_path);
+  $placemark = $xml->Document->Folder[0];
 
-    if (is_object($_placemark->Polygon->outerBoundaryIs)) {
-        $html .= '<tr><td>' . $i . '</td><td>' . $_placemark->name . '</td><td>' . $_placemark->Polygon->outerBoundaryIs->LinearRing->coordinates . '</td></tr>';
-    } else {
-        $html .= '<tr><td>' . $i . '</td><td>' . $_placemark->name . '</td><td><font color="red">Invalid polygon</font></td></tr>';
-    }   
+  $i=0;
+  $name = '<p>KML polygon viewer</p><br/>';
+  $html = $css_style . $name . '<table class="example-table">';
+  $html .= '<tr><th>Sl.No.</th><th>Store name</th><th>Coordinates</th></tr>';
+
+  foreach ($xml->Document->Folder[0]->Placemark as $_placemark) {  
+      $i++;
+
+      if (is_object($_placemark->Polygon->outerBoundaryIs)) {
+          $html .= '<tr><td>' . $i . '</td><td>' . $_placemark->name . '</td><td>' . $_placemark->Polygon->outerBoundaryIs->LinearRing->coordinates . '</td></tr>';
+      } else {
+          $html .= '<tr><td>' . $i . '</td><td>' . $_placemark->name . '</td><td><font color="red">Invalid polygon</font></td></tr>';
+      }   
+  }
+
+  $html .= '</table>';
 }
 
-$html .= '</table>';
-
-echo $html;
+$version = '<br /><div class="version">Current version: v0.2</div>';
+echo $html . $version;
