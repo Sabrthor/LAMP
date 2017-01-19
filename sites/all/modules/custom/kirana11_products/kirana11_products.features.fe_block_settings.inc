@@ -50,7 +50,7 @@ function kirana11_products_default_fe_block_settings() {
     'delta' => '-exp-category_products-page',
     'module' => 'views',
     'node_types' => array(),
-    'pages' => '',
+    'pages' => 'category/*',
     'roles' => array(),
     'themes' => array(
       'bartik' => array(
@@ -73,7 +73,7 @@ function kirana11_products_default_fe_block_settings() {
       ),
     ),
     'title' => '',
-    'visibility' => 0,
+    'visibility' => 1,
   );
 
   $export['views-best_deals-block_1'] = array(
