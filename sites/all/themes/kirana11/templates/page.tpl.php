@@ -447,14 +447,6 @@
           </div>
           <!-- Store and Product Slider ends here -->
 
-          <!-- Top Brands and Partners goes here -->
-          <?php if ($page['partners_brands']): ?> 
-          <div id="partners_brands" class="col-xs-12 col-sm-11 front-content-box">
-            <?php print render($page['partners_brands']); ?>
-          </div>
-          <?php endif; ?>
-          <!-- Top Brands and Partners goes here -->
-
           <!-- Message goes here -->
           <?php if ($messages):?>
           <div id="messages-console" class="clearfix">
@@ -524,6 +516,14 @@
           </aside>
           <?php endif; ?>
           <!-- Sidebar right ends here -->
+
+          <!-- Top Brands and Partners goes here -->
+          <?php if ($page['partners_brands']): ?> 
+          <div id="partners_brands" class="col-xs-12 col-sm-11 front-content-box">
+            <?php print render($page['partners_brands']); ?>
+          </div>
+          <?php endif; ?>
+          <!-- Top Brands and Partners goes here -->
 
           <!-- Recent blogs goes here -->
           <?php if ($page['recent_blogs']): ?> 
