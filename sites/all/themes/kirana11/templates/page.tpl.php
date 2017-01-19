@@ -344,8 +344,12 @@
             endif; ?>
           </div>
         </div>
-        <div class="col-xs-2 col-xs-offset-3 visible-xs mobile-icon">
-          <i class="fa fa-map-marker" class="navbar-toggle" data-toggle="collapse" data-target="#top_header_location"></i>
+        <div class="col-xs-5 visible-xs mobile-icon call-icons">
+          <div class="row">
+            <a href="intent://send/9341230110#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+            <a href="tel:18001230110"><i class="fa fa-phone" aria-hidden="true"></i></a>
+            <i class="fa fa-map-marker" class="navbar-toggle" data-toggle="collapse" data-target="#top_header_location"></i>
+          </div>
         </div>
         <div class="hidden-xs col-xs-2 header-login-container">
           <div class="row">

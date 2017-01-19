@@ -525,6 +525,8 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.mobile-top-header li a:hover{ color: #356D35 !important; }
 	.mobile-header-location p{  margin:0; padding: 15px 0;}
 	.mobile-icon i{ padding: 12px 5px; }
+	.call-icons i{ padding: 12px; color: #666; }
+	.call-icons i[aria-expanded="true"]{ color: #346d35; }
 	.region-top-header ul{ padding: 0; }
 	.region-header-login ul li{ list-style: none; }
 	.region-header-login i, .navbar .glyphicon-user{ display: none; }
