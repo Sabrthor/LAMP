@@ -411,8 +411,9 @@
           <!-- Slider ends here -->
 
           <div class="col-xs-12 visible-xs mobile-category-section">
-            <div class="col-xs-10 mobile-menu-title">Categories</div>
-            <div class="col-xs-2"><span class="glyphicon glyphicon-chevron-down"></span></div>
+            <div class="col-xs-12 mobile-menu-title">
+            	<i class="fa fa-filter"></i> Categories
+            </div>
             <!-- <div class="mobile-sub-category"><ul></ul></div> -->
           </div>
 
@@ -545,38 +546,43 @@
 <footer id="top-footer" class="clearfix">
     <div class="container">
         <!-- #topfooter-inside -->
-        <div id="top-footer-inside" class="clearfix">
-            <div class="row">
-                <div class="col-xs-6 col-sm-2">
-                  <div class="top-footer-first">
+        <div id="top-footer-inside">
+            <div class="row panel-group" id="accordion"">
+                <div class="col-xs-12 col-sm-2 panel">
+                	<div class="mobile-footer-tab visible-xs" data-toggle="collapse" data-parent="#accordion" data-target="#mobile-footer-first">About Us</div>
+                  <div class="top-footer-first collapse" id="mobile-footer-first">
                     <?php if ($page['top_footer_first']):?>
                     <?php print render($page['top_footer_first']); ?>
                     <?php endif; ?>
                   </div>
                 </div>
-                <div class="col-xs-6 col-sm-2">
-                  <div class="top-footer-second">
+                <div class="col-xs-12 col-sm-2 panel">
+                	<div class="mobile-footer-tab visible-xs" data-toggle="collapse" data-parent="#accordion" data-target="#mobile-footer-second">Delivery Location</div>
+                  <div class="top-footer-second collapse" id="mobile-footer-second">
                     <?php if ($page['top_footer_second']):?>
                     <?php print render($page['top_footer_second']); ?>
                     <?php endif; ?>
                   </div>
                 </div>
-                <div class="col-xs-6 col-sm-2">
-                  <div class="top-footer-third">
+                <div class="col-xs-12 col-sm-2 panel">
+                	<div class="mobile-footer-tab visible-xs" data-toggle="collapse" data-parent="#accordion" data-target="#mobile-footer-third">Payment Options</div>
+                  <div class="top-footer-third collapse" id="mobile-footer-third">
                     <?php if ($page['top_footer_third']):?>
                     <?php print render($page['top_footer_third']); ?>
                     <?php endif; ?>
                   </div>
                 </div>
-                <div class="col-xs-6 col-sm-2">
-                  <div class="top-footer-fourth">
+                <div class="col-xs-12 col-sm-2 panel">
+                	<div class="mobile-footer-tab visible-xs" data-toggle="collapse" data-parent="#accordion" data-target="#mobile-footer-fourth">Help</div>
+                  <div class="top-footer-fourth collapse" id="mobile-footer-fourth">
                     <?php if ($page['top_footer_fourth']):?>
                     <?php print render($page['top_footer_fourth']); ?>
                     <?php endif; ?>
                   </div>
                 </div>
-                <div class="col-xs-12 col-sm-4">
-                  <div class="top-footer-fifth">
+                <div class="col-xs-12 col-sm-4 panel">
+                	<div class="mobile-footer-tab visible-xs" data-toggle="collapse" data-parent="#accordion" data-target="#mobile-footer-fifth">Connect with Us</div>
+                  <div class="top-footer-fifth collapse" id="mobile-footer-fifth">
                     <?php if ($page['top_footer_fifth']):?>
                     <?php print render($page['top_footer_fifth']); ?>
                     <?php endif; ?>

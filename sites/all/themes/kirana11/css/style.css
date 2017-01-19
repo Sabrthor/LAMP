@@ -1,5 +1,5 @@
 /* Kirana11 theme css goes here */
-*{ margin: 0; padding: 0; }
+*{ margin: 0; padding: 0; outline: 0; }
 a, ul, img{ outline: 0; }
 body{ color: #666; font-family: 'Nunito Sans', sans-serif; font-size: 13px; font-weight: 400; line-height: normal; background:#f7f8f9;}
 p{ margin: 0 0 15px; }
@@ -241,8 +241,8 @@ header .navbar-toggle{ right: 0; }
 .store_slider .content .slick-dots li{ width: auto; float: left; list-style: none; }
 .store_slider .content .slick-dots li button{ border: 1px solid #ccc; outline: 0; padding: 2px 5px; display: block; border-radius: 3px; background: #fff; color: #666; margin:0 5px; }
 .store_slider .content .slick-dots li button:hover, .store_slider .content .slick-dots .slick-active button{ background:#346d35; color: #fff;  }
-.store_slider .content .slick__arrow .slick-prev, .product_slider .content .slick__arrow .slick-prev{ float: left; position: absolute; left: 10px; top: 55%; outline: 0; }
-.store_slider .content .slick__arrow .slick-next, .product_slider .content .slick__arrow .slick-next{ float: right; position: absolute; right: 10px; top: 55%; outline: 0;  }
+.store_slider .content .slick__arrow .slick-prev{ float: left; position: absolute; left: 24px; top: 54%; outline: 0; }
+.store_slider .content .slick__arrow .slick-next{ float: right; position: absolute; right: 24px; top: 54%; outline: 0;  }
 
 /* Product slider*/
 .product_slider .content .slide__content{ position: relative; padding: 0 10% }
@@ -256,6 +256,9 @@ header .navbar-toggle{ right: 0; }
 .product_slider .content .sold-by{ font-weight: 700; padding-bottom: 12px; line-height: 15px; height: 32px; overflow: hidden; }
 .product_slider .content .product-offer-price-image{ position: absolute; top:0; left: 0; background: url(../images/offer-price.png) no-repeat; background-size: 70%; width: 115px; height: 100px; }
 .product_slider .content .form-item-quantity{ display: none; }
+.product_slider .content .slick__arrow .slick-prev{ float: left; position: absolute; left: 10px; top: 55%; outline: 0; }
+.product_slider .content .slick__arrow .slick-next{ float: right; position: absolute; right: 10px; top: 55%; outline: 0;  }
+
 
 
 /* Partners and Brands */
@@ -270,7 +273,7 @@ header .navbar-toggle{ right: 0; }
 .view-home-top-brands .slide__content .field-content{ background: #fff; margin: 0 2%; padding: 5%; height: 200px;}
 .view-home-top-brands .slide__content .field-content img{ width: 100%; height: 100%;}
 #partners_brands .slide__content .field-content p{ margin: 0; font-size: 11px; padding: 10px 10% 0;}
-.slick__arrow button{ background: none; border: 0; font-size: 30px; outline: 0;  }
+.slick__arrow button{ background: none; border: 0; font-size: 50px; outline: 0;  }
 .slick__arrow i{ color:#ccc; }
 .region-partners-brands h2{ padding-bottom: 20px; }
 .view-home-top-brands .slick__arrow .slick-prev, .view-our-partners .slick__arrow .slick-prev, .view-blogs .slick__arrow .slick-prev{ float: left; position: absolute; left: -50px; top: 40%; outline: 0; }
@@ -328,6 +331,8 @@ footer h2{ font-size: 14px; color: #666666; text-align:left; font-weight: 700; }
 .subscribe-button:hover{ background: #cf2127 !important; }
 #bottom-footer{ background: #f7f8f9; }
 #bottom-footer-inside p{ font-size: 12px; margin:30px; color: #666666; }
+footer .panel{ background: none; box-shadow: none; }
+footer .panel-group{ margin: 0; }
 
 /** Landing page **/
 .landing-page #content .container{ background: #f1f1f1; position: relative; padding: 20px 0; border:10px solid #fff; box-shadow: 8px 0 8px -4px #ccc, -8px 0 8px -4px #ccc; text-align: center; }
@@ -492,6 +497,7 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.thank-you-video{ height: 200px; }
 }
 @media (min-width: 768px){
+	footer .collapse{ display: block; }
 	.region-header-menu ul.menu > li:last-child > ul{ right: 0; left: inherit; }
 	.region-header-menu ul.menu > li:last-child > ul ul, .region-header-menu ul.menu > li:nth-last-child(2) > ul ul{ right: 14em; left: inherit; }
 }
@@ -567,13 +573,20 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	#top-footer-inside ul li, #top-footer-inside ul li a{ font-size: 12px; }
 
 	/* banner*/
+	#banner{ margin-bottom: 10px; }
 	#banner .slick-dots{ bottom: 0; }
 	#banner .slick-dots li button{ padding:4px; }
 
 	/* product_slider*/
+	.store_slider .content{ margin:5px 0; padding: 5px; }
+	.store_slider .content h3 { margin: 6px 0; font-size: 15px; font-weight: 700;}
+	.store_slider .content .store-slider-logo{ margin-top:5px; }
+	.store_slider .content .shop-now-button{ margin: 12px 0; }
+	.store_slider .content .shop-now-button a{ padding: 6px 12px; }
+	.store_slider .content .slick__arrow .slick-prev, .store_slider .content .slick__arrow .slick-next, .product_slider .content .slick__arrow .slick-prev, .product_slider .content .slick__arrow .slick-next{ top:50%; }
 	.product_slider{ margin: 0 15px; }
 	.product_slider, .store_slider h2{ text-align: center; }
-	.front-content-box h2{ padding: 0 15px; }
+	.front-content-box h2{ padding: 0 15px; margin: 10px 0; }
 
 	/* Partners and Brands */
 	#partners_brands h2{ font-size: 18px; }
@@ -612,7 +625,18 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.display-location-box{ width: 100%; }
 	.thankyou-banner{  width: 50%; margin-bottom: 20px; }
 
+	/* footer*/
+	footer h2{ display: none; }
+	.footer-subscribe h2{ display: block; } 
+	.mobile-footer-tab{ font-size: 14px; text-align: left; position: relative; padding-left: 30px; }
+	footer .collapse.in{ background: #fff; width: 100%; float: left; }
+	.top-footer-first, .top-footer-second, .top-footer-third, .top-footer-fourth, .top-footer-fifth{ padding:2px 10px; }
+	.mobile-footer-tab:before{ content:'\f055'; color: #666; position: absolute; font-family:'FontAwesome'; font-size: 18px; top:0px; left: 0px; }
+	footer div.mobile-footer-tab[aria-expanded="true"]:before{ content:'\f056'; }
+	.footer-subscribe-form input{ background: #f1f1f1; }
 }
+
+/* Main menu category*/
 @media (min-width: 1101px) {
 	.region-header-menu ul.menu > li:last-child{ padding: 10px 15px; }
 }
