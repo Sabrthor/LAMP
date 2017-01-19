@@ -264,6 +264,13 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['pager']['options']['quantity'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = 'No Products Found';
+  $handler->display->display_options['empty']['area']['format'] = 'filtered_html';
   /* Relationship: Commerce Product: Referencing Node */
   $handler->display->display_options['relationships']['field_product']['id'] = 'field_product';
   $handler->display->display_options['relationships']['field_product']['table'] = 'commerce_product';
@@ -357,6 +364,20 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['arguments']['field_category_tid']['summary']['number_of_records'] = '0';
   $handler->display->display_options['arguments']['field_category_tid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['field_category_tid']['summary_options']['items_per_page'] = '25';
+  /* Contextual filter: Field: Store (commerce_store) */
+  $handler->display->display_options['arguments']['commerce_store_target_id']['id'] = 'commerce_store_target_id';
+  $handler->display->display_options['arguments']['commerce_store_target_id']['table'] = 'field_data_commerce_store';
+  $handler->display->display_options['arguments']['commerce_store_target_id']['field'] = 'commerce_store_target_id';
+  $handler->display->display_options['arguments']['commerce_store_target_id']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['commerce_store_target_id']['default_argument_type'] = 'php';
+  $handler->display->display_options['arguments']['commerce_store_target_id']['default_argument_options']['code'] = 'if(isset($_SESSION[\'k11_stores_for_user\']))
+{ 
+return $_SESSION[\'k11_stores_for_user\'];
+}';
+  $handler->display->display_options['arguments']['commerce_store_target_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['commerce_store_target_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['commerce_store_target_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['commerce_store_target_id']['break_phrase'] = TRUE;
   /* Filter criterion: Content: Brand (field_brand) */
   $handler->display->display_options['filters']['field_brand_tid']['id'] = 'field_brand_tid';
   $handler->display->display_options['filters']['field_brand_tid']['table'] = 'field_data_field_brand';
