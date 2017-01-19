@@ -359,9 +359,114 @@ function kirana11_products_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-category_banners-field_banner'.
+  $field_instances['node-category_banners-field_banner'] = array(
+    'bundle' => 'category_banners',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'linkimagefield',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'linkimagefield',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_banner',
+    'label' => 'Banner',
+    'required' => 1,
+    'settings' => array(
+      'alt_field' => 0,
+      'class_field' => 0,
+      'custom_target' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'longdesc_field' => 0,
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'rel_field' => 0,
+      'target' => '_self',
+      'title_field' => 0,
+      'url' => '',
+      'url_settings' => array(
+        'class_field' => 1,
+        'custom_target' => 0,
+        'rel_field' => 1,
+        'target' => '_self',
+        'url' => '',
+      ),
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'linkimagefield',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'linkimagefield_widget',
+      'weight' => 32,
+    ),
+  );
+
+  // Exported field_instance: 'node-category_banners-field_category'.
+  $field_instances['node-category_banners-field_category'] = array(
+    'bundle' => 'category_banners',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_category',
+    'label' => 'Category',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'taxonomy',
+      'settings' => array(
+        'autocomplete_path' => 'taxonomy/autocomplete',
+        'size' => 60,
+      ),
+      'type' => 'taxonomy_autocomplete',
+      'weight' => 34,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
+  t('Banner');
   t('Barcode');
+  t('Category');
   t('If checked, the <em>Sale price</em> value will be used rather than the normal price.');
   t('Image');
   t('On sale');
