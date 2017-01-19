@@ -67,9 +67,31 @@
   Drupal.behaviors.kirana11CategoryMobileMenuList = {
     attach: function (context) {
       /* mobile Category Menu */
-      $(".mobile-category-section").once().click(function(){
+      $(".mobile-category-section a.menu-categories").once().click(function(){
          $(".overlay-popup-menu").show();
-         $(".overlay-popup-container-menu").show();
+         $(".overlay-popup-menu-container").show();
+         $(".overlay-popup-brand-container").hide();
+         $(".overlay-popup-discount-container").hide();
+      });
+      $(".overlay-popup-menu-close").once().click(function(){
+        $(".overlay-popup-menu").hide();
+      });
+
+      $(".mobile-category-section a.menu-brands").once().click(function(){
+         $(".overlay-popup-menu").show();
+         $(".overlay-popup-brand-container").show();
+         $(".overlay-popup-menu-container").hide();
+         $(".overlay-popup-discount-container").hide();
+      });
+      $(".overlay-popup-menu-close").once().click(function(){
+        $(".overlay-popup-menu").hide();
+      });
+
+      $(".mobile-category-section a.menu-discount").once().click(function(){
+         $(".overlay-popup-menu").show();
+         $(".overlay-popup-discount-container").show();
+         $(".overlay-popup-menu-container").hide();
+         $(".overlay-popup-brand-container").hide();
       });
       $(".overlay-popup-menu-close").once().click(function(){
         $(".overlay-popup-menu").hide();
