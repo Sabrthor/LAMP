@@ -26,7 +26,12 @@ ul.links li { margin: 0; }
 ul.links li a { text-transform: uppercase; font-size: 80%; font-weight: 700; }
 
 /* Breadcrumb */
-.breadcrumb { background:none; padding: 14px 0px;  }
+.breadcrumb { background:none; padding: 15px 0px 15px 10px; font-size: 0; margin: 0; width: 100%; float: left; }
+.breadcrumb a{ color: #666; padding: 0 10px; font-size: 13px; position: relative; }
+.breadcrumb a:hover{ color: #356635; text-decoration: underline; }
+.breadcrumb a::after{ content:'\f105'; color: #666; position: absolute; font-family:'FontAwesome'; right:-3px; top:2px; }
+.breadcrumb a:last-child{ font-weight: 700; }
+.breadcrumb a:last-child::after{ display: none; }
 .breadcrumb > li { margin: 0 2px 0 0; display: inline; }
 
 /* Drupal status messages */
@@ -200,7 +205,7 @@ header .navbar-toggle{ right: 0; }
 .region-header-menu ul.menu{ background: #fff; width: 100%; float: left; padding: 10px; margin-top: 10px; }
 .region-header-menu ul.menu > li{ background: #f1f1f1; padding: 10px 14px; margin-right: 10px; cursor: pointer;}
 .region-header-menu ul.menu > li:last-child{ margin-right: 0; }
-.region-header-menu ul.menu > li a{ color: #666; height: auto; background-position: center top; background-size: 30px; padding:32px 0 0;  }
+.region-header-menu ul.menu > li a{ color: #666; height: auto; background-position: center top; background-size: 35px; padding:32px 0 0;  }
 .region-header-menu ul.menu > li > a > span.sf-sub-indicator{ display: none; }
 .region-header-menu ul.menu > li:hover{ background: #fff; }
 .region-header-menu .sf-sub-indicator{ height: 18px; top:8px; }
@@ -434,6 +439,33 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 /* Blog */
 .page-blog .node-teaser{ padding-bottom: 20px; border-bottom:1px solid #ccc; }
 
+/* Side bar filter section*/
+aside{ box-shadow: none; }
+.page-taxonomy #sidebar-first{ background: #f1f1f1; border: 10px solid #fff; padding: 0 !important; }
+.page-taxonomy #sidebar-first #edit-brand-wrapper{ border-bottom:10px solid #fff; }
+#sidebar-first .views-exposed-widget{ width: 100%; padding: 25px 30px;  }
+#sidebar-first .views-exposed-widget > label{ width: 100%; float: left; font-size: 15px; }
+#sidebar-first .views-exposed-widget .form-item label{ top:0; position: relative; color: #666; font-weight: 400; padding-left: 10px }
+#sidebar-first .views-exposed-widget .form-checkboxes .form-item{ width: 100%; float: left; padding: 5px 0; position: relative; }
+#sidebar-first .views-exposed-widget .form-checkboxes .form-item label::before{ position: absolute; content: ""; width: 20px; height: 20px; padding:2px; background: #fff; border-radius: 3px; left: -20px; top:0; }
+#sidebar-first .views-exposed-widget .form-checkboxes .form-item input[type='checkbox']:checked  + label::before{ content:"\f00c"; font-family:'FontAwesome'; padding: 2px;  }
+#sidebar-first .views-exposed-widget .form-checkboxes .form-item input[type='checkbox'] { border:1px solid #fff; }
+
+/* Category content section*/
+.page-taxonomy section{ padding:0 30px 15px !important; }
+h1.page-title{ margin: 0 0 30px; color: #666; }
+.content .view-filters{ display: none; }
+.page-taxonomy .content .view-content{ background: #fff; padding:20px; border: 1px solid #ececec; width: 100%; float: left; }
+.view-category-products table{ border: 0; }
+.category-display{ text-align: center; margin-bottom: 40px; }
+.category-display .views-field-field-image .field-content{ height: 180px; }
+.category-display .views-field-field-image .field-content img{ max-height: 100%; }
+.category-display .views-field-title{ font-size: 13px; font-weight: 700; height: 38px; overflow:hidden; }
+.category-display .views-field-commerce-store .field-content{ overflow:hidden; white-space: nowrap; text-overflow: ellipsis; }
+.category-display .views-field-field-commerce-saleprice, .category-display .views-field-commerce-price{ font-size: 15px;  padding: 10px 0; width: 50%; float: left; text-align: center; }
+.category-display  .views-field-commerce-price{ text-decoration: line-through; color: #333; }
+.category-display .views-field-field-commerce-saleprice{ color: #cc242e;}
+
 /* Media query goes here */
 @media (min-width: 1199px) {
   body { font-size: 14px; }
@@ -458,6 +490,14 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.region.region-header-login i, .region.region-header-login ul li a { font-size: 13px;}
 	.region-nodify-form  .webform-component-boolean input{ position: absolute; left: 5%; width: 10px; }
 	.region-nodify-form  .webform-component-boolean .description{ margin-left: 10%; text-align: left; display: block !important;  }
+
+	/* category product display*/
+	#sidebar-first .views-exposed-widget{ padding: 15px; }
+	#sidebar-first .views-exposed-widget .form-item label, .category-display .views-field-title{ font-size: 10px; }
+	.category-display .views-field-field-commerce-saleprice, .category-display .views-field-commerce-price{ font-size: 13px; }
+	.category-display .views-field-field-image .field-content{ height: 120px; }
+	#sidebar-first .views-exposed-widget .form-checkboxes .form-item label::before{ top:-4px; }
+	#sidebar-first .views-exposed-widget .form-checkboxes .form-item input[type="checkbox"]:checked + label::before{ font-size: 14px; }
 }
 @media (min-width: 992px) {
 	.landing-page form input[type="text"], .landing-page form input[type="email"], .landing-page form input[type="password"], .find-location-container p.regiter-terms, #edit-detect-my-location, .landing-page input[type="text"], .display-text-box{ width:65%; }
@@ -636,6 +676,12 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.mobile-footer-tab:before{ content:'\f055'; color: #666; position: absolute; font-family:'FontAwesome'; font-size: 18px; top:0px; left: 0px; }
 	footer div.mobile-footer-tab[aria-expanded="true"]:before{ content:'\f056'; }
 	.footer-subscribe-form input{ background: #f1f1f1; }
+
+	/* category product display */
+	#sidebar-first .views-exposed-widget .form-item label, .category-display .views-field-title{ font-size: 12px; }
+	h1.page-title{ margin: 20px 0 10px; font-size: 16px; text-align: center; font-weight: 700; }
+	#block-views-exp-category-products-page{ display: none; }
+	.page-taxonomy #sidebar-first{ border: 5px solid #fff; }
 }
 
 /* Main menu category*/

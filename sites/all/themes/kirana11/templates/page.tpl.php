@@ -452,6 +452,12 @@
           </div>
           <!-- Store and Product Slider ends here -->
 
+          <!-- Breadcrumb goes here -->
+            <?php if ($breadcrumb): ?>
+            <div id="breadcrumb"><?php print render($breadcrumb); ?></div>
+            <?php endif; ?>
+            <!-- Breadcrumb ends here -->
+
           <!-- Message goes here -->
           <?php if ($messages):?>
           <div id="messages-console" class="clearfix">
@@ -478,15 +484,10 @@
 
           <!-- Page content goes here -->
           <section class="<?php print $main_grid_class; ?>">
-            <!-- Breadcrumb goes here -->
-            <?php if ($breadcrumb): ?>
-            <div id="breadcrumb"><?php print render($breadcrumb); ?></div>
-            <?php endif; ?>
-            <!-- Breadcrumb ends here -->
 
             <!-- Title goes here -->
             <?php print render($title_prefix); ?>
-            <?php if ($title): if (!drupal_is_front_page()): ?><h1><?php print $title; ?></h1><?php endif; endif; ?>
+            <?php if ($title): if (!drupal_is_front_page()): ?><h1 class="page-title"><?php print $title; ?></h1><?php endif; endif; ?>
             <?php print render($title_suffix); ?>
             <!-- Title ends here -->
 

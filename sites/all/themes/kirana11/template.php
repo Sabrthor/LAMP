@@ -9,11 +9,11 @@ function kirana11_preprocess_page(&$vars) {
 		$vars['sidebar_second_grid_class'] = 'col-xs-12 col-sm-3';
 		$vars['main_grid_class'] = 'col-xs-12 col-sm-6';
 	} elseif ($vars['page']['sidebar_first'] && !($vars['page']['sidebar_second'])) {
-		$vars['sidebar_first_grid_class'] = 'col-xs-12 col-sm-4';
-		$vars['main_grid_class'] = 'col-xs-12 col-sm-8';
+		$vars['sidebar_first_grid_class'] = 'col-xs-12 col-sm-3';
+		$vars['main_grid_class'] = 'col-xs-12 col-sm-9';
 	} elseif (!($vars['page']['sidebar_first']) && $vars['page']['sidebar_second']) {
-		$vars['sidebar_second_grid_class'] = 'col-xs-12 col-sm-4';
-		$vars['main_grid_class'] = 'col-xs-12 col-sm-8';			
+		$vars['sidebar_second_grid_class'] = 'col-xs-12 col-sm-3';
+		$vars['main_grid_class'] = 'col-xs-12 col-sm-9';			
 	} else {
 		$vars['main_grid_class'] = 'col-xs-12';			
 	}
