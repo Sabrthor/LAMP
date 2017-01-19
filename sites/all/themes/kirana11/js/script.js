@@ -108,4 +108,31 @@
     }
   }
 
+  Drupal.behaviors.kirana11CcategoryMenuLeft = {
+    attach: function (context) {
+      $(document).ready(function(){
+        var id = $("#selected_tid").html();
+        console.log("Id : " + id);
+        $("#" + id).parents('ul.menu_level_0 li').css({"font-weight": "700"});
+        $("#" + id).parents('ul.menu_level_0 li > ul').show();
+      });
+      
+      $(".menu_level_0 > li > a").once().click(function(){
+        console.log("outside");
+        $(".menu_level_0 > li > a").css({"font-weight": "400"});
+        $(".menu_level_0 > li ul").hide();
+        $(this).next('ul').show();
+        $(this).css({"font-weight": "700"});
+      });
+
+      $(".menu_level_1 > li a").once().click(function(){
+        console.log("inside");
+        $(".menu_level_1 > li a").css({"font-weight": "400"});
+        $(".menu_level_1 > li ul").hide();
+        $(this).next('ul').show();
+        $(this).css({"font-weight": "700"});
+      });
+    }
+  }
+
 })(jQuery);
