@@ -206,8 +206,6 @@ header .navbar-toggle{ right: 0; }
 .region-header-menu .sf-sub-indicator{ height: 18px; top:8px; }
 .region-header-menu .sf-menu.sf-horizontal.sf-shadow ul, .region-header-menu .sf-menu.sf-vertical.sf-shadow ul, .region-header-menu .sf-menu.sf-navbar.sf-shadow ul ul{ padding: 0 !important; }
 .region-header-menu ul.menu > li ul{ background: #fff !important; border-radius: 0 !important; box-shadow: 8px 8px 8px -4px #ccc, -8px 8px 8px -4px #ccc; border:0px solid #ccc; margin-top: -1px; }
-.region-header-menu ul.menu > li:last-child > ul{ right: 0; left: inherit; }
-.region-header-menu ul.menu > li:last-child > ul ul, .region-header-menu ul.menu > li:nth-last-child(2) > ul ul{ right: 14em; left: inherit; }
 .region-header-menu .sf-menu li:hover > ul, .region-header-menu .sf-menu li.sfHover > ul { top: 4.8em; }
 .region-header-menu .sf-menu li li:hover > ul, .region-header-menu .sf-menu li li.sfHover > ul{ top:0; }
 .region-header-menu .sf-menu ul{ width: 14em; }
@@ -493,6 +491,10 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 @media (max-width: 420px) {
 	.thank-you-video{ height: 200px; }
 }
+@media (min-width: 768px){
+	.region-header-menu ul.menu > li:last-child > ul{ right: 0; left: inherit; }
+	.region-header-menu ul.menu > li:last-child > ul ul, .region-header-menu ul.menu > li:nth-last-child(2) > ul ul{ right: 14em; left: inherit; }
+}
 @media (max-width: 767px) {
 	body{ font-size: 11px; }
 	h1, h2, h3, h4, h5, h6{ font-size: 20px; }
@@ -538,7 +540,7 @@ input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:ho
 	.mobile-menu-title{ padding: 10px; }
 	.mobile-category-section .glyphicon-chevron-down{ padding:12px 0 0 16px; }
 	.overlay-popup-menu{ display: none; background:rgba(0,0,0, 0.8); width: 100%; float: left; position: fixed; z-index: 999; height: 2500px; }
-	.overlay-popup-menu-container{ background:#fff;  margin-top: 20%; }
+	.overlay-popup-menu-container{ background:#fff;  margin-top: 10%; max-height: 450px; overflow: scroll; }
 	.overlay-popup-menu-title{ position: relative; }
 	.overlay-popup-menu-title h2{ text-align: center; margin:0; padding: 15px 0; border-bottom: 1px solid #999; font-weight: 700; }
 	.overlay-popup-menu-close{ position: absolute; right: 10%; top: 12px; cursor: pointer;  font-size: 24px; color: #999; }
