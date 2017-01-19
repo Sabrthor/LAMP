@@ -654,6 +654,7 @@ function custom_blocks_default_fe_block_settings() {
 
   $export['views-home_top_brands-block'] = array(
     'cache' => -1,
+    'custom' => 0,
     'delta' => 'home_top_brands-block',
     'module' => 'views',
     'node_types' => array(),
@@ -679,6 +680,8 @@ function custom_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
+    'title' => '',
+    'visibility' => 0,
   );
 
   $export['views-our_partners-block'] = array(
