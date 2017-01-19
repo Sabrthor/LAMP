@@ -59,10 +59,15 @@ function get_sibilings($terms, $parent) {
 function olLiTree( $tree, $level ) {
     echo '<ul class="menu_level_' . $level . '">';
     foreach ( $tree as $item ) {
-        global $base_url;
-        echo "<li><a href=\"/" . drupal_get_path_alias('taxonomy/term/'.$item['tid']) . "\" id=\"$item[tid]\">$item[name]</a>";
+        
+        if($level == '2') {
+           echo "<li><a href=\"/" . drupal_get_path_alias('taxonomy/term/' . $item['tid']) . "\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
+       }
+       else{
+           echo "<li><a href=\"javascript:\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
+       }
 
-        if ( isset( $item['children'] ) ) {
+        if (isset( $item['children'])  && count($item['children'])) {
             olLiTree( $item['children'], ++$level );
         }
 
