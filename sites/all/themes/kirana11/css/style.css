@@ -295,7 +295,7 @@ header .navbar-toggle{ right: 0; }
 
 /* Content goes here */
 #content .container{ background: #f7f8f9; box-shadow: 8px 0 8px -4px #ccc, -8px 0 8px -4px #ccc; }
-.not-front #content .container{ background: #fff; }
+/*.not-front #content .container{ background: #fff; }*/
 #wrapper{ margin: 15px 0; }
 .front #wrapper { margin:0; }
 aside{ background: #fff; box-shadow: 0 0 1px #999; }
