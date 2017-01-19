@@ -195,5 +195,220 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['defaults']['title'] = FALSE;
   $export['best_deals'] = $view;
 
+  $view = new view();
+  $view->name = 'category_products';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'commerce_product';
+  $view->human_name = 'Category Products';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'better_exposed_filters';
+  $handler->display->display_options['exposed_form']['options']['expose_sort_order'] = FALSE;
+  $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
+  $handler->display->display_options['exposed_form']['options']['bef'] = array(
+    'general' => array(
+      'input_required' => 0,
+      'text_input_required' => array(
+        'text_input_required' => array(
+          'value' => 'Select any filter and click on Apply to see results',
+          'format' => 'filtered_html',
+        ),
+      ),
+      'allow_secondary' => 0,
+      'secondary_label' => 'Advanced options',
+      'secondary_collapse_override' => '0',
+    ),
+    'field_commerce_saleprice_on_sale_value' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => FALSE,
+        'bef_collapsible' => 0,
+        'autosubmit' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'bef_filter_description' => '',
+        'rewrite' => array(
+          'filter_rewrite_values' => 'On|View Discounts',
+        ),
+      ),
+    ),
+    'field_brand_tid' => array(
+      'bef_format' => 'bef',
+      'more_options' => array(
+        'bef_select_all_none' => FALSE,
+        'bef_collapsible' => 0,
+        'autosubmit' => 0,
+        'is_secondary' => 0,
+        'any_label' => '',
+        'bef_filter_description' => '',
+        'rewrite' => array(
+          'filter_rewrite_values' => '',
+        ),
+      ),
+    ),
+  );
+  $handler->display->display_options['pager']['type'] = 'full';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '9';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['pager']['options']['id'] = '0';
+  $handler->display->display_options['pager']['options']['quantity'] = '9';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Relationship: Commerce Product: Referencing Node */
+  $handler->display->display_options['relationships']['field_product']['id'] = 'field_product';
+  $handler->display->display_options['relationships']['field_product']['table'] = 'commerce_product';
+  $handler->display->display_options['relationships']['field_product']['field'] = 'field_product';
+  /* Field: Commerce Product: Product ID */
+  $handler->display->display_options['fields']['product_id']['id'] = 'product_id';
+  $handler->display->display_options['fields']['product_id']['table'] = 'commerce_product';
+  $handler->display->display_options['fields']['product_id']['field'] = 'product_id';
+  $handler->display->display_options['fields']['product_id']['label'] = '';
+  $handler->display->display_options['fields']['product_id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['product_id']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['product_id']['link_to_product'] = 0;
+  /* Field: Field: Image */
+  $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
+  $handler->display->display_options['fields']['field_image']['table'] = 'field_data_field_image';
+  $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
+  $handler->display->display_options['fields']['field_image']['label'] = '';
+  $handler->display->display_options['fields']['field_image']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_image']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_image']['settings'] = array(
+    'image_style' => 'thumbnail',
+    'image_link' => '',
+  );
+  /* Field: Commerce Product: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'commerce_product';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_product'] = 0;
+  /* Field: Field: Store */
+  $handler->display->display_options['fields']['commerce_store']['id'] = 'commerce_store';
+  $handler->display->display_options['fields']['commerce_store']['table'] = 'field_data_commerce_store';
+  $handler->display->display_options['fields']['commerce_store']['field'] = 'commerce_store';
+  $handler->display->display_options['fields']['commerce_store']['label'] = '';
+  $handler->display->display_options['fields']['commerce_store']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['commerce_store']['settings'] = array(
+    'link' => 0,
+  );
+  /* Field: Commerce Product: Price */
+  $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['label'] = '';
+  $handler->display->display_options['fields']['commerce_price']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_price']['settings'] = array(
+    'calculation' => '0',
+  );
+  /* Field: Commerce Product: Sale price */
+  $handler->display->display_options['fields']['field_commerce_saleprice']['id'] = 'field_commerce_saleprice';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['table'] = 'field_data_field_commerce_saleprice';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['field'] = 'field_commerce_saleprice';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['label'] = '';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_commerce_saleprice']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['settings'] = array(
+    'calculation' => FALSE,
+  );
+  /* Field: Commerce Product: Add to Cart form */
+  $handler->display->display_options['fields']['add_to_cart_form']['id'] = 'add_to_cart_form';
+  $handler->display->display_options['fields']['add_to_cart_form']['table'] = 'views_entity_commerce_product';
+  $handler->display->display_options['fields']['add_to_cart_form']['field'] = 'add_to_cart_form';
+  $handler->display->display_options['fields']['add_to_cart_form']['label'] = '';
+  $handler->display->display_options['fields']['add_to_cart_form']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['add_to_cart_form']['show_quantity'] = 0;
+  $handler->display->display_options['fields']['add_to_cart_form']['default_quantity'] = '1';
+  $handler->display->display_options['fields']['add_to_cart_form']['combine'] = 1;
+  $handler->display->display_options['fields']['add_to_cart_form']['display_path'] = 0;
+  $handler->display->display_options['fields']['add_to_cart_form']['line_item_type'] = 0;
+  /* Field: Content: Brand */
+  $handler->display->display_options['fields']['field_brand']['id'] = 'field_brand';
+  $handler->display->display_options['fields']['field_brand']['table'] = 'field_data_field_brand';
+  $handler->display->display_options['fields']['field_brand']['field'] = 'field_brand';
+  $handler->display->display_options['fields']['field_brand']['relationship'] = 'field_product';
+  $handler->display->display_options['fields']['field_brand']['label'] = '';
+  $handler->display->display_options['fields']['field_brand']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_brand']['element_label_colon'] = FALSE;
+  /* Sort criterion: Commerce Product: Created date */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'commerce_product';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
+  /* Contextual filter: Content: Category (field_category) */
+  $handler->display->display_options['arguments']['field_category_tid']['id'] = 'field_category_tid';
+  $handler->display->display_options['arguments']['field_category_tid']['table'] = 'field_data_field_category';
+  $handler->display->display_options['arguments']['field_category_tid']['field'] = 'field_category_tid';
+  $handler->display->display_options['arguments']['field_category_tid']['relationship'] = 'field_product';
+  $handler->display->display_options['arguments']['field_category_tid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_category_tid']['default_argument_type'] = 'taxonomy_tid';
+  $handler->display->display_options['arguments']['field_category_tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_category_tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_category_tid']['summary_options']['items_per_page'] = '25';
+  /* Filter criterion: Content: Brand (field_brand) */
+  $handler->display->display_options['filters']['field_brand_tid']['id'] = 'field_brand_tid';
+  $handler->display->display_options['filters']['field_brand_tid']['table'] = 'field_data_field_brand';
+  $handler->display->display_options['filters']['field_brand_tid']['field'] = 'field_brand_tid';
+  $handler->display->display_options['filters']['field_brand_tid']['relationship'] = 'field_product';
+  $handler->display->display_options['filters']['field_brand_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_brand_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['operator_id'] = 'field_brand_tid_op';
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['label'] = 'Brand';
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['operator'] = 'field_brand_tid_op';
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['identifier'] = 'brand';
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    4 => 0,
+    3 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_brand_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_brand_tid']['vocabulary'] = 'brand';
+  /* Filter criterion: Commerce Product: On sale (field_commerce_saleprice_on_sale) */
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['id'] = 'field_commerce_saleprice_on_sale_value';
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['table'] = 'field_data_field_commerce_saleprice_on_sale';
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['field'] = 'field_commerce_saleprice_on_sale_value';
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['expose']['operator_id'] = 'field_commerce_saleprice_on_sale_value_op';
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['expose']['label'] = 'Discounts';
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['expose']['operator'] = 'field_commerce_saleprice_on_sale_value_op';
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['expose']['identifier'] = 'deals';
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    4 => 0,
+    3 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['expose']['reduce'] = TRUE;
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['exposed_block'] = TRUE;
+  $handler->display->display_options['path'] = 'category-products';
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block_1');
+  $export['category_products'] = $view;
+
   return $export;
 }
