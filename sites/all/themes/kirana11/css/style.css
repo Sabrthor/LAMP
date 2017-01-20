@@ -80,6 +80,7 @@ fieldset { padding:10px; margin: 0 2px; border: 1px solid #eaeaea; clear: left;}
 legend { border-bottom: none; width: auto; margin: 0;}
 input[type="radio"], input[type="checkbox"] { margin: 0px 0 3px; }
 .form-item, .form-actions{ margin: 15px 0; position: relative; }
+.form-item label{ position: absolute; top: -20px; }
 
 /* Buttons */
 .btn { -webkit-border-radius: 0px; -moz-border-radius: 0px; border-radius: 5px; padding: 8px 10px; }
