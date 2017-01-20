@@ -444,11 +444,11 @@ aside{ box-shadow: none; }
 .page-taxonomy #sidebar-first #edit-brand-wrapper{ border-bottom:10px solid #fff; }
 #views-exposed-form-category-products-page .views-exposed-widget{ width: 100%; padding: 25px 30px;  }
 #views-exposed-form-category-products-page .views-exposed-widget > label{ width: 100%; float: left; font-size: 15px; }
-#views-exposed-form-category-products-page .views-exposed-widget .form-item label{ top:0; position: relative; color: #666; font-weight: 400; padding-left: 10px }
+#views-exposed-form-category-products-page .views-exposed-widget .form-item label{ top:0; position: relative; color: #666; font-weight: 400; padding-left: 10px; cursor: pointer; }
 #views-exposed-form-category-products-page .views-exposed-widget .form-checkboxes .form-item{ width: 100%; float: left; padding: 5px 0; position: relative; }
-#views-exposed-form-category-products-page .views-exposed-widget .form-checkboxes .form-item label::before{ position: absolute; content: ""; width: 20px; height: 20px; padding:2px; background: #fff; border-radius: 3px; left: -20px; top:0; }
-#views-exposed-form-category-products-page .views-exposed-widget .form-checkboxes .form-item input[type='checkbox']:checked  + label::before{ content:"\f00c"; font-family:'FontAwesome'; padding: 2px;  }
-#views-exposed-form-category-products-page .views-exposed-widget .form-checkboxes .form-item input[type='checkbox'] { border:1px solid #fff; }
+#views-exposed-form-category-products-page .views-exposed-widget .form-checkboxes .form-item label::before{ position: absolute; content: ""; width: 20px; height: 19px; padding:2px; background: #fff; border-radius: 3px; left: -20px; top:0; }
+#views-exposed-form-category-products-page .views-exposed-widget .form-checkboxes .form-item input[type='checkbox']:checked + label::before{ content:"\f00c"; font-family:'FontAwesome'; padding: 2px;  }
+#views-exposed-form-category-products-page .views-exposed-widget .form-checkboxes .form-item input[type='checkbox'] { border:1px solid #fff; cursor: pointer; }
 #views-exposed-form-category-products-page .views-submit-button{ padding: 0; }
 .overlay-popup-menu .views-exposed-widget > label{ display: none;}
 .overlay-popup-brand-container #edit-deals-wrapper{ display: none; }
@@ -600,7 +600,7 @@ h1.page-title{ margin: 0 0 30px; color: #666; }
 	.mobile-menu-title a:last-child{ border-right: 0; }
 	.front .mobile-menu-title a{ border-right: 0; }
 	.front .mobile-menu-title a.menu-brands, .front .mobile-menu-title a.menu-discount{ display: none; }
-	.region-sidebar-first .block:first-child{ display: none; }
+	.region-sidebar-first #block-block-16{ display: none; }
 	.mobile-category-section .glyphicon-chevron-down{ padding:12px 0 0 16px; }
 	.overlay-popup-menu{ display: none; background:rgba(0,0,0, 0.8); width: 100%; float: left; position: fixed; z-index: 999; height: 2500px; }
 	.overlay-popup-menu-container, .overlay-popup-brand-container, .overlay-popup-discount-container{ background:#fff;  margin-top: 10%; max-height: 450px; overflow: scroll; }
@@ -697,10 +697,10 @@ h1.page-title{ margin: 0 0 30px; color: #666; }
 	.breadcrumb a{ font-size: 10px;}
 	#sidebar-first .views-exposed-widget .form-item label, .category-display .views-field-title{ font-size: 12px; }
 	h1.page-title{ margin: 20px 0 10px; font-size: 16px; text-align: center; font-weight: 700; }
-	#block-views-exp-category-products-page{ display: none; }
+	.sidebar #block-views-exp-category-products-page{ display: none; }
 	.page-taxonomy #sidebar-first{ border: 5px solid #fff; }
 	#views-exposed-form-category-products-page .views-exposed-widget .form-checkboxes .form-item label::before{ top:-3px; border:1px solid #666; }
-	#views-exposed-form-category-products-page .views-exposed-widget .form-checkboxes .form-item input[type="checkbox"]:checked + label::before{ padding: 4px; }
+	#views-exposed-form-category-products-page .views-exposed-widget .form-checkboxes .form-item input[type="checkbox"]:checked + label::before{ padding: 3px; }
 }
 
 /* Main menu category*/
