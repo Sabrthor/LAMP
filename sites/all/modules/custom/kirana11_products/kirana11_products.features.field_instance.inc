@@ -57,7 +57,7 @@ function kirana11_products_field_default_field_instances() {
         'label' => 'hidden',
         'module' => 'commerce_price',
         'settings' => array(
-          'calculation' => 'calculated_sell_price',
+          'calculation' => 0,
         ),
         'type' => 'commerce_price_formatted_amount',
         'weight' => 0,

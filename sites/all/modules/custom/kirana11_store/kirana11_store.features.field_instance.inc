@@ -18,7 +18,7 @@ function kirana11_store_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'addressfield',
         'settings' => array(
           'format_handlers' => array(
@@ -295,7 +295,7 @@ function kirana11_store_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'hidden',
         'module' => 'office_hours',
         'settings' => array(
           'closedformat' => 'Closed',
@@ -458,12 +458,8 @@ function kirana11_store_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'image',
-        'settings' => array(
-          'image_link' => '',
-          'image_style' => '',
-        ),
-        'type' => 'image',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'teaser' => array(
@@ -628,6 +624,46 @@ function kirana11_store_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-platform_banners-field_stores'.
+  $field_instances['node-platform_banners-field_stores'] = array(
+    'bundle' => 'platform_banners',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 1,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_stores',
+    'label' => 'Stores',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => -2,
+    ),
+  );
+
   // Exported field_instance: 'node-store_banners-commerce_store'.
   $field_instances['node-store_banners-commerce_store'] = array(
     'bundle' => 'store_banners',
@@ -747,6 +783,7 @@ function kirana11_store_field_default_field_instances() {
   t('Store');
   t('Store Logo');
   t('Store Open Hours');
+  t('Stores');
   t('TIN Number');
 
   return $field_instances;
