@@ -134,24 +134,27 @@
     attach: function (context) {
       $(document).ready(function(){
         var id = $("#selected_tid").html();
-        console.log("Id : " + id);
-        $("#" + id).parents('ul.menu_level_1 li').css({"font-weight": "700"});
-        $("#" + id).parents('ul.menu_level_1 li > ul').show();
+        $("#main-content ul.menu_level_1 li").removeClass('cm-expanded');
+        $("#main-content  #" + id).parents('ul.menu_level_1 li').css({"font-weight": "700"});
+        $("#main-content  #" + id).parents('ul.menu_level_1 li').addClass('cm-expanded');
+        $("#main-content  #" + id).parents('ul.menu_level_1 li > ul').show();
       });
       
-      $(".menu_level_1 > li > a").once().click(function(){
-        console.log("outside");
-        $(".menu_level_1 > li > a").css({"font-weight": "400"});
-        $(".menu_level_1 > li ul").hide();
+      $("#main-content .menu_level_1 > li > a").once().click(function(){
+        $("#main-content .menu_level_1 > li").removeClass('cm-expanded');
+        $("#main-content .menu_level_1 > li > a").css({"font-weight": "400"});
+        $("#main-content .menu_level_1 > li ul").hide();
         $(this).next('ul').show();
+        $(this).parent('ul li').addClass('cm-expanded');
         $(this).css({"font-weight": "700"});
       });
 
-      $(".menu_level_2 > li a").once().click(function(){
-        console.log("inside");
-        $(".menu_level_2 > li a").css({"font-weight": "400"});
-        $(".menu_level_2 > li ul").hide();
+      $("#main-content .menu_level_2 > li a").once().click(function(){
+        $("#main-content .menu_level_2 > li").removeClass('cm-expanded');
+        $("#main-content .menu_level_2 > li a").css({"font-weight": "400"});
+        $("#main-content .menu_level_2 > li ul").hide();
         $(this).next('ul').show();
+        $(this).parents('ul > li').addClass('cm-expanded');
         $(this).css({"font-weight": "700"});
       });
     }
