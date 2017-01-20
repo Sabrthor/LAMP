@@ -463,12 +463,14 @@ h1.page-title{ margin: 0 0 30px; color: #666; }
 .category-display{ text-align: center; margin-bottom: 2%; border:5px solid #fff;}
 .category-display:hover{ border:5px solid #f1f1f1; }
 .category-display .views-field-field-image .field-content{ height: 180px; }
-.category-display .views-field-field-image .field-content img{ max-height: 100%; }
+.category-display .views-field-field-image .field-content img{ max-height: 100%; margin-top: 3%; }
 .category-display .views-field-title{ font-size: 13px; font-weight: 700; height: 38px; overflow:hidden; }
 .category-display .views-field-commerce-store .field-content{ overflow:hidden; white-space: nowrap; text-overflow: ellipsis; }
-.category-display .views-field-field-commerce-saleprice, .category-display .views-field-commerce-price{ font-size: 15px;  padding: 10px 0; width: 50%; float: left; text-align: center; }
-.category-display  .views-field-commerce-price{ text-decoration: line-through; color: #333; }
-.category-display .views-field-field-commerce-saleprice{ color: #cc242e;}
+.category-display p.product-price{ width: 100%; }
+.category-display .mrp-price-strike, .category-display .sales-price{ font-size: 17px;  padding: 10px 0; width: 50%; float: left; text-align: center; }
+.category-display .mrp-price-strike{ text-decoration: line-through; color: #333; }
+.category-display .sales-price{ color: #cc242e;}
+.category-display .mrp-price{ font-size: 17px;  padding: 10px 0; width: 100%; float: left; text-align: center; margin: 0; font-weight: 700; }
 
 /* Category Menu */
 #selected_tid{ display: none; }
