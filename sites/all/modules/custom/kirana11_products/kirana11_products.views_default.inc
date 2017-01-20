@@ -143,6 +143,7 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['fields']['nothing']['table'] = 'views';
   $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
   $handler->display->display_options['fields']['nothing']['label'] = '';
+  $handler->display->display_options['fields']['nothing']['exclude'] = TRUE;
   $handler->display->display_options['fields']['nothing']['element_type'] = 'div';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'product-offer-price-image';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
@@ -358,7 +359,7 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = '<div class="no-result-product"><img src="<?php print base_path() . path_to_theme(); ?>/images/empty_cart_sad.png" /><p>No products found in this category.<br/><a href="javascript:">Click Here</a> to view all products</p></div>';
+  $handler->display->display_options['empty']['area']['content'] = '<div class="no-result-product"><img src="<?php print base_path() . path_to_theme(); ?>/images/empty_cart_sad.png" /><p>No products found in this category.</p></div>';
   $handler->display->display_options['empty']['area']['format'] = 'php_code';
   /* Relationship: Commerce Product: Referencing Node */
   $handler->display->display_options['relationships']['field_product']['id'] = 'field_product';
@@ -633,9 +634,13 @@ return $_SESSION[\'k11_stores_for_user\'];
         ),
       ),
     ),
-    'field_category_tid' => array(
-      'bef_format' => 'default',
+    'term_node_tid_depth_join' => array(
+      'bef_format' => 'bef_ul',
       'more_options' => array(
+        'bef_select_all_none' => 0,
+        'bef_select_all_none_nested' => 0,
+        'bef_term_description' => 0,
+        'bef_collapsible' => 0,
         'autosubmit' => 0,
         'is_secondary' => 0,
         'any_label' => '',
@@ -661,6 +666,13 @@ return $_SESSION[\'k11_stores_for_user\'];
   $handler->display->display_options['style_options']['columns'] = '3';
   $handler->display->display_options['style_options']['column_classes'] = 'col-xs-12 col-sm-6 col-md-4 category-display';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* No results behavior: Global: Text area */
+  $handler->display->display_options['empty']['area']['id'] = 'area';
+  $handler->display->display_options['empty']['area']['table'] = 'views';
+  $handler->display->display_options['empty']['area']['field'] = 'area';
+  $handler->display->display_options['empty']['area']['empty'] = TRUE;
+  $handler->display->display_options['empty']['area']['content'] = '<div class="no-result-product"><img src="<?php print base_path() . path_to_theme(); ?>/images/empty_cart_sad.png" /><p>No products found in this category.<br/><a href="<?php print base_path() .current_path();?>">Click Here</a> to view all products</p></div>';
+  $handler->display->display_options['empty']['area']['format'] = 'php_code';
   /* Relationship: Commerce Product: Referencing Node */
   $handler->display->display_options['relationships']['field_product']['id'] = 'field_product';
   $handler->display->display_options['relationships']['field_product']['table'] = 'commerce_product';
@@ -669,6 +681,11 @@ return $_SESSION[\'k11_stores_for_user\'];
   $handler->display->display_options['relationships']['commerce_store_target_id']['id'] = 'commerce_store_target_id';
   $handler->display->display_options['relationships']['commerce_store_target_id']['table'] = 'field_data_commerce_store';
   $handler->display->display_options['relationships']['commerce_store_target_id']['field'] = 'commerce_store_target_id';
+  /* Relationship: Content: Category (field_category) */
+  $handler->display->display_options['relationships']['field_category_tid']['id'] = 'field_category_tid';
+  $handler->display->display_options['relationships']['field_category_tid']['table'] = 'field_data_field_category';
+  $handler->display->display_options['relationships']['field_category_tid']['field'] = 'field_category_tid';
+  $handler->display->display_options['relationships']['field_category_tid']['relationship'] = 'field_product';
   /* Field: Commerce Product: Product ID */
   $handler->display->display_options['fields']['product_id']['id'] = 'product_id';
   $handler->display->display_options['fields']['product_id']['table'] = 'commerce_product';
@@ -777,6 +794,9 @@ return $_SESSION[\'k11_stores_for_user\'];
   $handler->display->display_options['fields']['field_category']['table'] = 'field_data_field_category';
   $handler->display->display_options['fields']['field_category']['field'] = 'field_category';
   $handler->display->display_options['fields']['field_category']['relationship'] = 'field_product';
+  $handler->display->display_options['fields']['field_category']['label'] = '';
+  $handler->display->display_options['fields']['field_category']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_category']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_category']['delta_offset'] = '0';
   /* Contextual filter: Commerce Store: Store ID */
   $handler->display->display_options['arguments']['store_id']['id'] = 'store_id';
@@ -803,11 +823,35 @@ return $_SESSION[\'k11_stores_for_user\'];
   $handler->display->display_options['arguments']['title']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['title']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['title']['limit'] = '0';
+  /* Filter criterion: Content: Has taxonomy terms with depth (using joins) */
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['id'] = 'term_node_tid_depth_join';
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['table'] = 'node';
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['field'] = 'term_node_tid_depth_join';
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['relationship'] = 'field_product';
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['group'] = 1;
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['expose']['operator_id'] = 'term_node_tid_depth_join_op';
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['expose']['label'] = 'Categories';
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['expose']['operator'] = 'term_node_tid_depth_join_op';
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['expose']['identifier'] = 'category_id';
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    4 => 0,
+    3 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['type'] = 'select';
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['vocabulary'] = 'category';
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['hierarchy'] = 1;
+  $handler->display->display_options['filters']['term_node_tid_depth_join']['depth'] = '2';
   /* Filter criterion: Content: Brand (field_brand) */
   $handler->display->display_options['filters']['field_brand_tid']['id'] = 'field_brand_tid';
   $handler->display->display_options['filters']['field_brand_tid']['table'] = 'field_data_field_brand';
   $handler->display->display_options['filters']['field_brand_tid']['field'] = 'field_brand_tid';
   $handler->display->display_options['filters']['field_brand_tid']['relationship'] = 'field_product';
+  $handler->display->display_options['filters']['field_brand_tid']['group'] = 1;
   $handler->display->display_options['filters']['field_brand_tid']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_brand_tid']['expose']['operator_id'] = 'field_brand_tid_op';
   $handler->display->display_options['filters']['field_brand_tid']['expose']['label'] = 'Brand';
@@ -830,6 +874,7 @@ return $_SESSION[\'k11_stores_for_user\'];
   $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['value'] = array(
     1 => '1',
   );
+  $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['group'] = 1;
   $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['expose']['operator_id'] = 'field_commerce_saleprice_on_sale_value_op';
   $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['expose']['label'] = 'Discounts';
