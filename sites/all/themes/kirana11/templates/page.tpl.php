@@ -300,9 +300,11 @@
             <span class="glyphicon glyphicon-remove-circle"></span>
           </div>
         </div>
-        <?php if ($page['header_menu']): 
-          print render($page['header_menu']); 
-        endif; ?>
+        <?php 
+          if ($page['header_menu']): 
+            print render($page['header_menu']); 
+          endif; 
+        ?>
       </div>
     </div>
 
@@ -314,7 +316,7 @@
             <span class="glyphicon glyphicon-remove-circle"></span>
           </div>
         </div>
-        <?php print render($page['sidebar_first']); ?>
+        <?php if ($page['sidebar_first']): print render($page['sidebar_first']); endif; ?>
       </div>
     </div>
 
@@ -326,7 +328,7 @@
             <span class="glyphicon glyphicon-remove-circle"></span>
           </div>
         </div>
-        <?php print render($page['sidebar_first']); ?>
+        <?php if ($page['sidebar_first']): print render($page['sidebar_first']); endif; ?>
       </div>
     </div>
     

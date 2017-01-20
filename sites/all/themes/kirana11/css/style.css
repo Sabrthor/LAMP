@@ -475,13 +475,14 @@ h1.page-title{ margin: 0 0 30px; color: #666; }
 /* Category Menu */
 #selected_tid{ display: none; }
 .menu_level_1, .menu_level_1 li{ list-style: none; font-weight: 400; position: relative; }
-.menu_level_1{ padding: 20px; border-bottom: 10px solid #fff; }
+.category-menu-title{ margin: 0; padding: 10px 20px 0 20px; font-size: 26px; }
+.menu_level_1{ padding: 0 20px 20px; border-bottom: 10px solid #fff; }
 .menu_level_1 li > ul{ margin-left:15px; display: none; }
 .menu_level_1 > li, .menu_level_2 > li{ padding: 10px 0 5px 20px; }
 .menu_level_2 li > ul li{ padding: 5px 0; }
 .menu_level_1 li a:hover, .menu_level_1 li a:focus, .menu_level_1 li a{ color: #666; }
 .menu_level_1 > li:before, .menu_level_2 > li:before{ content:'\f055'; color: #666; position: absolute; font-family:'FontAwesome'; font-size: 18px; top:10px; left: 0; }
-.menu_level_1 > li.cm-expanded:before, .menu_level_2 > li.cm-expanded:before{ content:'\f056'; }
+.menu_level_1 > li.cm-expanded:before, .menu_level_2 > li.cm-expanded:before{ content:'\f056'; color: #346d35; }
 
 /* Media query goes here */
 @media (min-width: 1199px) {
