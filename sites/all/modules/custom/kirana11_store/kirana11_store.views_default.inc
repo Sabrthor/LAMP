@@ -101,6 +101,39 @@ function kirana11_store_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
+
+  /* Display: Block 2 */
+  $handler = $view->new_display('block', 'Block 2', 'block_2');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Commerce Store: Store ID */
+  $handler->display->display_options['arguments']['store_id']['id'] = 'store_id';
+  $handler->display->display_options['arguments']['store_id']['table'] = 'commerce_store';
+  $handler->display->display_options['arguments']['store_id']['field'] = 'store_id';
+  $handler->display->display_options['arguments']['store_id']['relationship'] = 'commerce_store_target_id';
+  $handler->display->display_options['arguments']['store_id']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['store_id']['default_argument_type'] = 'php';
+  $handler->display->display_options['arguments']['store_id']['default_argument_options']['code'] = 'return arg(1);';
+  $handler->display->display_options['arguments']['store_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['store_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['store_id']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['store_id']['validate']['fail'] = 'ignore';
+  $handler->display->display_options['arguments']['store_id']['break_phrase'] = TRUE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'store_banners' => 'store_banners',
+  );
   $export['banners_sliders'] = $view;
 
   $view = new view();
@@ -246,6 +279,17 @@ function kirana11_store_views_default_views() {
   $handler->display->display_options['fields']['store_id']['id'] = 'store_id';
   $handler->display->display_options['fields']['store_id']['table'] = 'commerce_store';
   $handler->display->display_options['fields']['store_id']['field'] = 'store_id';
+  $handler->display->display_options['fields']['store_id']['label'] = '';
+  $handler->display->display_options['fields']['store_id']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['store_id']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['store_id']['link_to_store'] = 0;
+  /* Field: Commerce Store: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'commerce_store';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_store'] = 0;
   /* Field: Commerce Store: Address */
   $handler->display->display_options['fields']['field_address']['id'] = 'field_address';
   $handler->display->display_options['fields']['field_address']['table'] = 'field_data_field_address';

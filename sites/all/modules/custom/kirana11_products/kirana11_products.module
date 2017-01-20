@@ -24,16 +24,9 @@ function kirana11_products_form_alter(&$form, &$form_state, $form_id){
  * Function to get all the Category terms.
  * @param $tid
  */
-function _get_taxonomy_tree($tid=NULL){
-    if($tid){
-        $term = taxonomy_term_load($tid);
-        $vid = $term->vid;
-    }
-    else {
-        $vocabulary_details = taxonomy_vocabulary_machine_name_load('category');
-        $vid = $vocabulary_details->vid;
-    }
-    $terms = taxonomy_get_tree($vid);
+function _get_taxonomy_tree($tid){
+    $term = taxonomy_term_load($tid);
+    $terms = taxonomy_get_tree($term->vid);
 
     $main_term_list =   get_sibilings($terms, 0);
 
@@ -47,7 +40,7 @@ function _get_taxonomy_tree($tid=NULL){
         }
     }
 
-    olLiTree($main_term_list, 0, $tid);
+    olLiTree($main_term_list, 0);
 
 }
 
@@ -63,20 +56,14 @@ function get_sibilings($terms, $parent) {
     return $temp_list;
 }
 
-function olLiTree( $tree, $level, $tid=NULL) {
+function olLiTree( $tree, $level) {
  
   echo '<ul class="menu_level_' . ++$level . '">';
 
   foreach ( $tree as $item ) {        
     if($level == '3') {
-      if($tid) {
-          $path = drupal_get_path_alias('taxonomy/term/' . $item['tid']);
-          echo "<li><a href=\"/" . $path . "\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
-      }
-      else{
-          $path = current_path();
-          echo "<li><a href=\"/" . $path . "\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
-      }
+      $path = drupal_get_path_alias('taxonomy/term/' . $item['tid']);
+      echo "<li><a href=\"/" . $path . "\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
     } else {
       echo "<li><a href=\"javascript:\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
     }
@@ -90,4 +77,38 @@ function olLiTree( $tree, $level, $tid=NULL) {
 
   echo '</ul>';
   --$level;
+}
+
+/**
+ * Implements hook_preprocess_views_view().
+ * @param type $vars
+ *
+ */
+function kirana11_products_preprocess_views_view(&$vars)
+{
+    /*if ($vars['view']->name == 'store_products') {
+        // get var from GET
+        $obj_type = $_GET['category_id'];
+        //echo "<pre>";print_r($obj_type);exit;
+        if (isset($obj_type)) {
+            // obj_type is the taxonomy term, get taxonomy term name
+            $tax_name = taxonomy_term_load($obj_type[0])->name;
+            //echo "<pre>";print_r($tax_name);
+            //echo $tax_name->name;
+            // if taxonomy term have parents
+            $tax_parent = taxonomy_get_parents_all($obj_type);
+            if (isset($tax_parent[1])) {
+                // add parent name to taxonomy term name
+                $tax_name = $tax_parent[1]->name . ', ' . $tax_name;
+            }
+            //update title
+            $vars['view']->build_info['title'] = $tax_name;
+        }
+    }*/
+
+    if ($vars['view']->name == 'store_products') {
+        if(isset($_GET['deals'])){
+            $vars['view']->build_info['title'] = 'Deals of the Day';
+        }
+    }
 }
