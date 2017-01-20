@@ -170,6 +170,10 @@
         $("#main-content .bef-tree .highlight").parents('ul').show();
         $("#main-content .bef-tree .highlight").parents('ul li').addClass('cm-expanded');
 
+         $('#main-content ul.bef-tree > li > div label, #main-content .bef-tree-depth-1 > li > div label').on('click', function(event) {
+             event.preventDefault();
+         });
+        
         $("#main-content .bef-tree > li").once().click(function(){
           $("#main-content .bef-tree > li").removeClass('cm-expanded');
           $("#main-content .bef-tree > li").find('label').css({"font-weight": "400"});
