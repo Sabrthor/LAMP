@@ -513,7 +513,7 @@ h1.page-title{ margin: 0 0 30px; color: #666; }
 	#sidebar-first .views-exposed-widget{ padding: 15px; }
 	#sidebar-first .views-exposed-widget .form-item label, .category-display .views-field-title{ font-size: 10px; }
 	.category-display .views-field-field-commerce-saleprice, .category-display .views-field-commerce-price{ font-size: 13px; }
-	.category-display .views-field-field-image .field-content{ height: 120px; }
+	.category-display .views-field-field-image .field-content{ height: 120px; margin-bottom: 6%; }
 	#sidebar-first .views-exposed-widget .form-checkboxes .form-item label::before{ top:-4px; }
 	#sidebar-first .views-exposed-widget .form-checkboxes .form-item input[type="checkbox"]:checked + label::before{ font-size: 14px; }
 }
