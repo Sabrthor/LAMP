@@ -404,21 +404,59 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['fields']['commerce_price']['table'] = 'field_data_commerce_price';
   $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
   $handler->display->display_options['fields']['commerce_price']['label'] = '';
+  $handler->display->display_options['fields']['commerce_price']['exclude'] = TRUE;
   $handler->display->display_options['fields']['commerce_price']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
   $handler->display->display_options['fields']['commerce_price']['settings'] = array(
     'calculation' => '0',
   );
+  /* Field: Commerce Product: On sale */
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['id'] = 'field_commerce_saleprice_on_sale';
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['table'] = 'field_data_field_commerce_saleprice_on_sale';
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['field'] = 'field_commerce_saleprice_on_sale';
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['label'] = '';
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['element_label_colon'] = FALSE;
   /* Field: Commerce Product: Sale price */
   $handler->display->display_options['fields']['field_commerce_saleprice']['id'] = 'field_commerce_saleprice';
   $handler->display->display_options['fields']['field_commerce_saleprice']['table'] = 'field_data_field_commerce_saleprice';
   $handler->display->display_options['fields']['field_commerce_saleprice']['field'] = 'field_commerce_saleprice';
   $handler->display->display_options['fields']['field_commerce_saleprice']['label'] = '';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_commerce_saleprice']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_commerce_saleprice']['click_sort_column'] = 'amount';
   $handler->display->display_options['fields']['field_commerce_saleprice']['settings'] = array(
     'calculation' => FALSE,
   );
+  /* Field: Global: PHP */
+  $handler->display->display_options['fields']['php']['id'] = 'php';
+  $handler->display->display_options['fields']['php']['table'] = 'views';
+  $handler->display->display_options['fields']['php']['field'] = 'php';
+  $handler->display->display_options['fields']['php']['label'] = '';
+  $handler->display->display_options['fields']['php']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['php']['use_php_setup'] = 0;
+  $handler->display->display_options['fields']['php']['php_output'] = '<?php
+   $product_value = $data->_field_data[\'product_id\'][\'entity\'];
+   $price = $product_value->commerce_price[\'und\'][0][\'amount\'];    
+   //print number_format(($price/100), 2) . ", " . number_format(($sale_price/100), 2);
+   $on_sale = $product_value->field_commerce_saleprice_on_sale[\'und\'][0][\'value\'];
+   if($on_sale > 0){
+       $sale_price = $product_value->field_commerce_saleprice[\'und\'][0][\'amount\'];
+       if(!empty($sale_price)){
+           if($price == $sale_price){
+               print "<p class=\'mrp-price\'>₹ " . number_format(($price/100), 2) . "</p>";
+           }else{
+               print "<p class=\'product-price\'><span class=\'mrp-price-strike\'>₹ " . number_format(($price/100), 2) . "</span><span class=\'sales-price\'>₹ " . number_format(($sale_price/100), 2) . "</span></p>";
+           }
+       }else{
+           print "<p class=\'mrp-price\'>₹ " . number_format(($price/100), 2) . "</p>";
+       }
+   }else{
+       print "<p class=\'mrp-price\'>₹ " . number_format(($price/100), 2) . "</p>";
+   }
+?>';
+  $handler->display->display_options['fields']['php']['use_php_click_sortable'] = '0';
+  $handler->display->display_options['fields']['php']['php_click_sortable'] = '';
   /* Field: Commerce Product: Add to Cart form */
   $handler->display->display_options['fields']['add_to_cart_form']['id'] = 'add_to_cart_form';
   $handler->display->display_options['fields']['add_to_cart_form']['table'] = 'views_entity_commerce_product';
