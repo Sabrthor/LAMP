@@ -26,6 +26,7 @@ features[ctools][] = slick:slick_default_preset:1
 features[ctools][] = views:views_default:3.0
 features[fe_block_settings][] = views--exp-store_products-page
 features[fe_block_settings][] = views-banners_sliders-block_1
+features[fe_block_settings][] = views-banners_sliders-block_2
 features[fe_block_settings][] = views-store_details-block
 features[fe_block_settings][] = views-store_info-block
 features[features_api][] = api:2
