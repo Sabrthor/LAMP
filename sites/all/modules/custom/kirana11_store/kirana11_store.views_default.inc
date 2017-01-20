@@ -195,7 +195,7 @@ function kirana11_store_views_default_views() {
   $handler->display->display_options['fields']['nothing']['label'] = '';
   $handler->display->display_options['fields']['nothing']['alter']['text'] = 'Shop Now';
   $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
-  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'store/[store_id]';
+  $handler->display->display_options['fields']['nothing']['alter']['path'] = 'store-products/[store_id]/[title]?deals[]=1';
   $handler->display->display_options['fields']['nothing']['element_type'] = 'div';
   $handler->display->display_options['fields']['nothing']['element_class'] = 'shop-now-button';
   $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
@@ -211,10 +211,100 @@ function kirana11_store_views_default_views() {
   $handler->display->display_options['arguments']['store_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['store_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['store_id']['break_phrase'] = TRUE;
+  /* Filter criterion: Commerce Store: Status */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'commerce_store';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
   $export['store_details'] = $view;
+
+  $view = new view();
+  $view->name = 'store_info';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'commerce_store';
+  $view->human_name = 'Store Info';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['row_plugin'] = 'fields';
+  /* Field: Commerce Store: Store ID */
+  $handler->display->display_options['fields']['store_id']['id'] = 'store_id';
+  $handler->display->display_options['fields']['store_id']['table'] = 'commerce_store';
+  $handler->display->display_options['fields']['store_id']['field'] = 'store_id';
+  /* Field: Commerce Store: Address */
+  $handler->display->display_options['fields']['field_address']['id'] = 'field_address';
+  $handler->display->display_options['fields']['field_address']['table'] = 'field_data_field_address';
+  $handler->display->display_options['fields']['field_address']['field'] = 'field_address';
+  $handler->display->display_options['fields']['field_address']['label'] = '';
+  $handler->display->display_options['fields']['field_address']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_address']['click_sort_column'] = 'country';
+  $handler->display->display_options['fields']['field_address']['settings'] = array(
+    'use_widget_handlers' => 1,
+    'format_handlers' => array(
+      'address' => 'address',
+    ),
+  );
+  /* Field: Commerce Store: Store Open Hours */
+  $handler->display->display_options['fields']['field_open_hours']['id'] = 'field_open_hours';
+  $handler->display->display_options['fields']['field_open_hours']['table'] = 'field_data_field_open_hours';
+  $handler->display->display_options['fields']['field_open_hours']['field'] = 'field_open_hours';
+  $handler->display->display_options['fields']['field_open_hours']['label'] = '';
+  $handler->display->display_options['fields']['field_open_hours']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_open_hours']['click_sort_column'] = 'day';
+  $handler->display->display_options['fields']['field_open_hours']['settings'] = array(
+    'showclosed' => 'open',
+    'date_first_day' => '0',
+    'daysformat' => 'short',
+    'hoursformat' => '1',
+    'compress' => 1,
+    'grouped' => 1,
+    'closedformat' => 'Closed',
+    'separator_days' => '<br />',
+    'separator_grouped_days' => ' - ',
+    'separator_day_hours' => ': ',
+    'separator_hours_hours' => '-',
+    'separator_more_hours' => ', ',
+    'current_status' => array(
+      'position' => 'hide',
+      'open_text' => 'Currently open!',
+      'closed_text' => 'Currently closed',
+    ),
+  );
+  $handler->display->display_options['fields']['field_open_hours']['delta_offset'] = '0';
+  /* Contextual filter: Commerce Store: Store ID */
+  $handler->display->display_options['arguments']['store_id']['id'] = 'store_id';
+  $handler->display->display_options['arguments']['store_id']['table'] = 'commerce_store';
+  $handler->display->display_options['arguments']['store_id']['field'] = 'store_id';
+  $handler->display->display_options['arguments']['store_id']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['store_id']['default_argument_type'] = 'php';
+  $handler->display->display_options['arguments']['store_id']['default_argument_options']['code'] = 'return arg(1);';
+  $handler->display->display_options['arguments']['store_id']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['store_id']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['store_id']['summary_options']['items_per_page'] = '25';
+  /* Filter criterion: Commerce Store: Status */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'commerce_store';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+
+  /* Display: Block */
+  $handler = $view->new_display('block', 'Block', 'block');
+  $export['store_info'] = $view;
 
   return $export;
 }

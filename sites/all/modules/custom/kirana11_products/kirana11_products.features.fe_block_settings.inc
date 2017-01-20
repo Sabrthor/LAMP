@@ -31,7 +31,39 @@ function kirana11_products_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'kirana11',
+        'weight' => -28,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
         'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 1,
+  );
+
+  $export['block-store_category_menus'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'machine_name' => 'store_category_menus',
+    'module' => 'block',
+    'node_types' => array(),
+    'pages' => 'store-products/*',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'sidebar_first',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => -25,
       ),
       'seven' => array(
         'region' => '',
@@ -63,7 +95,7 @@ function kirana11_products_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'kirana11',
-        'weight' => 0,
+        'weight' => -27,
       ),
       'seven' => array(
         'region' => '',

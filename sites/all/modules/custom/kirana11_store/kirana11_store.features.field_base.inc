@@ -250,6 +250,27 @@ function kirana11_store_field_default_field_bases() {
     'type' => 'image',
   );
 
+  // Exported field_base: 'field_stores'.
+  $field_bases['field_stores'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_stores',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 500,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
   // Exported field_base: 'field_tin_number'.
   $field_bases['field_tin_number'] = array(
     'active' => 1,

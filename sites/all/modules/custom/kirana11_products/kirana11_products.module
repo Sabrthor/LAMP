@@ -24,9 +24,16 @@ function kirana11_products_form_alter(&$form, &$form_state, $form_id){
  * Function to get all the Category terms.
  * @param $tid
  */
-function _get_taxonomy_tree($tid){
-    $term = taxonomy_term_load($tid);
-    $terms = taxonomy_get_tree($term->vid);
+function _get_taxonomy_tree($tid=NULL){
+    if($tid){
+        $term = taxonomy_term_load($tid);
+        $vid = $term->vid;
+    }
+    else {
+        $vocabulary_details = taxonomy_vocabulary_machine_name_load('category');
+        $vid = $vocabulary_details->vid;
+    }
+    $terms = taxonomy_get_tree($vid);
 
     $main_term_list =   get_sibilings($terms, 0);
 
@@ -40,7 +47,7 @@ function _get_taxonomy_tree($tid){
         }
     }
 
-    olLiTree($main_term_list, 0);
+    olLiTree($main_term_list, 0, $tid);
 
 }
 
@@ -56,14 +63,20 @@ function get_sibilings($terms, $parent) {
     return $temp_list;
 }
 
-function olLiTree( $tree, $level ) {
+function olLiTree( $tree, $level, $tid=NULL) {
  
   echo '<ul class="menu_level_' . ++$level . '">';
 
   foreach ( $tree as $item ) {        
     if($level == '3') {
-      $path = drupal_get_path_alias('taxonomy/term/' . $item['tid']);
-      echo "<li><a href=\"/" . $path . "\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
+      if($tid) {
+          $path = drupal_get_path_alias('taxonomy/term/' . $item['tid']);
+          echo "<li><a href=\"/" . $path . "\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
+      }
+      else{
+          $path = current_path();
+          echo "<li><a href=\"/" . $path . "\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
+      }
     } else {
       echo "<li><a href=\"javascript:\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
     }
