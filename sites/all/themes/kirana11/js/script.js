@@ -130,7 +130,7 @@
     }
   }
 
-  Drupal.behaviors.kirana11CcategoryMenuLeft = {
+  Drupal.behaviors.kirana11CategoryMenuLeft = {
     attach: function (context) {
       $(document).ready(function(){
         var id = $("#selected_tid").html();
@@ -159,6 +159,32 @@
         $(this).next('ul').show();
         $(this).parents('ul > li').addClass('cm-expanded');
         $(this).css({"font-weight": "700", "color" : "#346d35"});
+      });
+    }
+  }
+
+  Drupal.behaviors.kirana11ProductCategoryMenuLeft = {
+    attach: function (context) {
+      $(document).ready(function(){
+
+        $("#main-content .bef-tree .highlight").parents('ul').show();
+        $("#main-content .bef-tree .highlight").parents('ul li').addClass('cm-expanded');
+
+        $("#main-content .bef-tree > li").once().click(function(){
+          $("#main-content .bef-tree > li").removeClass('cm-expanded');
+          $("#main-content .bef-tree > li").find('label').css({"font-weight": "400"});
+          $("#main-content .bef-tree > li ul.bef-tree-depth-1").hide();
+          $(this).addClass('cm-expanded');
+          $(this).find('ul.bef-tree-depth-1').show();
+          $(this).find('label').css({"font-weight": "700"});
+        });
+        $("#main-content .bef-tree-depth-1 > li").once().click(function(){
+          $("#main-content .bef-tree-depth-1 > li").removeClass('cm-expanded');
+          $("#main-content .bef-tree-depth-1 > li ul").hide();
+          $(this).addClass('cm-expanded');
+          $(this).find('ul.bef-tree-depth-2').show();
+          $(this).css({"font-weight": "700"});
+        });
       });
     }
   }
