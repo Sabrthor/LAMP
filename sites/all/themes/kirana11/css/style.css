@@ -542,6 +542,10 @@ h1.page-title{ margin: 0 0 30px; color: #666; }
 	.store_slider .content .street-block, .store_slider .content .locality-block{ font-size: 11px; }
 	.product-price, .product-sale-price{ font-size: 13px; }
 	.store_slider .content .store-slider-logo{ height: 115px; }
+	.front-content-box{ margin: 0 3%; }
+	.view-home-top-brands .slick__arrow .slick-prev, .view-our-partners .slick__arrow .slick-prev, .view-blogs .slick__arrow .slick-prev{ left: -40px; }
+	.view-home-top-brands .slide__content .field-content{ height: 110px; }
+	#recent_blogs .views-field-body p{font-size: 12px; }
  
 }
 @media (min-width: 520px) and (max-width: 767px) {
