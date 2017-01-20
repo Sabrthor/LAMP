@@ -77,8 +77,8 @@ function kirana11_store_slick_default_presets() {
     'settings' => array(
       'asNavFor' => '',
       'autoplay' => TRUE,
-      'prevArrow' => '<button type="button" data-role="none" class="slick-prev" aria-label="Previous" tabindex="0" role="button"><i class="fa fa-chevron-left" ></i></button>',
-      'nextArrow' => '<button type="button" data-role="none" class="slick-next" aria-label="Next" tabindex="0" role="button"><i class="fa fa-chevron-right" ></i></button>',
+      'prevArrow' => '<button type="button" data-role="none" class="slick-prev" aria-label="Previous" tabindex="0" role="button"><i class="fa fa-angle-left" ></i></button>',
+      'nextArrow' => '<button type="button" data-role="none" class="slick-next" aria-label="Next" tabindex="0" role="button"><i class="fa fa-angle-right" ></i></button>',
       'dots' => TRUE,
       'dotsClass' => 'slick-dots',
       'focusOnSelect' => FALSE,

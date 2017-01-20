@@ -105,7 +105,7 @@ function kirana11_store_default_fe_block_settings() {
       ),
     ),
     'title' => '',
-    'visibility' => 0,
+    'visibility' => 1,
   );
 
   $export['views-store_details-block'] = array(
@@ -169,7 +169,7 @@ function kirana11_store_default_fe_block_settings() {
       ),
     ),
     'title' => '',
-    'visibility' => 0,
+    'visibility' => 1,
   );
 
   return $export;
