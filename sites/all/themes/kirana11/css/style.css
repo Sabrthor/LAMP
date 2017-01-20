@@ -80,7 +80,6 @@ fieldset { padding:10px; margin: 0 2px; border: 1px solid #eaeaea; clear: left;}
 legend { border-bottom: none; width: auto; margin: 0;}
 input[type="radio"], input[type="checkbox"] { margin: 0px 0 3px; }
 .form-item, .form-actions{ margin: 15px 0; position: relative; }
-.form-item label{ position: absolute; top:-20px; }
 
 /* Buttons */
 .btn { -webkit-border-radius: 0px; -moz-border-radius: 0px; border-radius: 5px; padding: 8px 10px; }
@@ -493,6 +492,19 @@ aside{ box-shadow: none; }
 .view-store-info .views-field-field-open-hours .oh-display::before{ content:'\f017'; color: #666; position: absolute; font-family:'FontAwesome'; font-size: 18px; left: -22px;   }
 .view-store-info .views-field-field-open-hours .oh-display-label{ width: 15px !important; }
 
+/* No result found product */
+.no-result-product{ text-align: center; font-size: 18px; padding: 20px; background: #fff; min-height: 350px; border: 1px solid #f1f1f1; }
+.no-result-product img{ width: 100px; margin:30px 0; }
+.no-result-product a{ text-decoration: underline; }
+
+/* Product page category */
+.views-widget ul.bef-tree, .views-widget ul.bef-tree li{ list-style: none; position: relative; display: inline-block; }
+.views-widget ul.bef-tree li{ padding-left: 15px; width:100%; }
+.views-widget ul.bef-tree > li > div input, .views-widget ul.bef-tree > li > div label:before, .views-widget .bef-tree-depth-1 > li > div input, .views-widget .bef-tree-depth-1 > li > div label:before{ display: none; }
+.views-widget ul.bef-tree > li:before, .views-widget .bef-tree-depth-1 > li:before{ content:'\f055'; color: #666; position: absolute; font-family:'FontAwesome'; font-size: 18px; top:6px; left: 0; }
+.views-widget .bef-tree > li.cm-expanded:before, .views-widget .bef-tree-depth-1 > li.cm-expanded:before{ content:'\f056'; color: #346d35; }
+.views-widget .bef-tree > li ul{ margin-left: 10px; display: none; }
+#edit-term-node-tid-depth-join-wrapper{ padding: 10px 15px !important; border-bottom: 10px solid #fff; }
 
 /* Media query goes here */
 @media (min-width: 1199px) {
