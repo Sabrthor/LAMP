@@ -314,24 +314,7 @@
             <span class="glyphicon glyphicon-remove-circle"></span>
           </div>
         </div>
-        <?php
-          /*$block = module_invoke('views', 'block', 'view', '-exp-category_products-page');
-					print $block['content'];*/					
-					$view = views_get_view('category_products');
-					$display_id = 'page';
-					$view->set_display($display_id);
-					$view->init_handlers();
-					$form_state = array(
-					 'view' => $view,
-					 'display' => $view->display_handler->display,
-					 'exposed_form_plugin' => $view->display_handler->get_plugin('exposed_form'),
-					 'method' => 'get',
-					 'rerender' => TRUE,
-					 'no_redirect' => TRUE,
-					);
-					$form = drupal_build_form('views_exposed_form', $form_state);
-					print drupal_render($form);
-        ?>
+        <?php print render($page['sidebar_first']); ?>
       </div>
     </div>
 
@@ -343,24 +326,7 @@
             <span class="glyphicon glyphicon-remove-circle"></span>
           </div>
         </div>
-         <?php
-          /*$block = module_invoke('views', 'block', 'view', '-exp-category_products-page');
-					print $block['content'];*/					
-					$view = views_get_view('category_products');
-					$display_id = 'page';
-					$view->set_display($display_id);
-					$view->init_handlers();
-					$form_state = array(
-					 'view' => $view,
-					 'display' => $view->display_handler->display,
-					 'exposed_form_plugin' => $view->display_handler->get_plugin('exposed_form'),
-					 'method' => 'get',
-					 'rerender' => TRUE,
-					 'no_redirect' => TRUE,
-					);
-					$form = drupal_build_form('views_exposed_form', $form_state);
-					print drupal_render($form);
-        ?>
+        <?php print render($page['sidebar_first']); ?>
       </div>
     </div>
     
