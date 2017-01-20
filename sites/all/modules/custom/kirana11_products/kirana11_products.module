@@ -57,23 +57,24 @@ function get_sibilings($terms, $parent) {
 }
 
 function olLiTree( $tree, $level ) {
-    echo '<ul class="menu_level_' . $level . '">';
-    foreach ( $tree as $item ) {
-        
-        if($level == '2') {
-           echo "<li><a href=\"/" . drupal_get_path_alias('taxonomy/term/' . $item['tid']) . "\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
-       }
-       else{
-           echo "<li><a href=\"javascript:\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
-       }
+ 
+  echo '<ul class="menu_level_' . ++$level . '">';
 
-        if (isset( $item['children'])  && count($item['children'])) {
-            olLiTree( $item['children'], ++$level );
-        }
-
-        --$level;
-        echo "</li>";
+  foreach ( $tree as $item ) {        
+    if($level == '3') {
+      $path = drupal_get_path_alias('taxonomy/term/' . $item['tid']);
+      echo "<li><a href=\"/" . $path . "\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
+    } else {
+      echo "<li><a href=\"javascript:\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
     }
 
-    echo '</ul>';
+    if (isset( $item['children'])  && count($item['children'])) {
+      olLiTree( $item['children'], $level );
+    }
+    
+    echo "</li>";
+  }
+
+  echo '</ul>';
+  --$level;
 }
