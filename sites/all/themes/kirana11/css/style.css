@@ -333,8 +333,8 @@ footer h2{ font-size: 14px; color: #666666; text-align:left; font-weight: 700; }
 .footer-social-media-buttons li .fa-youtube-play{ background: #c93835; padding: 8px 8px; }
 .footer-subscribe, .footer-subscribe-form{ width: 100%; float: left; line-height: 0; }
 .footer-subscribe h2{ margin-top: 10px; }
-.footer-subscribe-input{width: 60%; float: left; font-size: 13px; height: 35px; padding: 0 10px 4px; border: 0; border-radius: 3px; }
-.subscribe-button {width: 35%; float: left; background:#356D35 !important; text-align: center; margin: 0 0 0 10px !important; height: 35px; padding: 0 0 3px !important; border-radius: 3px !important; font-size: 13px; text-transform: capitalize !important; }
+.footer-subscribe-input{width: 59%; float: left; font-size: 13px; height: 35px; padding: 0 10px 0px; border: 0; border-radius: 3px; }
+.subscribe-button {width: 35%; float: left; background:#356D35 !important; text-align: center; margin: 0 0 0 10px !important; height: 35px; padding: 0 !important; border-radius: 3px !important; font-size: 13px; text-transform: capitalize !important; }
 .subscribe-button:hover{ background: #cf2127 !important; }
 #bottom-footer{ background: #f7f8f9; }
 #bottom-footer-inside p{ font-size: 12px; margin:30px; color: #666666; }
@@ -453,7 +453,7 @@ aside{ box-shadow: none; }
 #views-exposed-form-category-products-page .views-submit-button, #views-exposed-form-store-products-page .views-submit-button{ padding: 0 !important; display: none; }
 #edit-field-brand-tid-wrapper, #edit-brand-wrapper, #edit-category-id-wrapper{ border-bottom:10px solid #fff; }
 #edit-field-brand-tid-wrapper, #edit-brand-wrapper{ padding: 10px 0 10px 30px !important; }
-#edit-field-brand-tid-wrapper .views-widget, #edit-brand-wrapper .views-widget { width:100%; max-height: 290px; overflow: hidden; overflow-y: scroll;}
+#edit-field-brand-tid-wrapper .views-widget, #edit-brand-wrapper .views-widget { width:100%; max-height: 294px; overflow: hidden; overflow-y: scroll;}
 
 /* Category content section*/
 .page-taxonomy .content .view-filters, .page-store-products .content .view-filters{ display: none; }
@@ -541,7 +541,6 @@ aside{ box-shadow: none; }
 	#sidebar-first .views-exposed-widget .form-checkboxes .form-item label::before{ top:-4px; }
 	#sidebar-first .views-exposed-widget .form-checkboxes .form-item input[type="checkbox"]:checked + label::before{ font-size: 14px; }
 	.overlay-popup-menu .view-store-info{ display: none; }
-	#edit-field-brand-tid-wrapper .views-widget, #edit-brand-wrapper .views-widget{ max-height: 300px; }
 }
 @media (min-width: 992px) {
 	.landing-page form input[type="text"], .landing-page form input[type="email"], .landing-page form input[type="password"], .find-location-container p.regiter-terms, #edit-detect-my-location, .landing-page input[type="text"], .display-text-box{ width:65%; }
