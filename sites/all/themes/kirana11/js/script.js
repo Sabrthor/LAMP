@@ -68,30 +68,25 @@
     attach: function (context) {
       /* mobile Category Menu */
       $(".mobile-category-section a.menu-categories").once().click(function(){
-         $(".overlay-popup-menu").show();
-         $(".overlay-popup-menu-container").show();
-         $(".overlay-popup-brand-container").hide();
-         $(".overlay-popup-discount-container").hide();
-      });
-      $(".overlay-popup-menu-close").once().click(function(){
-        $(".overlay-popup-menu").hide();
+        $(".overlay-popup-menu").show();
+        $(".overlay-popup-menu-container").show();
+        $(".overlay-popup-filter-container").hide();
       });
 
-      $(".mobile-category-section a.menu-brands").once().click(function(){
-         $(".overlay-popup-menu").show();
-         $(".overlay-popup-brand-container").show();
-         $(".overlay-popup-menu-container").hide();
-         $(".overlay-popup-discount-container").hide();
-      });
-      $(".overlay-popup-menu-close").once().click(function(){
-        $(".overlay-popup-menu").hide();
-      });
+      $(".mobile-category-section a.filter-categories").once().click(function(){
+        $(".overlay-popup-menu, .overlay-popup-filter-container, .filter-categories-title, #edit-category-id-wrapper, #block-block-16").show();
+        $(".overlay-popup-menu-container, .filter-brands-title, .filter-discount-title, #edit-field-brand-tid-wrapper, #edit-brand-wrapper, #edit-deals-wrapper").hide();
 
-      $(".mobile-category-section a.menu-discount").once().click(function(){
-         $(".overlay-popup-menu").show();
-         $(".overlay-popup-discount-container").show();
-         $(".overlay-popup-menu-container").hide();
-         $(".overlay-popup-brand-container").hide();
+      });
+      $(".mobile-category-section a.filter-brands").once().click(function(){
+        $(".overlay-popup-menu, .overlay-popup-filter-container, .filter-brands-title, #edit-field-brand-tid-wrapper, #edit-brand-wrapper").show();
+        $(".overlay-popup-menu-container, .filter-categories-title, .filter-discount-title, #edit-category-id-wrapper, #edit-deals-wrapper, #block-block-16").hide();
+      });
+      $(".mobile-category-section a.filter-discount").once().click(function(){
+        $(".overlay-popup-menu, .overlay-popup-filter-container, .filter-discount-title").show();
+        $(".overlay-popup-menu-container, .filter-categories-title, .filter-brands-title").hide();
+        $("#edit-deals-wrapper").show();
+        $("#edit-category-id-wrapper, #edit-field-brand-tid-wrapper, #edit-brand-wrapper, #block-block-16").hide();
       });
       $(".overlay-popup-menu-close").once().click(function(){
         $(".overlay-popup-menu").hide();
