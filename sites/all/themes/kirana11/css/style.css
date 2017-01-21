@@ -189,8 +189,9 @@ header .navbar-toggle{ right: 0; }
 .region-header-login i { font-size: 20px; padding-right: 2px;}
 .region-header-login ul li a { color: #666; }
 .region-header-login ul li a:hover, .region.region-header-login span:hover{ color: #356D35; }
-.header-search i{ font-size: 24px; color: #f9f8f8; padding-top: 5px; }
+.header-search i{ font-size: 24px; color: #f9f8f8; padding-top: 5px; position: absolute; right:10px; top:2px; }
 .header-search{ background: #346d35; border-radius: 5px; height: 40px; margin-top: 8px;  }
+.region-header-search input{ background: none; border:0; color: #fff; padding: 12px 0; width: 95%; font-size: 14px; }
 .header-login-container ul li{ list-style: none; float: left; padding: 5px 0; font-size: 15px; width:50%; text-align: center; }
 .header-login-container ul li.dropdown{ width: 100% !important; }
 .header-login-container .dropdown-menu{ margin: 0; padding:0; }
@@ -456,7 +457,6 @@ aside{ box-shadow: none; }
 #edit-field-brand-tid-wrapper .views-widget, #edit-brand-wrapper .views-widget { width:100%; max-height: 290px; overflow: hidden; overflow-y: scroll;}
 
 /* Category content section*/
-.content .view-filters{ display: none; }
 .view-category-products table{ border: 0; }
 .category-display{ text-align: center; margin-bottom: 2%; border:5px solid #fff;}
 .category-display:hover{ border:5px solid #f1f1f1; }
