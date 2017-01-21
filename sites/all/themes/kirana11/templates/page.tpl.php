@@ -356,11 +356,11 @@
         <div class="col-sm-6 header-search">
           <i class="fa fa-search pull-right" ></i>
           <div class="col-xs-12 mobile-header-search">
-	     <div class="row">
-	            <?php if ($page['header_search']): 
-	              print render($page['header_search']); 
-	            endif; ?>
-	     </div>
+			    <div class="row">
+            <?php if ($page['header_search']): 
+              print render($page['header_search']); 
+            endif; ?>
+			    </div>
           </div>
         </div>
         <div class="col-xs-5 visible-xs mobile-icon call-icons">
