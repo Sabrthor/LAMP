@@ -63,9 +63,9 @@ function olLiTree( $tree, $level) {
   foreach ( $tree as $item ) {        
     if($level == '3') {
       $path = drupal_get_path_alias('taxonomy/term/' . $item['tid']);
-      echo "<li><a href=\"/" . $path . "\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
+      echo "<li><a href='/" . $path . "' id='$item[tid]' class='$item[tid]' data-level='$level'>$item[name]</a>";
     } else {
-      echo "<li><a href=\"javascript:\" id=\"$item[tid]\" data-level=\"$level\">$item[name]</a>";
+      echo "<li><a href='javascript:' id='$item[tid]' class='$item[tid]' data-level='$level'>$item[name]</a>";
     }
 
     if (isset( $item['children'])  && count($item['children'])) {

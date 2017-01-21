@@ -134,29 +134,29 @@
     attach: function (context) {
       $(document).ready(function(){
         var id = $("#selected_tid").html();
-        $("#main-content ul.menu_level_1 li").removeClass('cm-expanded');
-        $("#main-content  #" + id).parents('ul.menu_level_1 li').css({"font-weight": "700", "color" : "#346d35"});
-        $("#main-content  #" + id).css({"color" : "#346d35"});
-        $("#main-content  #" + id).parents('ul.menu_level_1 li').addClass('cm-expanded');
-        $("#main-content  #" + id).parents('ul.menu_level_1 li').find('a').css({"color" : "#346d35"});
-        $("#main-content  #" + id).parents('ul.menu_level_1 li > ul').show();
-        $("#main-content  #" + id).parents('ul.menu_level_1 li').find('ul.menu_level_2 li > ul').show();
+        $("ul.menu_level_1 li").removeClass('cm-expanded');
+        $("." + id).parents('ul.menu_level_1 li').css({"font-weight": "700", "color" : "#346d35"});
+        $("." + id).css({"color" : "#346d35"});
+        $("." + id).parents('ul.menu_level_1 li').addClass('cm-expanded');
+        $("." + id).parents('ul.menu_level_1 > li').find('a').css({"color" : "#346d35"});
+        $("." + id).parents('ul.menu_level_1 li > ul.menu_level_2').toggle('slow');
+        $("." + id).parentsUntil('.menu_level_2').find('ul.menu_level_3').toggle('slow');
       });
       
-      $("#main-content .menu_level_1 > li > a").once().click(function(){
-        $("#main-content .menu_level_1 > li").removeClass('cm-expanded');
-        $("#main-content .menu_level_1 > li > a").css({"font-weight": "400", "color" : "#666"});
-        $("#main-content .menu_level_1 > li ul").hide();
-        $(this).next('ul').show();
+      $(".menu_level_1 > li > a").once().click(function(){
+        $(".menu_level_1 > li").removeClass('cm-expanded');
+        $(".menu_level_1 > li > a").css({"font-weight": "400", "color" : "#666"});
+        $(".menu_level_1 > li ul").hide();
+        $(this).next('ul').toggle('slow');
         $(this).parent('ul li').addClass('cm-expanded');
         $(this).css({"font-weight": "700", "color" : "#346d35"});
       });
 
-      $("#main-content .menu_level_2 > li a").once().click(function(){
-        $("#main-content .menu_level_2 > li").removeClass('cm-expanded');
-        $("#main-content .menu_level_2 > li a").css({"font-weight": "400", "color" : "#666"});
-        $("#main-content .menu_level_2 > li ul").hide();
-        $(this).next('ul').show();
+      $(".menu_level_2 > li a").once().click(function(){
+        $(".menu_level_2 > li").removeClass('cm-expanded');
+        $(".menu_level_2 > li a").css({"font-weight": "400", "color" : "#666"});
+        $(".menu_level_2 > li ul").hide();
+        $(this).next('ul').toggle('slow');
         $(this).parents('ul > li').addClass('cm-expanded');
         $(this).css({"font-weight": "700", "color" : "#346d35"});
       });
@@ -167,26 +167,26 @@
     attach: function (context) {
       $(document).ready(function(){
 
-        $("#main-content .bef-tree .highlight").parents('ul').show();
-        $("#main-content .bef-tree .highlight").parents('ul li').addClass('cm-expanded');
+        $(".bef-tree .highlight").parents('ul').show();
+        $(".bef-tree .highlight").parents('ul li').addClass('cm-expanded');
 
-         $('#main-content ul.bef-tree > li > div label, #main-content .bef-tree-depth-1 > li > div label').on('click', function(event) {
+         $('ul.bef-tree > li > div label, .bef-tree-depth-1 > li > div label').on('click', function(event) {
              event.preventDefault();
          });
         
-        $("#main-content .bef-tree > li").once().click(function(){
-          $("#main-content .bef-tree > li").removeClass('cm-expanded');
-          $("#main-content .bef-tree > li").find('label').css({"font-weight": "400"});
-          $("#main-content .bef-tree > li ul.bef-tree-depth-1").hide();
+        $(".bef-tree > li").once().click(function(){
+          $(".bef-tree > li").removeClass('cm-expanded');
+          $(".bef-tree > li").find('label').css({"font-weight": "400"});
+          $(".bef-tree > li ul.bef-tree-depth-1").hide();
           $(this).addClass('cm-expanded');
-          $(this).find('ul.bef-tree-depth-1').show();
+          $(this).find('ul.bef-tree-depth-1').toggle('slow');
           $(this).find('label').css({"font-weight": "700"});
         });
-        $("#main-content .bef-tree-depth-1 > li").once().click(function(){
-          $("#main-content .bef-tree-depth-1 > li").removeClass('cm-expanded');
-          $("#main-content .bef-tree-depth-1 > li ul").hide();
+        $(".bef-tree-depth-1 > li").once().click(function(){
+          $(".bef-tree-depth-1 > li").removeClass('cm-expanded');
+          $(".bef-tree-depth-1 > li ul").hide();
           $(this).addClass('cm-expanded');
-          $(this).find('ul.bef-tree-depth-2').show();
+          $(this).find('ul.bef-tree-depth-2').toggle('slow');
           $(this).css({"font-weight": "700"});
         });
       });
