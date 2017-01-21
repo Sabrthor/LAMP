@@ -308,30 +308,21 @@
       </div>
     </div>
 
-    <div class="col-xs-10 col-xs-offset-1 overlay-popup-brand-container">
+    <div class="col-xs-10 col-xs-offset-1 overlay-popup-filter-container">
       <div class="row">
-        <div class="overlay-popup-menu-title">
-          <h2>Brands</h2>
+        <div class="overlay-popup-filter-title">
+          <h2 class="filter-categories-title">Categories</h2>
+          <h2 class="filter-brands-title">Brands</h2>
+          <h2 class="filter-discount-title">Discount Price</h2>
           <div class="col-xs-1 overlay-popup-menu-close">
             <span class="glyphicon glyphicon-remove-circle"></span>
           </div>
         </div>
-        <?php if ($page['sidebar_first']): print render($page['sidebar_first']); endif; ?>
+        <?php if ($page['sidebar_first']): 
+        	print render($page['sidebar_first']); 
+        endif; ?>
       </div>
     </div>
-
-    <div class="col-xs-10 col-xs-offset-1 overlay-popup-discount-container">
-      <div class="row">
-        <div class="overlay-popup-menu-title">
-          <h2>Discount Price</h2>
-          <div class="col-xs-1 overlay-popup-menu-close">
-            <span class="glyphicon glyphicon-remove-circle"></span>
-          </div>
-        </div>
-        <?php if ($page['sidebar_first']): print render($page['sidebar_first']); endif; ?>
-      </div>
-    </div>
-    
   </div>
 </div>
 
@@ -443,9 +434,10 @@
           <div class="col-xs-12 visible-xs mobile-category-section">
             <div class="mobile-menu-title">
             	<i class="fa fa-filter"></i> 
-            	<a class="menu-categories">Categories</a>
-            	<a class="menu-brands">Brands</a>
-            	<a class="menu-discount">Discount Price</a>
+            	<a class="mobile-menu menu-categories">Categories</a>
+            	<a class="mobile-menu-filter filter-categories">Categories</a>
+            	<a class="mobile-menu-filter filter-brands">Brands</a>
+            	<a class="mobile-menu-filter filter-discount">Discount Price</a>
             </div>
             <!-- <div class="mobile-sub-category"><ul></ul></div> -->
           </div>
