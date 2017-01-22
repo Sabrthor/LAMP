@@ -44,6 +44,38 @@ function kirana11_products_default_fe_block_settings() {
     'visibility' => 1,
   );
 
+  $export['facetapi-Yngsw1HjnNXFMXxrpO0911uBW8ll4o54'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'Yngsw1HjnNXFMXxrpO0911uBW8ll4o54',
+    'module' => 'facetapi',
+    'node_types' => array(),
+    'pages' => 'products-search',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'sidebar_first',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 1,
+  );
+
   $export['views--exp-category_products-page'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -74,6 +106,38 @@ function kirana11_products_default_fe_block_settings() {
     ),
     'title' => '',
     'visibility' => 1,
+  );
+
+  $export['views--exp-products_search-page'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => '-exp-products_search-page',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'header_search',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => 0,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 0,
   );
 
   $export['views-best_deals-block_1'] = array(
