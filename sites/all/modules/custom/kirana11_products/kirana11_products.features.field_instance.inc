@@ -35,6 +35,15 @@ function kirana11_products_field_default_field_instances() {
         'type' => 'commerce_price_formatted_amount',
         'weight' => 0,
       ),
+      'fac' => array(
+        'label' => 'hidden',
+        'module' => 'commerce_price',
+        'settings' => array(
+          'calculation' => 'calculated_sell_price',
+        ),
+        'type' => 'commerce_price_formatted_amount',
+        'weight' => 2,
+      ),
       'full' => array(
         'label' => 'hidden',
         'module' => 'commerce_price',
@@ -103,6 +112,12 @@ function kirana11_products_field_default_field_instances() {
         'type' => 'number_decimal',
         'weight' => 4,
       ),
+      'fac' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 8,
+      ),
       'line_item' => array(
         'label' => 'above',
         'settings' => array(),
@@ -148,6 +163,12 @@ function kirana11_products_field_default_field_instances() {
         'settings' => array(),
         'type' => 'barcode_default',
         'weight' => 3,
+      ),
+      'fac' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 7,
       ),
       'line_item' => array(
         'label' => 'above',
@@ -196,6 +217,12 @@ function kirana11_products_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 2,
+      ),
+      'fac' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 6,
       ),
       'line_item' => array(
         'label' => 'above',
@@ -250,6 +277,12 @@ function kirana11_products_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 1,
       ),
+      'fac' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 5,
+      ),
       'line_item' => array(
         'label' => 'above',
         'settings' => array(),
@@ -296,6 +329,12 @@ function kirana11_products_field_default_field_instances() {
         ),
         'type' => 'image',
         'weight' => 2,
+      ),
+      'fac' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 3,
       ),
       'line_item' => array(
         'label' => 'above',

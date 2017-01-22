@@ -10,6 +10,16 @@
 function kirana11_products_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: 'use search_api_autocomplete for search_api_views_products_search'.
+  $permissions['use search_api_autocomplete for search_api_views_products_search'] = array(
+    'name' => 'use search_api_autocomplete for search_api_views_products_search',
+    'roles' => array(
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+    ),
+    'module' => 'search_api_autocomplete',
+  );
+
   // Exported permission: 'view any commerce_product entity of bundle product'.
   $permissions['view any commerce_product entity of bundle product'] = array(
     'name' => 'view any commerce_product entity of bundle product',
