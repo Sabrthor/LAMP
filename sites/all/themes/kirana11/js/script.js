@@ -135,7 +135,7 @@
       });
       
       $(".menu_level_1 > li > a").once().click(function(){
-        $(".menu_level_1 > li").removeClass('cm-expanded');
+        $(".menu_level_1 li").removeClass('cm-expanded');
         $(".menu_level_1 > li > a").css({"font-weight": "400", "color" : "#666"});
         $(".menu_level_1 > li ul").hide();
         $(this).next('ul').toggle('slow');
@@ -144,7 +144,7 @@
       });
 
       $(".menu_level_2 > li a").once().click(function(){
-        $(".menu_level_2 > li").removeClass('cm-expanded');
+        $(".menu_level_2 li").removeClass('cm-expanded');
         $(".menu_level_2 > li a").css({"font-weight": "400", "color" : "#666"});
         $(".menu_level_2 > li ul").hide();
         $(this).next('ul').toggle('slow');
@@ -165,20 +165,21 @@
              event.preventDefault();
          });
         
-        $(".bef-tree > li").once().click(function(){
-          $(".bef-tree > li").removeClass('cm-expanded');
-          $(".bef-tree > li").find('label').css({"font-weight": "400"});
-          $(".bef-tree > li ul.bef-tree-depth-1").hide();
-          $(this).addClass('cm-expanded');
-          $(this).find('ul.bef-tree-depth-1').toggle('slow');
-          $(this).find('label').css({"font-weight": "700"});
+        $(".bef-tree > li > div label").once().click(function(){
+          $(".bef-tree li").removeClass('cm-expanded');
+          $(".bef-tree > li div > label").css({"font-weight": "400", "color" : "#666"});
+          $(".bef-tree > li ul").hide();
+          $(this).parent('ul li > div').next('ul').toggle('slow');
+          $(this).parent('ul li').addClass('cm-expanded');
+          $(this).css({"font-weight": "700", "color" : "#346d35"});
         });
-        $(".bef-tree-depth-1 > li").once().click(function(){
-          $(".bef-tree-depth-1 > li").removeClass('cm-expanded');
+        $(".bef-tree-depth-1 > li > div label").once().click(function(){
+          $(".bef-tree-depth-1 li").removeClass('cm-expanded');
+          $(".bef-tree-depth-1 > li  div > label").css({"font-weight": "400", "color" : "#666"});
           $(".bef-tree-depth-1 > li ul").hide();
-          $(this).addClass('cm-expanded');
-          $(this).find('ul.bef-tree-depth-2').toggle('slow');
-          $(this).css({"font-weight": "700"});
+          $(this).parent('ul li > div').next('ul').toggle('slow');
+          $(this).parents('ul > li').addClass('cm-expanded');
+          $(this).css({"font-weight": "700", "color" : "#346d35"});
         });
       });
     }
