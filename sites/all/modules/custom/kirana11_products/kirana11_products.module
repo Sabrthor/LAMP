@@ -19,8 +19,8 @@ function kirana11_products_form_alter(&$form, &$form_state, $form_id){
         $form['#action'] = $base_url . '/'.$link;
     }
 
-    if ($form['#id'] == 'views-exposed-form-products-search-page') {
-        $form['search_text']['#placeholder'] = t('Search Products...');
+    if ($form_id == 'views_exposed_form') {
+         $form['search_text']['#attributes']['placeholder'] = t('Search Products');
     }
 }
 

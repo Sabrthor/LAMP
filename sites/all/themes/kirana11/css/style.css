@@ -192,6 +192,10 @@ header .navbar-toggle{ right: 0; }
 .header-search i{ font-size: 24px; color: #f9f8f8; padding-top: 5px; position: absolute; right:10px; top:2px; }
 .header-search{ background: #346d35; border-radius: 5px; margin-top: 8px;  }
 .region-header-search input{ background-image: none !important; background: none; background-position: 90% center !important; border:0; color: #fff; padding: 12px; width: 100%; font-size: 14px; }
+.region-header-search input::-webkit-input-placeholder{ color: #fff; }
+.region-header-search input:-moz-placeholder{ color: #fff; } 
+.region-header-search input::-moz-placeholder{ color: #fff; }
+.region-header-search input:-ms-input-placeholder{ color: #fff; }
 .region-header-search label{ display: none; }
 .region-header-search input:hover, .region-header-search input:focus{ background: none; }
 .region-header-search input.throbbing{ background-image:  url(../images/throbber-active.gif) !important; background-position: 90% center !important; }
@@ -478,7 +482,7 @@ aside{ box-shadow: none; }
 .category-display .views-field-commerce-store .field-content{ overflow:hidden; white-space: nowrap; text-overflow: ellipsis; }
 .category-display p.product-price{ width: 100%; }
 .category-display .mrp-price-strike, .category-display .sales-price, .product-price span{ font-size: 17px;  padding: 10px 0; width: 50%; float: left; text-align: center; }
-.category-display .mrp-price-strike{ text-decoration: line-through; color: #333; }
+.category-display .mrp-price-strike, .product-price span.sales-price{ text-decoration: line-through; color: #333; }
 .category-display .sales-price{ color: #cc242e;}
 .category-display .mrp-price{ font-size: 17px; color:#333; padding: 10px 0; width: 100%; float: left; text-align: center; margin: 0; font-weight: 700; }
 
@@ -487,7 +491,7 @@ aside{ box-shadow: none; }
 .menu_level_1, .menu_level_1 li{ list-style: none; font-weight: 400; position: relative; }
 .category-menu-title{ margin: 0; padding: 10px 20px 0 10px; font-size: 16px; font-weight: 700;  }
 .menu_level_1{ padding: 0 20px 20px; border-bottom: 10px solid #fff; }
-.menu_level_1 li > ul{ margin-left:15px; display: none; }
+.menu_level_1 li > ul{ margin-left:0; display: none; }
 .menu_level_1 > li, .menu_level_2 > li{ padding: 10px 0 5px 20px; }
 .menu_level_2 li > ul li{ padding: 5px 0; }
 .menu_level_1 li a:hover, .menu_level_1 li a:focus, .menu_level_1 li a{ color: #666; }
@@ -523,9 +527,13 @@ aside{ box-shadow: none; }
 
 /* Search Page Left Side Bar */
 .region-sidebar-first ul{ padding:0 10px 10px; }
-.region-sidebar-first .block-facetapi h2{ padding: 0 10px; margin: 20px 0 0; }
+.region-sidebar-first .block-facetapi h2{ padding: 0 10px; margin: 20px 0 0; font-size: 16px; font-weight: 700; }
 .region-sidebar-first .facetapi-facet-field-brand li{ list-style: none; margin:0; padding: 0; border-bottom: 0; }
 .region-sidebar-first .facetapi-facet-field-brand li label{ top: auto; left: 5px; position: relative; }
+/*.region-sidebar-first .facetapi-facet-field-brand li label{ top:0; position: relative; color: #666; font-weight: 400; padding-left: 10px; cursor: pointer; }
+.region-sidebar-first .facetapi-facet-field-brand .form-item{ width: 100%; float: left; padding: 5px 0; position: relative; margin:5px 0; }
+.region-sidebar-first .facetapi-facet-field-brand label::before{ position: absolute; content: ""; width: 20px; height: 19px; padding:2px; background: #fff; border-radius: 3px; left: -22px; top:0; }
+.region-sidebar-first .facetapi-facet-field-brand input[type='checkbox']:checked + label::before{ content:"\f00c"; font-family:'FontAwesome'; padding: 2px;  }*/
 
 /* Media query goes here */
 @media (min-width: 1199px) {
