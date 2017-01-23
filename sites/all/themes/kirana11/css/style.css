@@ -491,7 +491,7 @@ aside{ box-shadow: none; }
 .menu_level_1, .menu_level_1 li{ list-style: none; font-weight: 400; position: relative; }
 .category-menu-title{ margin: 0; padding: 10px 20px 0 10px; font-size: 16px; font-weight: 700;  }
 .menu_level_1{ padding: 0 20px 20px; border-bottom: 10px solid #fff; }
-.menu_level_1 li > ul{ margin-left:15px; display: none; }
+.menu_level_1 li > ul{ margin-left:0; display: none; }
 .menu_level_1 > li, .menu_level_2 > li{ padding: 10px 0 5px 20px; }
 .menu_level_2 li > ul li{ padding: 5px 0; }
 .menu_level_1 li a:hover, .menu_level_1 li a:focus, .menu_level_1 li a{ color: #666; }
