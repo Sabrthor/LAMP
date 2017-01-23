@@ -37,8 +37,6 @@
     unset($_SESSION['k11_current_location']);
     drupal_goto('<front>');
   }
-  
-
 
   if($form_class_find != 'notfind_form' || $show_landing):
 ?>
@@ -354,13 +352,12 @@
           </a>
         </div>
         <div class="col-sm-6 header-search">
-          <i class="fa fa-search pull-right" ></i>
-          <div class="col-xs-12 mobile-header-search">
-			    <div class="row">
-            <?php if ($page['header_search']): 
-              print render($page['header_search']); 
-            endif; ?>
-			    </div>
+          <div class="row">
+            <div class="col-xs-12 mobile-header-search">
+              <div class="row">
+                <?php if ($page['header_search']): print render($page['header_search']); endif; ?>
+              </div>
+            </div>
           </div>
         </div>
         <div class="col-xs-5 visible-xs mobile-icon call-icons">
