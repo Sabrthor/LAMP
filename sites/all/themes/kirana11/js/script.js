@@ -67,6 +67,16 @@
   Drupal.behaviors.kirana11CategoryMobileMenuList = {
     attach: function (context) {
       /* mobile Category Menu */
+      /* Search page menu */
+      $(".page-products-search .mobile-category-section a.filter-brands").once().click(function(){
+        $(".overlay-popup-menu, .overlay-popup-filter-container, .filter-brands-title, .block-facetapi:last-child").show();
+        $(".overlay-popup-menu-container, .filter-categories-title, .filter-discount-title, .block-facetapi:first-child").hide();
+        
+      });
+      $(".page-products-search .mobile-category-section a.filter-discount").once().click(function(){
+         $(".overlay-popup-menu, .overlay-popup-filter-container, .filter-discount-title, .block-facetapi:first-child").show();
+        $(".overlay-popup-menu-container, .filter-categories-title, .filter-brands-title, #edit-category-id-wrapper, .block-facetapi:last-child").hide();
+      });
       $(".mobile-category-section a.menu-categories").once().click(function(){
         $(".overlay-popup-menu").show();
         $(".overlay-popup-menu-container").show();
@@ -87,6 +97,7 @@
       $(".overlay-popup-menu-close").once().click(function(){
         $(".overlay-popup-menu").hide();
       });
+      
     }
   }
 
