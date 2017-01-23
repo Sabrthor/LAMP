@@ -75,6 +75,7 @@ features[field_instance][] = commerce_product-product-field_image
 features[field_instance][] = node-category_banners-field_banner
 features[field_instance][] = node-category_banners-field_category
 features[node][] = category_banners
+features[search_api_autocomplete_search][] = search_api_views_products_search
 features[search_api_index][] = products_display_index
 features[search_api_server][] = search_product
 features[slick_optionset][] = deals_slider

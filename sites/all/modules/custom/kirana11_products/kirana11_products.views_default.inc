@@ -510,27 +510,6 @@ return $_SESSION[\'k11_stores_for_user\'];
   $handler->display->display_options['arguments']['commerce_store_target_id']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['commerce_store_target_id']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['commerce_store_target_id']['break_phrase'] = TRUE;
-  /* Filter criterion: Content: Brand (field_brand) */
-  $handler->display->display_options['filters']['field_brand_tid']['id'] = 'field_brand_tid';
-  $handler->display->display_options['filters']['field_brand_tid']['table'] = 'field_data_field_brand';
-  $handler->display->display_options['filters']['field_brand_tid']['field'] = 'field_brand_tid';
-  $handler->display->display_options['filters']['field_brand_tid']['relationship'] = 'field_product';
-  $handler->display->display_options['filters']['field_brand_tid']['group'] = 1;
-  $handler->display->display_options['filters']['field_brand_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_brand_tid']['expose']['operator_id'] = 'field_brand_tid_op';
-  $handler->display->display_options['filters']['field_brand_tid']['expose']['label'] = 'Brand';
-  $handler->display->display_options['filters']['field_brand_tid']['expose']['operator'] = 'field_brand_tid_op';
-  $handler->display->display_options['filters']['field_brand_tid']['expose']['identifier'] = 'brand';
-  $handler->display->display_options['filters']['field_brand_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_brand_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => 0,
-    4 => 0,
-    3 => 0,
-    5 => 0,
-  );
-  $handler->display->display_options['filters']['field_brand_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_brand_tid']['vocabulary'] = 'brand';
   /* Filter criterion: Commerce Product: On sale (field_commerce_saleprice_on_sale) */
   $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['id'] = 'field_commerce_saleprice_on_sale_value';
   $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['table'] = 'field_data_field_commerce_saleprice_on_sale';
@@ -553,6 +532,34 @@ return $_SESSION[\'k11_stores_for_user\'];
     5 => 0,
   );
   $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Content: Brand (field_brand) */
+  $handler->display->display_options['filters']['field_brand_tid']['id'] = 'field_brand_tid';
+  $handler->display->display_options['filters']['field_brand_tid']['table'] = 'field_data_field_brand';
+  $handler->display->display_options['filters']['field_brand_tid']['field'] = 'field_brand_tid';
+  $handler->display->display_options['filters']['field_brand_tid']['relationship'] = 'field_product';
+  $handler->display->display_options['filters']['field_brand_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_brand_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['operator_id'] = 'field_brand_tid_op';
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['label'] = 'Brand';
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['operator'] = 'field_brand_tid_op';
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['identifier'] = 'brand';
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    4 => 0,
+    3 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_brand_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_brand_tid']['vocabulary'] = 'brand';
+  /* Filter criterion: Commerce Product: Price (commerce_price:amount) */
+  $handler->display->display_options['filters']['commerce_price_amount']['id'] = 'commerce_price_amount';
+  $handler->display->display_options['filters']['commerce_price_amount']['table'] = 'field_data_commerce_price';
+  $handler->display->display_options['filters']['commerce_price_amount']['field'] = 'commerce_price_amount';
+  $handler->display->display_options['filters']['commerce_price_amount']['operator'] = '!=';
+  $handler->display->display_options['filters']['commerce_price_amount']['value']['value'] = '0';
+  $handler->display->display_options['filters']['commerce_price_amount']['group'] = 1;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -576,7 +583,6 @@ return $_SESSION[\'k11_stores_for_user\'];
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Products Search';
-  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -596,7 +602,7 @@ return $_SESSION[\'k11_stores_for_user\'];
   $handler->display->display_options['empty']['area']['table'] = 'views';
   $handler->display->display_options['empty']['area']['field'] = 'area';
   $handler->display->display_options['empty']['area']['empty'] = TRUE;
-  $handler->display->display_options['empty']['area']['content'] = '<div class="no-result-product"><img src="<?php print base_path() . path_to_theme(); ?>/images/empty_cart_sad.png" /><p>No products found in this category.<br/><a href="<?php print base_path() .current_path();?>">Click Here</a> to view all products</p></div>';
+  $handler->display->display_options['empty']['area']['content'] = '<div class="no-result-product"><img src="<?php print base_path() . path_to_theme(); ?>/images/empty_cart_sad.png" /><p>No products found.<br/><a href="<?php print base_path() .current_path();?>">Click Here</a> to view all products</p></div>';
   $handler->display->display_options['empty']['area']['format'] = 'php_code';
   /* Relationship: Indexed Node: Product */
   $handler->display->display_options['relationships']['field_product']['id'] = 'field_product';
@@ -654,6 +660,16 @@ return $_SESSION[\'k11_stores_for_user\'];
   $handler->display->display_options['fields']['field_commerce_saleprice']['settings'] = array(
     'calculation' => FALSE,
   );
+  /* Field: Commerce Product: Store */
+  $handler->display->display_options['fields']['commerce_store']['id'] = 'commerce_store';
+  $handler->display->display_options['fields']['commerce_store']['table'] = 'entity_commerce_product';
+  $handler->display->display_options['fields']['commerce_store']['field'] = 'commerce_store';
+  $handler->display->display_options['fields']['commerce_store']['relationship'] = 'field_product';
+  $handler->display->display_options['fields']['commerce_store']['label'] = '';
+  $handler->display->display_options['fields']['commerce_store']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['commerce_store']['link_to_entity'] = 0;
+  $handler->display->display_options['fields']['commerce_store']['view_mode'] = 'full';
+  $handler->display->display_options['fields']['commerce_store']['bypass_access'] = 0;
   /* Field: Global: PHP */
   $handler->display->display_options['fields']['php']['id'] = 'php';
   $handler->display->display_options['fields']['php']['table'] = 'views';
@@ -715,9 +731,8 @@ $product_value = $data->_entity_properties[\'field_product:entity object\'];
   $handler->display->display_options['filters']['search_api_views_fulltext']['operator'] = 'OR';
   $handler->display->display_options['filters']['search_api_views_fulltext']['exposed'] = TRUE;
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['operator_id'] = 'search_api_views_fulltext_op';
-  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['label'] = 'Fulltext search';
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['operator'] = 'search_api_views_fulltext_op';
-  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['identifier'] = 'search_api_views_fulltext';
+  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['identifier'] = 'search_text';
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['remember_roles'] = array(
     2 => '2',
     1 => 0,
@@ -728,6 +743,12 @@ $product_value = $data->_entity_properties[\'field_product:entity object\'];
   $handler->display->display_options['filters']['search_api_views_fulltext']['fields'] = array(
     'title' => 'title',
   );
+  /* Filter criterion: Product » Price: Amount (indexed) */
+  $handler->display->display_options['filters']['field_product_commerce_price_amount']['id'] = 'field_product_commerce_price_amount';
+  $handler->display->display_options['filters']['field_product_commerce_price_amount']['table'] = 'search_api_index_products_display_index';
+  $handler->display->display_options['filters']['field_product_commerce_price_amount']['field'] = 'field_product_commerce_price_amount';
+  $handler->display->display_options['filters']['field_product_commerce_price_amount']['operator'] = '<>';
+  $handler->display->display_options['filters']['field_product_commerce_price_amount']['value'] = '0.00';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
@@ -748,7 +769,6 @@ $product_value = $data->_entity_properties[\'field_product:entity object\'];
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Products';
-  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
@@ -1019,27 +1039,6 @@ $product_value = $data->_entity_properties[\'field_product:entity object\'];
   $handler->display->display_options['filters']['term_node_tid_depth_join']['vocabulary'] = 'category';
   $handler->display->display_options['filters']['term_node_tid_depth_join']['hierarchy'] = 1;
   $handler->display->display_options['filters']['term_node_tid_depth_join']['depth'] = '2';
-  /* Filter criterion: Content: Brand (field_brand) */
-  $handler->display->display_options['filters']['field_brand_tid']['id'] = 'field_brand_tid';
-  $handler->display->display_options['filters']['field_brand_tid']['table'] = 'field_data_field_brand';
-  $handler->display->display_options['filters']['field_brand_tid']['field'] = 'field_brand_tid';
-  $handler->display->display_options['filters']['field_brand_tid']['relationship'] = 'field_product';
-  $handler->display->display_options['filters']['field_brand_tid']['group'] = 1;
-  $handler->display->display_options['filters']['field_brand_tid']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['field_brand_tid']['expose']['operator_id'] = 'field_brand_tid_op';
-  $handler->display->display_options['filters']['field_brand_tid']['expose']['label'] = 'Brand';
-  $handler->display->display_options['filters']['field_brand_tid']['expose']['operator'] = 'field_brand_tid_op';
-  $handler->display->display_options['filters']['field_brand_tid']['expose']['identifier'] = 'field_brand_tid';
-  $handler->display->display_options['filters']['field_brand_tid']['expose']['multiple'] = TRUE;
-  $handler->display->display_options['filters']['field_brand_tid']['expose']['remember_roles'] = array(
-    2 => '2',
-    1 => '1',
-    4 => 0,
-    3 => 0,
-    5 => 0,
-  );
-  $handler->display->display_options['filters']['field_brand_tid']['type'] = 'select';
-  $handler->display->display_options['filters']['field_brand_tid']['vocabulary'] = 'brand';
   /* Filter criterion: Commerce Product: On sale (field_commerce_saleprice_on_sale) */
   $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['id'] = 'field_commerce_saleprice_on_sale_value';
   $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['table'] = 'field_data_field_commerce_saleprice_on_sale';
@@ -1062,6 +1061,34 @@ $product_value = $data->_entity_properties[\'field_product:entity object\'];
     5 => 0,
   );
   $handler->display->display_options['filters']['field_commerce_saleprice_on_sale_value']['expose']['reduce'] = TRUE;
+  /* Filter criterion: Content: Brand (field_brand) */
+  $handler->display->display_options['filters']['field_brand_tid']['id'] = 'field_brand_tid';
+  $handler->display->display_options['filters']['field_brand_tid']['table'] = 'field_data_field_brand';
+  $handler->display->display_options['filters']['field_brand_tid']['field'] = 'field_brand_tid';
+  $handler->display->display_options['filters']['field_brand_tid']['relationship'] = 'field_product';
+  $handler->display->display_options['filters']['field_brand_tid']['group'] = 1;
+  $handler->display->display_options['filters']['field_brand_tid']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['operator_id'] = 'field_brand_tid_op';
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['label'] = 'Brand';
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['operator'] = 'field_brand_tid_op';
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['identifier'] = 'field_brand_tid';
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['multiple'] = TRUE;
+  $handler->display->display_options['filters']['field_brand_tid']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => '1',
+    4 => 0,
+    3 => 0,
+    5 => 0,
+  );
+  $handler->display->display_options['filters']['field_brand_tid']['type'] = 'select';
+  $handler->display->display_options['filters']['field_brand_tid']['vocabulary'] = 'brand';
+  /* Filter criterion: Commerce Product: Price (commerce_price:amount) */
+  $handler->display->display_options['filters']['commerce_price_amount']['id'] = 'commerce_price_amount';
+  $handler->display->display_options['filters']['commerce_price_amount']['table'] = 'field_data_commerce_price';
+  $handler->display->display_options['filters']['commerce_price_amount']['field'] = 'commerce_price_amount';
+  $handler->display->display_options['filters']['commerce_price_amount']['operator'] = '!=';
+  $handler->display->display_options['filters']['commerce_price_amount']['value']['value'] = '0';
+  $handler->display->display_options['filters']['commerce_price_amount']['group'] = 1;
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');

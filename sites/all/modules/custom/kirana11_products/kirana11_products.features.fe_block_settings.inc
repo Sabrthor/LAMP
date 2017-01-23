@@ -72,7 +72,7 @@ function kirana11_products_default_fe_block_settings() {
         'weight' => 0,
       ),
     ),
-    'title' => '',
+    'title' => 'Brand',
     'visibility' => 1,
   );
 
