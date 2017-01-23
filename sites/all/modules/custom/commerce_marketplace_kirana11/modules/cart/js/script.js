@@ -20,4 +20,14 @@
     }
   }
 
+  Drupal.behaviors.clickOnPlus = {
+    attach: function (context) {
+      $("#edit-plus").once().click(function() {
+        console.log('Plus');
+
+        return false;
+      });
+    }
+  }
+
 })(jQuery);
