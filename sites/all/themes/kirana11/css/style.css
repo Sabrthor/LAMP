@@ -474,10 +474,11 @@ aside{ box-shadow: none; }
 /* Category content section*/
 .page-taxonomy .content .view-filters, .page-store-products .content .view-filters{ display: none; }
 .view-category-products table{ border: 0; }
-.category-display{ text-align: center; margin-bottom: 2%; border:5px solid #fff;}
+.category-display{ text-align: center; margin-bottom: 2%; border:5px solid #fff; min-height: 400px;}
 .category-display:hover{ border:5px solid #f1f1f1; }
 .category-display .views-field-field-image .field-content{ height: 180px; margin-bottom: 6%; }
 .category-display .views-field-field-image .field-content img{ max-height: 100%; margin-top: 3%; }
+.views-field-field-image{ min-height: 220px; }
 .category-display .views-field-title{ font-size: 13px; font-weight: 700; height: 38px; overflow:hidden; text-transform: capitalize; }
 .category-display .views-field-commerce-store .field-content{ overflow:hidden; white-space: nowrap; text-overflow: ellipsis; }
 .category-display p.product-price{ width: 100%; }

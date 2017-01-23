@@ -134,7 +134,7 @@ function kirana11_products_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => '',
-        1 => '',
+        1 => 'View Discounts',
       ),
       'allowed_values_function' => '',
     ),

@@ -262,6 +262,11 @@ function kirana11_products_field_default_field_instances() {
     'commerce_cart_settings' => array(
       'attribute_field' => 0,
       'attribute_widget' => 'select',
+      'attribute_widget_title' => 'On sale',
+    ),
+    'commerce_marketplace_cart_settings' => array(
+      'cart_splitter_field' => 0,
+      'order_splitter_field' => 0,
     ),
     'default_value' => array(
       0 => array(
