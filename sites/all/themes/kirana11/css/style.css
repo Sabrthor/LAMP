@@ -478,7 +478,7 @@ aside{ box-shadow: none; }
 .category-display .views-field-commerce-store .field-content{ overflow:hidden; white-space: nowrap; text-overflow: ellipsis; }
 .category-display p.product-price{ width: 100%; }
 .category-display .mrp-price-strike, .category-display .sales-price, .product-price span{ font-size: 17px;  padding: 10px 0; width: 50%; float: left; text-align: center; }
-.category-display .mrp-price-strike{ text-decoration: line-through; color: #333; }
+.category-display .mrp-price-strike, .product-price span.sales-price{ text-decoration: line-through; color: #333; }
 .category-display .sales-price{ color: #cc242e;}
 .category-display .mrp-price{ font-size: 17px; color:#333; padding: 10px 0; width: 100%; float: left; text-align: center; margin: 0; font-weight: 700; }
 
@@ -523,9 +523,13 @@ aside{ box-shadow: none; }
 
 /* Search Page Left Side Bar */
 .region-sidebar-first ul{ padding:0 10px 10px; }
-.region-sidebar-first .block-facetapi h2{ padding: 0 10px; margin: 20px 0 0; }
+.region-sidebar-first .block-facetapi h2{ padding: 0 10px; margin: 20px 0 0; font-size: 16px; font-weight: 700; }
 .region-sidebar-first .facetapi-facet-field-brand li{ list-style: none; margin:0; padding: 0; border-bottom: 0; }
 .region-sidebar-first .facetapi-facet-field-brand li label{ top: auto; left: 5px; position: relative; }
+.region-sidebar-first .facetapi-facet-field-brand li label{ top:0; position: relative; color: #666; font-weight: 400; padding-left: 10px; cursor: pointer; }
+.region-sidebar-first .facetapi-facet-field-brand .form-item{ width: 100%; float: left; padding: 5px 0; position: relative; margin:5px 0; }
+.region-sidebar-first .facetapi-facet-field-brand label::before{ position: absolute; content: ""; width: 20px; height: 19px; padding:2px; background: #fff; border-radius: 3px; left: -22px; top:0; }
+.region-sidebar-first .facetapi-facet-field-brand input[type='checkbox']:checked + label::before{ content:"\f00c"; font-family:'FontAwesome'; padding: 2px;  }
 
 /* Media query goes here */
 @media (min-width: 1199px) {
