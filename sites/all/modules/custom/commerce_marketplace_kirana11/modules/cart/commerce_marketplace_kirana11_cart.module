@@ -92,10 +92,6 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
     // Check if it's in their cart.
     $cart_order_product_ids = commerce_marketplace_kirana11_cart_get_items_in_cart();
 
-    //echo '<pre>';
-    //print_r($cart_order_product_ids)        ;
-    //echo '</pre>';
-
     if (!empty($cart_order_product_ids) && !empty($line_item->commerce_product)) {
       foreach ($cart_order_product_ids as $order_number =>  $cart_product_ids) {
         $cart_product_id_list = array_keys($cart_product_ids);
