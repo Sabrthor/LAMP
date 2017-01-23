@@ -192,6 +192,10 @@ header .navbar-toggle{ right: 0; }
 .header-search i{ font-size: 24px; color: #f9f8f8; padding-top: 5px; position: absolute; right:10px; top:2px; }
 .header-search{ background: #346d35; border-radius: 5px; margin-top: 8px;  }
 .region-header-search input{ background-image: none !important; background: none; background-position: 90% center !important; border:0; color: #fff; padding: 12px; width: 100%; font-size: 14px; }
+.region-header-search input::-webkit-input-placeholder{ color: #fff; }
+.region-header-search input:-moz-placeholder{ color: #fff; } 
+.region-header-search input::-moz-placeholder{ color: #fff; }
+.region-header-search input:-ms-input-placeholder{ color: #fff; }
 .region-header-search label{ display: none; }
 .region-header-search input:hover, .region-header-search input:focus{ background: none; }
 .region-header-search input.throbbing{ background-image:  url(../images/throbber-active.gif) !important; background-position: 90% center !important; }
