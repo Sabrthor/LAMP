@@ -106,9 +106,21 @@ function kirana11_products_preprocess_views_view(&$vars)
         }
     }*/
 
+    //Store Products Page
     if ($vars['view']->name == 'store_products') {
         if(isset($_GET['deals'])){
             $vars['view']->build_info['title'] = 'Deals of the Day';
         }
+    }
+
+    //Product Search Page
+    if ($vars['view']->name == 'products_search') {
+        if(isset($_GET['search_text'])){
+            $view_title = $_GET['search_text'];
+        }else {
+            $view_title = "Product Search";
+        }
+
+        $vars['view']->build_info['title'] = $view_title . ' ('. $vars['view']->total_rows . ' results)';
     }
 }
