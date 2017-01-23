@@ -81,3 +81,100 @@ function commerce_marketplace_kirana11_cart_empty_cart_order() {
 
   return drupal_json_output('CART_EMPTY');
 }
+
+function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_alter(&$form, &$form_state) {
+  global $user;
+
+  // Only valid for logged in users, because of Varnish and other caches.
+  if (!empty($user->uid)) {
+    $line_item = $form_state['line_item'];
+
+    $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+
+    // Check if it's in their cart.
+    $cart_product_ids = commerce_marketplace_kirana11_cart_get_items_in_cart();
+
+    if (!empty($cart_product_ids) && !empty($line_item->commerce_product)) {
+      $cart_product_ids = array_keys($cart_product_ids);
+
+      if (in_array($line_item_wrapper->commerce_product->product_id->value(), $cart_product_ids)) {
+        $form['submit']['#disabled'] = TRUE;
+        $form['submit']['#value'] = t('In your cart!');
+        $form['submit']['#type'] = 'hidden';
+
+        $form['minus'] = array(
+          '#type' => 'button',
+          '#value' => t('-')
+        );
+
+        $form['cart_count'] = array(
+          '#type' => 'textfield',
+          '#title' => t('Cart count'),
+          '#default_value' => 1,
+        );
+
+        $form['plus'] = array(
+          '#type' => 'button',
+          '#value' => t('+'),
+          '#ajax' => array(
+            'callback' => 'click_on_plus',
+          ),
+        );
+
+        $form['product_id'] = array(
+          '#type' => 'hidden',
+          '#value' => $line_item_wrapper->commerce_product->product_id->value(),
+        );
+      }
+    }
+  }
+}
+
+function click_on_plus($form, $form_state) {
+ global $user;
+
+  $form = drupal_rebuild_form($form['#form_id'], $form_state, $form);
+
+  if ($user) {
+    $quantity = $form_state['values']['cart_count'];
+    $product_id = $form_state['values']['product_id'];
+
+    $line_item = NULL;
+
+    if ($product = commerce_product_load($product_id)) {
+      $line_item = commerce_product_line_item_new($product, $quantity);
+      $line_item = commerce_cart_product_add($user->uid, $line_item);
+
+      $form_state['values']['cart_count'] = $line_item->quantity;
+      $form['cart_count']['#value'] = $line_item->quantity;
+    }
+  }
+
+  return $form;
+}
+
+/**
+ * Helper function to return an array of product_ids of the user's current cart.
+ */
+function commerce_marketplace_kirana11_cart_get_items_in_cart() {
+  global $user;
+  $cart_product_ids = &drupal_static(__FUNCTION__);
+
+  if (!$cart_product_ids) {
+    $order = commerce_cart_order_load($user->uid);
+
+    if (!empty($order)) {
+      $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+      foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+        if (!empty($line_item_wrapper->commerce_product)) {
+          $product_wrapper = $line_item_wrapper->commerce_product;
+          $type = $product_wrapper->type->value();
+          $product_id = $product_wrapper->product_id->value();
+          $cart_product_ids[$product_id] = $type;
+        }
+      }
+    }
+  }
+
+  return $cart_product_ids;
+}
