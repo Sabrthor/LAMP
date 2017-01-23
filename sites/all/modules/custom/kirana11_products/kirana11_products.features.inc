@@ -88,6 +88,7 @@ function kirana11_products_default_search_api_index() {
         "field_product:commerce_price:amount" : { "type" : "decimal" },
         "field_product:commerce_price:amount_decimal" : { "type" : "decimal" },
         "field_product:commerce_store" : { "type" : "integer", "entity_type" : "commerce_store" },
+        "field_product:field_commerce_saleprice_on_sale" : { "type" : "boolean" },
         "search_api_language" : { "type" : "string" },
         "search_api_viewed" : { "type" : "text" },
         "title" : { "type" : "text" }
@@ -342,6 +343,12 @@ function kirana11_products_default_search_api_server() {
             "table" : "search_api_db_products_display_index",
             "column" : "field_product_commerce_price_amount_decimal",
             "type" : "decimal",
+            "boost" : "1.0"
+          },
+          "field_product:field_commerce_saleprice_on_sale" : {
+            "table" : "search_api_db_products_display_index",
+            "column" : "field_product_field_commerce_saleprice_on_sale",
+            "type" : "boolean",
             "boost" : "1.0"
           }
         }

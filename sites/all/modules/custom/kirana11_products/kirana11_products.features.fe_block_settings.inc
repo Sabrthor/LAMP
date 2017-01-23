@@ -31,7 +31,7 @@ function kirana11_products_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'kirana11',
-        'weight' => -28,
+        'weight' => -31,
       ),
       'seven' => array(
         'region' => '',
@@ -63,7 +63,7 @@ function kirana11_products_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'kirana11',
-        'weight' => 0,
+        'weight' => -26,
       ),
       'seven' => array(
         'region' => '',
@@ -73,6 +73,38 @@ function kirana11_products_default_fe_block_settings() {
       ),
     ),
     'title' => 'Brand',
+    'visibility' => 1,
+  );
+
+  $export['facetapi-lHj9dN0ePG1F7qyDvqyYVShd9q9OjDlm'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'lHj9dN0ePG1F7qyDvqyYVShd9q9OjDlm',
+    'module' => 'facetapi',
+    'node_types' => array(),
+    'pages' => 'products-search',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'sidebar_first',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => -27,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
+        'weight' => 0,
+      ),
+    ),
+    'title' => 'Discounts',
     'visibility' => 1,
   );
 
@@ -95,7 +127,7 @@ function kirana11_products_default_fe_block_settings() {
         'region' => 'sidebar_first',
         'status' => 1,
         'theme' => 'kirana11',
-        'weight' => -27,
+        'weight' => -30,
       ),
       'seven' => array(
         'region' => '',
