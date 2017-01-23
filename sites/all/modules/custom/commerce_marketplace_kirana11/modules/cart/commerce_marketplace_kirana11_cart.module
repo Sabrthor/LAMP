@@ -103,6 +103,29 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
         $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
 
         if (in_array($line_item_wrapper->commerce_product->product_id->value(), $cart_product_id_list)) {
+
+          $quantity = 1;
+          $order = commerce_order_load($order_number);
+
+          if (!empty($order)) {
+            if (count($order->commerce_line_items) > 0) {
+              $line_items = $order->commerce_line_items;
+
+              foreach ($line_items['und'] as $key => $value) {
+                $line_item = commerce_line_item_load($value['line_item_id']);
+                $products = $line_item->commerce_product['und'];
+
+                foreach ($products as $product_key => $product_value) {
+                  if ($line_item_wrapper->commerce_product->product_id->value() == $product_value['product_id']) {
+                    $line_item = commerce_line_item_load($value['line_item_id']);
+                    $quantity = floor($line_item->quantity);
+                  }
+                }
+              }
+            }
+          }
+
+
           $form['submit']['#disabled'] = TRUE;
           $form['submit']['#value'] = t('In your cart!');
           $form['submit']['#type'] = 'hidden';
@@ -116,7 +139,7 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
             '#type' => 'textfield',
             '#title' => t('Cart count'),
             '#default_value' => 1,
-            '#value' => isset($form_state['values']['cart_count']) ? (int)$form_state['values']['cart_count'] + 1 : 1,
+            '#value' => $quantity,
             '#prefix' => '<div id="my_unique_id">',
             '#suffix' => '</div>'
           );
