@@ -18,6 +18,10 @@ function kirana11_products_form_alter(&$form, &$form_state, $form_id){
         $link = url(current_path());
         $form['#action'] = $base_url . '/'.$link;
     }
+
+    if ($form['#id'] == 'views-exposed-form-products-search-page') {
+        $form['search_text']['#placeholder'] = t('Search Products...');
+    }
 }
 
 /**
@@ -115,7 +119,7 @@ function kirana11_products_preprocess_views_view(&$vars)
 
     //Product Search Page
     if ($vars['view']->name == 'products_search') {
-        if(isset($_GET['search_text'])){
+        if(isset($_GET['search_text']) && !empty($_GET['search_text'])){
             $view_title = $_GET['search_text'];
         }else {
             $view_title = "Product Search";
