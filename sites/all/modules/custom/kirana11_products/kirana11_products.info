@@ -84,6 +84,7 @@ features[field_instance][] = node-category_banners-field_category
 features[node][] = category_banners
 features[search_api_index][] = products_display_index
 features[search_api_server][] = search_product
+features[search_autocomplete_config][] = 4
 features[slick_optionset][] = deals_slider
 features[user_permission][] = use search_api_autocomplete for search_api_views_products_search
 features[user_permission][] = view any commerce_product entity of bundle product
