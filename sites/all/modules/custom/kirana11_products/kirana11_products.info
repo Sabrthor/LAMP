@@ -107,4 +107,5 @@ features_exclude[dependencies][options] = options
 features_exclude[search_autocomplete_config][] = 4
 features_exclude[search_autocomplete_config][] = 4
 features_exclude[search_autocomplete_config][] = 4
+features_exclude[search_autocomplete_config][] = 4
 project path = sites/all/modules/custom

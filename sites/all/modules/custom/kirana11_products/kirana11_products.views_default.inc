@@ -949,7 +949,7 @@ $product_value = $data->_entity_properties[\'field_product:entity object\'];
     3 => 0,
     5 => 0,
   );
-  $handler->display->display_options['filters']['search_api_views_fulltext']['min_length'] = '3';
+  $handler->display->display_options['filters']['search_api_views_fulltext']['min_length'] = '1';
   $handler->display->display_options['filters']['search_api_views_fulltext']['fields'] = array(
     'title' => 'title',
   );
