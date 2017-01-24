@@ -10,6 +10,18 @@
 function kirana11_products_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: 'use Search Autocomplete'.
+  $permissions['use Search Autocomplete'] = array(
+    'name' => 'use Search Autocomplete',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
+      'customer' => 'customer',
+    ),
+    'module' => 'search_autocomplete',
+  );
+
   // Exported permission: 'use search_api_autocomplete for search_api_views_products_search'.
   $permissions['use search_api_autocomplete for search_api_views_products_search'] = array(
     'name' => 'use search_api_autocomplete for search_api_views_products_search',
