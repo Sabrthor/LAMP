@@ -186,7 +186,7 @@ ul.menu li.expanded ul { padding-left: 25px; border-top: 1px dashed #ddd; margin
 header .navbar{ padding:5px 0 0; z-index: 100; border-radius: 0; background: #f7f8fa; }
 header .affix { top:0; box-shadow: 0 0 2px #999; }
 header .navbar-toggle{ right: 0; }
-.region-header-login i { font-size: 20px; padding-right: 2px;}
+.region-header-login i { font-size: 20px; padding-right: 2px; color: #666;}
 .region-header-login ul li a { color: #666; }
 .region-header-login ul li a:hover, .region.region-header-login span:hover{ color: #356D35; }
 .header-search i{ font-size: 24px; color: #f9f8f8; padding-top: 5px; position: absolute; right:10px; top:2px; }
@@ -198,7 +198,7 @@ header .navbar-toggle{ right: 0; }
 .region-header-search input:-ms-input-placeholder{ color: #fff; }
 .region-header-search label{ display: none; }
 .region-header-search input:hover, .region-header-search input:focus{ background: none; }
-.region-header-search input.throbbing{ background-image:  url(../images/loader_64x64_rainbow.gif) !important; background-position: 90% center !important; background-size: 20px; }
+.region-header-search input.throbbing{ background-image:  url(../images/throbber-active.gif) !important; background-position: 90% center !important; }
 .region-header-search #autocomplete{ z-index: 999; border:none; }
 .region-header-search #autocomplete ul{ padding: 15px; background: #fff; border: 1px solid #999; }
 .region-header-search #autocomplete ul li{ padding: 10px; border-bottom: 1px solid #999; list-style: none; cursor: pointer; }
@@ -239,9 +239,19 @@ header .navbar-toggle{ right: 0; }
 .region-header-menu ul.menu > li ul li a:hover{ background:#346d35; color: #fff; }
 .region-header-menu-o{ color: #fff !important; display: none; }
 
+/*header search popup */
+#edit-search-text-wrapper ul{ z-index: 999; font-family: 'Nunito Sans', sans-serif;  }
+#edit-search-text-wrapper ul li{ list-style: none; border: 0; }
+#edit-search-text-wrapper ul li:hover, #edit-search-text-wrapper ul li:focus{ border: 0; background: #f1f1f1; }
+#edit-search-text-wrapper .ui-autocomplete-field-field_image{ width: 15%; float: left; }
+#edit-search-text-wrapper .ui-autocomplete-field-commerce_store,  #edit-search-text-wrapper .ui-autocomplete-field-php{ width: 25%; float: left; text-align: center; padding-top:10px; }
+#edit-search-text-wrapper .ui-autocomplete-field-title{ width: 30%; float: left; padding-top: 10px; font-size: 12px !important; text-transform: capitalize; }
+#edit-search-text-wrapper .ui-autocomplete-field-label{ text-align: center; background: #346d35; color: #fff; border: 0; margin: 0; padding: 10px 0; }
+#edit-search-text-wrapper .ui-autocomplete-field-label:hover{ background:#cf2127; border:0 !important;  }
+#edit-search-text-wrapper .ui-state-focus{ border: 0 !important; }
 
 /* Banner goes here */
-#banner{ width:100%; border:10px solid #fff; border-top:0; position: relative; margin-bottom: 20px; }
+#banner{ width:100%; border:10px solid #fff; border-top:0; position: relative; }
 #banner img{ width: 100%; height: auto;  }
 #banner .slick-dots{ position: absolute; bottom: 20px; width:100%; text-align: center;}
 #banner .slick-dots li{ width: auto; display: inline-block; list-style: none; }
@@ -463,12 +473,12 @@ aside{ box-shadow: none; }
 .views-exposed-widget > label{ width: 100%; float: left; font-size: 15px; }
 .views-exposed-widget .form-item label{ top:0; position: relative; color: #666; font-weight: 400; padding-left: 10px; cursor: pointer; }
 .views-exposed-widget .form-checkboxes .form-item{ width: 100%; float: left; padding: 5px 0; position: relative; }
-.views-exposed-widget .form-checkboxes .form-item label::before{ position: absolute; content: ""; width: 20px; height: 19px; padding:2px; background: #fff; border-radius: 3px; left: -20px; top:0; }
+.views-exposed-widget .form-checkboxes .form-item label::before{ position: absolute; content: ""; width: 20px; height: 19px; padding:2px; background: #fff; border-radius: 3px; left: -17px; top:0; }
 .views-exposed-widget .form-checkboxes .form-item input[type='checkbox']:checked + label::before{ content:"\f00c"; font-family:'FontAwesome'; padding: 2px;  }
 .views-exposed-widget .form-checkboxes .form-item input[type='checkbox'] { border:1px solid #fff; cursor: pointer; }
 #views-exposed-form-category-products-page .views-submit-button, #views-exposed-form-store-products-page .views-submit-button{ padding: 0 !important; display: none; }
 #edit-category-id-wrapper, #edit-deals-wrapper{ border-bottom:10px solid #fff; }
-#edit-field-brand-tid-wrapper, #edit-brand-wrapper{ padding: 10px 0 10px 30px !important; }
+#edit-field-brand-tid-wrapper, #edit-brand-wrapper{ padding: 10px 0 10px 20px !important; }
 #edit-field-brand-tid-wrapper .views-widget, #edit-brand-wrapper .views-widget { width:100%; max-height: 294px; overflow: hidden; overflow-y: scroll;}
 
 /* Category content section*/
@@ -478,7 +488,7 @@ aside{ box-shadow: none; }
 .category-display:hover{ border:5px solid #f1f1f1; }
 .category-display .views-field-field-image .field-content{ height: 180px; margin-bottom: 6%; }
 .category-display .views-field-field-image .field-content img{ max-height: 100%; margin-top: 3%; }
-.views-field-field-image{ min-height: 220px; }
+.region-content .views-field-field-image{ min-height: 220px; }
 .category-display .views-field-title{ font-size: 13px; font-weight: 700; height: 38px; overflow:hidden; text-transform: capitalize; }
 .category-display .views-field-commerce-store .field-content{ overflow:hidden; white-space: nowrap; text-overflow: ellipsis; }
 .category-display p.product-price{ width: 100%; }
@@ -546,6 +556,27 @@ aside{ box-shadow: none; }
 .add-to-cart-button .form-item{ margin: 0; padding: 9px 0 8px; border: 1px solid #356D35; border-width: 1px 0 1px 0; }
 .add-to-cart-button .form-item label{ display: none; }
 .add-to-cart-button .form-item input{ padding: 0; margin: 0; border-radius: 0; border: none; text-align: center; }
+
+/* Cart page */
+.view-commerce-cart-form h3{ width: 100%; float: left; }
+.view-commerce-cart-form .views-row{ border-left:1px solid #f1f1f1; border-right:1px solid #f1f1f1; border-top:1px solid #f1f1f1; padding: 5px 20px; }
+.view-commerce-cart-form .views-row-last{ border-bottom:1px solid #f1f1f1;}
+.view-commerce-cart-form .views-row-1 .views-label{ color: #9c9c9c; padding-bottom: 20px; display: block; }
+.view-commerce-cart-form  .views-label{	display: none; }
+.view-commerce-cart-form .views-field-line-item-title{ width: 45%; float: left; }
+.view-commerce-cart-form .views-field-edit-quantity{ width: 15%; margin-right: 3%; float: left;  }
+.view-commerce-cart-form .views-field-edit-quantity .form-item{ margin:10px 0 0; }
+.view-commerce-cart-form .views-field-commerce-unit-price, .view-commerce-cart-form .views-field-commerce-total{ width: 15%; float: left; }
+.view-commerce-cart-form .views-field-edit-delete{ width: 5%; float: left; }
+.view-commerce-cart-form  .product-image{ width: 70px; float: left; border: 1px solid #f1f1f1; padding: 5px; text-align: center; min-height: 70px; }
+.view-commerce-cart-form  .product-title{ width: 73%; float: left; margin-left: 2%; padding-top: 5%; }
+.view-commerce-cart-form .views-field-commerce-total .field-content, .view-commerce-cart-form .views-field-commerce-unit-price .field-content{ padding-top: 15%; }
+.view-commerce-cart-form .views-row-1 .views-field-edit-delete{ padding-top: 48px;  }
+.view-commerce-cart-form .views-field-edit-delete{ padding-top: 1%; font-size: 24px; line-height: 0; }
+.view-commerce-cart-form .views-field-edit-delete input{ font-size: 0;  padding: 13px 15px; z-index: 9; position: relative; opacity: 0; }
+.view-commerce-cart-form .views-field-edit-delete .field-content{ position: relative;  }
+.view-commerce-cart-form .views-field-edit-delete .field-content::before{ top:10px; position: absolute; content: "X"; font-size: 22px; color: #fff; padding: 15px 8px; border-radius: 50%; background: #ccc;}
+.view-commerce-cart-form .line-item-summary{ width: 100%; float: left; background: #f1f1f1; padding: 5% 16% 5%; }
 
 /* Media query goes here */
 @media (min-width: 1199px) {
@@ -628,7 +659,6 @@ aside{ box-shadow: none; }
 	footer .collapse{ display: block; }
 	.region-header-menu ul.menu > li:last-child > ul{ right: 0; left: inherit; }
 	.region-header-menu ul.menu > li:last-child > ul ul, .region-header-menu ul.menu > li:nth-last-child(2) > ul ul{ right: 14em; left: inherit; }
-	
 }
 @media (max-width: 767px) {
 	body{ font-size: 11px; }
