@@ -240,7 +240,7 @@ header .navbar-toggle{ right: 0; }
 .region-header-menu-o{ color: #fff !important; display: none; }
 
 /*header search popup */
-#edit-search-text-wrapper ul{ z-index: 999; font-family: 'Nunito Sans', sans-serif; height: 229px; overflow: hidden; overflow-y: scroll;  }
+#edit-search-text-wrapper ul{ z-index: 999; font-family: 'Nunito Sans', sans-serif; max-height: 229px; overflow: hidden; overflow-y: scroll;  }
 #edit-search-text-wrapper ul li{ list-style: none; border: 0; font-family: 'Nunito Sans', sans-serif; font-size: 14px; border-bottom:1px solid #666; }
 #edit-search-text-wrapper ul li:hover, #edit-search-text-wrapper ul li:focus{ border: 0; background: #f1f1f1; border-bottom:1px solid #666; }
 #edit-search-text-wrapper .ui-autocomplete-field-field_image{ width: 15%; float: left; }
