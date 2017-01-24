@@ -599,6 +599,193 @@ return $_SESSION[\'k11_stores_for_user\'];
   $export['category_products'] = $view;
 
   $view = new view();
+  $view->name = 'product_search_autocomplete';
+  $view->description = '';
+  $view->tag = 'default';
+  $view->base_table = 'search_api_index_products_display_index';
+  $view->human_name = 'Product Search Autocomplete';
+  $view->core = 7;
+  $view->api_version = '3.0';
+  $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
+
+  /* Display: Master */
+  $handler = $view->new_display('default', 'Master', 'default');
+  $handler->display->display_options['title'] = 'Product Search Autocomplete';
+  $handler->display->display_options['use_more_always'] = FALSE;
+  $handler->display->display_options['access']['type'] = 'perm';
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['exposed_form']['type'] = 'basic';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '10';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['style_plugin'] = 'search_autocomplete';
+  $handler->display->display_options['style_options']['group_by'] = '0';
+  $handler->display->display_options['style_options']['input_label'] = 'title';
+  $handler->display->display_options['style_options']['input_link'] = 'title';
+  $handler->display->display_options['style_options']['output_fields'] = array(
+    'field_image' => 'field_image',
+    'title' => 'title',
+    'commerce_store' => 'commerce_store',
+    'php' => 'php',
+  );
+  /* Relationship: Indexed Node: Product */
+  $handler->display->display_options['relationships']['field_product']['id'] = 'field_product';
+  $handler->display->display_options['relationships']['field_product']['table'] = 'search_api_index_products_display_index';
+  $handler->display->display_options['relationships']['field_product']['field'] = 'field_product';
+  /* Field: Commerce Product: Title */
+  $handler->display->display_options['fields']['title_1']['id'] = 'title_1';
+  $handler->display->display_options['fields']['title_1']['table'] = 'entity_commerce_product';
+  $handler->display->display_options['fields']['title_1']['field'] = 'title';
+  $handler->display->display_options['fields']['title_1']['relationship'] = 'field_product';
+  $handler->display->display_options['fields']['title_1']['label'] = '';
+  $handler->display->display_options['fields']['title_1']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['title_1']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title_1']['link_to_entity'] = 0;
+  /* Field: Commerce Product: Image */
+  $handler->display->display_options['fields']['field_image']['id'] = 'field_image';
+  $handler->display->display_options['fields']['field_image']['table'] = 'entity_commerce_product';
+  $handler->display->display_options['fields']['field_image']['field'] = 'field_image';
+  $handler->display->display_options['fields']['field_image']['relationship'] = 'field_product';
+  $handler->display->display_options['fields']['field_image']['label'] = '';
+  $handler->display->display_options['fields']['field_image']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['field_image']['alter']['path'] = 'products-search?search_text=[title_1]';
+  $handler->display->display_options['fields']['field_image']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_image']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_image']['settings'] = array(
+    'image_style' => 'autocompletion_style',
+    'image_link' => '',
+  );
+  /* Field: Commerce Product: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'entity_commerce_product';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['relationship'] = 'field_product';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = TRUE;
+  $handler->display->display_options['fields']['title']['alter']['path'] = 'products-search?search_text=[title]';
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['link_to_entity'] = 0;
+  /* Field: Commerce Product: Store */
+  $handler->display->display_options['fields']['commerce_store']['id'] = 'commerce_store';
+  $handler->display->display_options['fields']['commerce_store']['table'] = 'entity_commerce_product';
+  $handler->display->display_options['fields']['commerce_store']['field'] = 'commerce_store';
+  $handler->display->display_options['fields']['commerce_store']['relationship'] = 'field_product';
+  $handler->display->display_options['fields']['commerce_store']['label'] = '';
+  $handler->display->display_options['fields']['commerce_store']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['commerce_store']['link_to_entity'] = 0;
+  $handler->display->display_options['fields']['commerce_store']['view_mode'] = 'full';
+  $handler->display->display_options['fields']['commerce_store']['bypass_access'] = 0;
+  /* Field: Commerce Product: Price */
+  $handler->display->display_options['fields']['commerce_price']['id'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['table'] = 'entity_commerce_product';
+  $handler->display->display_options['fields']['commerce_price']['field'] = 'commerce_price';
+  $handler->display->display_options['fields']['commerce_price']['relationship'] = 'field_product';
+  $handler->display->display_options['fields']['commerce_price']['label'] = '';
+  $handler->display->display_options['fields']['commerce_price']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['commerce_price']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['commerce_price']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['commerce_price']['settings'] = array(
+    'calculation' => '0',
+  );
+  /* Field: Commerce Product: On sale */
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['id'] = 'field_commerce_saleprice_on_sale';
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['table'] = 'entity_commerce_product';
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['field'] = 'field_commerce_saleprice_on_sale';
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['relationship'] = 'field_product';
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['label'] = '';
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_commerce_saleprice_on_sale']['element_label_colon'] = FALSE;
+  /* Field: Commerce Product: Sale price */
+  $handler->display->display_options['fields']['field_commerce_saleprice']['id'] = 'field_commerce_saleprice';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['table'] = 'entity_commerce_product';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['field'] = 'field_commerce_saleprice';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['relationship'] = 'field_product';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['label'] = '';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['field_commerce_saleprice']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_commerce_saleprice']['click_sort_column'] = 'amount';
+  $handler->display->display_options['fields']['field_commerce_saleprice']['settings'] = array(
+    'calculation' => FALSE,
+  );
+  /* Field: Global: PHP */
+  $handler->display->display_options['fields']['php']['id'] = 'php';
+  $handler->display->display_options['fields']['php']['table'] = 'views';
+  $handler->display->display_options['fields']['php']['field'] = 'php';
+  $handler->display->display_options['fields']['php']['label'] = '';
+  $handler->display->display_options['fields']['php']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['php']['use_php_setup'] = 0;
+  $handler->display->display_options['fields']['php']['php_output'] = '<?php 
+$product_value = $data->_entity_properties[\'field_product:entity object\'];
+	$price = $product_value->commerce_price[\'und\'][0][\'amount\'];	
+	//print number_format(($price/100), 2) . ", " . number_format(($sale_price/100), 2);
+	$on_sale = $product_value->field_commerce_saleprice_on_sale[\'und\'][0][\'value\'];
+	if($on_sale > 0){
+		$sale_price = $product_value->field_commerce_saleprice[\'und\'][0][\'amount\'];
+		if(!empty($sale_price)){
+			if($price == $sale_price){
+				print "₹ " . number_format(($price/100), 2);
+			}else{
+				print "₹ " . number_format(($sale_price/100), 2);
+			}
+		}else{
+			print "₹ " . number_format(($price/100), 2);
+		}
+	}else{
+		print "₹ " . number_format(($price/100), 2);
+	}
+
+?>';
+  $handler->display->display_options['fields']['php']['use_php_click_sortable'] = '0';
+  $handler->display->display_options['fields']['php']['php_click_sortable'] = '';
+  /* Field: Commerce Product: Add to Cart form */
+  $handler->display->display_options['fields']['add_to_cart_form']['id'] = 'add_to_cart_form';
+  $handler->display->display_options['fields']['add_to_cart_form']['table'] = 'views_entity_commerce_product';
+  $handler->display->display_options['fields']['add_to_cart_form']['field'] = 'add_to_cart_form';
+  $handler->display->display_options['fields']['add_to_cart_form']['relationship'] = 'field_product';
+  $handler->display->display_options['fields']['add_to_cart_form']['label'] = '';
+  $handler->display->display_options['fields']['add_to_cart_form']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['add_to_cart_form']['show_quantity'] = 0;
+  $handler->display->display_options['fields']['add_to_cart_form']['default_quantity'] = '1';
+  $handler->display->display_options['fields']['add_to_cart_form']['combine'] = 1;
+  $handler->display->display_options['fields']['add_to_cart_form']['display_path'] = 0;
+  $handler->display->display_options['fields']['add_to_cart_form']['line_item_type'] = 0;
+  /* Contextual filter: Product: Store (indexed) */
+  $handler->display->display_options['arguments']['field_product_commerce_store']['id'] = 'field_product_commerce_store';
+  $handler->display->display_options['arguments']['field_product_commerce_store']['table'] = 'search_api_index_products_display_index';
+  $handler->display->display_options['arguments']['field_product_commerce_store']['field'] = 'field_product_commerce_store';
+  $handler->display->display_options['arguments']['field_product_commerce_store']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_product_commerce_store']['default_argument_type'] = 'php';
+  $handler->display->display_options['arguments']['field_product_commerce_store']['default_argument_options']['code'] = 'if(isset($_SESSION[\'k11_stores_for_user\'])){
+  $store_session = str_replace(\',\', \'+\', $_SESSION[\'k11_stores_for_user\']);
+ return $store_session;
+} ';
+  $handler->display->display_options['arguments']['field_product_commerce_store']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_product_commerce_store']['break_phrase'] = 1;
+  $handler->display->display_options['arguments']['field_product_commerce_store']['not'] = 0;
+  /* Filter criterion: Indexed Node: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'search_api_index_products_display_index';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Title';
+  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    4 => 0,
+    3 => 0,
+    5 => 0,
+  );
+
+  /* Display: Page */
+  $handler = $view->new_display('page', 'Page', 'page');
+  $handler->display->display_options['path'] = 'product-search-autocomplete';
+  $export['product_search_autocomplete'] = $view;
+
+  $view = new view();
   $view->name = 'products_search';
   $view->description = '';
   $view->tag = 'default';
@@ -611,6 +798,7 @@ return $_SESSION[\'k11_stores_for_user\'];
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
   $handler->display->display_options['title'] = 'Products Search';
+  $handler->display->display_options['use_ajax'] = TRUE;
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
