@@ -942,7 +942,6 @@ $product_value = $data->_entity_properties[\'field_product:entity object\'];
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['operator_id'] = 'search_api_views_fulltext_op';
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['operator'] = 'search_api_views_fulltext_op';
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['identifier'] = 'search_text';
-  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['remember'] = TRUE;
   $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['remember_roles'] = array(
     2 => '2',
     1 => '1',
@@ -950,6 +949,7 @@ $product_value = $data->_entity_properties[\'field_product:entity object\'];
     3 => 0,
     5 => 0,
   );
+  $handler->display->display_options['filters']['search_api_views_fulltext']['min_length'] = '3';
   $handler->display->display_options['filters']['search_api_views_fulltext']['fields'] = array(
     'title' => 'title',
   );
