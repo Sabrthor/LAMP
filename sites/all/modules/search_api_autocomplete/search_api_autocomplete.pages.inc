@@ -111,9 +111,6 @@ function search_api_autocomplete_autocomplete(SearchApiAutocompleteSearch $searc
           }
         }
       }
-    }else{
-        $suggestion['results'] = "No Results Found";
-        theme('search_api_autocomplete_suggestion', $suggestion);
     }
   }
   catch (SearchApiException $e) {
