@@ -198,7 +198,7 @@ header .navbar-toggle{ right: 0; }
 .region-header-search input:-ms-input-placeholder{ color: #fff; }
 .region-header-search label{ display: none; }
 .region-header-search input:hover, .region-header-search input:focus{ background: none; }
-.region-header-search input.throbbing{ background-image:  url(../images/throbber-active.gif) !important; background-position: 90% center !important; }
+.region-header-search input.throbbing{ background-image:  url(../images/loader_64x64_rainbow.gif) !important; background-position: 90% center !important; background-size: 20px; }
 .region-header-search #autocomplete{ z-index: 999; border:none; }
 .region-header-search #autocomplete ul{ padding: 15px; background: #fff; border: 1px solid #999; }
 .region-header-search #autocomplete ul li{ padding: 10px; border-bottom: 1px solid #999; list-style: none; cursor: pointer; }
@@ -256,7 +256,7 @@ header .navbar-toggle{ right: 0; }
 .store_slider .content h3{ margin: 15px 0; }
 .store_slider .content .street-block .premise, .store_slider .content .street-block .thoroughfare{ overflow:hidden; white-space: nowrap; text-overflow: ellipsis;}
 .store_slider .content .locality-block{ margin-bottom: 10px; }
-.store_slider .content .shop-now-button{ margin: 30px 0 19px; display: inline-block;  }
+.store_slider .content .shop-now-button{ margin: 10px 0 15px; display: inline-block;  }
 .store_slider .content .shop-now-button a{ background: #346d35; padding: 9px 20px; color: #fff; border-radius: 5px; }
 .store_slider .content .shop-now-button a:hover{ background:#cf2127;  }
 .store_slider .content .slick-dots{ position: absolute; top:0; }
@@ -538,14 +538,25 @@ aside{ box-shadow: none; }
 .region-sidebar-first .facetapi-facet-field-productfield-commerce-saleprice-on-sale li:last-child{ display: none; }
 .region-sidebar-first .facetapi-facet-field-productfield-commerce-saleprice-on-sale{ border-bottom: 10px solid #fff; }
 
+/* Add to Cart button */
+.add-to-cart-div input, .add-to-cart-div input:hover, .add-to-cart-div input:focus{ padding: 11px 40px 11px 20px; background-image: url("../images/cart-white.png"); background-size: 20px; background-repeat: no-repeat; background-position: right 14px top 5px; margin: 0 5px 10px 0; }
+#edit-minus, #edit-plus, input[id^="edit-minus"], input[id^="edit-plus"]{ padding:11px 15px; border-radius: 5px 0 0 5px; margin: 0; }
+#edit-plus, input[id^="edit-plus"]{ border-radius: 0 5px 5px 0; }
+.add-to-cart-button{ display: inline-block; width: 40px; }
+.add-to-cart-button .form-item{ margin: 0; padding: 9px 0 8px; border: 1px solid #356D35; border-width: 1px 0 1px 0; }
+.add-to-cart-button .form-item label{ display: none; }
+.add-to-cart-button .form-item input{ padding: 0; margin: 0; border-radius: 0; border: none; text-align: center; }
+
 /* Media query goes here */
 @media (min-width: 1199px) {
   body { font-size: 14px; }
+  .store_slider .content{ min-height: 355px; }
 }
 @media (max-width: 1199px) {
 	.container{ width: 100%; }
 	.product_slider .content .product-deals-img{ height: 110px; }
 	.product_slider .content .product-deals-img img{ max-width: 65%; }
+	.store_slider .content{ min-height: 327px; }
 }
 @media (max-width: 980px) {
 	.landing-page #content .container h2{ font-size:24px; }
@@ -617,6 +628,7 @@ aside{ box-shadow: none; }
 	footer .collapse{ display: block; }
 	.region-header-menu ul.menu > li:last-child > ul{ right: 0; left: inherit; }
 	.region-header-menu ul.menu > li:last-child > ul ul, .region-header-menu ul.menu > li:nth-last-child(2) > ul ul{ right: 14em; left: inherit; }
+	
 }
 @media (max-width: 767px) {
 	body{ font-size: 11px; }
@@ -786,6 +798,11 @@ aside{ box-shadow: none; }
 	.views-exposed-widget .form-checkboxes .form-item label::before{ top:-3px; border:1px solid #666; }
 	.views-exposed-widget .form-checkboxes .form-item input[type="checkbox"]:checked + label::before{ padding: 3px; }
 	#sidebar-first{ background: none; }
+
+	/* Cart button */
+	.add-to-cart-div input, .add-to-cart-div input:hover, .add-to-cart-div input:focus{ background-size: 17px; }
+	.add-to-cart-button .form-item{ padding: 7px 0 8px; }
+	.store_slider .content{ min-height: auto; }
 }
 
 /* Main menu category*/
