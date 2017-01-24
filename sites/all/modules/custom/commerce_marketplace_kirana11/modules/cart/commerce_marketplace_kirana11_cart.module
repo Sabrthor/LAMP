@@ -85,6 +85,10 @@ function commerce_marketplace_kirana11_cart_empty_cart_order() {
 function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_alter(&$form, &$form_state) {
   global $user;
 
+  $form['submit']['#attributes']['value'] = t('Add to');
+  $form['submit']['#prefix'] = '<div class="add-to-cart-div">';
+  $form['submit']['#suffix'] = '</div>';
+  
   // Only valid for logged in users, because of Varnish and other caches.
   if (!empty($user->uid)) {
     $line_item = $form_state['line_item'];
