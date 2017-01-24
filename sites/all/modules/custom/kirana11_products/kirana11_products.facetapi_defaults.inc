@@ -544,6 +544,9 @@ function kirana11_products_facetapi_default_facet_settings() {
     'default_true' => '1',
     'facet_search_ids' => array(),
     'exclude' => 0,
+    'pretty_paths_alias' => 'field_brand',
+    'pretty_paths_taxonomy_pathauto' => 0,
+    'pretty_paths_taxonomy_pathauto_vocabulary' => 'brand',
   );
   $export['search_api@products_display_index::field_brand'] = $facet;
 
@@ -576,6 +579,7 @@ function kirana11_products_facetapi_default_facet_settings() {
     'default_true' => '1',
     'facet_search_ids' => array(),
     'exclude' => 0,
+    'pretty_paths_alias' => 'discounts',
   );
   $export['search_api@products_display_index::field_product:field_commerce_saleprice_on_sale'] = $facet;
 

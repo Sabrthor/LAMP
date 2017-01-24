@@ -42,31 +42,6 @@ function kirana11_products_node_info() {
 }
 
 /**
- * Implements hook_default_search_api_autocomplete_search().
- */
-function kirana11_products_default_search_api_autocomplete_search() {
-  $items = array();
-  $items['search_api_views_products_search'] = entity_import('search_api_autocomplete_search', '{
-    "machine_name" : "search_api_views_products_search",
-    "name" : "Products Search",
-    "index_id" : "products_display_index",
-    "suggester_id" : "server",
-    "type" : "search_api_views",
-    "enabled" : "1",
-    "options" : {
-      "suggester_configuration" : { "fields" : [ "title" ] },
-      "min_length" : "1",
-      "results" : 1,
-      "custom" : { "display" : "page" },
-      "submit_button_selector" : ":submit",
-      "autosubmit" : 1
-    },
-    "rdf_mapping" : []
-  }');
-  return $items;
-}
-
-/**
  * Implements hook_default_search_api_index().
  */
 function kirana11_products_default_search_api_index() {
