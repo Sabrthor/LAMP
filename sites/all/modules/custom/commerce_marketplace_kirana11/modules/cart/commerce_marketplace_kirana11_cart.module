@@ -136,7 +136,7 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
             '#title' => t('Cart count'),
             '#default_value' => 1,
             '#value' => $quantity,
-            '#prefix' => '<div id="my_unique_id">',
+            '#prefix' => '<div id="my_unique_id" class="add-to-cart-button">',
             '#suffix' => '</div>'
           );
 
