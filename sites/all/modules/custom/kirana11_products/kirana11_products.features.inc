@@ -356,9 +356,8 @@ function kirana11_products_search_autocomplete_config_features_default_settings(
       'translite' => 1,
       'data_source' => 'view',
       'data_callback' => 'search_autocomplete/autocomplete/4/',
-      'data_static' => 'test=>testing
-aaa=>products-search?search_text=pepsi',
-      'data_view' => 'product_search_autocomplete',
+      'data_static' => '',
+      'data_view' => 'product_autocomplete',
       'theme' => 'basic-red.css',
     ),
   );
