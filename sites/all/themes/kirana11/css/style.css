@@ -240,12 +240,14 @@ header .navbar-toggle{ right: 0; }
 .region-header-menu-o{ color: #fff !important; display: none; }
 
 /*header search popup */
-#edit-search-text-wrapper ul{ z-index: 999; font-family: 'Nunito Sans', sans-serif;  }
-#edit-search-text-wrapper ul li{ list-style: none; border: 0; }
-#edit-search-text-wrapper ul li:hover, #edit-search-text-wrapper ul li:focus{ border: 0; background: #f1f1f1; }
+#edit-search-text-wrapper ul{ z-index: 999; font-family: 'Nunito Sans', sans-serif; height: 229px; overflow: hidden; overflow-y: scroll;  }
+#edit-search-text-wrapper ul li{ list-style: none; border: 0; font-family: 'Nunito Sans', sans-serif; font-size: 14px; border-bottom:1px solid #666; }
+#edit-search-text-wrapper ul li:hover, #edit-search-text-wrapper ul li:focus{ border: 0; background: #f1f1f1; border-bottom:1px solid #666; }
 #edit-search-text-wrapper .ui-autocomplete-field-field_image{ width: 15%; float: left; }
-#edit-search-text-wrapper .ui-autocomplete-field-commerce_store,  #edit-search-text-wrapper .ui-autocomplete-field-php, #edit-search-text-wrapper .ui-autocomplete-field-php_1{ width: 25%; float: left; text-align: center; padding-top:10px; }
-#edit-search-text-wrapper .ui-autocomplete-field-title{ width: 30%; float: left; padding-top: 10px; font-size: 12px !important; text-transform: capitalize; }
+#edit-search-text-wrapper .ui-autocomplete-field-commerce_store,  #edit-search-text-wrapper .ui-autocomplete-field-php, #edit-search-text-wrapper .ui-autocomplete-field-php_1{ width: 25%; float: left; text-align: center; padding-top:5px; }
+#edit-search-text-wrapper .ui-autocomplete-field-commerce_store{ padding-top: 13px; }
+#edit-search-text-wrapper .ui-autocomplete-field-title, #edit-search-text-wrapper .ui-autocomplete-field-php_1{ width: 30%; float: left; margin-top: 8px; font-size: 13px !important; text-transform: capitalize; text-align: left; }
+#edit-search-text-wrapper .ui-autocomplete-field-php{ border-left: 2px solid #666; padding: 5px 0 0; margin: 10px 0 0; }
 #edit-search-text-wrapper .ui-autocomplete-field-label{ text-align: center; background: #346d35; color: #fff; border: 0; margin: 0; padding: 10px 0; cursor: pointer; }
 #edit-search-text-wrapper .ui-autocomplete-field-label:hover{ background:#cf2127; border:0 !important;  }
 #edit-search-text-wrapper .ui-state-focus{ border: 0 !important; }
@@ -680,6 +682,7 @@ aside{ box-shadow: none; }
 	header .navbar i { font-size: 24px; }
 	#edit-search-text-wrapper a.ui-corner-all{ width: 91%; }
 	.region-header-search input{ width: 90%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  }
+	#edit-search-text-wrapper .ui-autocomplete-field-title, #edit-search-text-wrapper .ui-autocomplete-field-php_1{ font-size: 12px !important; }
 	.mobile-call-section{ padding:16px 16px 8px; }
 	.mobile-top-header, .mobile-header-location{  background: #f0efef; position: relative; display: none; box-shadow: 0px 4px 6px #999; }
 	.mobile-top-header .navbar-right li span{ width: 40%; float: right; margin-right: 40%; }
