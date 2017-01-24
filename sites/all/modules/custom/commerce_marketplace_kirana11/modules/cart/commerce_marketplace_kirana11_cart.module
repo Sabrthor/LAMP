@@ -242,3 +242,22 @@ function commerce_marketplace_kirana11_cart_get_items_in_cart() {
 
   return $cart_product_ids;
 }
+
+/**
+ * Continue Shopping cart button added
+ */
+function commerce_marketplace_kirana11_cart_form_views_form_commerce_cart_form_default_alter(&$form, &$form_state, $form_id) {
+  $form['actions']['continue_shopping'] = array(
+    '#type' => 'button',
+    '#value' => t('Continue Shopping'),
+    '#weight' => -999,
+  );
+  /*if (isset($_SERVER['HTTP_REFERER']) && strlen($_SERVER['HTTP_REFERER'])) {
+    // if user comes from product detail page, redirect user to previous page
+    $form['actions']['continue_shopping']['#attributes'] = array('ONCLICK' => "history.go(-1); return false;");
+  } else {
+    // redirect user to product list page 'store' by default
+    $form['actions']['continue_shopping']['#attributes'] = array('ONCLICK' => "window.location.href='" . url('store') . "'; return false;");
+  }*/
+  $form['actions']['continue_shopping']['#attributes'] = array('ONCLICK' => "history.go(-1); return false;");
+}
