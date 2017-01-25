@@ -124,6 +124,14 @@ function kirana11_form_alter( &$form, &$form_state, $form_id )
         $form['current_pass']['#attributes']['placeholder'] = t( 'Current Password *' );
         $form['account']['pass']['#process'] = array('form_process_password_confirm', 'change_alter_password_confirm');
         $form['submit']['#value'] = t('Save');
+        $form['buttons']['cancel'] = array (
+          '#type' => 'button',
+          '#access' => TRUE,
+          '#value' => t('Cancel'),
+          '#weight' => 60
+        );
+
+        $form['buttons']['cancel']['#attributes'] = array('ONCLICK' => "history.go(-1); return false;");
     }
 }
 
