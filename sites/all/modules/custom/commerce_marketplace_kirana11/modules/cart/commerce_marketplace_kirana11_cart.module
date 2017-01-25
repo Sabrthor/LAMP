@@ -83,12 +83,16 @@ function commerce_marketplace_kirana11_cart_empty_cart_order() {
 }
 
 function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_alter(&$form, &$form_state) {
+  $form['submit']['#ajax'] = array(
+    'callback' => 'commerce_ajax_cart_callback',
+  );
+
   global $user;
 
   $form['submit']['#attributes']['value'] = t('Add to');
   $form['submit']['#prefix'] = '<div class="add-to-cart-div">';
   $form['submit']['#suffix'] = '</div>';
-  
+
   // Only valid for logged in users, because of Varnish and other caches.
   if (!empty($user->uid)) {
     $line_item = $form_state['line_item'];
@@ -163,6 +167,26 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
   }
 
   return $form;
+}
+
+function commerce_ajax_cart_callback($form, &$form_state)
+{
+  global $user;
+
+  $form = drupal_rebuild_form($form['#form_id'], $form_state, $form);
+
+  $commands[] = ajax_command_replace('.' . drupal_html_class($form['#form_id']), drupal_render($form));
+  $commands[] = array(
+    'command' => 'commerceAjaxCartFireTrigger',
+    'data' => $form['#form_id'],
+  );
+
+  $form_state['rebuild'] = TRUE;
+
+  return array(
+    '#type' => 'ajax',
+    '#commands' => $commands,
+  );
 }
 
 function click_on_plus($form, $form_state) {
