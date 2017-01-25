@@ -39,8 +39,10 @@ function kirana11_preprocess_page(&$vars) {
   }
 
   $arg = arg();
-  if ($arg[0] == 'user' && is_numeric($arg[1]) && $arg[2] == 'change-password') {
-    $vars['title'] = "Change Password";
+  if ($arg[0] == 'user' && is_numeric($arg[1]) && !empty($arg[2])) {
+    if($arg[2] == 'change-password'){
+      $vars['title'] = "Change Password";
+    } 
   }
 }
 
