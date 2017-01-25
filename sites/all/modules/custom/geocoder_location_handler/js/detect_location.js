@@ -3,6 +3,7 @@
     attach: function (context) {
       $("#edit-detect-my-location").once().click(function() {
         $("#edit-detect-my-location").html("Loding.....");
+        //$("#edit-detect-my-location").html('<img src="sites/all/themes/kirana11/images/loader.gif" />');
         var timeoutVal = 10 * 1000 * 1000;
 
         if(!!navigator.geolocation) {
