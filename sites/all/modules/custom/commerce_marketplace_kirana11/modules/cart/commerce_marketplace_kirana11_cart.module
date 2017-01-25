@@ -144,7 +144,7 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
             '#title' => t('Cart count'),
             '#default_value' => 1,
             '#value' => $quantity,
-            '#prefix' => '<div id="my_unique_id" class="add-to-cart-button">',
+            '#prefix' => '<div id="my_unique_id_' . $form['#form_id'] . '" class="add-to-cart-button">',
             '#suffix' => '</div>'
           );
 
@@ -153,7 +153,7 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
             '#value' => t('+'),
             '#ajax' => array(
               'callback' => 'click_on_plus',
-              'wrapper' => 'my_unique_id',
+              'wrapper' => 'my_unique_id_' . $form['#form_id'],
             ),
           );
 
@@ -169,8 +169,7 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
   return $form;
 }
 
-function commerce_ajax_cart_callback($form, &$form_state)
-{
+function commerce_ajax_cart_callback($form, &$form_state) {
   global $user;
 
   $form = drupal_rebuild_form($form['#form_id'], $form_state, $form);
