@@ -191,14 +191,14 @@ header .navbar-toggle{ right: 0; }
 .region-header-login ul li a:hover, .region.region-header-login span:hover{ color: #356D35; }
 .header-search i{ font-size: 24px; color: #f9f8f8; padding-top: 5px; position: absolute; right:10px; top:2px; }
 .header-search{ background: #346d35; border-radius: 5px; margin-top: 8px;  }
-.region-header-search input{ background-image: none !important; background: none; background-position: 90% center !important; border:0; color: #fff; padding: 12px; width: 100%; font-size: 14px; }
+.region-header-search input{ background-image: none !important; background: none; background-position: right 35px center !important; border:0; color: #fff; padding: 12px; width: 100%; font-size: 14px; }
 .region-header-search input::-webkit-input-placeholder{ color: #fff; }
 .region-header-search input:-moz-placeholder{ color: #fff; } 
 .region-header-search input::-moz-placeholder{ color: #fff; }
 .region-header-search input:-ms-input-placeholder{ color: #fff; }
 .region-header-search label{ display: none; }
 .region-header-search input:hover, .region-header-search input:focus{ background: none; }
-.region-header-search input.throbbing{ background-image:  url(../images/throbber-active.gif) !important; background-position: 90% center !important; }
+.region-header-search input.throbbing{ background-image:  url(../images/search-loader.gif) !important; background-position: right 35px center !important; background-size: 20px; }
 .region-header-search #autocomplete{ z-index: 999; border:none; }
 .region-header-search #autocomplete ul{ padding: 15px; background: #fff; border: 1px solid #999; }
 .region-header-search #autocomplete ul li{ padding: 10px; border-bottom: 1px solid #999; list-style: none; cursor: pointer; }
@@ -711,7 +711,8 @@ aside{ box-shadow: none; }
 	.region-header-search input{ width: 90%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  }
 	#edit-search-text-wrapper .ui-autocomplete-field-field_image{ width: 18%; }
 	#edit-search-text-wrapper .ui-autocomplete-field-title, #edit-search-text-wrapper .ui-autocomplete-field-php_1{ font-size: 12px !important; }
-
+	.region-header-search input, .region-header-search input.throbbing{ background-position: right 2px center !important; }
+	
 	/* header menu*/
 	.mobile-category-section{ font-size: 14px; background: #fff; cursor: pointer; box-shadow: 0 0 2px #ccc; }
 	.mobile-menu-title i{ float: left; padding-top: 12px; }
