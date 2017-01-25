@@ -37,6 +37,11 @@ function kirana11_preprocess_page(&$vars) {
       $nodetype = $vars['node']->type;
       $vars['theme_hook_suggestions'][] = 'page__' . $nodetype;
   }
+
+  $arg = arg();
+  if ($arg[0] == 'user' && is_numeric($arg[1]) && $arg[2] == 'change-password') {
+    $vars['title'] = "Change Password";
+  }
 }
 
 /* Tabs alter */
@@ -114,6 +119,20 @@ function kirana11_form_alter( &$form, &$form_state, $form_id )
     {
         $form['name']['#attributes']['placeholder'] = t( 'Username / Email' );
     }
+    if (in_array( $form_id, array( 'change_pwd_page_form')))
+    {
+        $form['current_pass']['#attributes']['placeholder'] = t( 'Current Password *' );
+        $form['account']['pass']['#process'] = array('form_process_password_confirm', 'change_alter_password_confirm');
+        $form['submit']['#value'] = t('Save');
+        $form['buttons']['cancel'] = array (
+          '#type' => 'button',
+          '#access' => TRUE,
+          '#value' => t('Cancel'),
+          '#weight' => 60
+        );
+
+        $form['buttons']['cancel']['#attributes'] = array('ONCLICK' => "history.go(-1); return false;");
+    }
 }
 
 /**
@@ -122,5 +141,11 @@ function kirana11_form_alter( &$form, &$form_state, $form_id )
 function register_alter_password_confirm($element) {
     $element['pass1']['#attributes']['placeholder'] = t("Password *");
     $element['pass2']['#attributes']['placeholder'] = t("Confirm password *");
+    return $element;
+}
+
+function change_alter_password_confirm($element) {
+    $element['pass1']['#attributes']['placeholder'] = t("Enter NewPassword *");
+    $element['pass2']['#attributes']['placeholder'] = t("Re-Enter New Password *");
     return $element;
 }
