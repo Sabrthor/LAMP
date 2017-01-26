@@ -26,4 +26,39 @@ function custom_address_book_form_alter(&$form, &$form_state, $form_id) {
         $form['field_location_coordinates'][LANGUAGE_NONE][0]['value']['#default_value'] = $_SESSION['k11_user_coordinates'];
         $form['field_location_coordinates']['#access'] = FALSE;
     }
+    if($form_id == 'user_addressbook_address_form') {
+        $form['user_addressbook_address'][LANGUAGE_NONE][0]['street_block']['premise']['#title'] = t('Area');
+        $form['user_addressbook_address'][LANGUAGE_NONE][0]['street_block']['premise']['#disabled'] = TRUE;
+        $form['user_addressbook_address'][LANGUAGE_NONE][0]['street_block']['premise']['#value'] = $_SESSION['k11_current_location'];
+        $form['field_location_coordinates'][LANGUAGE_NONE][0]['value']['#default_value'] = $_SESSION['k11_user_coordinates'];
+        $form['user_addressbook_address'][LANGUAGE_NONE][0]['locality_block']['postal_code']['#required'] = FALSE;
+        $form['field_location_coordinates']['#access'] = FALSE;
+    }
+
+    if($form_id == 'commerce_checkout_form_addresses'){
+        $form['user_addressbook']['commerce_customer_address'][LANGUAGE_NONE][0]['locality_block']['postal_code']['#required'] = FALSE;
+        $form['user_addressbook']['commerce_customer_address'][LANGUAGE_NONE][0]['street_block']['premise']['#title'] = t('Area');
+        $form['user_addressbook']['commerce_customer_address'][LANGUAGE_NONE][0]['street_block']['premise']['#disabled'] = TRUE;
+        $form['user_addressbook']['commerce_customer_address'][LANGUAGE_NONE][0]['street_block']['premise']['#value'] = $_SESSION['k11_current_location'];
+        $form['user_addressbook']['field_location_coordinates'][LANGUAGE_NONE][0]['value']['#default_value'] = $_SESSION['k11_user_coordinates'];
+        $form['user_addressbook']['commerce_customer_address'][0]['locality_block']['postal_code']['#required'] = FALSE;
+        $form['user_addressbook']['field_location_coordinates']['#access'] = FALSE;
+
+    }
+}
+
+/**
+ * Disable Billing Information checkout page.
+ */
+function custom_address_book_commerce_checkout_pane_info_alter(&$checkout_pane) {
+    global $user;
+
+    foreach ($checkout_pane as $pane_name => & $pane_data) {
+        if ($pane_name == 'customer_profile_shipping') {
+            $order = commerce_cart_order_load($user->uid);
+            if (!empty($order->data)){
+                unset($checkout_pane['customer_profile_billing']);
+            }
+        }
+    }
 }
