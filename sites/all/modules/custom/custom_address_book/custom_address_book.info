@@ -10,4 +10,4 @@ project = "drupal"
 datestamp = "1426503185"
 
 dependencies[] = addressfield
-dependencies[] = commerce_addressbook
+;dependencies[] = commerce_addressbook
