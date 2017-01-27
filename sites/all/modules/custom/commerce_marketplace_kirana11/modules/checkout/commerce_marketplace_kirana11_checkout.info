@@ -1,0 +1,6 @@
+name = Kirana11 Checkout
+description = Extended checkout features from Commerce and Commerce Marketplace.
+package = Commerce Marketplace Kirana11
+dependencies[] = commerce_cart
+dependencies[] = commerce_marketplace_cart
+core = 7.x

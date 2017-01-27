@@ -602,8 +602,8 @@ aside{ box-shadow: none; }
 .view-commerce-cart-form .views-field-php .product-price span{ font-size: 15px; width: 100%; float: left; text-align: left; padding: 0; margin: 0; }
 .view-commerce-cart-form .views-field-php-2 .field-content{ line-height: 10px; padding-top: 16%; }
 #edit-cart-contents .view-content { margin-bottom: 0; }
-.view-commerce-cart-form .commerce-order-handler-area-order-total{ width: 100%; float: left; background:#f1f1f1; padding: 10px 15%; margin-bottom: 20px;  }
-#edit-cart-contents .view-footer { width: 100%; float: left; background:#f1f1f1; padding: 10px 10%; margin-bottom: 20px;  }
+.view-commerce-cart-form .commerce-order-handler-area-order-total{ width: 100%; float: left; background:#f1f1f1; padding: 10px 16%; margin-bottom: 20px;  }
+#edit-cart-contents .view-footer { width: 100%; float: left; background:#f1f1f1; padding: 10px 11%; margin-bottom: 20px;  }
 .commerce-order-handler-area-order-total table, .commerce-order-handler-area-order-total table tr, #edit-cart-contents .view-footer table, #edit-cart-contents .view-footer table tr{ border: 0; }
 .commerce-order-handler-area-order-total table, #edit-cart-contents .view-footer .component-title{ text-align: right; }
 .checkout-buttons .fieldset-wrapper{ float: right; margin: 20px 0; }
@@ -705,10 +705,11 @@ aside{ box-shadow: none; }
 	#recent_blogs .views-field-body p{font-size: 12px; }
 	/* cart page*/
 	.view-commerce-cart-form .views-field-php-2 .field-content{ padding-top: 18%; }
-	.commerce-order-handler-area-order-total{ padding: 10px 12%; }
 	.view-commerce-cart-form .commerce_coupon #edit-coupon-add{ width: 30%; }
 	.view-commerce-cart-form .views-field-php .product-price span, .view-commerce-cart-form .views-field-php-2 .field-content, .view-commerce-cart-form .views-field-php .field-content .mrp-price{ font-size: 13px !important; }
 	.view-commerce-cart-form .views-field-php .product-price{ font-size: 11px; }
+	.view-commerce-cart-form .commerce-order-handler-area-order-total{ padding:10px 14%; }
+	#edit-cart-contents .view-footer{ padding:10px 9%; }
  
 }
 @media (min-width: 520px) and (max-width: 767px) {
