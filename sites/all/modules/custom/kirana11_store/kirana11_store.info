@@ -14,6 +14,7 @@ dependencies[] = fe_block
 dependencies[] = features
 dependencies[] = image
 dependencies[] = linkimagefield
+dependencies[] = list
 dependencies[] = office_hours
 dependencies[] = slick
 dependencies[] = slick_views
