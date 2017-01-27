@@ -109,7 +109,7 @@ function user_addressbook_commerce_commerce_checkout_page_info() {
 function user_addressbook_commerce_commerce_checkout_page_info_alter(&$checkout_pages) {
   // Disable the Addresses checkout page buttons.
   if (user_access('edit own user_address entities')) {
-    $checkout_pages['addresses']['buttons'] = FALSE;
+    //$checkout_pages['addresses']['buttons'] = FALSE;
   }
 }
 
