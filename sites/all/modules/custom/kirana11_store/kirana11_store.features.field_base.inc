@@ -104,20 +104,31 @@ function kirana11_store_field_default_field_bases() {
   // Exported field_base: 'field_delivery_slots'.
   $field_bases['field_delivery_slots'] = array(
     'active' => 1,
-    'cardinality' => -1,
+    'cardinality' => 7,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_delivery_slots',
-    'indexes' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
     'locked' => 0,
-    'module' => 'timefield',
+    'module' => 'list',
     'settings' => array(
-      'totime' => 'required',
-      'weekly_summary' => 1,
-      'weekly_summary_with_label' => 0,
+      'allowed_values' => array(
+        '8am - 10am' => '8am - 10am',
+        '10am - 12pm' => '10am - 12pm',
+        '12pm - 02pm' => '12pm - 02pm',
+        '02pm - 04pm' => '02pm - 04pm',
+        '04pm - 06pm' => '04pm - 06pm',
+        '06pm - 08pm' => '06pm - 08pm',
+        '08pm - 10pm' => '08pm - 10pm',
+      ),
+      'allowed_values_function' => '',
     ),
     'translatable' => 0,
-    'type' => 'timefield',
+    'type' => 'list_text',
   );
 
   // Exported field_base: 'field_ifsc_code'.
