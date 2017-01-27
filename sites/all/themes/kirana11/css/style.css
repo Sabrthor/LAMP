@@ -556,7 +556,7 @@ aside{ box-shadow: none; }
 #edit-minus, #edit-plus, input[id^="edit-minus"], input[id^="edit-plus"]{ padding:11px 15px; border-radius: 5px 0 0 5px; margin: 0; }
 #edit-plus, input[id^="edit-plus"]{ border-radius: 0 5px 5px 0; }
 .add-to-cart-button{ display: inline-block; width: 40px; }
-.add-to-cart-button .form-item{ margin: 0; padding: 9px 0 8px; border: 1px solid #356D35; border-width: 1px 0 1px 0; }
+.add-to-cart-button .form-item{ margin: 0; padding: 10px 0; border: 1px solid #356D35; border-width: 1px 0 1px 0; }
 .add-to-cart-button .form-item label{ display: none; }
 .add-to-cart-button .form-item input{ padding: 0; margin: 0; border-radius: 0; border: none; text-align: center; }
 
@@ -607,26 +607,51 @@ aside{ box-shadow: none; }
 .commerce-order-handler-area-order-total table, .commerce-order-handler-area-order-total table tr, #edit-cart-contents .view-footer table, #edit-cart-contents .view-footer table tr{ border: 0; }
 .commerce-order-handler-area-order-total table, #edit-cart-contents .view-footer .component-title{ text-align: right; }
 .checkout-buttons .fieldset-wrapper{ float: right; margin: 20px 0; }
-.view-commerce-cart-form .commerce_coupon{ width: 100%; float: left; position: relative; background:url(../images/coupon-bg.jpg) center no-repeat; padding:9% 10% 10% 30%; background-size: 85%; margin-top: 5%;  }
+.view-commerce-cart-form .commerce_coupon{ width: 100%; float: left; position: relative; background:url(../images/coupon-bg.jpg) center no-repeat; padding:9% 10% 10% 30%; background-size: 85%; margin-top: 5%; border-bottom: 1px solid #f1f1f1; }
 .view-commerce-cart-form .commerce_coupon label {position: absolute; padding-left: 22%; font-size: 20px; top:-145px;right: 0;}
 .view-commerce-cart-form .commerce_coupon label::before{ content:""; position: absolute; width: 60px; height: 32px; left: 0; background:url(../images/coupon-icon.jpg) no-repeat; background-size: 70%;  }
 .view-commerce-cart-form .commerce_coupon #edit-coupon-add{ width:20%; float: left; margin: 16px 0 0 10px; }
 .view-commerce-cart-form .commerce_coupon .form-item input{ background: #fff; padding:10px !important; }
 .view-commerce-cart-form .commerce_coupon .form-item{ width:40%; float: left; }
 .view-commerce-cart-form .component-type-discount, #edit-cart-contents .component-type-discount{ color: #cf2127; }
+.page-checkout .checkout-buttons input[type="submit"]{ float: right; }
+.page-checkout .checkout-buttons .button-operator{ display: none; }
+.checkout-buttons .checkout-cancel, .checkout-buttons .checkout-back{ background: #356D35; color: #fff; padding: 10px 25px; }
+.checkout-buttons .checkout-cancel:hover, .checkout-buttons .checkout-back:hover, .checkout-buttons .checkout-cancel:focus, .checkout-buttons .checkout-back:focus{ background: #cf2127; color: #fff; padding: 10px 25px; text-decoration: none; }
+#loyalty{ margin: 20px 0; text-align: center; }
+#loyalty h3{ margin-bottom: 40px; position: relative; }
+#loyalty h3:before{ content: ""; position: absolute; background-image: url('../images/loyaltypoints_icon.png'); background-repeat: no-repeat; background-size: 100%; background-position: center; margin: -6px 0 0 -50px; width:40px; height: 40px; }
+#loyalty .loyalty-input{ float: left; width: 100%; text-align: center; border-bottom: 1px solid #f1f1f1; padding-bottom: 20px; }
+#loyalty .loyalty-input input{ width: 18px; height:18px; float:  left; margin: 0 10px 0 37%; }
+#loyalty .loyalty-input span{ float:left; }
+#commerce-checkout-form-checkout #commerce-userpoints-discount { display: none; }
+#commerce-checkout-form-checkout .delivery_slots_pane label{ position: relative; top: auto; }
+#commerce-checkout-form-checkout .delivery_slots_pane .form-item, #commerce-checkout-form-checkout .delivery_slots_pane .form-item .form-radios{ display: inline-block; }
+#commerce-checkout-form-checkout .form-item-delivery-slots-pane-field-delivery-slot-date > label[for="edit-delivery-slots-pane-field-delivery-slot-date"]{ padding-right: 10px; margin-right: 10px; }
+#commerce-checkout-form-checkout .form-item-delivery-slots-pane-field-delivery-slot-date > label[for="edit-delivery-slots-pane-field-delivery-slot-date"]:after { position: absolute; width: 1px; height:15px; content: ""; top: 3px; border-right: 1px solid #999; right: 0; }
+#commerce-checkout-form-checkout .delivery_slots_pane{ margin: 0 0 20px 0; }
+#edit-delivery-slots-pane-field-delivery-slot-date{ position: relative; }
+#edit-delivery-slots-pane-field-delivery-slot-date label { font-weight: 700; cursor: pointer; margin: 0 10px 0 0; padding: 0 0 0 10px; }
+#edit-delivery-slots-pane-field-delivery-slot-date label:before { position: absolute; display: block; top: 0; left: -10px; content: '\f1db'; font-family:'FontAwesome'; color: #d1d1d1; font-weight: 400; font-size: 18px; }
+#edit-delivery-slots-pane-field-delivery-slot-date label.delivery-slot-active:before{ content: "\f192"; color: #999; }
+#edit-delivery-slots-pane-field-delivery-slot-date input, #edit-delivery-slots-pane-field-delivery-slots-timings input{ opacity : 0; }
+#edit-delivery-slots-pane-field-delivery-slots-timings input{ display: none; }
+#edit-delivery-slots-pane-field-delivery-slots-timings .form-item{ position: relative; cursor: pointer; background: #f1f1f1; width: 107px; text-align: center; box-shadow: 0 0 3px #999; padding:10px 0; margin: 0 10px 10px 0; }
+#edit-delivery-slots-pane-field-delivery-slots-timings .form-item label{ cursor: pointer; }
+#edit-delivery-slots-pane-field-delivery-slots-timings .form-item:hover, #edit-delivery-slots-pane-field-delivery-slots-timings .form-item.delivery-slot-active{ background: #356D35; color: #fff; }
 
 /* checkout address book page */
 .page-checkout-addresses .region-content{ background: #fff; padding:20px; margin-bottom: 20px; } 
 .page-checkout-addresses .views-form .name-block{ font-weight: 700; font-size: 14px; padding-left: 10px; }
-.page-checkout-addresses .views-form .street-block, .page-checkout-addresses .views-form .locality-block{ color: #999; padding-left: 20px; }
+.page-checkout-addresses .views-form .street-block, .page-checkout-addresses .views-form .locality-block, .page-checkout-addresses .views-form .locality-block + span{ color: #999; padding-left: 20px; }
 .page-checkout-addresses  table{ border: 0; }
 .page-checkout-addresses  table tr td{ padding: 0; width: 30%; margin:0 2% 2% 0; float: left; border:1px solid #f1f1f1; }
 .page-checkout-addresses  table tr td .views-field-rendered-entity{ height: 145px; overflow:hidden; }
 #commerce-checkout-form-addresses h2{ font-size: 15px; padding-left: 20px; }
 #commerce-checkout-form-addresses .views-field input{ width: 100%; float: left; border-radius:0 !important; margin: 20px 0 0; }
-.page-checkout-addresses  #addressfield-wrapper{ border-top: 2px solid #f1f1f1; padding-top: 20px; }
-.page-checkout-addresses  #addressfield-wrapper .form-item{ width: 30%; }
-.page-checkout-addresses  #addressfield-wrapper input, .page-checkout-addresses  #addressfield-wrapper select{ padding: 8px; background: #fff; margin-bottom: 10px; }
+.page-checkout-addresses  #addressfield-wrapper{ padding-top: 20px; }
+.page-checkout-addresses  #addressfield-wrapper .form-item, .page-checkout-addresses .form-item-user-addressbook-user-address-name{ width: 30%; }
+.page-checkout-addresses  #addressfield-wrapper input, .page-checkout-addresses #addressfield-wrapper select, .page-checkout-addresses .form-item-user-addressbook-user-address-name input{ padding: 8px; background: #fff; margin-bottom: 10px; }
 .page-checkout-addresses .form-type-checkbox{ display: none; }
 
 .page-checkout-complete .region-content{ text-align: center; padding: 5% 0 10%; margin-bottom: 20px; }
@@ -634,6 +659,15 @@ aside{ box-shadow: none; }
 .page-checkout-complete .checkout-completion-message{ width: 43%; border: 10px solid #f1f1f1; margin:0 auto; background: #fff; padding-bottom: 5%; }
 .page-checkout-complete .checkout-completion-message p{ padding: 10px; }
 .page-checkout-complete .region-content img{ margin-bottom: 20px; width: 100%; }
+
+/* Checkout Process */
+.block-commerce-checkout-progress ol{ background: #f1f1f1; padding: 15px 10px; }
+.block-commerce-checkout-progress ol li{ list-style-position: inside; width: auto !important; font-size: 20px; list-style: none; display: none; position: relative; padding-left: 45px; }
+.block-commerce-checkout-progress ol li.active{ font-weight: 400; }
+.page-checkout-complete .block-commerce-checkout-progress ol{ display: none; }
+.page-checkout-checkout .block-commerce-checkout-progress ol li.checkout, .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses{ display: block; }
+.page-checkout-checkout .block-commerce-checkout-progress ol li.checkout:before, .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses:before{ position: absolute; content: "1"; background: #346d35; color: #fff; padding:8px 13px; top: -5px; left: 0; border-radius: 100%; font-size: 14px; }
+.page-checkout-addresses .block-commerce-checkout-progress ol li.addresses:before{ content: "2"; }
 
 /* Media query goes here */
 @media (min-width: 1199px) {
@@ -645,6 +679,7 @@ aside{ box-shadow: none; }
 	.product_slider .content .product-deals-img{ height: 110px; }
 	.product_slider .content .product-deals-img img{ max-width: 65%; }
 	.store_slider .content{ min-height: 327px; }
+	#loyalty .loyalty-input input{ margin-left: 35%; }
 }
 @media (max-width: 980px) {
 	.landing-page #content .container h2{ font-size:24px; }
@@ -670,8 +705,10 @@ aside{ box-shadow: none; }
 	#sidebar-first .views-exposed-widget .form-checkboxes .form-item label::before{ top:-4px; }
 	#sidebar-first .views-exposed-widget .form-checkboxes .form-item input[type="checkbox"]:checked + label::before{ font-size: 14px; }
 	.overlay-popup-menu .view-store-info{ display: none; }
+
 	/* cart coupon */
 	.view-commerce-cart-form .commerce_coupon label {top:-110px; padding-left: 27%; font-size: 14px;}
+	#loyalty .loyalty-input input{ margin-left: 30%; }
 }
 @media (min-width: 992px) {
 	.landing-page form input[type="text"], .landing-page form input[type="email"], .landing-page form input[type="password"], .find-location-container p.regiter-terms, #edit-detect-my-location, .landing-page input[type="text"], .display-text-box{ width:65%; }
@@ -710,6 +747,7 @@ aside{ box-shadow: none; }
 	.view-commerce-cart-form .views-field-php .product-price{ font-size: 11px; }
 	.view-commerce-cart-form .commerce-order-handler-area-order-total{ padding:10px 14%; }
 	#edit-cart-contents .view-footer{ padding:10px 9%; }
+	#loyalty .loyalty-input input{ margin-left: 30%; }
  
 }
 @media (min-width: 520px) and (max-width: 767px) {
@@ -719,7 +757,13 @@ aside{ box-shadow: none; }
 	.thank-you-video{ width: 100% !important; height: 300px; }
 }
 @media (max-width: 420px) {
-	.thank-you-video{ height: 200px; }
+	.thank-you-video{ height: 200px; }	
+}
+@media (min-width: 320px) and (max-width: 380px) {
+	#loyalty .loyalty-input input{ margin-left: 16%; }
+}
+@media (min-width: 381px) and (max-width: 767px) {
+	#loyalty .loyalty-input input{ margin-left: 20%; }
 }
 @media (min-width: 768px){
 	footer .collapse{ display: block; }
@@ -915,10 +959,10 @@ aside{ box-shadow: none; }
 	.store_slider .content{ min-height: auto; }
 
 	/* cart page */
-	.view-commerce-cart-form h3, .view-commerce-cart-summary h3{ font-size:14px; margin:15px 0 10px; }
+	.view-commerce-cart-form h3, .view-commerce-cart-summary h3{ font-size:14px; margin:0 0 10px; }
 	.view-commerce-cart-form .views-field-line-item-title, .view-commerce-cart-form .views-field-edit-quantity, .view-commerce-cart-form .views-field-php, .view-commerce-cart-form .views-field-php-2, .view-commerce-cart-form .views-field-edit-delete{ display: none; }
 	.view-commerce-cart-summary .views-field-line-item-title, .view-commerce-cart-summary .views-field-quantity, .view-commerce-cart-summary .views-field-commerce-unit-price, .view-commerce-cart-summary .views-field-commerce-total{ display: none; }
-	.page-cart .region-content .view-content, .page-checkout .region-content .view-content{ padding: 5px; background: none; border:0; }
+	.page-cart .region-content .view-content, .page-checkout .region-content .view-content{ padding: 0; background: none; border:0; }
 	.view-commerce-cart-form .views-row, .view-commerce-cart-summary .views-row{ padding: 10px; background: #fff; margin-bottom: 10px; }
 	.mobile-cart-display{ width: 100%; float: left; font-size:13px; }
 	.mobile-display-left{ width: 72%; float: left; }
@@ -937,8 +981,8 @@ aside{ box-shadow: none; }
 	#edit-cart-contents .view-footer{ font-size: 13px; padding: 10px; }
 	.view-commerce-cart-summary .commerce-order-handler-area-order-total .commerce-price-formatted-components{ width: 75%; }
 	.commerce-order-handler-area-order-total table{ width: 80% !important; font-size: 12px; }
-	.view-commerce-cart-form .commerce_coupon { background: url(../images/coupon-bg.jpg) #fff center no-repeat; padding: 5% 0; background-size: 95%; }
-	.view-commerce-cart-form .commerce_coupon label {top:-50px; padding-left: 34px; font-size: 12px;}
+	.view-commerce-cart-form .commerce_coupon { background: url(../images/coupon-bg.jpg) #fff center no-repeat; padding: 5% 0; background-size: 95%; margin: 0 0 20px 0; }
+	.view-commerce-cart-form .commerce_coupon label {top:-55px; padding-left: 34px; font-size: 12px;}
 	.view-commerce-cart-form .commerce_coupon label::before{ background-size: 50%; }
 	.view-commerce-cart-form .commerce_coupon .form-item { width: 50%; float: left; margin: 50px 0 30px 15px; }
 	.view-commerce-cart-form .commerce_coupon #edit-coupon-add { width: 38%; float: left; margin: 52px 0px 0 0px; }
@@ -948,10 +992,12 @@ aside{ box-shadow: none; }
 	.view-commerce-cart-form .product-price span{ font-size: 13px; padding:0; margin: 0; width: auto; float: right; }
 	.mobile-cart-unit-price p{ font-size: 13px; }
 	.commerce-order-handler-area-order-total{ padding: 10px 0 !important; }
+	.page-cart .form-actions input[type=submit]{ padding: 10px; }
+	#loyalty h3:before{ width: 30px; height: 30px; margin: -6px 0 0 -40px; }
 
 	/* checkout address book page */
 	.page-checkout-addresses  table tr td{ padding: 0; width: 100%; margin:2% 0; }
-	.page-checkout-addresses  #addressfield-wrapper .form-item{ width: 100%; }
+	.page-checkout-addresses  #addressfield-wrapper .form-item, .page-checkout-addresses .form-item-user-addressbook-user-address-name{ width: 100%; }
 	.page-checkout-complete .checkout-completion-message{ width: 100%;}
 }
 /* Main menu category*/
