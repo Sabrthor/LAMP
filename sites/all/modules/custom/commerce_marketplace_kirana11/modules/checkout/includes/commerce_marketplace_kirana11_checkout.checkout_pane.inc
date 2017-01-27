@@ -77,6 +77,18 @@ function _get_store_delivery_slots($store_id){
  * @param $order
  */
 function delivery_slots_pane_checkout_form_submit($form, &$form_state, $checkout_pane, &$order) {
-   $order->field_delivery_slot_date[LANGUAGE_NONE][0]['value'] = $form_state['values']['delivery_slots_pane']['field_delivery_slot_date'];
-   $order->field_delivery_slots_timings[LANGUAGE_NONE][0]['value'] = $form_state['values']['delivery_slots_pane']['field_delivery_slots_timings'];
+   if(!empty($form_state['values']['delivery_slots_pane']['field_delivery_slot_date']) && !empty($form_state['values']['delivery_slots_pane']['field_delivery_slots_timings'])) {
+       $order->field_delivery_slot_date[LANGUAGE_NONE][0]['value'] = $form_state['values']['delivery_slots_pane']['field_delivery_slot_date'];
+       $order->field_delivery_slots_timings[LANGUAGE_NONE][0]['value'] = $form_state['values']['delivery_slots_pane']['field_delivery_slots_timings'];
+   }
+   else{
+       if(empty($form_state['values']['delivery_slots_pane']['field_delivery_slot_date'])){
+           drupal_set_message(t('Please select Delivery Date'),'error');
+       }
+
+       if(empty($form_state['values']['delivery_slots_pane']['field_delivery_slots_timings'])){
+           drupal_set_message(t('Please select Delivery Time'),'error');
+       }
+       $form_state['rebuild'] = TRUE;
+   }
 }
