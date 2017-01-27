@@ -16,6 +16,7 @@ dependencies[] = image
 dependencies[] = linkimagefield
 dependencies[] = list
 dependencies[] = office_hours
+dependencies[] = options
 dependencies[] = slick
 dependencies[] = slick_views
 dependencies[] = telephone

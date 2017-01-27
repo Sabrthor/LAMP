@@ -104,7 +104,7 @@ function kirana11_store_field_default_field_bases() {
   // Exported field_base: 'field_delivery_slots'.
   $field_bases['field_delivery_slots'] = array(
     'active' => 1,
-    'cardinality' => 7,
+    'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_delivery_slots',
