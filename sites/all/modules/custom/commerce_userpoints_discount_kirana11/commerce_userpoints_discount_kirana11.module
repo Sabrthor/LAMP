@@ -28,20 +28,19 @@ function commerce_userpoints_discount_kirana11_commerce_cp_info()
   return $cart_panes;
 }
 
-function royalty_reward_info_pane($form, $form_state, $cart_order, $pane_weight)
-{
-  if (isset($_SESSION['k11_remaining_discount_amount'])) {
-    $form_pane = array();
+function royalty_reward_info_pane($form, $form_state, $cart_order, $pane_weight) {
+  $form_pane = array();
 
+  if (isset($_SESSION['k11_remaining_discount_amount'])) {
     $form_pane['discount_info'] = array(
       '#markup' => '<span>' . t('Apply Loyalty Rewards acquired | ') .'<strong>' . $_SESSION['k11_remaining_discount_amount'] . '</strong></span>',
       '#weight' => $pane_weight,
       '#prefix' => '<div id="loyalty"><h3 class="loyalty-title">' . ('Loyalty Rewards') . '</h3><div class="loyalty-input"><input type="checkbox" ' . (isset($_SESSION['k11_royalty_set']) && $_SESSION['k11_royalty_set'] == 1 ? 'checked="checked"' : '') . ' name="loyalty_required" id="loyalty_required" />',
       '#suffix' => '</div>',
     );
-
-    return $form_pane;
   }
+
+  return $form_pane;
 }
 
 function commerce_userpoints_discount_kirana11_menu() {
