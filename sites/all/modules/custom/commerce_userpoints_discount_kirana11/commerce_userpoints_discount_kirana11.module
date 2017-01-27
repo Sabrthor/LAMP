@@ -31,7 +31,7 @@ function commerce_userpoints_discount_kirana11_commerce_cp_info()
 function royalty_reward_info_pane($form, $form_state, $cart_order, $pane_weight) {
   $form_pane = array();
 
-  if (isset($_SESSION['k11_remaining_discount_amount'])) {
+  if (isset($_SESSION['k11_remaining_discount_amount']) && $_SESSION['k11_remaining_discount_amount'] > 0) {
     $form_pane['discount_info'] = array(
       '#markup' => '<span>' . t('Apply Loyalty Rewards acquired | ') .'<strong>' . $_SESSION['k11_remaining_discount_amount'] . '</strong></span>',
       '#weight' => $pane_weight,
@@ -68,6 +68,13 @@ function commerce_userpoints_discount_kirana11_form_views_form_commerce_cart_for
     $order_id = $cart_total->_field_data['commerce_line_item_field_data_commerce_line_items_line_item_']['entity']->order_id;
 
     $order_details[$order_id]['order_id'] = $order_id;
+
+    $line_item_id = commerce_userpoints_discount_order_has_userpoint_line_item($order_id);
+
+    // If there is no existing userpoints line item, we create a new one.
+    if ($line_item_id != NULL) {
+      $_SESSION['k11_royalty_set'] = 1;
+    }
   }
 
   // To avoid order_id repeat

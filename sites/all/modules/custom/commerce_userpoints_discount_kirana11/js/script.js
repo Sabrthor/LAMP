@@ -6,6 +6,7 @@
 
         $.get('/apply_k11_userpoints/' + royalty_required_status, function( result ) {
           console.log(result);
+          window.location.reload();
         });
       });
     }
