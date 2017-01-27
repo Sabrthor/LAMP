@@ -28,17 +28,20 @@ function commerce_userpoints_discount_kirana11_commerce_cp_info()
   return $cart_panes;
 }
 
-function royalty_reward_info_pane($form, $form_state, $cart_order, $pane_weight) {
-  $form_pane = array();
+function royalty_reward_info_pane($form, $form_state, $cart_order, $pane_weight)
+{
+  if (isset($_SESSION['k11_remaining_discount_amount'])) {
+    $form_pane = array();
 
-  $form_pane['discount_info'] = array(
-    '#markup' => t('Apply royalty reward required | ' . variable_get('remaining_discount_amount')),
-    '#weight' => $pane_weight,
-    '#prefix' => '<div id="royalty"><input type="checkbox" name="royalty_required" id="royalty_required" />',
-    '#suffix' => '</div>',
-  );
+    $form_pane['discount_info'] = array(
+      '#markup' => '<span>' . t('Apply Loyalty Rewards acquired | ') .'<strong>' . $_SESSION['k11_remaining_discount_amount'] . '</strong></span>',
+      '#weight' => $pane_weight,
+      '#prefix' => '<div id="loyalty"><h3 class="loyalty-title">' . ('Loyalty Rewards') . '</h3><div class="loyalty-input"><input type="checkbox" ' . (isset($_SESSION['k11_royalty_set']) && $_SESSION['k11_royalty_set'] == 1 ? 'checked="checked"' : '') . ' name="loyalty_required" id="loyalty_required" />',
+      '#suffix' => '</div>',
+    );
 
-  return $form_pane;
+    return $form_pane;
+  }
 }
 
 function commerce_userpoints_discount_kirana11_menu() {
@@ -63,8 +66,13 @@ function commerce_userpoints_discount_kirana11_form_views_form_commerce_cart_for
 
   foreach($form_state['build_info']['args'][0]->result as $cart_total) {
     $grand_total +=  floatval($cart_total->_field_data['commerce_line_item_field_data_commerce_line_items_line_item_']['entity']->commerce_total['und'][0]['amount'] / 100);
-    $order_details[]['order_id'] = $cart_total->_field_data['commerce_line_item_field_data_commerce_line_items_line_item_']['entity']->order_id;
+    $order_id = $cart_total->_field_data['commerce_line_item_field_data_commerce_line_items_line_item_']['entity']->order_id;
+
+    $order_details[$order_id]['order_id'] = $order_id;
   }
+
+  // To avoid order_id repeat
+  $order_details = array_values($order_details);
 
   $grand_total = number_format((float)$grand_total, 2, '.', '');
 
@@ -97,7 +105,7 @@ function commerce_userpoints_discount_kirana11_form_views_form_commerce_cart_for
   // Smaller amount in discount amount and remaining points. (4.30 to 4.00)
   $remaining_discount_amount = floor(min($discount_amount, $points_as_currency));
 
-  variable_set('remaining_discount_amount', $remaining_discount_amount);
+  $_SESSION['k11_remaining_discount_amount'] = $remaining_discount_amount;
 
   // Convert points as currency to points
   $points_can_be_used = $remaining_discount_amount / $conversion_rate;
@@ -105,7 +113,7 @@ function commerce_userpoints_discount_kirana11_form_views_form_commerce_cart_for
   $_SESSION['k11_points_can_be_used'] = $points_can_be_used;
   $_SESSION['k11_order_details'] = $order_details;
 
-  //  apply_k11_userpoints($points_can_be_used, $order_details, false);
+   // apply_k11_userpoints($points_can_be_used, $order_details, true);
 }
 
 function apply_k11_userpoints_callback($apply) {
@@ -134,6 +142,8 @@ function apply_k11_userpoints($points_can_be_used, $order_details, $apply) {
     foreach ($order_details as $order_item) {
       commerce_userpoints_discount_clear_order($order_item['order_id']);
     }
+
+    $_SESSION['k11_royalty_set'] = 0;
 
     return drupal_json_output('ROYALTY_REMOVED');
   }
@@ -216,6 +226,8 @@ function apply_k11_userpoints($points_can_be_used, $order_details, $apply) {
 
     commerce_userpoints_discount_line_item_save($line_item);
   }
+
+  $_SESSION['k11_royalty_set'] = 1;
 
   return drupal_json_output('ROYALTY_APPLIED');
 }
