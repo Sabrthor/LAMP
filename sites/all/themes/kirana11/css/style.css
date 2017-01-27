@@ -665,8 +665,9 @@ aside{ box-shadow: none; }
 .block-commerce-checkout-progress ol li{ list-style-position: inside; width: auto !important; font-size: 20px; list-style: none; display: none; position: relative; padding-left: 45px; }
 .block-commerce-checkout-progress ol li.active{ font-weight: 400; }
 .page-checkout-complete .block-commerce-checkout-progress ol{ display: none; }
-.page-checkout-checkout .block-commerce-checkout-progress ol li.checkout, .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses{ display: block; }
-.page-checkout-checkout .block-commerce-checkout-progress ol li.checkout:before, .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses:before{ position: absolute; content: "1"; background: #346d35; color: #fff; padding:8px 13px; top: -5px; left: 0; border-radius: 100%; font-size: 14px; }
+.page-checkout .block-commerce-checkout-progress ol li.checkout, .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses{ display: block; }
+.page-checkout-addresses .block-commerce-checkout-progress ol li.checkout{ display: none; }
+.page-checkout .block-commerce-checkout-progress ol li.checkout:before, .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses:before{ position: absolute; content: "1"; background: #346d35; color: #fff; padding:8px 13px; top: -5px; left: 0; border-radius: 100%; font-size: 14px; }
 .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses:before{ content: "2"; }
 
 /* Media query goes here */
