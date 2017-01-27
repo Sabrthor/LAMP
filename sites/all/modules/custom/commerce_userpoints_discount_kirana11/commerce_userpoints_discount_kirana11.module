@@ -5,11 +5,61 @@
  * Discount/offers/loyalty for Kirana11.
  */
 
+/**
+ * Implements hook_init().
+ */
+function commerce_userpoints_discount_kirana11_init() {
+  drupal_add_js(drupal_get_path('module', 'commerce_userpoints_discount_kirana11') . '/js/script.js');
+}
+
+/**
+ * Implements hook_commerce_cp_info().
+ */
+function commerce_userpoints_discount_kirana11_commerce_cp_info()
+{
+  $cart_panes = array();
+
+  $cart_panes['royalty_reward'] = array(
+    'name' => t('Royalty reward'),
+    'pane callback' => 'royalty_reward_info_pane',
+    'page' => 'cart',
+  );
+
+  return $cart_panes;
+}
+
+function royalty_reward_info_pane($form, $form_state, $cart_order, $pane_weight) {
+  $form_pane = array();
+
+  $form_pane['discount_info'] = array(
+    '#markup' => t('Apply royalty reward required | ' . variable_get('remaining_discount_amount')),
+    '#weight' => $pane_weight,
+    '#prefix' => '<div id="royalty"><input type="checkbox" name="royalty_required" id="royalty_required" />',
+    '#suffix' => '</div>',
+  );
+
+  return $form_pane;
+}
+
+function commerce_userpoints_discount_kirana11_menu() {
+  $items = array();
+
+  $items['apply_k11_userpoints/%'] = array(
+    'title' => t('Apply K11 userpoints'),
+    'page callback' => 'apply_k11_userpoints_callback',
+    'access arguments' => array('access content'),
+    'page arguments' => array(1),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
 function commerce_userpoints_discount_kirana11_form_views_form_commerce_cart_form_default_alter(&$form, &$form_state, $form_id) {
   global $user;
 
   $grand_total = 0;
-  $order_ids = [];
+  $order_details = [];
 
   foreach($form_state['build_info']['args'][0]->result as $cart_total) {
     $grand_total +=  floatval($cart_total->_field_data['commerce_line_item_field_data_commerce_line_items_line_item_']['entity']->commerce_total['und'][0]['amount'] / 100);
@@ -47,21 +97,46 @@ function commerce_userpoints_discount_kirana11_form_views_form_commerce_cart_for
   // Smaller amount in discount amount and remaining points. (4.30 to 4.00)
   $remaining_discount_amount = floor(min($discount_amount, $points_as_currency));
 
-  drupal_set_message('Apply royalty reward required | ' . $remaining_discount_amount);
+  variable_set('remaining_discount_amount', $remaining_discount_amount);
 
   // Convert points as currency to points
   $points_can_be_used = $remaining_discount_amount / $conversion_rate;
 
-  // Delete all userpoints line items on an order.
-  foreach ($order_details as $order_item) {
-    commerce_userpoints_discount_clear_order($order_item['order_id']);
-  }
+  $_SESSION['k11_points_can_be_used'] = $points_can_be_used;
+  $_SESSION['k11_order_details'] = $order_details;
 
-  apply_k11_userpoints($points_can_be_used, $order_details);
+  //  apply_k11_userpoints($points_can_be_used, $order_details, false);
 }
 
-function apply_k11_userpoints($points_can_be_used, $order_details) {
+function apply_k11_userpoints_callback($apply) {
+  $k11_points_can_be_used  = $k11_order_details = NULL;
+
+  if(isset($_SESSION['k11_points_can_be_used'])) {
+    $k11_points_can_be_used = $_SESSION['k11_points_can_be_used'];
+  }
+
+  if(isset($_SESSION['k11_order_details'])) {
+    $k11_order_details = $_SESSION['k11_order_details'];
+  }
+
+  if(!is_null($k11_points_can_be_used  ) && !is_null($k11_order_details)) {
+    apply_k11_userpoints($k11_points_can_be_used, $k11_order_details, $apply);
+  } else {
+    return drupal_json_output('POINTS_OR_ORDERS_NOT_EXISTS');
+  }
+}
+
+function apply_k11_userpoints($points_can_be_used, $order_details, $apply) {
   global $user;
+
+  if(!$apply) {
+    // Delete all userpoints line items on an order.
+    foreach ($order_details as $order_item) {
+      commerce_userpoints_discount_clear_order($order_item['order_id']);
+    }
+
+    return drupal_json_output('ROYALTY_REMOVED');
+  }
 
   $partial_points  = intval($points_can_be_used/ count($order_details));
 
@@ -141,6 +216,8 @@ function apply_k11_userpoints($points_can_be_used, $order_details) {
 
     commerce_userpoints_discount_line_item_save($line_item);
   }
+
+  return drupal_json_output('ROYALTY_APPLIED');
 }
 
 /**
