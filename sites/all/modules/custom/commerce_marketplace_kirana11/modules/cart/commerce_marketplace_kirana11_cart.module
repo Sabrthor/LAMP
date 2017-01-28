@@ -132,9 +132,8 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
             }
           }
 
-          $form['submit']['#disabled'] = TRUE;
-          $form['submit']['#value'] = t('In your cart!');
-          $form['submit']['#type'] = 'hidden';
+          // Hide submit button.
+          $form['submit']['#attributes']['class'][] = 'element-invisible';
 
           $form['minus'] = array(
             '#type' => 'button',
@@ -203,7 +202,18 @@ function click_on_minus($form, $form_state) {
 
   update_cart($product_id, $quantity);
 
-  return $form;
+  if($quantity == 0) {
+    // Remove the class 'element-invisible' from submit.
+    $classes = &$form['submit']['#attributes']['class'];
+
+    $classes = array_filter($classes , function($e){
+      return $e != 'element-invisible';
+    });
+
+    return $form['submit'];
+  } else {
+    return $form;
+  }
 }
 
 function click_on_plus($form, $form_state) {
