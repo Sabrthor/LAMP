@@ -711,7 +711,8 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .page-user-addresses-add .region-content, .page-user-addresses-edit .region-content, .page-user-addresses-delete .region-content{ background:#fff; padding: 20px;}
 .page-user-addresses-add .region-content fieldset, .page-user-addresses-edit .region-content fieldset{ border:0; }
 .page-user-addresses-add .region-content input, .page-user-addresses-edit .region-content input, .page-user-addresses-add .region-content select, .page-user-addresses-edit .region-content select{ background:#fff; padding: 10px; }
-.page-user-addresses-add input.thoroughfare, .page-user-addresses-edit input.thoroughfare, .page-user-addresses-add input.premise, .page-user-addresses-edit input.premise, .page-user-addresses-add .form-item-name input, .page-user-addresses-edit .form-item-name input{ display:block; width: 272px; margin-bottom: 20px; }
+.page-user-addresses-add .fieldset-wrapper input, .page-user-addresses-edit .fieldset-wrapper input, .page-user-addresses-add .form-item-name input, .page-user-addresses-edit .form-item-name input{ display:block; width: 250px; }
+.page-user-addresses-add .fieldset-wrapper input.thoroughfare, .page-user-addresses-edit .fieldset-wrapper input.thoroughfare{ margin-bottom: 30px; }
 .page-user-addresses-add .description, .page-user-addresses-edit .description, .page-user-addresses-add legend, .page-user-addresses-edit legend{ display: none; }
 .page-user-addresses-add .form-item-name label, .page-user-addresses-edit .form-item-name label{ position: relative; top:0; }
 .page-user-addresses-add .form-item-name, .page-user-addresses-edit .form-item-name{ padding-left: 10px; }
