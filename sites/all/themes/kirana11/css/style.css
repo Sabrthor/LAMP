@@ -680,11 +680,10 @@ aside{ box-shadow: none; }
 .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses:before{ content: "2"; }
 
 /* manage orders*/
-.page-user-orders .region-content{ background: #fff; }
+.page-user-orders .region-content{ background: #fff; padding: 20px; }
 .page-user-orders .region-content .view-content{ margin-bottom: 0; }
 .page-user-orders .field-type-commerce-price, .field-name-commerce-order-total .commerce-price-formatted-components tr.component-type-commerce-price-formatted-amount{ background:#f1f1f1; }
-.page-user-orders .commerce-price-formatted-components, .page-user-orders .commerce-price-formatted-components tr{ border:0; margin-right: 20px; } 
-.page-user-orders .field-name-commerce-customer-billing, .page-user-orders .field-name-commerce-customer-shipping{ padding: 20px; }
+.page-user-orders .commerce-price-formatted-components, .page-user-orders .commerce-price-formatted-components tr{ border:0; margin-right: 20px; }
 
 /* Media query goes here */
 @media (min-width: 1199px) {
