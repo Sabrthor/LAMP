@@ -267,8 +267,6 @@ function update_cart($product_id, $quantity) {
 
                             commerce_line_item_save($line_item);
                           }
-
-                          return drupal_json_output('CART_UPDATED');
                         }
                       }
                     }
