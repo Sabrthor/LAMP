@@ -108,7 +108,7 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
 
         if (in_array($line_item_wrapper->commerce_product->product_id->value(), $cart_product_id_list)) {
 
-          $quantity = 1;
+          $quantity = 0;
           $order = commerce_order_load($order_number);
 
           if (!empty($order)) {
@@ -132,16 +132,16 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
             }
           }
 
-          $form['submit']['#disabled'] = TRUE;
-          $form['submit']['#value'] = t('In your cart!');
-          $form['submit']['#type'] = 'hidden';
+          // Hide submit button.
+          $form['submit']['#attributes']['class'][] = 'element-invisible';
 
           $form['minus'] = array(
             '#type' => 'button',
             '#value' => t('-'),
+            '#prefix' => '<div id="cart_update_section_' . $line_item_wrapper->commerce_product->product_id->value() . '">',
             '#ajax' => array(
               'callback' => 'click_on_minus',
-              'wrapper' => 'my_unique_id_' . $line_item_wrapper->commerce_product->product_id->value(),
+              'wrapper' => 'cart_update_section_' . $line_item_wrapper->commerce_product->product_id->value(),
             ),
           );
 
@@ -149,16 +149,17 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
             '#type' => 'textfield',
             '#title' => t('Cart count'),
             '#default_value' => $quantity,
-            '#prefix' => '<div id="my_unique_id_' . $line_item_wrapper->commerce_product->product_id->value() . '" class="add-to-cart-button">',
+            '#prefix' => '<div id="cart_update_section_' . $line_item_wrapper->commerce_product->product_id->value() . '" class="add-to-cart-button">',
             '#suffix' => '</div>'
           );
 
           $form['plus'] = array(
             '#type' => 'button',
             '#value' => t('+'),
+            '#suffix' => '</div>',
             '#ajax' => array(
               'callback' => 'click_on_plus',
-              'wrapper' => 'my_unique_id_' . $line_item_wrapper->commerce_product->product_id->value(),
+              'wrapper' => 'cart_update_section_' . $line_item_wrapper->commerce_product->product_id->value(),
             ),
           );
 
@@ -197,15 +198,22 @@ function click_on_minus($form, $form_state) {
   $quantity = isset($form_state['values']['cart_count']) ? (int)$form_state['values']['cart_count'] - 1 : 1;
   $form['cart_count']['#value'] = $quantity;
 
-  if($quantity == 0) {
-
-  }
-
   $product_id = $form_state['values']['product_id'];
 
   update_cart($product_id, $quantity);
 
-  return $form['cart_count'];
+  if($quantity == 0) {
+    // Remove the class 'element-invisible' from submit.
+    $classes = &$form['submit']['#attributes']['class'];
+
+    $classes = array_filter($classes , function($e){
+      return $e != 'element-invisible';
+    });
+
+    return $form['submit'];
+  } else {
+    return $form;
+  }
 }
 
 function click_on_plus($form, $form_state) {
@@ -216,7 +224,7 @@ function click_on_plus($form, $form_state) {
 
   update_cart($product_id, $quantity);
 
-  return $form['cart_count'];
+  return $form;
 }
 
 function update_cart($product_id, $quantity) {
