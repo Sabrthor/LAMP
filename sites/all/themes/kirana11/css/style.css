@@ -598,6 +598,7 @@ aside{ box-shadow: none; }
 .commerce-quantity-plusminus-link.commerce-quantity-plusminus-link-decrease a{ border-radius: 5px 0 0 5px; }
 .commerce-quantity-plusminus-link.commerce-quantity-plusminus-link-increase a{ border-radius: 0 5px 5px 0; }
 .view-commerce-cart-form .views-field-edit-quantity .form-item input{ width: auto; border-radius: 0; padding:9px 0; border: 1px solid #346d35;  text-align: center; }
+.cart_product_id{ display: none; }
 .view-commerce-cart-summary .views-field-quantity .field-content{ padding:15% 0 0 15%; display: block; }
 .view-commerce-cart-form .views-field-php, .view-commerce-cart-form .views-field-php-2, .view-commerce-cart-summary .views-field-commerce-unit-price, .view-commerce-cart-summary .views-field-commerce-total{ width: 15%; float: left; }
 .view-commerce-cart-form .views-field-edit-delete, .view-commerce-cart-summary .views-field-edit-delete{ width: 5%; float: left; }
