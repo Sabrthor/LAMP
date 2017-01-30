@@ -572,11 +572,12 @@ aside{ box-shadow: none; }
 
 /* Account Setting page */
 .logged-in.page-user .region-sidebar-first h2{ font-size: 22px; font-weight: 700; padding-left: 20px; }
+.logged-in.page-user h1.page-title{ font-size: 24px; margin: 0 0 10px 0; }
 .logged-in.page-user .tabs--primary{ display: none; }
 .region-sidebar-first ul.account-setting-menu{ padding: 0; min-height: 250px; }
 .account-setting-menu li{ list-style: none; padding: 8px 20px; color: #666; }
 .account-setting-menu li a, .account-setting-menu li a:hover{ color: inherit; }
-.page-user-change-password li.account-change-password, .page-user-orders li.account-orders, .page-user-addressbook li.account-address-book{ background: #fff; font-weight: bold; color: #356D35; }
+.page-user-change-password li.account-change-password, .page-user-orders li.account-orders, .page-user-addressbook li.account-address-book, .page-user-addresses li.account-address-book{ background: #fff; font-weight: bold; color: #356D35; }
 .page-user-change-password h1.page-title{ text-transform: capitalize; }
 #change-pwd-page-form label, #change-pwd-page-form .description{ display: none; }
 
@@ -598,7 +599,7 @@ aside{ box-shadow: none; }
 .commerce-quantity-plusminus-link.commerce-quantity-plusminus-link-decrease a{ border-radius: 5px 0 0 5px; }
 .commerce-quantity-plusminus-link.commerce-quantity-plusminus-link-increase a{ border-radius: 0 5px 5px 0; }
 .view-commerce-cart-form .views-field-edit-quantity .form-item input{ width: auto; border-radius: 0; padding:9px 0; border: 1px solid #346d35;  text-align: center; }
-.cart_product_id{ display: none; }
+.views-field.views-field-product-id{ display: none; }
 .view-commerce-cart-summary .views-field-quantity .field-content{ padding:15% 0 0 15%; display: block; }
 .view-commerce-cart-form .views-field-php, .view-commerce-cart-form .views-field-php-2, .view-commerce-cart-summary .views-field-commerce-unit-price, .view-commerce-cart-summary .views-field-commerce-total{ width: 15%; float: left; }
 .view-commerce-cart-form .views-field-edit-delete, .view-commerce-cart-summary .views-field-edit-delete{ width: 5%; float: left; }
@@ -690,6 +691,12 @@ aside{ box-shadow: none; }
 .page-user-orders- .region-content .view-content{ margin-bottom: 0; }
 .page-user-orders- .field-type-commerce-price, .field-name-commerce-order-total .commerce-price-formatted-components tr.component-type-commerce-price-formatted-amount{ background:#f1f1f1; }
 .page-user-orders- .commerce-price-formatted-components, .page-user-orders- .commerce-price-formatted-components tr{ border:0; margin-right: 20px; }
+
+/* User Address Book */
+.page-user-addressbook .view-user-address-book-details .view-footer{ margin: 0 0 20px 0; }
+/* Delete page */
+.page-user-addresses-delete .form-actions #edit-cancel, .page-user-addressbook .view-user-address-book-details .view-footer a{ background: #356D35; color: #fff; padding: 10px 25px; border-radius: 5px; }
+.page-user-addresses-delete .form-actions #edit-cancel:hover, .page-user-addressbook .view-user-address-book-details .view-footer a:hover{ background: #cf2127; }
 
 /* Media query goes here */
 @media (min-width: 1199px) {
