@@ -1044,10 +1044,10 @@ aside{ box-shadow: none; }
 
 /* Best deals */
 @media (min-width: 1170px) {
-	.product_slider .jcarousel-skin-default .jcarousel-item{ height: auto; width: 224px !important; }
+	.product_slider .jcarousel-skin-default .jcarousel-item{ height: auto; width: 224px !important; border:0; }
 }
 @media (max-width: 1169px) {
-	.product_slider .jcarousel-skin-default .jcarousel-item{ height: auto; width: 188px !important; }
+	.product_slider .jcarousel-skin-default .jcarousel-item{ height: auto; width: 188px !important; border:0;  }
 }
 @media (max-width: 980px) {
 	.product_slider .jcarousel-skin-default .jcarousel-item{width: 185px !important; }
