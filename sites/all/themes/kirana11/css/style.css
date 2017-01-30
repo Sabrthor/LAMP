@@ -557,7 +557,7 @@ aside{ box-shadow: none; }
 #edit-plus, input[id^="edit-plus"]{ border-radius: 0 5px 5px 0; }
 .add-to-cart-button{ display: inline-block; width: 40px; }
 .add-to-cart-button .form-item{ margin: 0; padding: 10px 0; border: 1px solid #356D35; border-width: 1px 0 1px 0; }
-.add-to-cart-button .form-item label, .add-to-cart-button .messages, .commerce-add-to-cart .ajax-progress{ display: none; }
+.add-to-cart-button .form-item label, form.commerce-add-to-cart .messages, form.commerce-add-to-cart .ajax-progress{ display: none; }
 .add-to-cart-button .form-item input{ padding: 0; margin: 0; border-radius: 0; border: none; text-align: center; }
 
 /* Account Setting page */

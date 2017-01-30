@@ -125,22 +125,23 @@
 
   Drupal.behaviors.kirana11CategoryMenuLeft = {
     attach: function (context) {
-      $(document).ready(function(){
+
+      $(window).on("load", function() {
         var id = $("#selected_tid").html();
-        $("ul.menu_level_1 li").removeClass('cm-expanded');
-        $("." + id).parents('ul.menu_level_1 li').css({"font-weight": "700", "color" : "#346d35"});
-        $("." + id).css({"color" : "#346d35"});
-        $("." + id).parents('ul.menu_level_1 li').addClass('cm-expanded');
-        $("." + id).parents('ul.menu_level_1 > li').find('a').css({"color" : "#346d35"});
-        $("." + id).parents('ul.menu_level_1 li > ul.menu_level_2').toggle('slow');
-        $("." + id).parentsUntil('.menu_level_2').find('ul.menu_level_3').toggle('slow');
+        $(".region-sidebar-first ul.menu_level_1 li").removeClass('cm-expanded');
+        $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li').css({"font-weight": "700", "color" : "#346d35"});
+        $(".region-sidebar-first ." + id).css({"color" : "#346d35"});
+        $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li').addClass('cm-expanded');
+        $(".region-sidebar-first ." + id).parents('ul.menu_level_1 > li').find('a').css({"color" : "#346d35"});
+        $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li > ul.menu_level_2').toggle();
+        $(".region-sidebar-first ." + id).parentsUntil('.menu_level_2').find('ul.menu_level_3').toggle();
       });
       
       $(".menu_level_1 > li > a").once().click(function(){
         $(".menu_level_1 li").removeClass('cm-expanded');
         $(".menu_level_1 > li > a").css({"font-weight": "400", "color" : "#666"});
         $(".menu_level_1 > li ul").hide();
-        $(this).next('ul').toggle('slow');
+        $(this).next('ul').toggle();
         $(this).parent('ul li').addClass('cm-expanded');
         $(this).css({"font-weight": "700", "color" : "#346d35"});
       });
@@ -149,7 +150,7 @@
         $(".menu_level_2 li").removeClass('cm-expanded');
         $(".menu_level_2 > li a").css({"font-weight": "400", "color" : "#666"});
         $(".menu_level_2 > li ul").hide();
-        $(this).next('ul').toggle('slow');
+        $(this).next('ul').toggle();
         $(this).parents('ul > li').addClass('cm-expanded');
         $(this).css({"font-weight": "700", "color" : "#346d35"});
       });
@@ -158,31 +159,29 @@
 
   Drupal.behaviors.kirana11ProductCategoryMenuLeft = {
     attach: function (context) {
-      $(document).ready(function(){
-
+      $(window).on("load", function() {
         $(".bef-tree .highlight").parents('ul').show();
         $(".bef-tree .highlight").parents('ul li').addClass('cm-expanded');
+        $('ul.bef-tree > li > div label, .bef-tree-depth-1 > li > div label').on('click', function(event) {
+          event.preventDefault();
+        });
+      });
 
-         $('ul.bef-tree > li > div label, .bef-tree-depth-1 > li > div label').on('click', function(event) {
-             event.preventDefault();
-         });
-        
-        $(".bef-tree > li > div label").once().click(function(){
-          $(".bef-tree li").removeClass('cm-expanded');
-          $(".bef-tree > li div > label").css({"font-weight": "400", "color" : "#666"});
-          $(".bef-tree > li ul").hide();
-          $(this).parent('ul li > div').next('ul').toggle('slow');
-          $(this).parent('ul li').addClass('cm-expanded');
-          $(this).css({"font-weight": "700", "color" : "#346d35"});
-        });
-        $(".bef-tree-depth-1 > li > div label").once().click(function(){
-          $(".bef-tree-depth-1 li").removeClass('cm-expanded');
-          $(".bef-tree-depth-1 > li  div > label").css({"font-weight": "400", "color" : "#666"});
-          $(".bef-tree-depth-1 > li ul").hide();
-          $(this).parent('ul li > div').next('ul').toggle('slow');
-          $(this).parents('ul > li').addClass('cm-expanded');
-          $(this).css({"font-weight": "700", "color" : "#346d35"});
-        });
+      $(".bef-tree > li > div label").once().click(function(){
+        $(".bef-tree li").removeClass('cm-expanded');
+        $(".bef-tree > li div > label").css({"font-weight": "400", "color" : "#666"});
+        $(".bef-tree > li ul").hide();
+        $(this).parent('ul li > div').next('ul').toggle('slow');
+        $(this).parent('ul li').addClass('cm-expanded');
+        $(this).css({"font-weight": "700", "color" : "#346d35"});
+      });
+      $(".bef-tree-depth-1 > li > div label").once().click(function(){
+        $(".bef-tree-depth-1 li").removeClass('cm-expanded');
+        $(".bef-tree-depth-1 > li  div > label").css({"font-weight": "400", "color" : "#666"});
+        $(".bef-tree-depth-1 > li ul").hide();
+        $(this).parent('ul li > div').next('ul').toggle('slow');
+        $(this).parents('ul > li').addClass('cm-expanded');
+        $(this).css({"font-weight": "700", "color" : "#346d35"});
       });
     }
   }
