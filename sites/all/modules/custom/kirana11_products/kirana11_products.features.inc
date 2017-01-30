@@ -334,31 +334,3 @@ function kirana11_products_default_search_api_server() {
   }');
   return $items;
 }
-
-/**
- * Implements hook_search_autocomplete_config_features_default_settings().
- */
-function kirana11_products_search_autocomplete_config_features_default_settings() {
-  return array(
-    0 => array(
-      'fid' => 4,
-      'title' => 'Product Search',
-      'selector' => 'input#edit-search-text',
-      'weight' => 0,
-      'enabled' => 1,
-      'parent_fid' => 0,
-      'min_char' => 3,
-      'max_sug' => 10,
-      'no_results' => '{"label":"No results found for [search-phrase]. Click to perform full search.","value":"[search-phrase]","link":"..\\/products-search","group":{"group_id":"no_results"}}',
-      'all_results' => '{"label":"View all results","value":"[search-phrase]","link":"..\\/products-search?search_text=[search-phrase]","group":{"group_id":"all_results"}}',
-      'auto_submit' => 1,
-      'auto_redirect' => 1,
-      'translite' => 1,
-      'data_source' => 'view',
-      'data_callback' => 'search_autocomplete/autocomplete/4/',
-      'data_static' => '',
-      'data_view' => 'product_autocomplete',
-      'theme' => 'basic-red.css',
-    ),
-  );
-}
