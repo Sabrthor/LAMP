@@ -698,6 +698,17 @@ aside{ box-shadow: none; }
 .page-user-addresses-delete .form-actions #edit-cancel, .page-user-addressbook .view-user-address-book-details .view-footer a{ background: #356D35; color: #fff; padding: 10px 25px; border-radius: 5px; }
 .page-user-addresses-delete .form-actions #edit-cancel:hover, .page-user-addressbook .view-user-address-book-details .view-footer a:hover{ background: #cf2127; }
 
+/* Address book*/
+.page-user-addresses-add .region-content, .page-user-addresses-edit .region-content, .page-user-addresses-delete .region-content{ background:#fff; padding: 20px;}
+.page-user-addresses-add .region-content fieldset, .page-user-addresses-edit .region-content fieldset{ border:0; }
+.page-user-addresses-add .region-content input, .page-user-addresses-edit .region-content input, .page-user-addresses-add .region-content select, .page-user-addresses-edit .region-content select{ background:#fff; padding: 10px; }
+.page-user-addresses-add input.thoroughfare, .page-user-addresses-edit input.thoroughfare, .page-user-addresses-add input.premise, .page-user-addresses-edit input.premise, .page-user-addresses-add .form-item-name, .page-user-addresses-edit .form-item-name { width: 275px; margin-bottom: 10px; }
+.page-user-addresses-add .description, .page-user-addresses-edit .description, .page-user-addresses-add legend, .page-user-addresses-edit legend{ display: none; }
+.page-user-addresses-add .form-item-name label, .page-user-addresses-edit .form-item-name label{ position: relative; top:0; }
+.page-user-addresses-add .form-item-name, .page-user-addresses-edit .form-item-name{ padding-left: 10px; }
+.page-user-addresses-add #edit-actions input, .page-user-addresses-edit #edit-actions input{ background:#356D35; padding: 10px 20px; margin-left: 10px; }
+.page-user-addresses-add #edit-actions input:hover, .page-user-addresses-edit #edit-actions input:hover{ background:#cf2127; }
+
 /* Media query goes here */
 @media (min-width: 1199px) {
   body { font-size: 14px; }
@@ -1036,6 +1047,7 @@ aside{ box-shadow: none; }
 	.page-checkout-addresses  table tr td{ padding: 0; width: 100%; margin:2% 0; }
 	.page-checkout-addresses  #addressfield-wrapper .form-item, .page-checkout-addresses .form-item-user-addressbook-user-address-name{ width: 100%; }
 	.page-checkout-complete .checkout-completion-message{ width: 100%;}
+	.page-user-addresses-add .region-content input, .page-user-addresses-edit .region-content input, .page-user-addresses-add .region-content select, .page-user-addresses-edit .region-content select{ width: 230px; }
 }
 /* Main menu category*/
 @media (min-width: 1101px) {
