@@ -1,5 +1,9 @@
 (function ($) {
 
+  $( document ).ready(function() {
+    $('.views-row .commerce-quantity-plusminus-link a.button').attr('href', 'javascript:');
+  });
+
   // Increase/decrease quantity
   Drupal.commerce_extra_quantity_quantity = function(selector, way, amount, limit_down) {
 
