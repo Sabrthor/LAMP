@@ -64,6 +64,14 @@ function commerce_marketplace_kirana11_cart_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
+  $items['update_cart/%/%'] = array(
+    'title' => t('Empty the cart orders'),
+    'page callback' => 'update_cart',
+    'access arguments' => array('access content'),
+    'page arguments' => array(1, 2),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
   return $items;
 }
 
@@ -259,6 +267,8 @@ function update_cart($product_id, $quantity) {
 
                             commerce_line_item_save($line_item);
                           }
+
+                          return drupal_json_output('CART_UPDATED');
                         }
                       }
                     }
