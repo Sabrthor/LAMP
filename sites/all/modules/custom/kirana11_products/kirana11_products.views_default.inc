@@ -30,29 +30,14 @@ function kirana11_products_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['style_plugin'] = 'slick';
-  $handler->display->display_options['style_options']['slide_field_wrapper'] = 0;
-  $handler->display->display_options['style_options']['cache'] = '';
-  $handler->display->display_options['style_options']['mousewheel'] = 0;
-  $handler->display->display_options['style_options']['optionset'] = 'deals_slider';
-  $handler->display->display_options['style_options']['override'] = 0;
-  $handler->display->display_options['style_options']['overridables'] = array(
-    'arrows' => 0,
-    'autoplay' => 0,
-    'dots' => 0,
-    'draggable' => 0,
-  );
-  $handler->display->display_options['style_options']['slide_caption'] = array(
-    'field_image' => 0,
-    'title' => 0,
-    'commerce_price' => 0,
-    'field_commerce_saleprice' => 0,
-    'title_1' => 0,
-    'add_to_cart_form' => 0,
-    'nothing' => 0,
-  );
-  $handler->display->display_options['style_options']['slide_overlay'] = '';
-  $handler->display->display_options['style_options']['preserve_keys'] = 0;
+  $handler->display->display_options['style_plugin'] = 'jcarousel';
+  $handler->display->display_options['style_options']['wrap'] = '0';
+  $handler->display->display_options['style_options']['visible'] = '1';
+  $handler->display->display_options['style_options']['responsive'] = 1;
+  $handler->display->display_options['style_options']['auto'] = '0';
+  $handler->display->display_options['style_options']['autoPause'] = 1;
+  $handler->display->display_options['style_options']['easing'] = '';
+  $handler->display->display_options['style_options']['vertical'] = 0;
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
   /* Relationship: Content: Referenced products */
