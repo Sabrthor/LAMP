@@ -487,6 +487,7 @@ aside{ box-shadow: none; }
 .views-exposed-widget .form-checkboxes .form-item label::before{ position: absolute; content: ""; width: 20px; height: 19px; padding:2px; background: #fff; border-radius: 3px; left: -17px; top:0; }
 .views-exposed-widget .form-checkboxes .form-item input[type='checkbox']:checked + label::before{ content:"\f00c"; font-family:'FontAwesome'; padding: 2px;  }
 .views-exposed-widget .form-checkboxes .form-item input[type='checkbox'] { border:1px solid #fff; cursor: pointer; }
+.form-checked::before{ content:"\f00c" !important; font-family:'FontAwesome'; padding: 2px;  }
 #views-exposed-form-category-products-page .views-submit-button, #views-exposed-form-store-products-page .views-submit-button{ padding: 0 !important; display: none; }
 #edit-category-id-wrapper, #edit-deals-wrapper{ border-bottom:10px solid #fff; }
 #edit-field-brand-tid-wrapper, #edit-brand-wrapper{ padding: 10px 0 10px 20px !important; }

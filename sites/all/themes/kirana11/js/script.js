@@ -183,6 +183,12 @@
         $(this).parents('ul > li').addClass('cm-expanded');
         $(this).css({"font-weight": "700", "color" : "#346d35"});
       });
+      $(".bef-tree-depth-2 > li > div label").once().click(function(){
+        $(this).toggleClass("form-checked");
+      });
+      $(".bef-tree-depth-2 > li > div input").once().click(function(){
+        $(this).next().toggleClass("form-checked");
+      });
     }
   }
 
