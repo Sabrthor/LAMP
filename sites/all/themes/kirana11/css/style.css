@@ -415,6 +415,7 @@ footer .panel-group{ margin: 0; }
 .landing-page form#user-register-form .ajax-progress .throbber{ position: absolute; right:25%; bottom: 133px; }
 input[type="text"]#edit-detect-my-location, div#edit-detect-my-location{ background: #356635; color: #fff; cursor: pointer; text-align: center; margin: 0 auto; padding: 10px 20px; border-radius: 5px; font-size: 15px; width: 80%; }
 input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:hover{ background: #cf2127; }
+div#edit-detect-my-location img{ width: 40px; height: 20px; }
 #edit-select-location{ border: 8px solid #356635 !important; padding: 8px !important; color: #666666; width: 80%;  }
 .overlay-popup .or-text{ text-align: center; }
 .overlay-popup #edit-select-location{ margin: 0 auto; display: inherit; }

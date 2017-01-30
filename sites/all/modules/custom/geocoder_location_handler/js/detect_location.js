@@ -2,8 +2,7 @@
   Drupal.behaviors.findLocation = {
     attach: function (context) {
       $("#edit-detect-my-location").once().click(function() {
-        $("#edit-detect-my-location").html("Loding.....");
-        //$("#edit-detect-my-location").html('<img src="sites/all/themes/kirana11/images/loader.gif" />');
+        $("#edit-detect-my-location").html('<img src="sites/all/themes/kirana11/images/ellipsis.gif" />');
         var timeoutVal = 10 * 1000 * 1000;
 
         if(!!navigator.geolocation) {
@@ -54,6 +53,7 @@
             };
             $(".error-text-location").show();
             $(".error-text-location-p").html(errors[error.code]);
+            $("#edit-detect-my-location").html("Detect my location");
             console.log("Error: " + errors[error.code]);
           }, { 
             enableHighAccuracy: true, 
@@ -66,6 +66,7 @@
       });
       
       $("#edit-select-location").once().click(function() {
+        $("#edit-detect-my-location").html("Detect my location");
         var bangaloreBounds = new google.maps.LatLngBounds(
            new google.maps.LatLng(12.864162, 77.438610),
            new google.maps.LatLng(13.139807, 77.711895));
