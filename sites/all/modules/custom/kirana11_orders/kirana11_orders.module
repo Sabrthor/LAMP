@@ -1,5 +1,7 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the Kirana11 Orders feature.
  */
+
+include_once 'kirana11_orders.features.inc';
