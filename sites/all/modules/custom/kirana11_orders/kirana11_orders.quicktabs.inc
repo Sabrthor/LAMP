@@ -13,15 +13,15 @@ function kirana11_orders_quicktabs_default_quicktabs() {
   $quicktabs = new stdClass();
   $quicktabs->disabled = FALSE; /* Edit this to true to make a default quicktabs disabled initially */
   $quicktabs->api_version = 1;
-  $quicktabs->machine_name = 'my_orders';
+  $quicktabs->machine_name = 'orders';
   $quicktabs->ajax = 1;
   $quicktabs->hide_empty_tabs = FALSE;
   $quicktabs->default_tab = 0;
   $quicktabs->title = 'My Orders';
   $quicktabs->tabs = array(
     0 => array(
-      'vid' => 'my_orders',
-      'display' => 'page',
+      'vid' => 'commerce_user_orders',
+      'display' => 'page_1',
       'args' => '',
       'use_title' => 0,
       'title' => 'Open Orders',
@@ -29,8 +29,8 @@ function kirana11_orders_quicktabs_default_quicktabs() {
       'type' => 'view',
     ),
     1 => array(
-      'vid' => 'my_orders',
-      'display' => 'page_1',
+      'vid' => 'commerce_user_orders',
+      'display' => 'page_2',
       'args' => '',
       'use_title' => 0,
       'title' => 'Closed Orders',
@@ -48,7 +48,7 @@ function kirana11_orders_quicktabs_default_quicktabs() {
   t('My Orders');
   t('Open Orders');
 
-  $export['my_orders'] = $quicktabs;
+  $export['orders'] = $quicktabs;
 
   return $export;
 }
