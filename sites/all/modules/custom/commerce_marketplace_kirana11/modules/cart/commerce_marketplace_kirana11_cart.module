@@ -319,12 +319,16 @@ function commerce_marketplace_kirana11_cart_form_views_form_commerce_cart_form_d
     '#value' => t('Continue Shopping'),
     '#weight' => -999,
   );
-  /*if (isset($_SERVER['HTTP_REFERER']) && strlen($_SERVER['HTTP_REFERER'])) {
-    // if user comes from product detail page, redirect user to previous page
-    $form['actions']['continue_shopping']['#attributes'] = array('ONCLICK' => "history.go(-1); return false;");
-  } else {
-    // redirect user to product list page 'store' by default
-    $form['actions']['continue_shopping']['#attributes'] = array('ONCLICK' => "window.location.href='" . url('store') . "'; return false;");
-  }*/
+
   $form['actions']['continue_shopping']['#attributes'] = array('ONCLICK' => "history.go(-1); return false;");
+}
+
+/* Checkout page form alter */
+function commerce_marketplace_kirana11_cart_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'commerce_checkout_form_checkout') {
+    $form['buttons']['continue']['#value'] = t('Proceed');
+  }
+  if ($form_id == 'commerce_checkout_form_addresses') {
+    $form['buttons']['continue']['#value'] = t('Proceed');
+  }
 }
