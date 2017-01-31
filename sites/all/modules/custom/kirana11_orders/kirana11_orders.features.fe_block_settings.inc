@@ -12,13 +12,13 @@ function kirana11_orders_default_fe_block_settings() {
 
   $export['version'] = '2.0';
 
-  $export['quicktabs-my_orders'] = array(
+  $export['quicktabs-orders'] = array(
     'cache' => -1,
     'custom' => 0,
-    'delta' => 'my_orders',
+    'delta' => 'orders',
     'module' => 'quicktabs',
     'node_types' => array(),
-    'pages' => 'user/*/my-orders',
+    'pages' => 'user/*/orders',
     'roles' => array(),
     'themes' => array(
       'bartik' => array(
