@@ -268,7 +268,7 @@ header .navbar-toggle{ right: 0; }
 .store_slider .content h3{ margin: 15px 0; }
 .store_slider .content .street-block .premise, .store_slider .content .street-block .thoroughfare{ overflow:hidden; white-space: nowrap; text-overflow: ellipsis;}
 .store_slider .content .locality-block{ margin-bottom: 10px; }
-.store_slider .content .shop-now-button{ margin: 10px 0 15px; display: inline-block;  }
+.store_slider .content .shop-now-button{ margin: 20px 0 15px; display: inline-block;  }
 .store_slider .content .shop-now-button a{ background: #346d35; padding: 9px 20px; color: #fff; border-radius: 5px; }
 .store_slider .content .shop-now-button a:hover{ background:#cf2127;  }
 .store_slider .content .slick-dots{ position: absolute; top:0; }
@@ -500,7 +500,7 @@ aside{ box-shadow: none; }
 .category-display:hover{ border:5px solid #f1f1f1; }
 .category-display .views-field-field-image .field-content{ height: 180px; margin-bottom: 6%; }
 .category-display .views-field-field-image .field-content img{ max-height: 100%; margin-top: 3%; }
-.region-content .views-field-field-image{ min-height: 220px; }
+.region-content .category-display .views-field-field-image{ min-height: 220px; }
 .category-display .views-field-title{ font-size: 13px; font-weight: 700; height: 38px; overflow:hidden; text-transform: capitalize; }
 .category-display .views-field-commerce-store .field-content{ overflow:hidden; white-space: nowrap; text-overflow: ellipsis; }
 .category-display p.product-price{ width: 100%; }
@@ -762,6 +762,8 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	#sidebar-first .views-exposed-widget .form-checkboxes .form-item label::before{ top:-4px; }
 	#sidebar-first .views-exposed-widget .form-checkboxes .form-item input[type="checkbox"]:checked + label::before{ font-size: 14px; }
 	.overlay-popup-menu .view-store-info{ display: none; }
+	.region-content .category-display .views-field-field-image{ min-height: 160px; }
+	.category-display{ min-height: 330px; }
 
 
 	/* cart coupon */
@@ -956,6 +958,8 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	.product_slider, .store_slider h2{ text-align: center; }
 	.front-content-box h2{ padding: 0 15px; margin: 10px 0; }
 	.product_slider .unslick{ width: 100% }
+	.product_slider .jcarousel-prev-horizontal{ left:0;  }
+	.product_slider .jcarousel-next-horizontal, .product_slider .jcarousel-next-horizontal:hover{ right: -18px;  }
 
 	/* Partners and Brands */
 	#partners_brands h2{ font-size: 18px; }
@@ -966,6 +970,8 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 
 	/*Blog*/
 	.read-all-button{ margin-bottom: 20px; }
+	.view-blogs .slick__arrow .slick-prev{ float: left; position: absolute; left: 10px !important; top: 50%; outline: 0; }
+	.view-blogs .slick__arrow .slick-next{ float: right; position: absolute; right: 10px !important; top: 50%; outline: 0;  }
 
 	/* Landing page goes here */
 	.landing-page .header { margin: 5px 0 10px;}
