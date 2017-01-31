@@ -737,7 +737,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	#loyalty .loyalty-input input{ margin-left: 35%; }
 	.product_slider .jcarousel-skin-default .jcarousel-clip { width: 600px; }
 	.product_slider .jcarousel-skin-default .jcarousel-item{ height: auto; width: 193px; }
-	.view-commerce-cart-form .views-field-edit-quantity .form-item input{ padding: 8px 0 9px; }
+	.view-commerce-cart-form .views-field-edit-quantity .form-item input{ padding: 6px 0 8px; }
 }
 @media (max-width: 980px) {
 	.landing-page #content .container h2{ font-size:24px; }
@@ -807,7 +807,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	#edit-cart-contents .view-footer{ padding:10px 9%; }
 	#loyalty .loyalty-input input{ margin-left: 30%; }
 	.view-commerce-cart-form .views-field-edit-quantity .form-item input{ padding: 8px 0 9px; }
-	.view-commerce-cart-form .views-field-edit-quantity .form-item .commerce-quantity-plusminus-link a, .view-commerce-cart-form .views-field-edit-quantity .form-item .commerce-quantity-plusminus-link a:hover{ padding: 10px; }
+	.view-commerce-cart-form .views-field-edit-quantity .form-item .commerce-quantity-plusminus-link a, .view-commerce-cart-form .views-field-edit-quantity .form-item .commerce-quantity-plusminus-link a:hover{ padding: 10px 9px; }
 
 	#views-form-user-address-book-details-page .views-row{ width: 45%; }
  
