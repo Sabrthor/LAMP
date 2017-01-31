@@ -723,6 +723,8 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .page-user-orders .view-footer ul li{  float: left; list-style: none; margin:0 20px 20px 0; }
 .page-user-orders .view-footer ul li i{ font-size: 18px; padding-right: 5px; }
 .page-user-orders .view-footer ul li strong{ display: block; border-top:1px solid;}
+#quicktabs-tabpage-orders-0 .field-name-field-location-coordinates{ display: none; }
+#quicktabs-orders .view-empty{ background: #fff; padding: 20px; min-height: 150px; }
 
 /* User Address Book */
 .page-user-addressbook .view-user-address-book-details .view-footer{ margin: 0 0 20px 0; }
