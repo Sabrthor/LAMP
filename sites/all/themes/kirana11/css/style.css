@@ -581,7 +581,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .region-sidebar-first ul.account-setting-menu{ padding: 0; min-height: 250px; }
 .account-setting-menu li{ list-style: none; padding: 8px 20px; color: #666; }
 .account-setting-menu li a, .account-setting-menu li a:hover{ color: inherit; }
-.page-user-change-password li.account-change-password, .page-user-orders li.account-orders, .page-user-addressbook li.account-address-book, .page-user-addresses li.account-address-book{ background: #fff; font-weight: bold; color: #356D35; }
+.page-user-change-password li.account-change-password, .page-user-orders li.account-orders, .page-user-addressbook li.account-address-book, .page-user-addresses li.account-address-book, .page-user-loyalty li.account-loyalty{ background: #fff; font-weight: bold; color: #356D35; }
 .page-user-change-password h1.page-title{ text-transform: capitalize; }
 #change-pwd-page-form label, #change-pwd-page-form .description{ display: none; }
 
@@ -751,6 +751,14 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .page-user-addresses-add .form-item-name, .page-user-addresses-edit .form-item-name{ padding-left: 10px; }
 .page-user-addresses-add #edit-actions input, .page-user-addresses-edit #edit-actions input{ background:#356D35; padding: 10px 20px; margin-left: 10px; }
 .page-user-addresses-add #edit-actions input:hover, .page-user-addresses-edit #edit-actions input:hover{ background:#cf2127; }
+
+/* Loyalty page */
+.page-user-loyalty .loyalty-page{ background: #fff; }
+.page-user-loyalty .loyalty-page .loyalty-outer-image{ text-align: center; }
+.page-user-loyalty .loyalty-page .loyalty-outer-image .shubhshagun_unit{ max-width: 50%; }
+.page-user-loyalty .loyalty-page .loyalty-outer-text{ padding: 20px; text-align: center; }
+.page-user-loyalty .loyalty-page .loyalty-outer-text h3{ margin: 0 0 10px 0; font-size: 18px; font-weight: 700; }
+.page-user-loyalty .loyalty-page .view-content{ float: none; border: none; min-height: 0; }
 
 /* Media query goes here */
 @media (min-width: 1199px) {
@@ -1123,6 +1131,10 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	#quicktabs-tabpage-orders-0 table tr td.views-field-php-3{ border-top: 0; }
 	#quicktabs-tabpage-orders-0 .status_inactive::before{ width: 30px; height: 30px; left:30%; }
 	#quicktabs-tabpage-orders-0 .status_active::before{width: 30px; height: 30px; left:30%; font-size:24px;  }
+
+	/* Loyalty page */
+	.page-user-loyalty .loyalty-page .loyalty-outer-image .shubhshagun_unit{ max-width: 70%; }
+	.page-user-loyalty .loyalty-page .loyalty-outer-text{ padding: 10px; }
 }
 /* Main menu category*/
 @media (min-width: 1101px) {
