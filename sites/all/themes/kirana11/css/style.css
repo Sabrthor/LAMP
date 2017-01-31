@@ -693,6 +693,10 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .page-user-orders- .region-content .view-content{ margin-bottom: 0; }
 .page-user-orders- .field-type-commerce-price, .field-name-commerce-order-total .commerce-price-formatted-components tr.component-type-commerce-price-formatted-amount{ background:#f1f1f1; }
 .page-user-orders- .commerce-price-formatted-components, .page-user-orders- .commerce-price-formatted-components tr{ border:0; margin-right: 20px; }
+#block-quicktabs-my-orders .quicktabs-tabs{ margin: 0; }
+#block-quicktabs-my-orders .quicktabs-tabs li{ margin: 0; padding: 10px; display: inline-block; border-top-left-radius: 5px; border-top-right-radius: 5px; background: #356D35; color: #fff; border-bottom: 0; margin: 20px 20px 0 0; }
+#block-quicktabs-my-orders .quicktabs-tabs li.active{ background:#cf2127; color: #fff;  }
+#block-quicktabs-my-orders .quicktabs-tabs li a{ color: #fff; padding: 10px; }
 
 /* User Address Book */
 .page-user-addressbook .view-user-address-book-details .view-footer{ margin: 0 0 20px 0; }
@@ -1019,7 +1023,14 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 
 	/* cart page */
 	.view-commerce-cart-form h3, .view-commerce-cart-summary h3{ font-size:14px; margin:0 0 10px; }
-	.view-commerce-cart-form .views-field-line-item-title, .view-commerce-cart-form .views-field-edit-quantity, .view-commerce-cart-form .views-field-php, .view-commerce-cart-form .views-field-php-2, .view-commerce-cart-form .views-field-edit-delete{ display: none; }
+	.view-commerce-cart-form .views-row span.views-label{ display: none; }
+	.view-commerce-cart-form .views-field-line-item-title, .view-commerce-cart-form .views-field-edit-quantity{ width: 100%; float: left; }
+	.view-commerce-cart-form .views-field-php{ width: 290px; }
+	.view-commerce-cart-form .views-field-php-2 { position: absolute;  right: 10px; width: 22%; top:50%;}
+	.view-commerce-cart-form .views-field-edit-delete{ position: absolute; top:0;  right: 15%; padding-top: 8% !important;}
+	.view-commerce-cart-form .views-field-php .product-price span{ width: auto; float: right; }
+	.view-commerce-cart-form .views-field-php .field-content{ padding-top: 5%; }
+	.view-commerce-cart-form .product-info{ width: 80%; float: left; }
 	.view-commerce-cart-summary .views-field-line-item-title, .view-commerce-cart-summary .views-field-quantity, .view-commerce-cart-summary .views-field-commerce-unit-price, .view-commerce-cart-summary .views-field-commerce-total{ display: none; }
 	.page-cart .region-content .view-content, .page-checkout .region-content .view-content{ padding: 0; background: none; border:0; }
 	.view-commerce-cart-form .views-row, .view-commerce-cart-summary .views-row{ padding: 10px; background: #fff; margin-bottom: 10px; }
@@ -1048,7 +1059,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	.view-commerce-cart-form .commerce_coupon .form-item { width: 50%; float: left; margin: 50px 0 30px 15px; }
 	.view-commerce-cart-form .commerce_coupon #edit-coupon-add { width: 38%; float: left; margin: 52px 0px 0 0px; }
 	.view-commerce-cart-form .commerce_coupon .form-item input{ padding: 7px !important; }
-	.view-commerce-cart-form .product-price{ font-size: 11px; color: #666; font-weight: 400; width: 55%; float: left; margin: 0; padding: 0; }
+	.view-commerce-cart-form .product-price{ font-size: 11px; color: #666; font-weight: 400; width: 45%; float: left; margin: 0; padding: 0; }
 	.sale-saving-price p{ font-size: 9px; }
 	.view-commerce-cart-form .product-price span{ font-size: 13px; padding:0; margin: 0; width: auto; float: right; }
 	.mobile-cart-unit-price p{ font-size: 13px; }
