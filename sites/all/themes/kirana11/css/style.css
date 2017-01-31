@@ -725,6 +725,8 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .page-user-orders .view-footer ul li strong{ display: block; border-top:1px solid;}
 #quicktabs-tabpage-orders-0 .field-name-field-location-coordinates{ display: none; }
 #quicktabs-orders .view-empty{ background: #fff; padding: 20px; min-height: 150px; }
+#order-cancel-confirm #edit-actions a{ background: #356D35; padding: 10px 20px; border-radius: 5px; color: #fff; }
+#order-cancel-confirm #edit-actions a:hover{ background:#cf2127; }
 
 /* User Address Book */
 .page-user-addressbook .view-user-address-book-details .view-footer{ margin: 0 0 20px 0; }
