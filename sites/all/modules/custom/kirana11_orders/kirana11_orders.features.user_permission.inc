@@ -10,11 +10,42 @@
 function kirana11_orders_user_default_permissions() {
   $permissions = array();
 
-  // Exported permission: 'view any commerce_order entity'.
-  $permissions['view any commerce_order entity'] = array(
-    'name' => 'view any commerce_order entity',
+  // Exported permission: 'edit own commerce_order entities'.
+  $permissions['edit own commerce_order entities'] = array(
+    'name' => 'edit own commerce_order entities',
     'roles' => array(
       'administrator' => 'administrator',
+      'customer' => 'customer',
+    ),
+    'module' => 'commerce_order',
+  );
+
+  // Exported permission: 'edit own commerce_order entities of bundle commerce_order'.
+  $permissions['edit own commerce_order entities of bundle commerce_order'] = array(
+    'name' => 'edit own commerce_order entities of bundle commerce_order',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'customer' => 'customer',
+    ),
+    'module' => 'commerce_order',
+  );
+
+  // Exported permission: 'view own commerce_order entities'.
+  $permissions['view own commerce_order entities'] = array(
+    'name' => 'view own commerce_order entities',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'customer' => 'customer',
+    ),
+    'module' => 'commerce_order',
+  );
+
+  // Exported permission: 'view own commerce_order entities of bundle commerce_order'.
+  $permissions['view own commerce_order entities of bundle commerce_order'] = array(
+    'name' => 'view own commerce_order entities of bundle commerce_order',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'customer' => 'customer',
     ),
     'module' => 'commerce_order',
   );
