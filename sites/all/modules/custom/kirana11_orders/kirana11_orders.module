@@ -5,3 +5,54 @@
  */
 
 include_once 'kirana11_orders.features.inc';
+
+
+/**
+ * Implements hook_menu().
+ */
+/**
+ * Implements hook_menu().
+ */
+function kirana11_orders_menu()
+{
+    $items = array();
+
+    $items['user/%/orders/%/cancel'] = array(
+        'title' => t('Cancel the Order'),
+        'description' => t('Cancel the order'),
+        'page callback' => 'drupal_get_form',
+        'access arguments' => array('edit own commerce_order entities'),
+        'page arguments' => array('order_cancel_confirm', 3),
+        'type' => MENU_LOCAL_TASK,
+    );
+
+    return $items;
+}
+
+function _order_cancellation($order_id){
+    return $order_id;
+}
+
+function order_cancel_confirm($form, &$form_state, $order_id) {
+    global $user;
+    $form['oid'] = array('#type' => 'value', '#value' => $order_id);
+    $form['process'] = array('#type' => 'hidden', '#value' => 'true');
+    return confirm_form($form,
+        t('Are you sure you want to cancel the order %order?', array('%order' => $order_id)),
+        'user/'. $user->uid . '/orders',
+        t('This action cannot be undone.'),
+        t('Yes'),
+        t('No')
+    );
+}
+
+function order_cancel_confirm_submit($form, &$form_state) {
+    global $user;
+    if($form_state['values']['confirm']) {
+        $order = commerce_order_load($form_state['values']['oid']);
+        if ($order) {
+            $saved_order = commerce_order_status_update($order, 'canceled');
+            drupal_goto('user/'.$user->uid.'/orders');
+        }
+    }
+}
