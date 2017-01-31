@@ -669,7 +669,8 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .page-checkout-addresses  #addressfield-wrapper{ padding-top: 20px; }
 .page-checkout-addresses  #addressfield-wrapper .form-item, .page-checkout-addresses .form-item-user-addressbook-user-address-name{ width: 30%; }
 .page-checkout-addresses  #addressfield-wrapper input, .page-checkout-addresses #addressfield-wrapper select, .page-checkout-addresses .form-item-user-addressbook-user-address-name input{ padding: 8px; background: #fff; margin-bottom: 10px; }
-.page-checkout-addresses .form-type-checkbox{ display: none; }
+.page-checkout-addresses .form-type-checkbox, .ajax-progress .message{ display: none; }
+.page-checkout-addresses .form-item-user-addressbook-user-address-set-default label{ position: relative; top: auto; }
 
 .page-checkout-complete .region-content{ text-align: center; padding: 5% 0 10%; margin-bottom: 20px; }
 .page-checkout-complete  #breadcrumb{ display: none; }
