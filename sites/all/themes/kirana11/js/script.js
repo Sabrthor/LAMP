@@ -192,18 +192,4 @@
     }
   }
 
-  Drupal.behaviors.kirana11DeliverySlotsClick = {
-    attach: function (context) {
-      $(".delivery_slots_pane #edit-delivery-slots-pane-field-delivery-slot-date input[type='radio']").once().click(function(){
-        $(".delivery_slots_pane input[type='radio'] + label, .delivery_slots_pane .form-item").removeClass("delivery-slot-active");
-        $(this).parent().find('label').addClass("delivery-slot-active");
-      });
-
-      $(".delivery_slots_pane #edit-delivery-slots-pane-field-delivery-slots-timings input[type='radio']").once().click(function(){
-        $(".delivery_slots_pane #edit-delivery-slots-pane-field-delivery-slots-timings .form-item").removeClass("delivery-slot-active");
-        $(this).parent().addClass("delivery-slot-active");
-      });
-    }
-  }
-
 })(jQuery);
