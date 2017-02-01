@@ -1147,6 +1147,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	.page-user-orders .view-footer ul li{ margin: 0 20px 5px 0; }
 	.page-user-orders .view-footer ul{ padding: 15px 10px; }
 	#quicktabs-tabpage-orders-0 .views-label{ height: 20px; white-space: nowrap; overflow: hidden; margin-right: 3px; }
+	#quicktabs-tabpage-orders-1 table td{ padding: 5px 2px; text-align: center; }
 
 	/* Loyalty page */
 	.page-user-loyalty .loyalty-page .loyalty-outer-image .shubhshagun_unit{ max-width: 70%; }
