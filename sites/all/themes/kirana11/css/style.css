@@ -653,12 +653,14 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 #edit-delivery-slots-pane-field-delivery-slot-date{ position: relative; }
 #edit-delivery-slots-pane-field-delivery-slot-date label { font-weight: 700; cursor: pointer; margin: 0 10px 0 0; padding: 0 0 0 10px; }
 #edit-delivery-slots-pane-field-delivery-slot-date label:before { position: absolute; display: block; top: 0; left: -10px; content: '\f1db'; font-family:'FontAwesome'; color: #d1d1d1; font-weight: 400; font-size: 18px; }
-#edit-delivery-slots-pane-field-delivery-slot-date label.delivery-slot-active:before{ content: "\f192"; color: #999; }
+#edit-delivery-slots-pane-field-delivery-slot-date input:checked + label:before{ content: "\f192"; color: #999; }
 #edit-delivery-slots-pane-field-delivery-slot-date input, #edit-delivery-slots-pane-field-delivery-slots-timings input{ opacity : 0; }
 #edit-delivery-slots-pane-field-delivery-slots-timings input{ display: none; }
-#edit-delivery-slots-pane-field-delivery-slots-timings .form-item{ position: relative; cursor: pointer; background: #f1f1f1; width: 107px; text-align: center; box-shadow: 0 0 3px #999; padding:10px 0; margin: 0 10px 10px 0; }
-#edit-delivery-slots-pane-field-delivery-slots-timings .form-item label{ cursor: pointer; }
-#edit-delivery-slots-pane-field-delivery-slots-timings .form-item:hover, #edit-delivery-slots-pane-field-delivery-slots-timings .form-item.delivery-slot-active{ background: #356D35; color: #fff; }
+#edit-delivery-slots-pane-field-delivery-slots-timings .form-item{ position: relative; }
+#edit-delivery-slots-pane-field-delivery-slots-timings .form-item input + label{ cursor: pointer; background: #f1f1f1; width: 107px; text-align: center; box-shadow: 0 0 3px #999; padding:10px 0; margin: 0 10px 10px 0; display: block; }
+#edit-delivery-slots-pane-field-delivery-slots-timings .form-item input + label:hover, #edit-delivery-slots-pane-field-delivery-slots-timings .form-item input:checked + label{ background: #356D35; color: #fff; }
+#edit-delivery-slots-pane-field-delivery-slots-timings .form-item input:disabled + label{ opacity: 0.65; cursor: not-allowed; }
+#edit-delivery-slots-pane-field-delivery-slots-timings .form-item input:disabled + label:hover{ background: #f1f1f1; color: #666; }
 
 /* checkout address book page */
 .page-checkout-addresses .region-content{ background: #fff; padding:20px; margin-bottom: 20px; } 

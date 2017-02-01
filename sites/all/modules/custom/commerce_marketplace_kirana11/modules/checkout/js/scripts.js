@@ -6,8 +6,7 @@
     Drupal.behaviors.getDisabledSlots = {
         attach: function (context) {
             $("#edit-delivery-slots-pane-field-delivery-slot-date input[type=radio]").once().click(function() {
-              $(".delivery_slots_pane input[type='radio'] + label, .delivery_slots_pane .form-item").removeClass("delivery-slot-active");
-              $(this).parent().find('label').addClass("delivery-slot-active");
+                $(".delivery_slots_pane #edit-delivery-slots-pane-field-delivery-slots-timings input[type='radio']").attr('checked', false);
                 $.get('/get_disabled_slots/' + $(this).val() + '/true', function(result){
                     if(result.length) {
                         $(result).each(function (i, time_slot) {
