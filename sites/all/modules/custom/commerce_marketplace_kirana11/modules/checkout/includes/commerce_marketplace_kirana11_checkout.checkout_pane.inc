@@ -32,6 +32,7 @@ function delivery_slots_pane_checkout_form($form, $form_state, $checkout_pane, $
     $delivery_slots = _get_store_delivery_slots($order->commerce_store[LANGUAGE_NONE][0]['target_id']);
 
     $disabled = get_disabled_timeslots(date("Y-m-d"));
+
     $checkout_form['field_delivery_slots_timings'] = array(
         '#type' => 'radios',
         '#options' => $delivery_slots,
@@ -70,7 +71,9 @@ function get_disabled_timeslots($current_date, $json=FALSE){
         //check for timeslots available for more than 15 min
         if($time_in_minutes < 15) {
             $disabled[] = $key;
-        } else if(orders_in_timeslot($key) >= 10) {
+        } 
+        //Check if orders are allocated for the selected delivery date and time it is exceeds 10
+        if(orders_in_timeslot($key, $current_date) >= 10) {
             $disabled[] = $key;
         }
     }
@@ -88,9 +91,21 @@ function get_disabled_timeslots($current_date, $json=FALSE){
  * @param $time_slot
  * @return int
  */
-function orders_in_timeslot($time_slot){
-    return 7;
+function orders_in_timeslot($time_slot, $slot_date){
+    $query = db_select('commerce_order', 'co');
+    $query->join('field_data_field_delivery_slots_timings', 'st','st.entity_id = co.order_id');
+    $query->join('field_data_field_delivery_slot_date', 'sd','sd.entity_id = co.order_id');
+    $result = $query->fields('co', array('order_id'))
+    ->condition('st.field_delivery_slots_timings_value', $time_slot, '=')
+    ->condition('sd.field_delivery_slot_date_value', $slot_date, '=')
+    ->condition('co.status',array('pending','processing'), 'IN')
+    ->execute();
+    $num_of_results = $result->rowCount();
+
+    return $num_of_results;
 }
+
+
 /**
  * Get Delivery slots of Stores
  * @param $store_id
