@@ -192,4 +192,13 @@
     }
   }
 
+  Drupal.behaviors.kirana11LoyaltyTermsandCondition = {
+    attach: function (context) {
+      $(".loyalty-outer-terms h4").once().click(function(){
+        $(".loyalty-outer-terms-text").toggle('slow');
+        $(this).toggleClass('change-minus');
+      });
+    }
+  }
+
 })(jQuery);
