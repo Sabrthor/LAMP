@@ -1,9 +1,13 @@
 <?php
+define('COMMERCE_EXTRA_QUANTITY_INCREASE', 1);
+define('COMMERCE_EXTRA_QUANTITY_DECREASE', -1);
+
 /**
  * Implements hook_init().
  */
 function commerce_marketplace_kirana11_cart_init() {
   drupal_add_js(drupal_get_path('module', 'commerce_marketplace_kirana11_cart') . '/js/script.js');
+  drupal_add_js(drupal_get_path('module', 'commerce_marketplace_kirana11_cart') . '/js/kirana11_quantity.js');
 }
 
 /**
@@ -90,6 +94,42 @@ function commerce_marketplace_kirana11_cart_empty_cart_order() {
   return drupal_json_output('CART_EMPTY');
 }
 
+/**
+ * Implements hook_form_alter().
+ * Adds additional theme wrappers for add to cart's quantity textfields.
+ */
+function commerce_marketplace_kirana11_cart_form_alter(&$form, &$form_state, $form_id) {
+  // Checkout form submit title change.
+  if ($form_id == 'commerce_checkout_form_checkout') {
+    $form['buttons']['continue']['#value'] = t('Proceed');
+  }
+  if ($form_id == 'commerce_checkout_form_addresses') {
+    $form['buttons']['continue']['#value'] = t('Proceed');
+  }
+
+  // Quantity fields from views
+  $str = 'views_form_commerce_cart_form_default';
+  if (drupal_substr($form_id, 0, drupal_strlen($str)) == $str) {
+    if (isset($form['edit_quantity'])) {
+      //unset($form['edit_delete']);
+      //$submit = $form['#submit'];
+      //unset($form['#submit']);
+
+      foreach ($form['edit_quantity'] as $key => $value) {
+        if (is_numeric($key) && drupal_substr($key, 0, 1) != '#' && is_array($value)) {
+          $form['edit_quantity'][$key]['#theme_wrappers'] = array(
+            'quantity_plusminus_wrapper',
+            'form_element'
+          );
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Add to cart form from field api (product listing in home/category page)
+ */
 function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_alter(&$form, &$form_state) {
   $form['submit']['#ajax'] = array(
     'callback' => 'commerce_ajax_cart_callback',
@@ -319,16 +359,99 @@ function commerce_marketplace_kirana11_cart_form_views_form_commerce_cart_form_d
     '#value' => t('Continue Shopping'),
     '#weight' => -999,
   );
-
   $form['actions']['continue_shopping']['#attributes'] = array('ONCLICK' => "history.go(-1); return false;");
 }
 
-/* Checkout page form alter */
-function commerce_marketplace_kirana11_cart_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_id == 'commerce_checkout_form_checkout') {
-    $form['buttons']['continue']['#value'] = t('Proceed');
+/**
+ * Implements hook_theme().
+ */
+function commerce_marketplace_kirana11_cart_theme($existing, $type, $theme, $path) {
+  return array(
+    'quantity_plusminus_wrapper' => array(
+      'render element' => 'form',
+    ),
+    'quantity_plusminus_link' => array(
+      'variables' => array(
+        'way' => NULL,
+        'quantity' => NULL,
+        'quantity_input_element' => NULL
+      ),
+    ),
+  );
+}
+
+/**
+ * Returns HTML for quantity textfield having links wrapping the textfield.
+ */
+function theme_quantity_plusminus_wrapper($variables) {
+  $amount = isset($variables['form']['#amount']) ? $variables['form']['#amount'] : 1;
+  $limit_down = isset($variables['form']['#limit_down']) ? $variables['form']['#limit_down'] : 1;
+  $decrease = theme('quantity_plusminus_link', array(
+    'way' => COMMERCE_EXTRA_QUANTITY_DECREASE,
+    'quantity' => $variables['form']['#value'],
+    'quantity_input_element' => $variables['form']['#id'],
+    'amount' => $amount,
+    'limit_down' => $limit_down
+  ));
+  $increase = theme('quantity_plusminus_link', array(
+    'way' => COMMERCE_EXTRA_QUANTITY_INCREASE,
+    'quantity' => $variables['form']['#value'],
+    'quantity_input_element' => $variables['form']['#id'],
+    'amount' => $amount,
+    'limit_down' => $limit_down
+  ));
+  return $decrease . $variables['form']['#children'] . $increase;
+}
+
+/**
+ * Returns HTML for link which increases/decreases quantity value.
+ */
+function theme_quantity_plusminus_link($variables) {
+  switch ($variables['way']) {
+    case COMMERCE_EXTRA_QUANTITY_DECREASE:
+      $text = '-';
+      $class = 'commerce-quantity-plusminus-link-decrease';
+      $php_callback = 'click_on_minus_in_cart';
+      $js_callback = "Drupal.commerce_extra_quantity_quantity('#" . $variables['quantity_input_element'] . "', " . $variables['way'] . ", " . $variables['amount'] . ", " . $variables['limit_down'] . ")";
+      //$js_callback = '';
+      break;
+    case COMMERCE_EXTRA_QUANTITY_INCREASE:
+      $text = '+';
+      $class = 'commerce-quantity-plusminus-link-increase';
+      $php_callback = 'click_on_plus_in_cart';
+      $js_callback = "Drupal.commerce_extra_quantity_quantity('#" . $variables['quantity_input_element'] . "', " . $variables['way'] . ", " . $variables['amount'] . ", " . $variables['limit_down'] . ")";
+      //$js_callback = '';
+      break;
+    default:
+      $text = '';
+      $class = '';
+      $php_callback = '';
+      $js_callback = '';
+      break;
   }
-  if ($form_id == 'commerce_checkout_form_addresses') {
-    $form['buttons']['continue']['#value'] = t('Proceed');
+
+  if ($variables['quantity'] <= 1) {
+    $class .= ' commerce-quantity-plusminus-link-disabled';
   }
+  $options = array(
+    'attributes' => array(
+      'class' => array('button'),
+      'onclick' => $js_callback . ';'
+
+    ),
+    'html' => TRUE,
+  );
+  $element = array(
+    '#theme' => 'link',
+    '#text' => $text,
+    '#ajax' => array(
+      'wrapper' => 'cart-item-wrapper',
+      'callback' => $php_callback,
+      'event' => 'click',
+    ),
+    '#options' => $options,
+    '#prefix' => '<span class="commerce-quantity-plusminus-link ' . $class . '">',
+    '#suffix' => '</span>',
+  );
+  return render($element);
 }

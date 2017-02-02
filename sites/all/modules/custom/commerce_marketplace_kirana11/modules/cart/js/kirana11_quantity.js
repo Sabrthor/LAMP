@@ -38,10 +38,20 @@
 
     // K11 - Update the cart.
     $.get('/update_cart/' + product_id + '/' + new_quantity, function( result ) {
-      console.log(result);
-      return false;
+      //window.location.reload();
+      //  return false;
     });
-
   }
 
+
+  // Refresh the cart view without page refresh.
+  Drupal.behaviors.my_view_machine_name = {
+    attach: function(context, settings) {
+      $('.commerce-quantity-plusminus-link').once().click(function() {
+        $('.view-commerce-cart-form').trigger('views_refresh');
+
+        return false;
+      });
+    }
+  }
 }(jQuery));
