@@ -135,6 +135,8 @@ function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_
     'callback' => 'commerce_ajax_cart_callback',
   );
 
+  $form['#validate'][] = 'kcart_alter_cart_add_to_cart_form_validate';
+
   global $user;
 
   $form['submit']['#attributes']['value'] = t('Add to');
@@ -454,4 +456,97 @@ function theme_quantity_plusminus_link($variables) {
     '#suffix' => '</span>',
   );
   return render($element);
+}
+
+function kcart_alter_cart_add_to_cart_form_validate($form, &$form_state){
+  global $user;
+  //echo "<pre>";
+  $store_id = $form_state['default_product']->commerce_store['und'][0]['target_id'];
+  $store_ids =[];
+
+  ctools_include('modal');
+  ctools_modal_add_js();
+  //$commands = array();
+  //print ajax_render($commands);
+  //exit;
+  if( $orders = commerce_marketplace_cart_order_load_multiple($user->uid)) {
+  foreach ($orders as $sid){
+
+    //echo ""
+    $store_ids[]=$sid->commerce_store['und'][0]['target_id'];
+
+  }
+  //drupal_set_message("stori: " . $store_id.$form_state['quantity']['#value']);
+  //drupal_set_message( drupal_json_encode($store_ids));
+
+  if(!in_array($store_id, $store_ids)){
+    ctools_include('ajax');
+    ctools_add_js('ajax-responder');
+    $form_state = array(
+    'ajax' => TRUE,
+    'title' => t('MyModule Modal Form'),
+    );
+
+    // Use ctools to generate ajax instructions for the browser to create
+    // a form in a modal popup.
+    $commands = ctools_modal_form_wrapper('kcart_alter_confirm_form', $form_state);
+
+    // If the form has been submitted, there may be additional instructions
+    // such as dismissing the modal popup.
+    if (!empty($form_state['ajax_commands'])) {
+    $commands = $form_state['ajax_commands'];
+    }
+    //$commands[] = ctools_modal_form_wrapper('page_node_form', $form_state);
+    //$commands[] = ctools_modal_command_display('my_ctools_popup_second_form', theme('status_messages'));
+    print ajax_render($commands);
+    exit;
+    drupal_set_message("New store");
+
+
+
+  }else{
+    /*ctools_include('ajax');
+    ctools_add_js('ajax-responder');
+    $commands[] = ctools_ajax_command_redirect('node/1');
+    print ajax_render($commands);
+    exit;
+    drupal_set_message("old store");
+    $commands[] = ctools_modal_command_display('Form Submit', 'status_messages');*/
+  }
+  //exit();
+  // echo "<pre>";
+  //print_r($form_state['default_product']->commerce_store['und'][0]['target_id']);
+  //print_r($orders);
+  //exit();
+  // drupal_json_encode($form_state);
+  }
+}
+
+function kcart_alter_confirm_form($arg1, $arg2, $node_form, $form_state) {
+
+  $form['report'] = array(
+  '#markup' => '<p>' . t('Do you want to add product from another store???.') . '</p>'
+  );
+
+  $form['submit'] = array(
+  '#type' => 'button',
+  '#value' => 'Yes',
+  //'#attributes' => array('id' => 'kcart_alter-modal-submit'),
+  '#ajax' => array(
+    'callback' => 'kcart_alter_empty_callback',
+  ),
+  );
+
+  $form['actions']['button'] = array(
+  '#markup' => l(t('No'), '#',
+    array(
+    'attributes' => array(
+      'class' => 'ctools-close-modal'
+    ),
+    'external' => TRUE
+    )
+  )
+  );
+
+  return $form;
 }
