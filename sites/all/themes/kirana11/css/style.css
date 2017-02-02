@@ -228,7 +228,10 @@ header .navbar-toggle{ right: 0; }
 .header-login-container .dropdown-menu li a{ padding: 5px 0; }
 .header-login-container .dropdown-menu li a:hover{ background:#346d35; color: #fff !important; }
 .region-header-cart{ padding: 10px; }
-.header-cart-container span{ background: #cf2127; text-align:center; margin-left:-10px; font-weight: 700; width: 25px; border-radius: 50%; padding: 4px 3px; color: #fff; font-size: 11px; position: absolute; top: 0; }
+.header-cart-container span.line-item-quantity-raw{ background: #cf2127; text-align:center; font-weight: 700; width: 25px; border-radius: 50%; padding: 4px 3px; color: #fff; font-size: 11px; position: absolute; top: -5px; right: 15%;  }
+/* Shopping cart block */
+.header-cart-block .view-content, .header-cart-block .view-footer .line-item-summary span.line-item-quantity-label{ display: none; }
+.header-cart-block .view-footer{ position: relative; }
 
 /* header menu */
 .region-header-menu h2{ display: none; }
@@ -893,7 +896,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	.view-commerce-cart-form .views-field-edit-quantity .form-item input{ padding: 8px 0 9px; }
 	.view-commerce-cart-form .views-field-edit-quantity .form-item .commerce-quantity-plusminus-link a, .view-commerce-cart-form .views-field-edit-quantity .form-item .commerce-quantity-plusminus-link a:hover{ padding: 10px 9px; }
 	#views-form-user-address-book-details-page .views-row{ width: 45%; }
-
+	.header-cart-container span.line-item-quantity-raw{ right: 0; }
  
 }
 @media (min-width: 520px) and (max-width: 767px) {
@@ -991,6 +994,9 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	.region-header-menu ul.menu li > ul li.menuparent:before{ left: 35px; z-index: 100; }
 	.region-header-menu ul.menu li > ul li a{ padding-left:60px; }
 	.region-header-menu ul.menu > li ul li a:hover{ background: #fff; color: #333 !important; }
+
+	.header-cart-container span.line-item-quantity-raw{ right: 0; }
+	.region-header-cart{ padding: 0 7px; }
 
 	/* Mobile category menu section*/
 	.overlay-popup-container{ margin-top: 20%; }
