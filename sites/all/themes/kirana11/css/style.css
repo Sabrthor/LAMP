@@ -705,8 +705,8 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .block-commerce-checkout-progress ol li{ list-style-position: inside; width: auto !important; font-size: 20px; list-style: none; display: none; position: relative; padding-left: 45px; }
 .block-commerce-checkout-progress ol li.active{ font-weight: 400; }
 .page-checkout-complete .block-commerce-checkout-progress ol{ display: none; }
-.page-checkout .block-commerce-checkout-progress ol li.checkout, .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses{ display: block; }
-.page-checkout-addresses .block-commerce-checkout-progress ol li.checkout{ display: none; }
+.page-checkout .block-commerce-checkout-progress ol li.checkout, .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses, .page-checkout-review .block-commerce-checkout-progress ol li.review{ display: block; }
+.page-checkout-addresses .block-commerce-checkout-progress ol li.checkout, .page-checkout-review .block-commerce-checkout-progress ol li.checkout{ display: none; }
 .page-checkout .block-commerce-checkout-progress ol li.checkout:before, .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses:before{ position: absolute; content: "1"; background: #346d35; color: #fff; padding:8px 13px; top: -5px; left: 0; border-radius: 100%; font-size: 14px; }
 .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses:before{ content: "2"; }
 
@@ -797,6 +797,12 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .loyalty-outer-terms h4:after{ position: absolute; right: 0; font-family:'FontAwesome'; content: '\f067'; font-weight: 400; }
 .loyalty-outer-terms h4.change-minus:after{ content: '\f068'; }
 .loyalty-outer-terms-text{ display: none; }
+
+/* Payment Page */
+#commerce-checkout-form-review{ background: #fff; padding: 10px; }
+#commerce-checkout-form-review .checkout-help{ display: none; }
+#commerce-checkout-form-review .form-item label{ position: relative; top:0; }
+#payment-details{ padding: 10px 0; font-size: 13px; }
 
 /* Media query goes here */
 @media (min-width: 1199px) {
