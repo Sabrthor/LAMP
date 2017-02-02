@@ -707,8 +707,9 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .page-checkout-complete .block-commerce-checkout-progress ol{ display: none; }
 .page-checkout .block-commerce-checkout-progress ol li.checkout, .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses, .page-checkout-review .block-commerce-checkout-progress ol li.review{ display: block; }
 .page-checkout-addresses .block-commerce-checkout-progress ol li.checkout, .page-checkout-review .block-commerce-checkout-progress ol li.checkout{ display: none; }
-.page-checkout .block-commerce-checkout-progress ol li.checkout:before, .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses:before{ position: absolute; content: "1"; background: #346d35; color: #fff; padding:8px 13px; top: -5px; left: 0; border-radius: 100%; font-size: 14px; }
+.page-checkout .block-commerce-checkout-progress ol li.checkout:before, .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses:before, .page-checkout-review .block-commerce-checkout-progress ol li.review:before{ position: absolute; content: "1"; background: #346d35; color: #fff; padding:8px 13px; top: -5px; left: 0; border-radius: 100%; font-size: 14px; }
 .page-checkout-addresses .block-commerce-checkout-progress ol li.addresses:before{ content: "2"; }
+.page-checkout-review .block-commerce-checkout-progress ol li.review:before{ content: "2"; }
 
 /* manage orders*/
 #block-quicktabs-orders h2{ margin-top: 0; }
