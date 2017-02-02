@@ -769,9 +769,20 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .page-user-loyalty .loyalty-page{ background: #fff; }
 .page-user-loyalty .loyalty-page .loyalty-outer-image{ text-align: center; }
 .page-user-loyalty .loyalty-page .loyalty-outer-image .shubhshagun_unit{ max-width: 50%; }
-.page-user-loyalty .loyalty-page .loyalty-outer-text{ padding: 20px; text-align: center; }
+.page-user-loyalty .loyalty-page .loyalty-outer-text, .page-user-loyalty .loyalty-page .loyalty-outer-points, .page-user-loyalty .loyalty-page .loyalty-outer-terms{ margin: 20px 70px; text-align: center; }
 .page-user-loyalty .loyalty-page .loyalty-outer-text h3{ margin: 0 0 10px 0; font-size: 18px; font-weight: 700; }
 .page-user-loyalty .loyalty-page .view-content{ float: none; border: none; min-height: 0; }
+.loyalty-avilable-points, .loyalty-current-month-points{ width: 49%; text-align: center; display: inline-block; float: left; padding: 15px 0; background: #346d35; box-shadow: 0 24px 40px #265028 inset; color: #fff; margin: 0 0 5px 0; }
+.loyalty-current-month-points{ float: right; background: #fff; box-shadow: 0 24px 40px #f1f1f1 inset; color: #666; }
+.loyalty-avilable-points p , .loyalty-current-month-points p{ font-size: 35px; margin: 0; }
+.loyalty-avilable-points p strong, .loyalty-current-month-points p strong{ font-size: 50px; font-weight: 900;letter-spacing: -1px; }
+.loyalty-current-month-points p{ color: #346d35; }
+.loyalty-notes{ width: 100%; text-align: right; clear: both; font-size: 11px; }
+.page-user-loyalty .loyalty-page .loyalty-outer-terms{ border: 1px solid #f1f1f1; padding:5px 35px; text-align: left; }
+.loyalty-outer-terms h4{ margin: 10px 0; font-size: 13px; position: relative; cursor: pointer; }
+.loyalty-outer-terms h4:after{ position: absolute; right: 0; font-family:'FontAwesome'; content: '\f067'; font-weight: 400; }
+.loyalty-outer-terms h4.change-minus:after{ content: '\f068'; }
+.loyalty-outer-terms-text{ display: none; }
 
 /* Media query goes here */
 @media (min-width: 1199px) {
@@ -825,6 +836,8 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	/* cart coupon */
 	.view-commerce-cart-form .commerce_coupon label {top:-110px; padding-left: 27%; font-size: 14px;}
 	#loyalty .loyalty-input input{ margin-left: 30%; }
+	.loyalty-avilable-points p strong, .loyalty-current-month-points p strong{ font-size: 40px; }
+	.loyalty-avilable-points p , .loyalty-current-month-points p{ font-size: 25px; }
 }
 @media (min-width: 992px) {
 	.landing-page form input[type="text"], .landing-page form input[type="email"], .landing-page form input[type="password"], .find-location-container p.regiter-terms, #edit-detect-my-location, .landing-page input[type="text"], .display-text-box{ width:65%; }
@@ -856,6 +869,10 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	.view-home-top-brands .slick__arrow .slick-prev, .view-our-partners .slick__arrow .slick-prev, .view-blogs .slick__arrow .slick-prev{ left: -40px; }
 	.view-home-top-brands .slide__content .field-content{ height: 110px; }
 	#recent_blogs .views-field-body p{font-size: 12px; }
+
+	/*Loyalty page */
+	.page-user-loyalty .loyalty-page .loyalty-outer-text, .page-user-loyalty .loyalty-page .loyalty-outer-points, .page-user-loyalty .loyalty-page .loyalty-outer-terms{ margin: 10px 20px; }
+
 	/* cart page*/
 	.view-commerce-cart-form .views-field-php-2 .field-content{ padding-top: 18%; }
 	.view-commerce-cart-form .commerce_coupon #edit-coupon-add{ width: 30%; }
@@ -867,6 +884,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	.view-commerce-cart-form .views-field-edit-quantity .form-item input{ padding: 8px 0 9px; }
 	.view-commerce-cart-form .views-field-edit-quantity .form-item .commerce-quantity-plusminus-link a, .view-commerce-cart-form .views-field-edit-quantity .form-item .commerce-quantity-plusminus-link a:hover{ padding: 10px 9px; }
 	#views-form-user-address-book-details-page .views-row{ width: 45%; }
+
  
 }
 @media (min-width: 520px) and (max-width: 767px) {
@@ -1157,7 +1175,8 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 
 	/* Loyalty page */
 	.page-user-loyalty .loyalty-page .loyalty-outer-image .shubhshagun_unit{ max-width: 70%; }
-	.page-user-loyalty .loyalty-page .loyalty-outer-text{ padding: 10px; }
+	.page-user-loyalty .loyalty-page .loyalty-outer-text, .page-user-loyalty .loyalty-page .loyalty-outer-points, .page-user-loyalty .loyalty-page .loyalty-outer-terms{ margin: 10px; }
+	.loyalty-avilable-points, .loyalty-current-month-points{ width: 100%; margin: 0 0 20px 0; }
 }
 /* Main menu category*/
 @media (min-width: 1101px) {
