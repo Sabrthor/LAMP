@@ -616,6 +616,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .view-commerce-cart-form .views-field-edit-quantity .form-item .commerce-quantity-plusminus-link a, .view-commerce-cart-form .views-field-edit-quantity .form-item .commerce-quantity-plusminus-link a:hover{ padding: 10px 15px; background: #346d35; color: #fff; }
 .commerce-quantity-plusminus-link.commerce-quantity-plusminus-link-decrease a{ border-radius: 5px 0 0 5px; }
 .commerce-quantity-plusminus-link.commerce-quantity-plusminus-link-increase a{ border-radius: 0 5px 5px 0; }
+.commerce-quantity-plusminus-link-decrease.commerce-quantity-plusminus-link-disabled a, .commerce-quantity-plusminus-link-decrease.commerce-quantity-plusminus-link-disabled a:hover{ opacity: 0.65; cursor: not-allowed; background: #999 !important; }
 .view-commerce-cart-form .views-field-edit-quantity .form-item input{ width: auto; border-radius: 0; padding:9px 0; border: 1px solid #346d35;  text-align: center; }
 .views-field.views-field-product-id{ display: none; }
 .view-commerce-cart-summary .views-field-quantity .field-content{ padding:15% 0 0 15%; display: block; }
@@ -675,7 +676,8 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 #edit-delivery-slots-pane-field-delivery-slots-timings .form-item input + label:hover, #edit-delivery-slots-pane-field-delivery-slots-timings .form-item input:checked + label{ background: #356D35; color: #fff; }
 #edit-delivery-slots-pane-field-delivery-slots-timings .form-item input:disabled + label{ opacity: 0.65; cursor: not-allowed; }
 #edit-delivery-slots-pane-field-delivery-slots-timings .form-item input:disabled + label:hover{ background: #f1f1f1; color: #666; }
-.view-commerce-cart-form .form-button-disabled{ opacity: 0.6; background:#cf2127;  }
+.view-commerce-cart-form .form-button-disabled, .view-commerce-cart-form .form-button-disabled:hover{ opacity: 0.6; background: #999; color: #333; }
+
 /* checkout address book page */
 .page-checkout-addresses .region-content{ background: #fff; padding:20px; margin-bottom: 20px; } 
 .page-checkout-addresses .views-form .name-block{ font-weight: 700; font-size: 14px; padding-left: 10px; }
