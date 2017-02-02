@@ -159,6 +159,15 @@ ul.menu li.expanded ul { padding-left: 25px; border-top: 1px dashed #ddd; margin
 #toTop { position: fixed; background: #356D35; width: 40px; height: 40px; bottom: 75px; right: 35px; cursor: pointer; color: #fff; font-size: 19px; text-align: center; display: none; padding: 8px 0; z-index: 14; border-radius: 100%; }
 #toTop:hover { opacity: 1; filter: alpha(opacity=100); -webkit-transition: all 0.3s; -moz-transition: all 0.3s; -o-transition: all 0.3s; -ms-transition: all 0.3s; transition: all 0.3s; }
 
+/* modal popup*/
+div.ctools-modal-content{ background: none; }
+#modalBackdrop{ background: rgb(0, 0, 0) !important; }
+.ctools-modal-content{ border: 0 !important; }
+.modal-header{ display: none; }
+#modal-content{ padding: 30px; }
+#kcart-alter-confirm-form a{ background:#356D35; border-radius: 5px; padding: 10px 20px; color: #fff; }
+#kcart-alter-confirm-form a:hover{ background: #cf2127; }
+
 /* Top header goes here */
 .top-header{ background: #f0efef; box-shadow: 0 0 8px #999; position: relative; z-index: 101; margin-bottom: 15px; }
 .top-header .navbar-nav > li > a{ padding: 0 5px; color: #666; font-size: 12px; }
@@ -663,7 +672,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 #edit-delivery-slots-pane-field-delivery-slots-timings .form-item input + label:hover, #edit-delivery-slots-pane-field-delivery-slots-timings .form-item input:checked + label{ background: #356D35; color: #fff; }
 #edit-delivery-slots-pane-field-delivery-slots-timings .form-item input:disabled + label{ opacity: 0.65; cursor: not-allowed; }
 #edit-delivery-slots-pane-field-delivery-slots-timings .form-item input:disabled + label:hover{ background: #f1f1f1; color: #666; }
-
+.view-commerce-cart-form .form-button-disabled{ opacity: 0.6; background:#cf2127;  }
 /* checkout address book page */
 .page-checkout-addresses .region-content{ background: #fff; padding:20px; margin-bottom: 20px; } 
 .page-checkout-addresses .views-form .name-block{ font-weight: 700; font-size: 14px; padding-left: 10px; }
