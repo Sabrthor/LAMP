@@ -10,6 +10,16 @@
 function kirana11_orders_user_default_permissions() {
   $permissions = array();
 
+  // Exported permission: 'access minimum'.
+  $permissions['access minimum'] = array(
+    'name' => 'access minimum',
+    'roles' => array(
+      'administrator' => 'administrator',
+      'customer' => 'customer',
+    ),
+    'module' => 'commerce_moa',
+  );
+
   // Exported permission: 'edit own commerce_order entities'.
   $permissions['edit own commerce_order entities'] = array(
     'name' => 'edit own commerce_order entities',
