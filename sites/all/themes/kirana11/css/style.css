@@ -131,6 +131,7 @@ ul.menu li a:hover, ul.menu li a.active { text-decoration: none;}
 ul.menu li.leaf { list-style-image: none; color: #444;}
 ul.menu li.expanded { border-bottom: none; padding-bottom: 0;  }
 ul.menu li.expanded ul { padding-left: 25px; border-top: 1px dashed #ddd; margin-top: 15px;}
+.content .field-item ol li, .content .field-item ul li{ margin-left: 20px; }
 
 /* Logo - Site name*/
 #logo { padding: 70px 0 20px; text-align: center; z-index: 10; max-width: 100%; }
@@ -523,6 +524,7 @@ aside{ box-shadow: none; }
 .menu_level_1 li a:hover, .menu_level_1 li a:focus, .menu_level_1 li a{ color: #666; }
 .menu_level_1 > li:before, .menu_level_2 > li:before{ content:'\f055'; color: #666; position: absolute; font-family:'FontAwesome'; font-size: 18px; top:10px; left: 0; }
 .menu_level_1 > li.cm-expanded:before, .menu_level_2 > li.cm-expanded:before{ content:'\f056'; color: #346d35; }
+.region-sidebar-first ul.menu_level_3{ padding: 0 10px !important }
 
 /* store landing page*/
 /*.product-offer-price-bg{ position: absolute; top: -7px; left: 0; background: url(../images/offer-price-bg.png) center no-repeat; background-size: 70%; width: 100%; height: 43px; padding-top: 11px; font-size: 14px; color: #fff; font-weight: 700;}
@@ -1126,6 +1128,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 	.page-cart .form-actions input[type=submit]{ padding: 10px; }
 	#loyalty h3:before{ width: 30px; height: 30px; margin: -6px 0 0 -40px; }
 	#views-form-user-address-book-details-page .views-row{ width: 100%; }
+	#commerce-checkout-form-checkout .form-item-delivery-slots-pane-field-delivery-slot-date > label[for="edit-delivery-slots-pane-field-delivery-slot-date"]:after{ display: none; }
 
 	/* checkout address book page */
 	.page-checkout-addresses  table tr td{ padding: 0; width: 100%; margin:2% 0; }
