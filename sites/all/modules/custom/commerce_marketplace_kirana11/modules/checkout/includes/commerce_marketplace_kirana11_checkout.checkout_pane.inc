@@ -16,23 +16,95 @@ function delivery_slots_pane_checkout_form($form, $form_state, $checkout_pane, $
     $checkout_form = array();
     $current_date = date('d M Y');
     $next_date = date('d M Y',strtotime($current_date . "+1 days"));
+    $third_day = date('d M Y',strtotime($current_date . "+2 days"));
     $options = array(
-        $current_date => $current_date,
-        $next_date => $next_date,
+        date("Y-m-d", strtotime($current_date)) => $current_date,
+        date("Y-m-d", strtotime($next_date)) => $next_date,
+        date("Y-m-d", strtotime($third_day)) => $third_day,
     );
 
     $checkout_form['field_delivery_slot_date'] = array(
         '#type' => 'radios',
         '#title' => t('Delivery Date'),
         '#options' => $options,
+        '#default_value' => date("Y-m-d", strtotime($current_date)),
     );
     $delivery_slots = _get_store_delivery_slots($order->commerce_store[LANGUAGE_NONE][0]['target_id']);
+
+    $disabled = get_disabled_timeslots(date("Y-m-d"));
+
     $checkout_form['field_delivery_slots_timings'] = array(
         '#type' => 'radios',
         '#options' => $delivery_slots,
+        '#disabled_options' => $disabled,
     );
+
     return $checkout_form;
 }
+
+/**
+ * Get all the disabled slots list.
+ * @param $current_date
+ * @param bool $json
+ * @return array
+ */
+function get_disabled_timeslots($current_date, $json=FALSE){
+    // for a time slot what should be the minimum time to order
+    $start_times = [
+        '8am - 10am' => '09:30:00',
+        '10am - 12pm' => '11:30:00',
+        '12pm - 02pm' => '13:30:00',
+        '02pm - 04pm' => '15:30:00',
+        '04pm - 06pm' => '17:30:00',
+        '06pm - 08pm' => '19:30:00',
+        '08pm - 10pm' => '21:30:00'
+    ];
+
+    $date = $current_date;
+    $current_time = strtotime("now");
+    $disabled = [];
+
+    foreach ($start_times as $key => $start_time) {
+        $start_time = strtotime($date ." " . $start_time);
+        $time_in_minutes = round(($start_time - $current_time) / 60, 2);
+
+        //check for timeslots available for more than 15 min
+        if($time_in_minutes < 15) {
+            $disabled[] = $key;
+        } 
+        //Check if orders are allocated for the selected delivery date and time it is exceeds 10
+        if(orders_in_timeslot($key, $current_date) >= 10) {
+            $disabled[] = $key;
+        }
+    }
+
+    if($json) {
+        drupal_json_output($disabled);
+    }
+    else {
+        return $disabled;
+    }
+}
+
+/**
+ * Function to get the Orders count for the timeslots available.
+ * @param $time_slot
+ * @return int
+ */
+function orders_in_timeslot($time_slot, $slot_date){
+    $query = db_select('commerce_order', 'co');
+    $query->join('field_data_field_delivery_slots_timings', 'st','st.entity_id = co.order_id');
+    $query->join('field_data_field_delivery_slot_date', 'sd','sd.entity_id = co.order_id');
+    $result = $query->fields('co', array('order_id'))
+    ->condition('st.field_delivery_slots_timings_value', $time_slot, '=')
+    ->condition('sd.field_delivery_slot_date_value', $slot_date, '=')
+    ->condition('co.status',array('pending','processing'), 'IN')
+    ->execute();
+    $num_of_results = $result->rowCount();
+
+    return $num_of_results;
+}
+
 
 /**
  * Get Delivery slots of Stores
@@ -47,7 +119,6 @@ function _get_store_delivery_slots($store_id){
             foreach ($store_info->field_delivery_slots['und'] as $delivery_slots){
                 $delivery_slots_timings[$delivery_slots['value']] = $delivery_slots['value'];
             }
-
         }
     }
     return $delivery_slots_timings;

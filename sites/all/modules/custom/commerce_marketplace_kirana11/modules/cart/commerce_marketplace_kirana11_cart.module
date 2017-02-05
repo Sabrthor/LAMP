@@ -1,9 +1,13 @@
 <?php
+define('COMMERCE_EXTRA_QUANTITY_INCREASE', 1);
+define('COMMERCE_EXTRA_QUANTITY_DECREASE', -1);
+
 /**
  * Implements hook_init().
  */
 function commerce_marketplace_kirana11_cart_init() {
   drupal_add_js(drupal_get_path('module', 'commerce_marketplace_kirana11_cart') . '/js/script.js');
+  drupal_add_js(drupal_get_path('module', 'commerce_marketplace_kirana11_cart') . '/js/kirana11_quantity.js');
 }
 
 /**
@@ -90,10 +94,51 @@ function commerce_marketplace_kirana11_cart_empty_cart_order() {
   return drupal_json_output('CART_EMPTY');
 }
 
+/**
+ * Implements hook_form_alter().
+ * Adds additional theme wrappers for add to cart's quantity textfields.
+ */
+function commerce_marketplace_kirana11_cart_form_alter(&$form, &$form_state, $form_id) {
+  // Checkout form submit title change.
+  if ($form_id == 'commerce_checkout_form_checkout') {
+    $form['buttons']['continue']['#value'] = t('Proceed');
+  }
+  if ($form_id == 'commerce_checkout_form_addresses') {
+    $form['buttons']['continue']['#value'] = t('Proceed');
+  }
+  if ($form_id == 'commerce_checkout_form_review') {
+    $form['buttons']['continue']['#value'] = t('Proceed');
+  }
+
+  // Quantity fields from views
+  $str = 'views_form_commerce_cart_form_default';
+  if (drupal_substr($form_id, 0, drupal_strlen($str)) == $str) {
+    if (isset($form['edit_quantity'])) {
+      //unset($form['edit_delete']);
+      //$submit = $form['#submit'];
+      //unset($form['#submit']);
+
+      foreach ($form['edit_quantity'] as $key => $value) {
+        if (is_numeric($key) && drupal_substr($key, 0, 1) != '#' && is_array($value)) {
+          $form['edit_quantity'][$key]['#theme_wrappers'] = array(
+            'quantity_plusminus_wrapper',
+            'form_element'
+          );
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Add to cart form from field api (product listing in home/category page)
+ */
 function commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_alter(&$form, &$form_state) {
   $form['submit']['#ajax'] = array(
     'callback' => 'commerce_ajax_cart_callback',
   );
+
+  $form['#validate'][] = 'kcart_alter_cart_add_to_cart_form_validate';
 
   global $user;
 
@@ -319,16 +364,192 @@ function commerce_marketplace_kirana11_cart_form_views_form_commerce_cart_form_d
     '#value' => t('Continue Shopping'),
     '#weight' => -999,
   );
-
   $form['actions']['continue_shopping']['#attributes'] = array('ONCLICK' => "history.go(-1); return false;");
 }
 
-/* Checkout page form alter */
-function commerce_marketplace_kirana11_cart_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_id == 'commerce_checkout_form_checkout') {
-    $form['buttons']['continue']['#value'] = t('Proceed');
+/**
+ * Implements hook_theme().
+ */
+function commerce_marketplace_kirana11_cart_theme($existing, $type, $theme, $path) {
+  return array(
+    'quantity_plusminus_wrapper' => array(
+      'render element' => 'form',
+    ),
+    'quantity_plusminus_link' => array(
+      'variables' => array(
+        'way' => NULL,
+        'quantity' => NULL,
+        'quantity_input_element' => NULL
+      ),
+    ),
+  );
+}
+
+/**
+ * Returns HTML for quantity textfield having links wrapping the textfield.
+ */
+function theme_quantity_plusminus_wrapper($variables) {
+  $amount = isset($variables['form']['#amount']) ? $variables['form']['#amount'] : 1;
+  $limit_down = isset($variables['form']['#limit_down']) ? $variables['form']['#limit_down'] : 1;
+  $decrease = theme('quantity_plusminus_link', array(
+    'way' => COMMERCE_EXTRA_QUANTITY_DECREASE,
+    'quantity' => $variables['form']['#value'],
+    'quantity_input_element' => $variables['form']['#id'],
+    'amount' => $amount,
+    'limit_down' => $limit_down
+  ));
+  $increase = theme('quantity_plusminus_link', array(
+    'way' => COMMERCE_EXTRA_QUANTITY_INCREASE,
+    'quantity' => $variables['form']['#value'],
+    'quantity_input_element' => $variables['form']['#id'],
+    'amount' => $amount,
+    'limit_down' => $limit_down
+  ));
+  return $decrease . $variables['form']['#children'] . $increase;
+}
+
+/**
+ * Returns HTML for link which increases/decreases quantity value.
+ */
+function theme_quantity_plusminus_link($variables) {
+  switch ($variables['way']) {
+    case COMMERCE_EXTRA_QUANTITY_DECREASE:
+      $text = '-';
+      $class = 'commerce-quantity-plusminus-link-decrease';
+      $php_callback = 'click_on_minus_in_cart';
+      $js_callback = "Drupal.commerce_extra_quantity_quantity('#" . $variables['quantity_input_element'] . "', " . $variables['way'] . ", " . $variables['amount'] . ", " . $variables['limit_down'] . ")";
+      //$js_callback = '';
+      break;
+    case COMMERCE_EXTRA_QUANTITY_INCREASE:
+      $text = '+';
+      $class = 'commerce-quantity-plusminus-link-increase';
+      $php_callback = 'click_on_plus_in_cart';
+      $js_callback = "Drupal.commerce_extra_quantity_quantity('#" . $variables['quantity_input_element'] . "', " . $variables['way'] . ", " . $variables['amount'] . ", " . $variables['limit_down'] . ")";
+      //$js_callback = '';
+      break;
+    default:
+      $text = '';
+      $class = '';
+      $php_callback = '';
+      $js_callback = '';
+      break;
   }
-  if ($form_id == 'commerce_checkout_form_addresses') {
-    $form['buttons']['continue']['#value'] = t('Proceed');
+
+  if ($variables['quantity'] <= 1) {
+    $class .= ' commerce-quantity-plusminus-link-disabled';
   }
+  $options = array(
+    'attributes' => array(
+      'class' => array('button'),
+      'onclick' => $js_callback . ';'
+
+    ),
+    'html' => TRUE,
+  );
+  $element = array(
+    '#theme' => 'link',
+    '#text' => $text,
+    '#ajax' => array(
+      'wrapper' => 'cart-item-wrapper',
+      'callback' => $php_callback,
+      'event' => 'click',
+    ),
+    '#options' => $options,
+    '#prefix' => '<span class="commerce-quantity-plusminus-link ' . $class . '">',
+    '#suffix' => '</span>',
+  );
+  return render($element);
+}
+
+function kcart_alter_cart_add_to_cart_form_validate($form, &$form_state){
+  global $user;
+  //echo "<pre>";
+  $store_id = $form_state['default_product']->commerce_store['und'][0]['target_id'];
+  $store_ids =[];
+
+  ctools_include('modal');
+  ctools_modal_add_js();
+  //$commands = array();
+  //print ajax_render($commands);
+  //exit;
+  if( $orders = commerce_marketplace_cart_order_load_multiple($user->uid)) {
+  foreach ($orders as $sid){
+
+    //echo ""
+    $store_ids[]=$sid->commerce_store['und'][0]['target_id'];
+
+  }
+  //drupal_set_message("stori: " . $store_id.$form_state['quantity']['#value']);
+  //drupal_set_message( drupal_json_encode($store_ids));
+
+  if(!in_array($store_id, $store_ids)){
+    ctools_include('ajax');
+    ctools_add_js('ajax-responder');
+    $form_state = array(
+    'ajax' => TRUE,
+    'title' => t('MyModule Modal Form'),
+    );
+
+    // Use ctools to generate ajax instructions for the browser to create
+    // a form in a modal popup.
+    $commands = ctools_modal_form_wrapper('kcart_alter_confirm_form', $form_state);
+
+    // If the form has been submitted, there may be additional instructions
+    // such as dismissing the modal popup.
+    if (!empty($form_state['ajax_commands'])) {
+    $commands = $form_state['ajax_commands'];
+    }
+    //$commands[] = ctools_modal_form_wrapper('page_node_form', $form_state);
+    //$commands[] = ctools_modal_command_display('my_ctools_popup_second_form', theme('status_messages'));
+    print ajax_render($commands);
+    exit;
+    drupal_set_message("New store");
+
+
+
+  }else{
+    /*ctools_include('ajax');
+    ctools_add_js('ajax-responder');
+    $commands[] = ctools_ajax_command_redirect('node/1');
+    print ajax_render($commands);
+    exit;
+    drupal_set_message("old store");
+    $commands[] = ctools_modal_command_display('Form Submit', 'status_messages');*/
+  }
+  //exit();
+  // echo "<pre>";
+  //print_r($form_state['default_product']->commerce_store['und'][0]['target_id']);
+  //print_r($orders);
+  //exit();
+  // drupal_json_encode($form_state);
+  }
+}
+
+function kcart_alter_confirm_form($arg1, $arg2, $node_form, $form_state) {
+
+  $form['report'] = array(
+  '#markup' => '<p>' . t('Do you want to add product from another store???.') . '</p>'
+  );
+
+  $form['submit'] = array(
+  '#type' => 'button',
+  '#value' => 'Yes',
+  //'#attributes' => array('id' => 'kcart_alter-modal-submit'),
+  '#ajax' => array(
+    'callback' => 'kcart_alter_empty_callback',
+  ),
+  );
+
+  $form['actions']['button'] = array(
+  '#markup' => l(t('No'), '#',
+    array(
+    'attributes' => array(
+      'class' => 'ctools-close-modal'
+    ),
+    'external' => TRUE
+    )
+  )
+  );
+
+  return $form;
 }

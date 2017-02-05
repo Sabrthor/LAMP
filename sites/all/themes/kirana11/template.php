@@ -151,3 +151,27 @@ function change_alter_password_confirm($element) {
     $element['pass2']['#attributes']['placeholder'] = t("Re-Enter New Password *");
     return $element;
 }
+
+/* Commerce cart Empty block alter */
+function kirana11_theme_registry_alter(&$theme_registry) {
+  global $theme_key;
+  static $executed = array();
+
+  // Preventing double execution.
+  if (isset($executed[$theme_key])) {
+    return;
+  }
+
+  $executed[$theme_key] = TRUE;
+
+//file_put_contents("/tmp/eml-tr", print_r($theme_registry, true ) );
+
+//$theme_registry["commerce_cart_empty_page"]['function'] = "custom_module_commerce_cart_empty_page";
+$theme_registry["commerce_cart_empty_block"]['function'] = "kirana11_commerce_cart_empty_block";
+
+}
+
+function kirana11_commerce_cart_empty_block() {
+  $html = '<img class="empty-cart-image" src="'.base_path() . path_to_theme() .'/images/cart.png" alt="Cart image" />';
+  return $html;
+}
