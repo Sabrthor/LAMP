@@ -249,10 +249,10 @@ $databases = array (
   array (
     'default' => 
     array (
-      'database' => 'ninmaoji_revp',
-      'username' => 'ninmaoji_kipro',
-      'password' => 'Pa55w0rd@123',
-      'host' => 'localhost',
+      'database' => 'kirana11db',
+      'username' => 'kirana11',
+      'password' => 'IAe2huNYUc',
+      'host' => 'kirana11.c3nildruou6q.eu-west-1.rds.amazonaws.com',
       'port' => '',
       'driver' => 'mysql',
       'prefix' => '',
