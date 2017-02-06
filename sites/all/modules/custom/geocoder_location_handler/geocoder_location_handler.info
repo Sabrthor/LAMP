@@ -1,0 +1,6 @@
+name = Geocoder location handler
+description = Location handler for guest and registered users.
+package = Custom
+dependencies[] = services
+dependencies[] = rest_server
+core = 7.x
