@@ -1,6 +1,0 @@
-name = Commerce Userpoints Discount Kirana11
-description = Dirctly apply the user points/discount/loyalty and reflect in the checkout page.
-package = Commerce (contrib)
-core = 7.x
-
-dependencies[] = commerce_discount

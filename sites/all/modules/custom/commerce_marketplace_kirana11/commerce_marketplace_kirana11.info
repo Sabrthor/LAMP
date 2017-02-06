@@ -1,7 +1,0 @@
-name = Commerce marketplace for Kirana11
-description = Altered Commerce Marketplace for Kirana11.
-package = Custom 
-dependencies[] = commerce
-dependencies[] = commerce_store
-dependencies[] = commerce_marketplace
-core = 7.x

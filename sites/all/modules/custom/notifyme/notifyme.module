@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Notifyme feature.
- */
-
-include_once 'notifyme.features.inc';
