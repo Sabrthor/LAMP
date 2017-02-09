@@ -1,4 +1,8 @@
 appspec.yml
+<<<<<<< HEAD
 acquia/
 kirana11.*
 kirana11/
+=======
+/source/sites/default/files/
+>>>>>>> 0d0f205af6e8b718f34cd7e4f6a3162ba1f2d932
