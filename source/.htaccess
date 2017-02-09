@@ -64,7 +64,7 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule ^ - [E=protossl]
   #RewriteCond %{HTTPS} on
   RewriteCond %{HTTPS} off
-  RewriteRule ^(.*)$ https://kirana11elb-1927396229.eu-west-1.elb.amazonaws.com/$1 [R=301,L]
+  RewriteRule ^(.*)$ https://kiirana11.com/$1 [R=301,L]
   #RewriteRule ^ - [E=protossl:s]
 
   # Make sure Authorization HTTP header is available to PHP
