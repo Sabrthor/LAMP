@@ -68,10 +68,10 @@ function get_disabled_timeslots($current_date, $json=FALSE){
         $start_time = strtotime($date ." " . $start_time);
         $time_in_minutes = round(($start_time - $current_time) / 60, 2);
 
-        //check for timeslots available for more than 15 min
-        if($time_in_minutes < 15) {
+        //check for timeslots available for more than 90 min
+        if($time_in_minutes < 90) {
             $disabled[] = $key;
-        } 
+        }
         //Check if orders are allocated for the selected delivery date and time it is exceeds 10
         if(orders_in_timeslot($key, $current_date) >= 10) {
             $disabled[] = $key;
@@ -162,4 +162,34 @@ function delivery_slots_pane_checkout_form_submit($form, &$form_state, $checkout
        }
        $form_state['rebuild'] = TRUE;
    }
+}
+
+function loyalty_rewards_pane_settings_form($checkout_pane) {
+    $form['loyalty_rewards_pane_field'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Loyalty Rewards Pane Field'),
+        '#default_value' => variable_get('loyalty_rewards_pane_field', ''),
+    );
+    return $form;
+}
+
+/**
+ * Implements base_checkout_form()
+ */
+function loyalty_rewards_pane_checkout_form($form, $form_state, $checkout_pane, $order) {
+    $checkout_form = array();
+
+    if (isset($_SESSION['k11_remaining_discount_amount']) && $_SESSION['k11_remaining_discount_amount'] > 0) {
+      $html_loyalty_text = '<span>' . t('Apply Loyalty Rewards acquired | ') .'<strong>' . $_SESSION['k11_remaining_discount_amount'] . '</strong></span>';
+    } else {
+      $html_loyalty_text = '<span>' . t('Apply Loyalty Rewards acquired') .'</span>';
+    }
+    
+    $checkout_form['discount_info'] = array(
+      '#markup' => $html_loyalty_text,
+      '#prefix' => '<div id="loyalty"><h3 class="loyalty-title">' . ('Loyalty Rewards') . '</h3><div class="loyalty-input"><input type="checkbox" ' . (isset($_SESSION['k11_royalty_set']) && $_SESSION['k11_royalty_set'] == 1 ? 'checked="checked"' : '') . ' name="loyalty_required" id="loyalty_required" />',
+      '#suffix' => '</div>',
+    );
+
+    return $checkout_form;
 }

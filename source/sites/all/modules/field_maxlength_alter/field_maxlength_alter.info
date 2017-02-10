@@ -1,0 +1,12 @@
+name = Field max length alter
+description = "Alter the field maxlength of existing fields containing data"
+core = 7.x
+package = Fields
+dependencies[] = field
+
+; Information added by Drupal.org packaging script on 2015-03-30
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "field_maxlength_alter"
+datestamp = "1427718783"
+

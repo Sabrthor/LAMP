@@ -1,0 +1,157 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function commerce_acf_menu() {
+  $items = array();
+
+  $items['admin/commerce/config/commerce-acf'] = array(
+    'title' => 'Commerce Ajax Cart Form',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('commerce_acf_settings_form'),
+    'access arguments' => array('administer site configuration'),
+  );
+
+  return $items;
+}
+
+/**
+ * Settings form.
+ */
+function commerce_acf_settings_form($form, &$form_state) {
+  $form['commerce_acf_ajaxify_quantity'] = array(
+    '#title' => t('Ajaxify quantity input'),
+    '#type' => 'checkbox',
+    '#default_value' => variable_get('commerce_acf_ajaxify_quantity'),
+  );
+
+  $form['commerce_acf_ajaxify_remove'] = array(
+    '#title' => t('Ajaxify remove button'),
+    '#type' => 'checkbox',
+    '#default_value' => variable_get('commerce_acf_ajaxify_remove'),
+  );
+
+  $form['commerce_acf_quantity_spinner'] = array(
+    '#title' => t('Use quantity spinner'),
+    '#type' => 'checkbox',
+    '#default_value' => variable_get('commerce_acf_quantity_spinner'),
+  );
+
+  $form['commerce_acf_quantity_readonly'] = array(
+    '#title' => t('Disable edit quantity using keyboard'),
+    '#type' => 'checkbox',
+    '#default_value' => variable_get('commerce_acf_quantity_readonly'),
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Alter commerce form.
+ */
+function commerce_acf_commerce_cart_form_alter(&$form, &$form_state, $form_id) {
+  $quantity_spinner = variable_get('commerce_acf_quantity_spinner');
+  $quantity_readonly = variable_get('commerce_acf_quantity_readonly');
+
+  if ($quantity_spinner) {
+    $form['#attached']['library'][] = array('system', 'ui.spinner');
+  }
+  $form['#attached']['js'][] = drupal_get_path('module', 'commerce_acf') . '/commerce_acf.js';
+
+  $form['#action'] = url('cart');
+
+  $form['actions']['submit']['#name'] = 'update-cart';
+  $form['actions']['submit']['#ajax'] = array(
+    'callback' => 'commerce_acf_ajax_update_form',
+  );
+
+  // Quantity input
+  if (variable_get('commerce_acf_ajaxify_quantity') && !empty($form['edit_quantity'])) {
+    foreach (element_children($form['edit_quantity']) as $key) {
+      $form['edit_quantity'][$key]['#ajax'] = array(
+        'callback' => '',
+        'event' => 'quantityChanged',
+        'progress' => 'none',
+        'trigger_as' => array(
+          'name' => 'update-cart',
+        )
+      );
+
+      if ($quantity_spinner) {
+        $form['edit_quantity'][$key]['#attributes']['class'][] = 'quantity-with-spinner';
+      }
+      if ($quantity_readonly) {
+        $form['edit_quantity'][$key]['#attributes']['readonly'] = 'readonly';
+      }
+    }
+  }
+
+  // Delete button
+  if (variable_get('commerce_acf_ajaxify_remove') && !empty($form['edit_delete'])) {
+    foreach(element_children($form['edit_delete']) as $key) {
+      if (!empty($form['edit_delete'][$key]['#line_item_id'])) {
+        $form['edit_delete'][$key]['#ajax'] = array(
+          'callback' => 'commerce_acf_ajax_update_form',
+          'progress' => 'none',
+        );
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function commerce_acf_form_alter(&$form, &$form_state, $form_id) {
+  if (strpos($form_id, 'views_form_commerce_cart_form_') === 0) {
+  $form['actions']['continue_shopping'] = array(
+    '#type' => 'button',
+    '#value' => t('Continue Shopping'),
+    '#weight' => -999,
+  );
+  $form['actions']['continue_shopping']['#attributes'] = array('ONCLICK' => "history.go(-1); return false;");
+    commerce_acf_commerce_cart_form_alter($form, $form_state, $form_id);
+  }
+}
+
+/**
+ * Cart form AJAX callback (for single store).
+ */
+function _____commerce_acf_ajax_update_form($form, &$form_state) {
+  drupal_get_messages();
+  $_POST = array();
+  $view = $form_state['build_info']['args'][0];
+  $order_id = commerce_cart_order_id($GLOBALS['user']->uid);
+  $cart_view_output = commerce_embed_view($view->name, $view->current_display, array($order_id));
+
+  $commands = array(ajax_command_replace('.view-commerce-cart-form', $cart_view_output));
+  drupal_alter('commerce_acf_commands', $commands);
+
+  return array(
+    '#type' => 'ajax',
+    '#commands' => $commands,
+  );
+}
+
+/**
+ * Cart form AJAX callback (for multi store).
+ */
+function commerce_acf_ajax_update_form($form, &$form_state) {
+  drupal_get_messages();
+  $_POST = array();
+  $view = $form_state['build_info']['args'][0];
+
+  $orders = commerce_marketplace_cart_order_load_multiple($GLOBALS['user']->uid);
+  $order_ids = implode(',', array_keys($orders));
+
+  $cart_view_output = commerce_embed_view($view->name, $view->current_display, array($order_ids));
+
+  $commands = array(ajax_command_replace('.view-commerce-cart-form', $cart_view_output));
+  drupal_alter('commerce_acf_commands', $commands);
+
+  return array(
+    '#type' => 'ajax',
+    '#commands' => $commands,
+  );
+}

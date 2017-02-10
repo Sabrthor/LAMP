@@ -15,7 +15,7 @@ function commerce_userpoints_discount_kirana11_init() {
 /**
  * Implements hook_commerce_cp_info().
  */
-function commerce_userpoints_discount_kirana11_commerce_cp_info()
+function _____commerce_userpoints_discount_kirana11_commerce_cp_info()
 {
   $cart_panes = array();
 
@@ -28,12 +28,13 @@ function commerce_userpoints_discount_kirana11_commerce_cp_info()
   return $cart_panes;
 }
 
-function royalty_reward_info_pane($form, $form_state, $cart_order, $pane_weight) {
+function ______royalty_reward_info_pane($form, $form_state, $cart_order, $pane_weight) {
   $form_pane = array();
 
   if (isset($_SESSION['k11_remaining_discount_amount']) && $_SESSION['k11_remaining_discount_amount'] > 0) {
     $form_pane['discount_info'] = array(
-      '#markup' => '<span>' . t('Apply Loyalty Rewards acquired | ') .'<strong>' . $_SESSION['k11_remaining_discount_amount'] . '</strong></span>',
+      //'#markup' => '<span>' . t('Apply Loyalty Rewards acquired | ') .'<strong>' . $_SESSION['k11_remaining_discount_amount'] . '</strong></span>',
+      '#markup' => '<span>' . t('Apply Loyalty Rewards acquired') .'</span>',
       '#weight' => $pane_weight,
       '#prefix' => '<div id="loyalty"><h3 class="loyalty-title">' . ('Loyalty Rewards') . '</h3><div class="loyalty-input"><input type="checkbox" ' . (isset($_SESSION['k11_royalty_set']) && $_SESSION['k11_royalty_set'] == 1 ? 'checked="checked"' : '') . ' name="loyalty_required" id="loyalty_required" />',
       '#suffix' => '</div>',
@@ -354,4 +355,220 @@ function ______commerce_userpoints_discount_kirana11_form_commerce_checkout_form
 //  $form["commerce_userpoints_discount"]["amount"]['#title'] = t('Eligible loyalty discount amount (₹)');
 //  $form["commerce_userpoints_discount"]["amount"]['#default_value'] = number_format((float)$remaining_discount_amount, 2, '.', '');
 //  $form["commerce_userpoints_discount"]["amount"]['#description'] = '';
+}
+
+
+/**
+ * Function to Get User's current month's Loyalty points Balance.
+*/
+function get_current_month_loyalty_points() {
+  global $user;
+
+  $total_balance = userpoints_get_current_points($user->uid);
+
+  if($total_balance != 0){
+    $query = db_select('userpoints_txn', 'ut');
+    $query->fields('ut',array('points'));
+    $query->condition('status','0')
+    ->condition('uid', $user->uid);
+    $query->where('MONTH(FROM_UNIXTIME(time_stamp)) = :monthid', array(':monthid' => date('m')));
+
+    //$alias = $query->addExpression('SUM(points)', 'sum_of_points');
+
+    $points_list = $query->execute()->fetchAll();
+
+    $total_points_spend = 0;
+    foreach($points_list as $points){
+      if($points->points != '500'){
+        $total_points_spend += $points->points;
+      }
+    }
+
+    $monthly_allocated_points = 111;
+    $available_points = $monthly_allocated_points -  (-$total_points_spend);
+  }
+  else{
+    $available_points = 0;
+  }
+
+  $html_location = '<p>&#x20B9;<strong>'.$available_points.'</strong><sup>*</sup></p>';
+
+  return $html_location;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function commerce_userpoints_discount_kirana11_block_info() {
+  $blocks = [];
+
+  $blocks['users_loyalty_points_balance'] = array(
+    'info' => t('Users Current Month Loyalty Points Balance'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function commerce_userpoints_discount_kirana11_block_view($delta = '') {
+  $block = [];
+
+  switch ($delta) {
+    case 'users_loyalty_points_balance':
+      $block['content'] = get_current_month_loyalty_points();
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Implements hook_commerce_cart_order_refresh().
+ *
+ * Update the loyalty according to the line items change.
+ */
+function commerce_userpoints_discount_kirana11_commerce_cart_order_refresh(EntityDrupalWrapper $order_wrapper) {
+  $points_to_apply = calculate_userpoints($order_wrapper);
+
+  foreach ($order_wrapper->commerce_line_items as $delta => $wrapper_line_item) {
+    if($wrapper_line_item->getBundle() == 'userpoints') {
+      $line_item = $wrapper_line_item->value();
+
+      $current_points = $line_item->commerce_unit_price['und'][0]['amount'];
+
+      if($points_to_apply > $current_points) {
+        // Take remaining points.
+//        $points_on_edit = ($points_to_apply - $current_points);
+        $operation = 'cu_discount_refund_remaining_points';
+      } else {
+        // Refund point.
+//        $points_on_edit = ($points_to_apply - $current_points);
+        $operation = 'cu_discount_took_remaining_points';
+      }
+
+      $points_on_edit = ($points_to_apply - $current_points);
+
+      $points_on_edit = floor($points_on_edit / 100);
+
+      // Refund the userpoints transaction.
+      $userpoints_params = array(
+        'points' => $points_on_edit,
+        'uid' => $order_wrapper->uid->value(),
+        'operation' => $operation,
+        'tid' => variable_get('commerce_userpoints_discount_default_termid', userpoints_get_default_tid()),
+        'display' => FALSE,
+        'entity_id' => $order_wrapper->order_id->value(),
+        'entity_type' => 'commerce_order',
+      );
+
+      userpoints_userpointsapi($userpoints_params);
+
+      $line_item->commerce_unit_price['und'][0]['amount'] = $points_to_apply;
+      $line_item->commerce_unit_price['und'][0]['data']['components'][0]['price']['amount'] = $points_to_apply;
+
+      $line_item->commerce_total['und'][0]['amount'] = $points_to_apply;
+      $line_item->commerce_total['und'][0]['data']['components'][0]['price']['amount'] = $points_to_apply;
+
+      commerce_line_item_save($line_item);
+    }
+  }
+
+  commerce_order_save($order_wrapper->value());
+}
+
+/**
+ * Calculate user points
+ *
+ * Useful link: https://gist.github.com/St0iK/64f66c0f2cc5f24a361f
+ */
+function calculate_userpoints($order_wrapper) {
+  $grand_total = 0;
+
+  foreach ($order_wrapper->commerce_line_items as $line_item_wrapper) {
+    $line_item_type = $line_item_wrapper->type->value();
+
+    if ($line_item_type == 'product') {
+      $grand_total += $line_item_wrapper->commerce_total->amount->value();
+    }
+  }
+
+  $grand_total = floatval($grand_total / 100);
+
+  $grand_total = number_format((float)$grand_total, 2, '.', '');
+
+  $discount_amount = floatval(($grand_total / 100) * 11);
+
+  // Get exchange rate.
+  $currencies = commerce_userpoints_currencies();
+
+  $default_currency = reset($currencies);
+  $currency_code = $default_currency['code'];
+
+  // Get exchange rate.
+  $conversion_rate = $currencies[$currency_code]['conversion_rate'];
+
+  if (!isset($conversion_rate)) {
+    $conversion_rate = 1;
+  }
+
+  // Remaining points.
+  $current_points = userpoints_get_current_points($order_wrapper->uid->value());
+
+  // Convert exchange rate to currency.
+  $points_as_currency = $current_points * $conversion_rate;
+
+  // Smaller amount in discount amount and remaining points. (4.30 to 4.00)
+  $remaining_discount_amount = floor(min($discount_amount, $points_as_currency));
+
+  // Get exchange rate.
+  $currencies = commerce_userpoints_currencies();
+
+  $default_currency = reset($currencies);
+  $currency_code = $default_currency['code'];
+
+  // Get exchange rate.
+  $conversion_rate = $currencies[$currency_code]['conversion_rate'];
+
+  if (!isset($conversion_rate)) {
+    $conversion_rate = 1;
+  }
+
+  // Convert points as currency to points
+  $points_can_be_used = $remaining_discount_amount / $conversion_rate;
+
+  $points_can_be_used = $points_can_be_used * -100;
+
+  return $points_can_be_used;
+}
+
+/**
+ * Implements hook_commerce_order_delete().
+ * Note: Not necessary, approved points will decline by default.
+ */
+function _____commerce_userpoints_discount_kirana11_commerce_order_delete($order) {
+  $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+  foreach ($order_wrapper->commerce_line_items as $delta => $wrapper_line_item) {
+    if($wrapper_line_item->getBundle() == 'userpoints') {
+      $line_item = $wrapper_line_item->value();
+
+      $points_to_refund = $line_item->commerce_unit_price['und'][0]['amount'];
+
+      // Refund the userpoints transaction.
+      $userpoints_params = array(
+        'points' => $points_to_refund * -1,
+        'uid' => $order_wrapper->uid->value(),
+        'operation' => 'cu_discount_refund_on_order_cancellation',
+        'tid' => variable_get('commerce_userpoints_discount_default_termid', userpoints_get_default_tid()),
+        'display' => FALSE,
+        'entity_id' => $order_wrapper->order_id->value(),
+        'entity_type' => 'commerce_order',
+      );
+
+      $result = userpoints_userpointsapi($userpoints_params);
+    }
+  }
 }

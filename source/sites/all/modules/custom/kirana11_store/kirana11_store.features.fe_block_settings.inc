@@ -44,38 +44,6 @@ function kirana11_store_default_fe_block_settings() {
     'visibility' => 1,
   );
 
-  $export['views-banners_sliders-block_1'] = array(
-    'cache' => -1,
-    'custom' => 0,
-    'delta' => 'banners_sliders-block_1',
-    'module' => 'views',
-    'node_types' => array(),
-    'pages' => '<front>',
-    'roles' => array(),
-    'themes' => array(
-      'bartik' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'bartik',
-        'weight' => 0,
-      ),
-      'kirana11' => array(
-        'region' => 'slider',
-        'status' => 1,
-        'theme' => 'kirana11',
-        'weight' => 0,
-      ),
-      'seven' => array(
-        'region' => '',
-        'status' => 0,
-        'theme' => 'seven',
-        'weight' => 0,
-      ),
-    ),
-    'title' => '',
-    'visibility' => 1,
-  );
-
   $export['views-banners_sliders-block_2'] = array(
     'cache' => -1,
     'custom' => 0,
@@ -95,7 +63,39 @@ function kirana11_store_default_fe_block_settings() {
         'region' => 'slider',
         'status' => 1,
         'theme' => 'kirana11',
+        'weight' => -38,
+      ),
+      'seven' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'seven',
         'weight' => 0,
+      ),
+    ),
+    'title' => '',
+    'visibility' => 1,
+  );
+
+  $export['views-home_page_banners-block_2'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'delta' => 'home_page_banners-block_2',
+    'module' => 'views',
+    'node_types' => array(),
+    'pages' => '<front>',
+    'roles' => array(),
+    'themes' => array(
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kirana11' => array(
+        'region' => 'slider',
+        'status' => 1,
+        'theme' => 'kirana11',
+        'weight' => -39,
       ),
       'seven' => array(
         'region' => '',
@@ -169,7 +169,7 @@ function kirana11_store_default_fe_block_settings() {
       ),
     ),
     'title' => '',
-    'visibility' => 0,
+    'visibility' => 1,
   );
 
   return $export;

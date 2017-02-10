@@ -50,6 +50,14 @@ function commerce_marketplace_kirana11_checkout_commerce_checkout_pane_info() {
         'file' => 'includes/commerce_marketplace_kirana11_checkout.checkout_pane.inc',
         'base' => 'delivery_slots_pane',
     );
+
+    $panes['loyalty_rewards_pane'] = array(
+        'title' => t('Loyalty Rewards Pane'),
+        'page' => 'checkout',
+        'weight' => 10,
+        'file' => 'includes/commerce_marketplace_kirana11_checkout.checkout_pane.inc',
+        'base' => 'loyalty_rewards_pane',
+    );
     return $panes;
 }
 

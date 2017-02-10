@@ -42,8 +42,8 @@ features_exclude[field][node-bef_test-field_date] = node-bef_test-field_date
 hidden = 1
 
 ; Information added by Drupal.org packaging script on 2017-01-13
-version = "7.x-3.2+56-dev"
+version = "7.x-3.3"
 core = "7.x"
 project = "better_exposed_filters"
-datestamp = "1484286487"
+datestamp = "1484287088"
 

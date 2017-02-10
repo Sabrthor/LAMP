@@ -119,7 +119,7 @@ function kirana11_form_alter( &$form, &$form_state, $form_id )
     }
     if (in_array( $form_id, array( 'user_pass')))
     {
-        $form['name']['#attributes']['placeholder'] = t( 'Username / Email' );
+        $form['name']['#attributes']['placeholder'] = t( 'Mobile Number / Email' );
     }
     if (in_array( $form_id, array( 'change_pwd_page_form')))
     {
@@ -134,6 +134,14 @@ function kirana11_form_alter( &$form, &$form_state, $form_id )
         );
 
         $form['buttons']['cancel']['#attributes'] = array('ONCLICK' => "history.go(-1); return false;");
+    }
+    
+    if (in_array( $form_id, array( 'contact_site_form')))
+    {
+      $form['name']['#attributes']['placeholder'] = t( 'Name *' );
+      $form['mail']['#attributes']['placeholder'] = t( 'Email *' );
+      $form['subject']['#attributes']['placeholder'] = t( 'Subject *' );
+      $form['message']['#attributes']['placeholder'] = t( 'Message *' );
     }
 }
 

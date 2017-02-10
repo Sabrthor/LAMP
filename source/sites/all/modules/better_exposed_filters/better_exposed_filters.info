@@ -8,8 +8,8 @@ files[] = better_exposed_filters_exposed_form_plugin.inc
 files[] = tests/better_exposed_filters.test
 
 ; Information added by Drupal.org packaging script on 2017-01-13
-version = "7.x-3.2+56-dev"
+version = "7.x-3.3"
 core = "7.x"
 project = "better_exposed_filters"
-datestamp = "1484286487"
+datestamp = "1484287088"
 

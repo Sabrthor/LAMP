@@ -1,0 +1,78 @@
+<?php
+
+/**
+ * @file
+ * Field max lenght module functions.
+ */
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function field_maxlength_alter_form_field_ui_field_settings_form_alter(&$form, &$form_state, $form_id) {
+  // Include the processing file.
+  form_load_include($form_state, 'inc', 'field_maxlength_alter', 'includes/field_maxlength_alter.processing');
+
+  // Check if the field contains data.
+  $field_name = $form['field']['field_name']['#value'];
+  $results = db_select('field_data_' . $field_name)
+    ->fields(NULL, array($field_name . '_value'))
+    ->execute();
+  $count = $results->rowCount();
+
+  // Check if the field has a maxlenght configuration and field has data.
+  if (isset($form['field']['settings']['max_length']) && $count > 0) {
+    // Copy the field settings to an easy to use variable.
+    $field_maxlength = & $form['field']['settings']['max_length'];
+    // Create a new field to alter the max length.
+    $form['field']['settings']['max_length_alter'] = $field_maxlength;
+    $form['field']['settings']['max_length_alter']['#disabled'] = FALSE;
+    $field_maxlength['#access'] = FALSE;
+    $form['field']['#description'] = '<div class="messages warning">' . t('Warning, this field already contains data in the database. Entering a lower number for maximum length will result in data loss. Entering a higher number can be done without risk.') . '</div>';
+
+    // Add validation handler.
+    $form['#validate'][] = 'field_maxlength_alter_field_ui_field_settings_form_validate';
+
+    // Add submit handler.
+    $form['#submit'][] = 'field_maxlength_alter_field_ui_field_settings_form_submit';
+  }
+}
+
+/**
+ * Validation handler for the field settings form.
+ */
+function field_maxlength_alter_field_ui_field_settings_form_validate($form, &$form_state) {
+  $settings = $form_state['values']['field']['settings'];
+
+  // At this point we don't support shortening of the max field length.
+  if ($settings['max_length_alter'] < $settings['max_length']) {
+    form_set_error('max_length_alter', t('Please enter a higher number than the current max field length. Shortening the field length is not supported.'));
+  }
+
+  // Varchars in MySQL have min lengt of 1 and a max lenght of 255.
+  if ($settings['max_length_alter'] < 1 || $settings['max_length_alter'] > 65535) {
+    form_set_error('max_length_alter', t('Please enter a numeric value between 1 and 65,535'));
+  }
+}
+
+/**
+ * Submit handler for the field settings form.
+ */
+function field_maxlength_alter_field_ui_field_settings_form_submit($form, &$form_state) {
+  // Get the fieldname from the form state.
+  $fieldname = $form_state['values']['field']['field_name'];
+
+  // Get the max length from the form state.
+  $max_length = $form_state['values']['field']['settings']['max_length_alter'];
+
+  // Alter the fields data table.
+  field_maxlength_alter_alter_data_table($fieldname, $max_length);
+
+  // Alter the fields revision table.
+  field_maxlength_alter_alter_revision_table($fieldname, $max_length);
+
+  // Alter the fields configuration in field_config table.
+  field_maxlength_alter_alter_config_table($fieldname, $max_length);
+
+  // Clear all caches.
+  cache_clear_all();
+}

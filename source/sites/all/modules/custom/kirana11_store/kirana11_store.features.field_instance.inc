@@ -646,49 +646,6 @@ function kirana11_store_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-store_banners-commerce_store'.
-  $field_instances['node-store_banners-commerce_store'] = array(
-    'bundle' => 'store_banners',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 1,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'commerce_store',
-    'label' => 'Store',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => -1,
-    ),
-  );
-
   // Exported field_instance: 'node-store_banners-field_banner'.
   $field_instances['node-store_banners-field_banner'] = array(
     'bundle' => 'store_banners',
@@ -703,7 +660,7 @@ function kirana11_store_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'linkimagefield',
-        'weight' => 0,
+        'weight' => 1,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -748,7 +705,53 @@ function kirana11_store_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'linkimagefield_widget',
-      'weight' => -3,
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'node-store_banners-field_stores_list'.
+  $field_instances['node-store_banners-field_stores_list'] = array(
+    'bundle' => 'store_banners',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_stores_list',
+    'label' => 'Stores',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference_view_widget',
+      'settings' => array(
+        'allow_duplicates' => 0,
+        'close_modal' => 1,
+        'pass_argument' => 1,
+        'pass_arguments' => '',
+        'rendered_entity' => 0,
+        'view' => 'store_entities_list|entityreference_view_widget_1',
+        'view_mode' => 'full',
+      ),
+      'type' => 'entityreference_view_widget',
+      'weight' => 3,
     ),
   );
 
@@ -762,7 +765,6 @@ function kirana11_store_field_default_field_instances() {
   t('Merchant Alternative Number');
   t('PAN Number');
   t('Publish Date');
-  t('Store');
   t('Store Logo');
   t('Store Open Hours');
   t('Stores');

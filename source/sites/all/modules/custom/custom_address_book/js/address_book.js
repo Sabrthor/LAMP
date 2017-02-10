@@ -1,7 +1,6 @@
 (function($) {
     Drupal.behaviors.userAddresses = {
         attach: function (context, settings) {
-
             $('input[id^="edit-views-bulk-operations--"]').once().click(function() {
                 var coordinates = $(this).parents('.views-row').find('.views-field-field-location-coordinates .field-content').html();
                 console.log(coordinates);

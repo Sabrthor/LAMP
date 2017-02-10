@@ -1,0 +1,46 @@
+<?php
+
+function manage_products_add($fid, $tid, $title, $price, $sale_price, $store_id, $stock) {
+  // Product
+  global $user;
+    $uuid = $user->uid;
+  $product = commerce_product_new('grocery');
+  //$product->sku = "Hello1122";
+  $product->title = $title;
+  $product->language = LANGUAGE_NONE;
+  $product->uid = 1;
+  $image_fid = $fid;
+  $file = file_load($image_fid);
+  if (isset($file->filename)) {
+    $product->field_image[LANGUAGE_NONE][] = array(
+      'fid' => $file->fid,
+      'filename' => $file->filename,
+      'filemime' => $file->filemime,
+      'uid' => 1,
+      'uri' => $file->uri,
+      'status' => 1
+    );
+  }
+  $product->commerce_price[LANGUAGE_NONE][0] = array(
+    'amount' => $price * 100, // $10
+    'currency_code' => "INR",
+  );
+  $product->commerce_price[LANGUAGE_NONE][0] = array(
+    'amount' => $sale_price * 100, // $10
+    'currency_code' => "INR",
+  );
+  $product->commerce_stock[LANGUAGE_NONE][0]['value'] = $stock;
+  $product->commerce_store[LANGUAGE_NONE][0]['target_id'] = $store_id;
+  //$product->field_category[LANGUAGE_NONE][0]['tid'] = 20;
+  commerce_product_save($product);
+  $node = new stdClass();
+  $node->type = 'grocery';
+  node_object_prepare($node);
+
+  $node->title    = $product->title;
+  $node->language = LANGUAGE_NONE;
+  $node->field_category[LANGUAGE_NONE][0]['tid'] = $tid;
+  $node->field_product_display['und'][0]['product_id'] = $product->product_id;
+  node_save($node);
+  return $product;
+}

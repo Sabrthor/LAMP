@@ -11,14 +11,6 @@ function kirana11_products_default_fe_block_boxes() {
   $export = array();
 
   $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'Best Deals';
-  $fe_block_boxes->format = 'filtered_html';
-  $fe_block_boxes->machine_name = 'best_deals';
-  $fe_block_boxes->body = 'Best Deals';
-
-  $export['best_deals'] = $fe_block_boxes;
-
-  $fe_block_boxes = new stdClass();
   $fe_block_boxes->info = 'Category Menus';
   $fe_block_boxes->format = 'php_code';
   $fe_block_boxes->machine_name = 'category_menus';
@@ -30,14 +22,6 @@ function kirana11_products_default_fe_block_boxes() {
   ';
 
   $export['category_menus'] = $fe_block_boxes;
-
-  $fe_block_boxes = new stdClass();
-  $fe_block_boxes->info = 'Shop by store';
-  $fe_block_boxes->format = 'filtered_html';
-  $fe_block_boxes->machine_name = 'shop_by_store';
-  $fe_block_boxes->body = 'Shop by store';
-
-  $export['shop_by_store'] = $fe_block_boxes;
 
   return $export;
 }

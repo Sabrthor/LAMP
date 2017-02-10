@@ -65,12 +65,15 @@ function olLiTree( $tree, $level) {
   echo '<ul class="menu_level_' . ++$level . '">';
 
   foreach ( $tree as $item ) {        
-    if($level == '3') {
+    /*if($level == '3') {
       $path = drupal_get_path_alias('taxonomy/term/' . $item['tid']);
       echo "<li><a href='/" . $path . "' id='$item[tid]' class='$item[tid]' data-level='$level'>$item[name]</a>";
     } else {
       echo "<li><a href='javascript:' id='$item[tid]' class='$item[tid]' data-level='$level'>$item[name]</a>";
-    }
+    }*/
+
+    $path = drupal_get_path_alias('taxonomy/term/' . $item['tid']);
+    echo "<li><a href='/" . $path . "' id='$item[tid]' class='$item[tid]' data-level='$level'>$item[name]</a>";
 
     if (isset( $item['children'])  && count($item['children'])) {
       olLiTree( $item['children'], $level );
@@ -111,11 +114,12 @@ function kirana11_products_preprocess_views_view(&$vars)
     }*/
 
     //Store Products Page
-    if ($vars['view']->name == 'store_products') {
-        if(isset($_GET['deals'])){
+    /*if ($vars['view']->name == 'store_products_index') {
+        //echo "<pre>";print_r($_GET['f'][0]);exit;
+        if(isset($_GET['f'][0]) && $_GET['f'][0] == 'field_product%3Afield_commerce_saleprice_on_sale:1'){
             $vars['view']->build_info['title'] = 'Deals of the Day';
         }
-    }
+    }*/
 
     //Product Search Page
     if ($vars['view']->name == 'products_search') {
@@ -127,4 +131,11 @@ function kirana11_products_preprocess_views_view(&$vars)
 
         $vars['view']->build_info['title'] = $view_title . ' ('. $vars['view']->total_rows . ' results)';
     }
+}
+
+function kirana11_products_views_query_alter(&$view, &$query) {
+  // Whatever your view is named...
+  if ($view->name == 'home_page_banners') {
+    $query->where[0]['type'] = 'OR';
+  }
 }
