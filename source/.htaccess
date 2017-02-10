@@ -12,8 +12,8 @@ Options -Indexes
 
 # Follow symbolic links in this directory.
 # For security reasons, Option followsymlinks cannot be overridden.
-#Options +FollowSymLinks
-Options +SymLinksIfOwnerMatch
+Options +FollowSymLinks
+#Options +SymLinksIfOwnerMatch
 
 # Make Drupal handle any 404 errors.
 ErrorDocument 404 /index.php
@@ -53,21 +53,27 @@ DirectoryIndex index.php index.html index.htm
     ExpiresActive Off
   </FilesMatch>
 </IfModule>
+
 # Various rewrite rules.
 <IfModule mod_rewrite.c>
   RewriteEngine on
-  #RewriteCond %{HTTP:X-Forwarded-Proto} !https
-  #RewriteCond %{HTTPS} off
-  #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-  #RewriteRule ^(.*)$ https://kiirana11.com/$1 [R=301,L]
-  #RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+
   # Set "protossl" to "s" if we were accessed via https://.  This is used later
   # if you enable "www." stripping or enforcement, in order to ensure that
   # you don't bounce between http and https.
-  RewriteRule ^ - [E=protossl]
-  RewriteCond %{HTTPS} on
-  ##RewriteCond %{HTTPS} off
-  RewriteRule ^ - [E=protossl:s]
+  #RewriteRule ^ - [E=protossl]
+  #RewriteCond %{HTTPS} on
+  #RewriteRule ^ - [E=protossl:s]
+  
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  
+  #RewriteCond %{HTTPS} off [OR]
+   #RewriteCond %{HTTP_HOST} ^www.kirana11g2t3mzfmnb.devcloud.acquia-sites\.com* [OR]
+   #RewriteCond %{HTTP_HOST} ^kirana11g2t3mzfmnb.devcloud.acquia-sites\.com*
+   #RewriteRule ^(.*)$ https://kirana11g2t3mzfmnb.devcloud.acquia-sites.com/$1 [L,R=301]
   # Make sure Authorization HTTP header is available to PHP
   # even when running as CGI or FastCGI.
   RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
