@@ -56,20 +56,21 @@ DirectoryIndex index.php index.html index.htm
 # Various rewrite rules.
 <IfModule mod_rewrite.c>
   RewriteEngine on
-  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  #RewriteCond %{HTTP:X-Forwarded-Proto} !https
   RewriteCond %{HTTPS} off
-  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+  #RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
   # Set "protossl" to "s" if we were accessed via https://.  This is used later
   # if you enable "www." stripping or enforcement, in order to ensure that
   # you don't bounce between http and https.
-  ##RewriteRule ^ - [E=protossl]
+  RewriteRule ^ - [E=protossl]
   ##RewriteCond %{HTTPS} off
   ###RewriteCond %{HTTP:X-Forwarded-Proto} !https
   ##RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-  #RewriteCond %{HTTPS} on
+  RewriteCond %{HTTPS} on
   ##RewriteCond %{HTTPS} off
   ###RewriteRule ^(.*)$ https://kiirana11.com/$1 [R=301,L]
-  ###RewriteRule ^ - [E=protossl:s]
+  RewriteRule ^ - [E=protossl:s]
   # Make sure Authorization HTTP header is available to PHP
   # even when running as CGI or FastCGI.
   RewriteRule ^ - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
