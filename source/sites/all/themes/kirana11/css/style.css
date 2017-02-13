@@ -307,7 +307,8 @@ header .navbar-toggle{ right: 0; }
 .store_slider .content .slick__arrow .slick-next{ float: right; position: absolute; right: 24px; top: 54%; outline: 0;  }
 
 /* Product deals slider*/
-.front-content-box h2{ overflow:hidden; white-space: nowrap; text-overflow: ellipsis;  }
+.front-content-box h2{ overflow:hidden; white-space: nowrap; text-overflow: ellipsis; }
+.front-content-box h2 span{ font-size: 15px; }
 .product_slider .content .slide__content{ position: relative; padding: 0 10% }
 .product_slider .content .slick__slide{ position: relative; }
 .product_slider .content{ margin: 4% 0 0%; text-align: center;}
@@ -333,6 +334,7 @@ header .navbar-toggle{ right: 0; }
 .jcarousel-skin-default .jcarousel-next, .jcarousel-skin-default .jcarousel-next:hover{ background: url(../images/next-arrow.png) no-repeat; right: 0; background-size: 50%; }
 .jcarousel-skin-default .jcarousel-prev, .jcarousel-skin-default .jcarousel-prev:hover{ background: url(../images/prev-arrow.png) no-repeat; background-size: 50%; }
 .jcarousel-skin-default .jcarousel-item-horizontal{ border: 1px solid #f1f1f1; min-height: 373px; }
+.product_slider .jcarousel-skin-default .jcarousel-item{ padding: 0 5px; }
 
 /* Partners and Brands */
 #partners_brands .block-views{ margin: 5% 0; text-align: center; }
@@ -444,6 +446,7 @@ footer .panel-group{ margin: 0; }
 .node-type-thankyou .landing-page .footer p{ margin: 20px 0; }
 .node-type-thankyou h2{ margin: 0 0 20px !important; }
 .landing-page form .description, .landing-page form label, .landing-page form .password-strength, .landing-page form div.password-confirm, .landing-page form#user-register-form .ajax-progress .message{ display: none; }
+.landing-page form label.error{ position: relative; top: auto; width: 65%; font-size: 13px; text-align: left; }
 .find-location-container p.login-register{ margin: 0; font-size: 13px; }
 .find-location-container p.regiter-terms{font-size: 13px; margin: 15px auto; display: inline-block;}
 .find-location-container p.regiter-terms a{ text-decoration: underline; }
@@ -452,13 +455,15 @@ footer .panel-group{ margin: 0; }
 .find-location-container form .form-actions input{ margin: 0 0 5px 0; padding: 10px 40px; color: #fff !important; }
 .confirm-parent, .password-parent { width: auto; }
 .landing-page form{ position: relative;}
-.otp-send-button{ position: absolute; bottom: 134px; right: 20%; color: #fff !important; padding: 6px !important; font-size: 14px !important; }
+.otp-send-button{ position: absolute; bottom: 138px; right: 20%; color: #fff !important; padding: 6px !important; font-size: 14px !important; }
 .landing-page form#user-register-form .ajax-progress{ display: block; }
-.landing-page form#user-register-form .ajax-progress .throbber{ position: absolute; right:25%; bottom: 133px; }
+.landing-page form#user-register-form .ajax-progress .throbber{ position: absolute; right:25%; bottom: 139px; }
 input[type="text"]#edit-detect-my-location, div#edit-detect-my-location{ background: #356635; color: #fff; cursor: pointer; text-align: center; margin: 0 auto; padding: 10px 20px; border-radius: 5px; font-size: 15px; width: 80%; }
 input[type="text"]#edit-detect-my-location:hover, div#edit-detect-my-location:hover{ background: #cf2127; }
 div#edit-detect-my-location img{ width: 40px; height: 20px; }
-#edit-select-location{ border: 8px solid #356635 !important; padding: 8px !important; color: #666666; width: 80%;  }
+.edit-select-location-outer{ position: relative; }
+#edit-select-location{ border: 8px solid #356635 !important; padding: 8px !important; color: #666666; width: 80%; }
+.edit-select-location-outer.ajax-loader-processed:after{ background: url('../images/search-loader.gif') no-repeat; top: 26%; content: ""; width: 20px; height: 20px; background-size: 100%; position: absolute; right: 12%; }
 .overlay-popup .or-text{ text-align: center; }
 .overlay-popup #edit-select-location{ margin: 0 auto; display: inherit; }
 .display-location-container{ margin: 0px 0 20px; z-index: 100; }
@@ -508,7 +513,8 @@ div#edit-detect-my-location img{ width: 40px; height: 20px; }
 .not-empty-location input{ margin-top: 15px; }
 .page-user ul.userpoints-points li{ list-style: none; margin:0; }
 .page-user ul.userpoints-links li{ list-style: none; margin: 0; padding: 10px 0; }
-}
+.landing-page .form-item input, .landing-page .form-item textarea, .landing-page .form-item select{ border: 2px solid #fcfcfc; }
+.landing-page .form-item input.error, .landing-page .form-item textarea.error, .landing-page .form-item select.error{ border: 2px solid red; }
 
 /* Side bar filter section*/
 aside{ box-shadow: none; }
@@ -665,13 +671,15 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .commerce-order-handler-area-order-total table, .commerce-order-handler-area-order-total table tr, #edit-cart-contents .view-footer table, #edit-cart-contents .view-footer table tr{ border: 0; }
 .commerce-order-handler-area-order-total table, #edit-cart-contents .view-footer .component-title{ text-align: right; }
 .checkout-buttons .fieldset-wrapper{ float: right; margin: 20px 0; }
-.view-commerce-cart-form .commerce_coupon{ width: 100%; float: left; position: relative; background:url(../images/coupon-bg.jpg) center no-repeat; padding:9% 10% 10% 30%; background-size: 85%; margin-top: 5%; }
-.view-commerce-cart-form .commerce_coupon label {position: absolute; padding-left: 22%; font-size: 20px; top:-145px;right: 0;}
-.view-commerce-cart-form .commerce_coupon label::before{ content:""; position: absolute; width: 60px; height: 32px; left: 0; background:url(../images/coupon-icon.jpg) no-repeat; background-size: 70%;  }
-.view-commerce-cart-form .commerce_coupon #edit-coupon-add, .view-commerce-cart-form .commerce_coupon .form-submit{ width:20%; float: left; margin: 16px 0 0 10px; }
-.view-commerce-cart-form .commerce_coupon .form-item input{ background: #fff; padding:10px !important; }
-.view-commerce-cart-form .commerce_coupon .form-item{ width:40%; float: left; }
+.view-commerce-cart-form .commerce_coupon, #commerce-checkout-coupon-ajax-wrapper{ width: 100%; float: left; position: relative; background:url(../images/coupon-bg.jpg) center no-repeat; padding:9% 10% 10% 30%; background-size: 85%; margin-top: 5%; }
+.view-commerce-cart-form .commerce_coupon label, #commerce-checkout-coupon-ajax-wrapper label {position: absolute; padding-left: 22%; font-size: 20px; top:-145px;right: 0;}
+.view-commerce-cart-form .commerce_coupon label::before, #commerce-checkout-coupon-ajax-wrapper label:before{ content:""; position: absolute; width: 60px; height: 32px; left: 0; background:url(../images/coupon-icon.jpg) no-repeat; background-size: 70%;  }
+.view-commerce-cart-form .commerce_coupon #edit-coupon-add, .view-commerce-cart-form .commerce_coupon .form-submit, #commerce-checkout-coupon-ajax-wrapper .form-submit{ width:20%; float: left; margin: 16px 0 0 10px; }
+.view-commerce-cart-form .commerce_coupon .form-item input, #commerce-checkout-coupon-ajax-wrapper .form-item input{ background: #fff; padding:10px !important; }
+.view-commerce-cart-form .commerce_coupon .form-item, #commerce-checkout-coupon-ajax-wrapper .form-item{ width:40%; float: left; }
 .view-commerce-cart-form .component-type-discount, #edit-cart-contents .component-type-discount{ color: #cf2127; }
+.page-checkout .region-content{ background: #fff; padding: 10px; margin-bottom: 20px; }
+.page-checkout .region-content .view-content{ padding: 0; border: 0; min-height: auto; }
 .page-checkout .checkout-buttons input[type="submit"]{ float: right; }
 .page-checkout .checkout-buttons .button-operator{ display: none; }
 .checkout-buttons .checkout-cancel, .checkout-buttons .checkout-back{ background: #356D35; color: #fff; padding: 10px 25px; }
@@ -1003,7 +1011,7 @@ ul.facetapi-facet-field-category ul ul li:before, ul.facetapi-facet-field-catego
 	.node-type-thankyou .landing-banner{ bottom: -100px; }
 	.node-type-thankyou .landing-banner{ bottom: -150px; }
 	.node-type-thankyou .landing-page .footer p{ margin: 13% 0 3%; }
-	.otp-send-button{ right:0px; bottom: 135px; }
+	.otp-send-button{ right:0px; bottom: 140px; }
 	.region-nodify-form input { width: 95%; }
 	.region.region-header-login i, .region.region-header-login ul li a { font-size: 13px;}
 	.region-nodify-form  .webform-component-boolean input{ position: absolute; left: 5%; width: 10px; }
@@ -1033,7 +1041,7 @@ ul.facetapi-facet-field-category ul ul li:before, ul.facetapi-facet-field-catego
 
 
 	/* cart coupon */
-	.view-commerce-cart-form .commerce_coupon label {top:-110px; padding-left: 27%; font-size: 14px;}
+	.view-commerce-cart-form .commerce_coupon label, #commerce-checkout-coupon-ajax-wrapper label {top:-110px; padding-left: 27%; font-size: 14px;}
 	#loyalty .loyalty-input input{ margin-left: 30%; }
 	.loyalty-avilable-points p strong, .loyalty-current-month-points p strong{ font-size: 40px; }
 	.loyalty-avilable-points p , .loyalty-current-month-points p{ font-size: 25px; }
@@ -1367,7 +1375,7 @@ ul.facetapi-facet-field-category ul ul li:before, ul.facetapi-facet-field-catego
 	.view-commerce-cart-form .product-info{ width: 80%; float: left; }
 	.view-commerce-cart-summary .views-field-line-item-title, .view-commerce-cart-summary .views-field-quantity, .view-commerce-cart-summary .views-field-commerce-unit-price, .view-commerce-cart-summary .views-field-commerce-total{ display: none; }
 	.page-cart .region-content .view-content, .page-checkout .region-content .view-content{ padding: 0; background: none; border:0; }
-	.view-commerce-cart-form .views-row, .view-commerce-cart-summary .views-row{ padding: 10px; background: #fff; margin-bottom: 10px; }
+	.view-commerce-cart-form .views-row, .view-commerce-cart-summary .views-row{ padding: 10px; background: #fff; }
 	.mobile-cart-display{ width: 100%; float: left; font-size:13px; }
 	.mobile-display-left{ width: 72%; float: left; }
 	.mobile-display-right{ width: 28%; float: right; padding-top: 10%; }
@@ -1387,12 +1395,12 @@ ul.facetapi-facet-field-category ul ul li:before, ul.facetapi-facet-field-catego
 	#edit-cart-contents .view-footer{ font-size: 13px; padding: 10px; }
 	.view-commerce-cart-summary .commerce-order-handler-area-order-total .commerce-price-formatted-components{ width: 75%; }
 	.commerce-order-handler-area-order-total table{ width: 80% !important; font-size: 12px; }
-	.view-commerce-cart-form .commerce_coupon { background: url(../images/coupon-bg.jpg) #fff center no-repeat; padding: 5% 0; background-size: 95%; margin: 0 0 20px 0; }
-	.view-commerce-cart-form .commerce_coupon label {top:-50px; padding-left: 34px; font-size: 12px;}
-	.view-commerce-cart-form .commerce_coupon label::before{ background-size: 50%; }
-	.view-commerce-cart-form .commerce_coupon .form-item { width: 50%; float: left; margin: 50px 0 30px 15px; }
-	.view-commerce-cart-form .commerce_coupon #edit-coupon-add, .view-commerce-cart-form .commerce_coupon .form-submit { width: 38%; float: left; margin: 52px 0px 0 0px; }
-	.view-commerce-cart-form .commerce_coupon .form-item input{ padding: 7px !important; }
+	.view-commerce-cart-form .commerce_coupon, #commerce-checkout-coupon-ajax-wrapper { background: url(../images/coupon-bg.jpg) #fff center no-repeat; padding: 5% 0; background-size: 95%; margin: 0 0 20px 0; }
+	.view-commerce-cart-form .commerce_coupon label, #commerce-checkout-coupon-ajax-wrapper label {top:-50px; padding-left: 34px; font-size: 12px;}
+	.view-commerce-cart-form .commerce_coupon label::before, #commerce-checkout-coupon-ajax-wrapper label:before{ background-size: 50%; }
+	.view-commerce-cart-form .commerce_coupon .form-item, #commerce-checkout-coupon-ajax-wrapper .form-item { width: 50%; float: left; margin: 50px 0 30px 15px; }
+	.view-commerce-cart-form .commerce_coupon #edit-coupon-add, .view-commerce-cart-form .commerce_coupon .form-submit, #commerce-checkout-coupon-ajax-wrapper .form-submit { width: 38%; float: left; margin: 52px 0px 0 0px; }
+	.view-commerce-cart-form .commerce_coupon .form-item input, #commerce-checkout-coupon-ajax-wrapper .form-item input{ padding: 7px !important; }
 	.view-commerce-cart-form .product-price{ font-size: 11px; color: #666; font-weight: 400; width: 45%; float: left; margin: 0; padding: 0; }
 	.sale-saving-price p{ font-size: 9px; }
 	.view-commerce-cart-form .product-price span{ font-size: 13px; padding:0; margin: 0; width: auto; float: right; }

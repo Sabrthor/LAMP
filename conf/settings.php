@@ -249,10 +249,10 @@ $databases = array (
   array (
     'default' => 
     array (
-      'database' => 'kirana11db',
-      'username' => 'kirana11',
-      'password' => 'IAe2huNYUc',
-      'host' => 'kirana11.c3nildruou6q.eu-west-1.rds.amazonaws.com',
+      'database' => 'kirana11g2t3mzfmnb',
+      'username' => 's208344',
+      'password' => 'mhUrELKGqgBgHRc',
+      'host' => 'localhost',
       'port' => '',
       'driver' => 'mysql',
       'prefix' => '',
@@ -642,4 +642,5 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * @see drupal_clean_css_identifier()
  */
 # $conf['allow_css_double_underscores'] = TRUE;
-$conf['https'] = FALSE;
+$conf['https'] = TRUE;
+$conf['securepages_enable'] = 0;

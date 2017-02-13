@@ -3,6 +3,7 @@
   $show_notify = false;
   $show_location = false;
   $show_location_in_register = false;
+  $form_error = form_set_error();
 
   if (!isset($_SESSION['k11_stores_for_user'])) {
      $show_landing = true;
@@ -128,30 +129,20 @@
         <section class="col-xs-12 col-sm-6 pull-right landing-content-section notify">
           <h2><strong>Oops!</strong> We're arriving soon </h2>
 
-          <!-- Message goes here -->
-              <?php if ($messages): ?>
-              <div id="messages-console" class="clearfix">
-                <div class="row">
-                  <div class="message-outer">
-                    <?php print $messages; ?>
-                  </div>
-                </div>
-              </div>
-              <?php endif; ?>
-              <!-- Message ends here -->
-
           <div class="find-location-container">
             <?php
+
               /* Display location goes here */
               $landing_session = block_get_blocks_by_region('landing_session');
                   print render($landing_session);
               /* Display location ends here */
-              /* Notify form goes here */
 
+              /* Notify form goes here */
               if($page['nodify_form']):
                 print render($page['nodify_form']); 
               endif;
               /* Notify form ends here */
+
             ?>
           </div>
         </section>
@@ -228,18 +219,39 @@
         </section>
         <section class="col-xs-12 col-sm-6 landing-banner-section">
           <?php if($form_class_find == 'login_form'): ?>
-            <p>Hey! Good to see you again, Happy Kiranaing! </p>
-            <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Login_a_img.png" alt="landing location banner" />
+            <!-- Form Error content goes here -->
+            <?php if (!empty($form_error)): ?>
+              <p>Hey! Good to see you again, Happy Kiranaing!</p>
+              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Login_a_img.png" alt="landing location banner" />
+            <?php else: ?>
+              <!-- Form without Error content goes here -->
+              <p>Hey! Good to see you again, Happy Kiranaing!</p>
+              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Login_a_img.png" alt="landing location banner" />
+            <?php endif; ?>
           <?php elseif($form_class_find == 'forgot_form'): ?>
-            <p>Forgot your password! Don't worry I will get it fixed for you</p> 
-            <img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-location-banner.png" alt="landing location banner" />
+            <!-- Form Error content goes here -->
+            <?php if (!empty($form_error)): ?>
+              <p>Forgot your password! Don't worry I will get it fixed for you</p>
+              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/forgotpassword_img.png" alt="landing location banner" />
+            <?php else: ?>
+              <!-- Form without Error content goes here -->
+              <p>Forgot your password! Don't worry I will get it fixed for you</p>
+              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/forgotpassword_img.png" alt="landing location banner" />
+            <?php endif; ?>
           <?php else: ?>
             <?php if($show_location_in_register): ?>
               <p>Hello! Soon You will start saving time and money</p> 
               <img src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_img.png" alt="landing location banner" />
             <?php else: ?>
-              <p>Hello! Good to know you. Welcome to my shop</p> 
-              <img src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_detectlocation_img.png" alt="landing location banner" />
+              <!-- Form Error content goes here -->
+              <?php if (!empty($form_error)): ?>
+                <p>Hello! Good to know you. Welcome to my shop</p>
+                <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_detectlocation_img.png" alt="landing location banner" />
+              <?php else: ?>
+                <!-- Form without Error content goes here -->
+                <p>Hello! Good to know you. Welcome to my shop</p>
+                <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_detectlocation_img.png" alt="landing location banner" />
+              <?php endif; ?>
             <?php endif; ?>
           <?php endif; ?>
         </section>
@@ -472,7 +484,7 @@
                 <div class="col-xs-12 col-sm-8">
                   <div class="row">
                   	<?php if ($page['product_slider']):?>
-                  		<h2><?php print "Best Deals from ".$_SESSION['k11_current_location'];?></h2>
+                  		<h2><?php print "Best Deals <span>from ".$_SESSION['k11_current_location'];?></span></h2>
                   		<div class="product_slider">
                   			<?php print render($page['product_slider']); ?>
 	                    </div>

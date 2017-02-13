@@ -14,8 +14,8 @@
             geocoder.geocode({'latLng': geolocate}, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
                 var result = (results.length > 1) ? results[1] : results[0];
-                //var address = Drupal.behaviors.get_address(result.address_components, ['sublocality_level_2', 'sublocality_level_1', 'locality']);
-                var address = result.formatted_address.split(',').slice(0, 3).join(',');
+                var address = Drupal.behaviors.get_address(result.address_components, ['route', 'sublocality_level_3','sublocality_level_2', 'sublocality_level_1', 'locality']);
+                //var address = result.formatted_address.split(',').slice(0, 3).join(',');
 
                 localStorage.setItem('current_location', address);
 
@@ -89,7 +89,11 @@
               if (status == google.maps.GeocoderStatus.OK) {
                 var result = (results.length > 1) ? results[1] : results[0];
                 //var address = Drupal.behaviors.get_address(result.address_components, ['sublocality_level_2', 'sublocality_level_1', 'locality']);
-                var address = result.formatted_address.split(',').slice(0, 3).join(',');
+                //var address = result.formatted_address.split(',').slice(0, 3).join(',');
+
+                // Selected address
+                var address = $('.edit-select-location-outer input').val();
+                address = address.substr(0, address.indexOf('Bengaluru,') + 9);
 
                 localStorage.setItem('current_location', address);
 
