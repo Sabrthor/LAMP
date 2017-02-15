@@ -156,33 +156,52 @@
 
       $(window).on("load", function() {
         var id = $("#selected_tid").html();
-        $(".region-sidebar-first ul.menu_level_1 li").removeClass('cm-expanded');
-        $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li').css({"font-weight": "700", "color" : "#346d35"});
-        $(".region-sidebar-first ." + id).parent().find('ul.menu_level_2').show();
-        $(".region-sidebar-first ." + id).css({"color" : "#346d35"});
-        $(".region-sidebar-first ." + id).parent().find('ul.menu_level_2 > li').addClass('cm-expanded');
-        $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li').addClass('cm-expanded');
-        $(".region-sidebar-first ." + id).parents('ul.menu_level_1 > li').find('a').css({"color" : "#346d35"});
-        $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li > ul.menu_level_2').toggle();
-        $(".region-sidebar-first ." + id).parentsUntil('.menu_level_2').find('ul.menu_level_3').toggle();
+        var lengthLI = $(".region-sidebar-first ." + id).parents('ul').length;
+        if(lengthLI > 1){
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li').addClass('cm-expanded');
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_1 > li').find('a').css({"color" : "#346d35"});
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_1 > li').css({"font-weight": "700"});
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_2 > li').find('a').css({"color" : "#346d35"});
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_2 > li').css({"font-weight": "700"});
+          $(".region-sidebar-first ." + id).parent('li').css({"font-weight": "700"});
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li > ul').show();
+          $(".region-sidebar-first ." + id).next('ul').show();
+        }else{
+          $(".region-sidebar-first ." + id).next('ul').show();
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li').css({"font-weight": "700"});
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li').addClass('cm-expanded');
+          $(".region-sidebar-first ." + id).css({"color" : "#346d35"});
+        }
       });
       
       $(".menu_level_1 > li > a").once().click(function(){
-        $(".menu_level_1 li").removeClass('cm-expanded');
-        $(".menu_level_1 > li > a").css({"font-weight": "400", "color" : "#666"});
-        $(".menu_level_1 > li ul").hide();
-        $(this).next('ul').toggle();
-        $(this).parent('ul li').addClass('cm-expanded');
-        $(this).css({"font-weight": "700", "color" : "#346d35"});
+        if($(this).parent().hasClass('cm-expanded')){
+          $(this).parent().removeClass('cm-expanded');
+          $(this).next('ul').slideUp();
+          $(this).css({"font-weight": "400", "color" : "#666"});
+        }else{
+          $(".menu_level_1 li").removeClass('cm-expanded');
+          $(this).parent().addClass('cm-expanded');
+          $(".menu_level_1 li a").next('ul').slideUp();
+          $(this).next('ul').slideDown();
+          $(".menu_level_1 li a").css({"font-weight": "400", "color" : "#666"});
+          $(this).css({"font-weight": "700", "color" : "#346d35"});
+        }
       });
 
       $(".menu_level_2 > li a").once().click(function(){
-        $(".menu_level_2 li").removeClass('cm-expanded');
-        $(".menu_level_2 > li a").css({"font-weight": "400", "color" : "#666"});
-        $(".menu_level_2 > li ul").hide();
-        $(this).next('ul').toggle();
-        $(this).parents('ul > li').addClass('cm-expanded');
-        $(this).css({"font-weight": "700", "color" : "#346d35"});
+        if($(this).parent().hasClass('cm-expanded')){
+          $(this).parent().removeClass('cm-expanded');
+          $(this).next('ul').slideUp();
+          $(this).css({"font-weight": "400", "color" : "#666"});
+        }else{
+          $(".menu_level_2 li").removeClass('cm-expanded');
+          $(this).parent().addClass('cm-expanded');
+          $(".menu_level_2 li a").next('ul').slideUp();
+          $(this).next('ul').slideDown();
+          $(".menu_level_2 li a").css({"font-weight": "400", "color" : "#666"});
+          $(this).css({"font-weight": "700", "color" : "#346d35"});
+        }
       });
     }
   }
@@ -252,7 +271,6 @@
         $(".region-sidebar-first .facetapi-facet-field-productfield-commerce-saleprice-on-sale li label").each(function(){
           var label = $.trim($(this).html());
           if(label == "false"){
-            console.log("test");
             $(this).parent().addClass("display-none-web");
           }
         });

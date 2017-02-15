@@ -77,11 +77,14 @@
               <?php
                 global $user;
                 if($user->uid):
-                  $user_addressbook = views_embed_view('user_addressbook', 'block_1');
-                  if(!empty($user_addressbook)):
+                  $user_addressbook = views_get_view('user_addressbook');
+                  $user_addressbook->set_display('block_1');
+                  $user_addressbook_output = $user_addressbook->preview();
+                
+                  if ($user_addressbook->result):
                     print '<div class="user-delivery-address">';
                     print "<h4>Select your delivery address</h4>";
-                    print $user_addressbook;
+                    print $user_addressbook_output;
                     print '</div>';
                   endif;
                 endif;
@@ -221,36 +224,36 @@
           <?php if($form_class_find == 'login_form'): ?>
             <!-- Form Error content goes here -->
             <?php if (!empty($form_error)): ?>
-              <p>Hey! Good to see you again, Happy Kiranaing!</p>
-              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Login_a_img.png" alt="landing location banner" />
+              <p>Hello! Seeing you here for the first time. Sign up to start kiranaing!</p>
+              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Login_a_img_error.png" alt="Login Error Image" />
             <?php else: ?>
               <!-- Form without Error content goes here -->
               <p>Hey! Good to see you again, Happy Kiranaing!</p>
-              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Login_a_img.png" alt="landing location banner" />
+              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Login_a_img.png" alt="Login Image" />
             <?php endif; ?>
           <?php elseif($form_class_find == 'forgot_form'): ?>
             <!-- Form Error content goes here -->
             <?php if (!empty($form_error)): ?>
-              <p>Forgot your password! Don't worry I will get it fixed for you</p>
-              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/forgotpassword_img.png" alt="landing location banner" />
+              <p>Oh oh, use your registered mobile number to login</p>
+              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/forgotpassword_img_rana.png" alt="Forgot Password Error Image" />
             <?php else: ?>
               <!-- Form without Error content goes here -->
               <p>Forgot your password! Don't worry I will get it fixed for you</p>
-              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/forgotpassword_img.png" alt="landing location banner" />
+              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/forgotpassword_img.png" alt="Forgot Password Image" />
             <?php endif; ?>
           <?php else: ?>
             <?php if($show_location_in_register): ?>
               <p>Hello! Soon You will start saving time and money</p> 
-              <img src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_img.png" alt="landing location banner" />
+              <img src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_img.png" alt="Signup First Image" />
             <?php else: ?>
               <!-- Form Error content goes here -->
               <?php if (!empty($form_error)): ?>
-                <p>Hello! Good to know you. Welcome to my shop</p>
-                <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_detectlocation_img.png" alt="landing location banner" />
+                <p>Hello! I see some issues with your information, please help me with right information.</p>
+                <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_detectlocation_img_error.png" alt="Signup Error Image" />
               <?php else: ?>
                 <!-- Form without Error content goes here -->
                 <p>Hello! Good to know you. Welcome to my shop</p>
-                <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_detectlocation_img.png" alt="landing location banner" />
+                <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_detectlocation_img.png" alt="Signup Image" />
               <?php endif; ?>
             <?php endif; ?>
           <?php endif; ?>
