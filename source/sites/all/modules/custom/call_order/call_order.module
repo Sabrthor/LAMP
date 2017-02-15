@@ -14,10 +14,22 @@ function call_order_menu() {
         'description' => 'A form to mess around with.',
         'page callback' => 'drupal_get_form', //this is the function that will be called when the page is accessed.  for a form, use drupal_get_form
         'page arguments' => array('call_order_form'), //put the name of the form here
-        'access callback' => TRUE
+        'access callback' => 'call_order_user_has_role',   
+        'access arguments' => array('Call Center', 'administrator'),
     );
 
     return $items;
+}
+
+function call_order_user_has_role() {  
+  global $user;
+  $roles = func_get_args();
+  foreach ($roles as $role) {
+    if (in_array($role, $user->roles)) {
+      return TRUE;
+    }
+  }
+  return FALSE; 
 }
 
 function call_order_form($form, &$form_state) {
@@ -56,13 +68,13 @@ function call_order_form_submit($form, &$form_state) {
         'init' =>  $mobile_number.'@kirana11.com',
         'roles' => array(
             DRUPAL_AUTHENTICATED_RID => 'authenticated user',
-            3 => 'custom role',
+            5 => 'customer',
         ),
     );
 
 // The first parameter is sent blank so a new user is created.
     user_save('', $new_user);
-    $form_state['redirect'] = 'admin/location-select';
+    $form_state['redirect'] = 'admin/Store-select';
 
 }
 

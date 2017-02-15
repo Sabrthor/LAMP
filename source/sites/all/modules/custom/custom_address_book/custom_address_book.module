@@ -62,3 +62,30 @@ function custom_address_book_form_alter(&$form, &$form_state, $form_id) {
         }
     }
 }*/
+
+/**
+ * Implements hook_commerce_checkout_pane_info_alter
+ */
+function custom_address_book_commerce_checkout_pane_info_alter(&$checkout_panes) {
+    //echo "<pre>";print_r($checkout_panes);
+  if(isset($checkout_panes['user_addressbook'])){
+    $checkout_panes['user_addressbook']['callbacks']['checkout_form_validate'] = 'custom_address_book_commerce_shipping_pane_validate';
+  }
+}
+
+/**
+ * Checkout pane validation override to ensure valid shipping method for address
+ */
+function custom_address_book_commerce_shipping_pane_validate(&$form, &$form_state, $checkout_pane, $order) {
+  $pane_id = reset($form_state['triggering_element']['#array_parents']);
+  
+  if (empty($form_state['order']->data['addresses'])) {
+    drupal_set_message(t('Please select Address'), 'error');
+    $form_state['pane_' . $pane_id]['mode'] = 'select_address';
+    $form_state['pane_' . $pane_id]['action'] = 'select_address';
+    $form_state['rebuild'] = TRUE;
+  }
+  else{
+    return TRUE;
+  }
+}
