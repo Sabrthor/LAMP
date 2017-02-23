@@ -376,7 +376,7 @@ function commerce_ajax_cart_form_commerce_cart_add_to_cart_form_alter(&$form, &$
 function commerce_ajax_k11_cart_add_to_cart_form_validate($form, &$form_state){
   global $user;
   //echo "<pre>";
-  $product_id = $form_state['default_product']->product_id;
+  $product_id = $form_state['values']['product_id'];;
   $store_id = $form_state['default_product']->commerce_store['und'][0]['target_id'];
   $store_ids =[];
 

@@ -269,22 +269,21 @@ function push_notifications_admin_form($form_state) {
     '#attributes' => array(
       'style' => (PUSH_NOTIFICATIONS_GOOGLE_TYPE != PUSH_NOTIFICATIONS_GOOGLE_TYPE_FCM) ? 'display:none' : '',
     ),
-    
   );
 
   $form['configuration_c2dm']['fcm_credentials']['push_notifications_fcm_server_key'] = array(
-    '#type' => 'textfield',
+     '#type' => 'textfield',
     '#title' => t('Server Key'),
-    '#description' => t('Enter the Server Key for your Firebase project'),
-    '#default_value' => variable_get('push_notifications_fcm_server_key', ''),
+   '#description' => t('Enter the Server Key for your Firebase project'),
+   '#default_value' => variable_get('push_notifications_fcm_server_key', ''),
     '#maxlength' => 255,
   );
 
-  $form['configuration_c2dm']['fcm_credentials']['push_notifications_fcm_legacy_server_key'] = array(
+ $form['configuration_c2dm']['fcm_credentials']['push_notifications_fcm_legacy_server_key'] = array(
     '#type' => 'textfield',
-   '#title' => t('Legacy Server key'),
-    '#description' => t('Enter the Legacy Server key for your Firebase project'),
-   '#default_value' => variable_get('push_notifications_fcm_legacy_server_key', ''),
+     '#title' => t('Legacy Server key'),
+   '#description' => t('Enter the Legacy Server key for your Firebase project'),
+    '#default_value' => variable_get('push_notifications_fcm_legacy_server_key', ''),
   );
 
   $form['submit'] = array(
@@ -352,6 +351,7 @@ function push_notifications_admin_form_submit($form, &$form_state) {
  
   variable_set('push_notifications_fcm_server_key', $form_state['values']['push_notifications_fcm_server_key']);
   variable_set('push_notifications_fcm_legacy_server_key', $form_state['values']['push_notifications_fcm_legacy_server_key']);
+
   // Set the APNS certificate location.
   $apns_cert_folder = check_plain($form_state['values']['push_notifications_apns_certificate_folder']);
   if (!empty($apns_cert_folder)) {

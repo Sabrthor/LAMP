@@ -3,6 +3,61 @@ function manage_products_services_services_resources() {
     $resources = array(
         'manage_products_resources' => array(
             'actions' => array(
+                 'merchant_signup' => array(
+                    'help' => t('Merchnat Signup.'),
+                    'file' => array(
+                        'type' => 'inc',
+                        'module' => 'manage_products_services',
+                        'name' => 'manage_products.resource',
+                    ),
+                    'callback' => 'merchant_signup',
+                    'args' => array(
+                        array(
+                            'name'         => 'mobile_number',
+                            'type'         => 'varchar',
+                            'length'       => 255,
+                            'description'  => t('Mobile Number.'),
+                            'source'       => array('data' => 'mobile_number'),
+                            'optional'     => FALSE,
+                        ),
+                        array(
+                            'name'         => 'email',
+                            'type'         => 'varchar',
+                            'length'       => 255,
+                            'description'  => t('Email'),
+                            'source'       => array('data' => 'email'),
+                            'optional'     => TRUE,
+                        ),
+                        array(
+                            'name'         => 'area',
+                            'type'         => 'varchar',
+                            'length'       => 255,
+                            'description'  => t(' Area.'),
+                            'source'       => array('data' => 'area'),
+                            'optional'     => FALSE,
+                        ),
+                        array(
+                            'name'         => 'merchant_name',
+                            'type'         => 'varchar',
+                            'length'       => 255,
+                            'description'  => t(' merchant_name.'),
+                            'source'       => array('data' => 'merchant_name'),
+                            'optional'     => FALSE,
+                        ),
+                        array(
+                            'name'         => 'store_name',
+                            'type'         => 'varchar',
+                            'length'       => 255,
+                            'description'  => t('store_name.'),
+                            'source'       => array('data' => 'store_name'),
+                            'optional'     => FALSE,
+                        ),
+
+                    ),
+                    'access callback' => '_user_resource_access',
+                    'access arguments' => array('create'),
+                    'access arguments append' => FALSE,
+                ),
                 'add_product_store' => array(
                     'help' => t('Add products to store.'),
                     'file' => array(

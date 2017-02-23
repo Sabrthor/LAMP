@@ -177,19 +177,27 @@ function loyalty_rewards_pane_settings_form($checkout_pane) {
  * Implements base_checkout_form()
  */
 function loyalty_rewards_pane_checkout_form($form, $form_state, $checkout_pane, $order) {
-    $checkout_form = array();
+  $checkout_form = array();
 
-    if (isset($_SESSION['k11_remaining_discount_amount']) && $_SESSION['k11_remaining_discount_amount'] > 0) {
-      $html_loyalty_text = '<span>' . t('Apply Loyalty Rewards acquired | ') .'<strong>' . $_SESSION['k11_remaining_discount_amount'] . '</strong></span>';
-    } else {
-      $html_loyalty_text = '<span>' . t('Apply Loyalty Rewards acquired') .'</span>';
-    }
-    
-    $checkout_form['discount_info'] = array(
-      '#markup' => $html_loyalty_text,
-      '#prefix' => '<div id="loyalty"><h3 class="loyalty-title">' . ('Loyalty Rewards') . '</h3><div class="loyalty-input"><input type="checkbox" ' . (isset($_SESSION['k11_royalty_set']) && $_SESSION['k11_royalty_set'] == 1 ? 'checked="checked"' : '') . ' name="loyalty_required" id="loyalty_required" />',
-      '#suffix' => '</div>',
-    );
+  if (isset($_SESSION['k11_remaining_discount_amount']) && $_SESSION['k11_remaining_discount_amount'] > 0) {
+    $html_loyalty_text = '<span>' . t('Apply Loyalty Rewards acquired | ') .'<strong>' . $_SESSION['k11_remaining_discount_amount'] . '</strong></span>';
+  } else {
+    $html_loyalty_text = '<span>' . t('Apply Loyalty Rewards acquired') .'</span>';
+  }
 
-    return $checkout_form;
+  $line_item_id = commerce_userpoints_discount_order_has_userpoint_line_item($order->order_id);
+
+  // Checkbox should be checked if userpoints line item exists.
+  //TODO: Need to check when multiple orders
+  if ($line_item_id == NULL) {
+    $_SESSION['k11_royalty_set'] = 0;
+  }
+
+  $checkout_form['discount_info'] = array(
+    '#markup' => $html_loyalty_text,
+    '#prefix' => '<div id="loyalty"><h3 class="loyalty-title">' . ('Loyalty Rewards') . '</h3><div class="loyalty-input"><input type="checkbox" ' . (isset($_SESSION['k11_royalty_set']) && $_SESSION['k11_royalty_set'] == 1 ? 'checked="checked"' : '') . ' name="loyalty_required" id="loyalty_required" />',
+    '#suffix' => '</div>',
+  );
+
+  return $checkout_form;
 }

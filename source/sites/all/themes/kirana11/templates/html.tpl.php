@@ -6,13 +6,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <?php print $styles; ?>
-  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" type="text/css" />
 
   <!-- HTML5 element support for IE6-8 -->
   <!--[if lt IE 9]>
   <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <?php print $scripts; ?>
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+  <script>
+   WebFont.load({
+      google: {
+        families: ['Nunito Sans:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i']
+      }
+    });
+  </script>
    
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>

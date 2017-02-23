@@ -46,7 +46,7 @@ function manage_products_add($fid, $tid,  $price, $sale_price, $title, $stock, $
     return $product;
 }
 
-function manage_products_update($pid,  $price, $sale_price, $stock, $status) {
+function manage_products_update($pid, $price, $sale_price, $status, $stock) {
     global $user;
     $uid = $user->uid;
     $product = commerce_product_load($pid);
@@ -54,21 +54,20 @@ function manage_products_update($pid,  $price, $sale_price, $stock, $status) {
         'amount' => $price, // $10
         'currency_code' => "INR",
     );
-    $product->field_commerce_saleprice[LANGUAGE_NONE][0] = array(
-        'amount' => $sale_price, // $10
-        'currency_code' => "INR",
-    );
+    if($sale_price != 0){
+        $product->field_commerce_saleprice_on_sale[LANGUAGE_NONE][0]['value']=1;
+        $product->field_commerce_saleprice[LANGUAGE_NONE][0] = array(
+            'amount' => $sale_price, // $10
+            'currency_code' => "INR",
+        );
+    }
+    elseif ($sale_price == 0){
+        $product->field_commerce_saleprice_on_sale[LANGUAGE_NONE][0]['value']=0;
+    }
     $product->commerce_stock[LANGUAGE_NONE][0]['value'] = $stock;
+    $product->status = $status;
     commerce_product_save($product);
-    if($status == 0){
-	  $flag = flag_get_flag('merchant_products');
-	  $flag->flag('unflag', $pid, user_load($uid), TRUE);
-	}else{
-	  $flag = flag_get_flag('merchant_products');
-	  $flag->flag('flag', $pid, user_load($uid), TRUE);
-	}
     return $product;
-
 }
 
 function manage_products_unflag($pid) {
@@ -253,4 +252,33 @@ function manage_products_add_barcode($bar_code){
     node_save($node);
     return 'Product Succesfully submited';
 
+}
+
+function merchant_signup($mobile_number, $email, $area, $merchant_name, $store_name){
+    $user = user_load_by_name($mobile_number);
+    if($user) {
+       // return array("error",t('User Already Exist.'));
+       return  services_error('Mobile Number Already Exist', 400);
+        //form_set_error(t('Price must be a positive number.'));
+        //form_set_error('name', t('User Already Exist.'));
+    } else {
+        $new_user = array(
+            'name' => $mobile_number,
+            'pass' => $mobile_number, // note: do not md5 the password
+            'mail' => $email,
+            'status' => 0,
+            //'init' =>  $email,
+            'field_user_name' => array(LANGUAGE_NONE => array(array('value' => $merchant_name))),
+            'field_area' => array(LANGUAGE_NONE => array(array('value' => $area))),
+            'field_store_name' => array(LANGUAGE_NONE => array(array('value' => $store_name))),
+            'roles' => array(
+                DRUPAL_AUTHENTICATED_RID => 'authenticated user',
+                4 => 'merchant',
+            ),
+        );
+
+// The first parameter is sent blank so a new user is created.
+        user_save('', $new_user);
+        return $new_user;
+    }
 }

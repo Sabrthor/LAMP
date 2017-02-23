@@ -264,6 +264,8 @@ header .navbar-toggle{ right: 0; }
 .region-header-menu ul.menu > li ul li a{ padding: 10px 10px 10px 13px;  width: 100%; float: left; }
 .region-header-menu ul.menu > li ul li a:hover{ background:#346d35; color: #fff; }
 .region-header-menu-o{ color: #fff !important; display: none; }
+.region-header-menu ul.menu > li.active-trail{ background: #fff; }
+.region-header-menu ul.menu > li.active-trail a.active{ color: #cf2127; }
 
 /*header search popup */
 #edit-search-text-wrapper ul{ z-index: 999; font-family: 'Nunito Sans', sans-serif; max-height: 229px; overflow: hidden; overflow-y: scroll;  }
@@ -288,7 +290,11 @@ header .navbar-toggle{ right: 0; }
 #banner .slick-dots li button{ border: 0; background: #fff; border-radius:50%; margin:0 5px; padding:7px; font-size: 0; }
 #banner .slick-dots li.slick-active button{border: 4px solid #ccc; }
 #banner .slick-list.draggable{ padding:0 !important; }
-#banner .slick-track{ position: absolute; }
+/* Flex Slider */
+.flexslider{ margin: 0; }
+.flex-control-nav{ bottom: 20px; z-index: 10; }
+.flex-control-nav li a, .flex-control-nav li a:hover{ background: #fff; box-shadow: none; width: 17px; height: 17px; border: 2px solid #fff; }
+.flex-control-nav li a.flex-active{ background: #346d35; }
 
 /* Store slider */
 .store_slider .content{ margin: 9% 0 2%; background: #eeeff0; padding:10px; text-align: center;}
@@ -627,7 +633,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .region-sidebar-first ul.account-setting-menu{ padding: 0; min-height: 250px; }
 .account-setting-menu li{ list-style: none; padding: 8px 20px; color: #666; }
 .account-setting-menu li a, .account-setting-menu li a:hover{ color: inherit; }
-.page-user-change-password li.account-change-password, .page-user-orders li.account-orders, .page-user-addressbook li.account-address-book, .page-user-addresses li.account-address-book, .page-user-loyalty li.account-loyalty{ background: #fff; font-weight: bold; color: #356D35; }
+.page-user-change-password li.account-change-password, .page-user-orders li.account-orders, .page-user-addressbook li.account-address-book, .page-user-addresses li.account-address-book, .page-user-shubh-shagun li.account-loyalty{ background: #fff; font-weight: bold; color: #356D35; }
 .page-user-change-password h1.page-title{ text-transform: capitalize; }
 #change-pwd-page-form label, #change-pwd-page-form .description{ display: none; }
 
@@ -693,7 +699,9 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 #loyalty h3:before{ content: ""; position: absolute; background-image: url('../images/loyaltypoints_icon.png'); background-repeat: no-repeat; background-size: 100%; background-position: center; margin: -6px 0 0 -50px; width:40px; height: 40px; }
 #loyalty .loyalty-input{ float: left; width: 100%; text-align: center; border-bottom: 1px solid #f1f1f1; padding-bottom: 20px; }
 #loyalty .loyalty-input input{ width: 18px; height:18px; float:  left; margin: 0 10px 0 37%; }
-#loyalty .loyalty-input span{ float:left; }
+#loyalty .loyalty-input span{ float:left; position: relative; }
+#loyalty .loyalty-input span:after{ background: url('../images/search-loader.gif') no-repeat; display: none; margin-left: 10px; content: ""; width: 20px; height: 20px; background-size: 100%; position: absolute; }
+#loyalty .loyalty-input span.show-after:after{ display: inline-block; }
 #commerce-checkout-form-checkout #commerce-userpoints-discount { display: none; }
 #commerce-checkout-form-checkout .delivery_slots_pane label{ position: relative; top: auto; }
 #commerce-checkout-form-checkout .delivery_slots_pane .form-item, #commerce-checkout-form-checkout .delivery_slots_pane .form-item .form-radios{ display: inline-block; }
@@ -831,7 +839,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .page-user-shubh-shagun .loyalty-page{ background: #fff; padding: 0 0 20px 0; }
 .page-user-shubh-shagun .loyalty-page .loyalty-outer-image{ text-align: center; padding: 10px; }
 .page-user-shubh-shagun .loyalty-page .loyalty-outer-image .shubhshagun_unit{ max-width: 50%; }
-.page-user-shubh-shagun .loyalty-page .loyalty-outer-text, .page-user-shubh-shagun .loyalty-page .loyalty-outer-points, .page-user-shubh-shagun .loyalty-page .loyalty-outer-terms{ margin: 20px 70px; text-align: center; }
+.page-user-shubh-shagun .loyalty-page .loyalty-outer-text, .page-user-shubh-shagun .loyalty-page .loyalty-outer-points, .page-user-shubh-shagun .loyalty-page .loyalty-outer-terms, .loyalty-history-title{ margin: 20px 70px; text-align: center; }
 .page-user-shubh-shagun .loyalty-page .loyalty-outer-text h3{ margin: 0 0 10px 0; font-size: 18px; font-weight: 700; }
 .page-user-shubh-shagun .loyalty-page .view-content{ float: none; border: none; min-height: 0; width: auto; margin: 20px 70px; padding: 0; }
 .loyalty-avilable-points, .loyalty-current-month-points{ width: 49%; text-align: center; display: inline-block; float: left; padding: 15px 0; background: #346d35; box-shadow: 0 24px 40px #265028 inset; color: #fff; margin: 0 0 5px 0; }
@@ -842,7 +850,7 @@ form.commerce-add-to-cart .ajax-progress{ position: absolute; }
 .loyalty-notes{ width: 100%; text-align: right; clear: both; font-size: 11px; }
 .page-user-shubh-shagun .loyalty-page .loyalty-outer-terms{ border: 1px solid #f1f1f1; padding:5px 10px; text-align: left; }
 .page-user-shubh-shagun sup{ top: -0.7em; }
-.loyalty-outer-points h4{ text-align: left; font-weight: 700; }
+h4.loyalty-history-title{ text-align: left; font-weight: 700; }
 .loyalty-outer-terms h4{ margin: 10px 0; font-size: 13px; position: relative; cursor: pointer; }
 .loyalty-outer-terms h4:after, .page-user-shubh-shagun .loyalty-page .view-content caption:after{ position: absolute; right: 0; font-family:'FontAwesome'; content: '\f067'; font-weight: 400; }
 .loyalty-outer-terms h4.change-minus:after, .page-user-shubh-shagun .loyalty-page .view-content caption.change-minus:after{ content: '\f068'; }
@@ -1114,7 +1122,7 @@ ul.facetapi-facet-field-category ul ul li:before, ul.facetapi-facet-field-catego
 	.category-display .mrp-price-strike, .category-display .sales-price, .product-price span{ font-size: 13px; }
 
 	/*Loyalty page */
-	.page-user-shubh-shagun .loyalty-page .loyalty-outer-text, .page-user-shubh-shagun .loyalty-page .loyalty-outer-points, .page-user-shubh-shagun .loyalty-page .loyalty-outer-terms, .page-user-shubh-shagun .loyalty-page .view-content{ margin: 10px 20px; }
+	.page-user-shubh-shagun .loyalty-page .loyalty-outer-text, .page-user-shubh-shagun .loyalty-page .loyalty-outer-points, .page-user-shubh-shagun .loyalty-page .loyalty-outer-terms, .page-user-shubh-shagun .loyalty-page .view-content, .loyalty-history-title{ margin: 10px 20px; }
 
 	/* cart page*/
 	.view-commerce-cart-form .views-field-php-2 .field-content{ padding-top: 18%; }
@@ -1145,7 +1153,7 @@ ul.facetapi-facet-field-category ul ul li:before, ul.facetapi-facet-field-catego
 	.page-user-orders- .commerce-price-formatted-components{ width: 60%; }
 }
 @media (min-width: 320px) and (max-width: 380px) {
-	#loyalty .loyalty-input input{ margin-left: 16%; }
+	#loyalty .loyalty-input input{ margin-left: 11%; }
 }
 @media (min-width: 381px) and (max-width: 767px) {
 	#loyalty .loyalty-input input{ margin-left: 20%; }
@@ -1283,6 +1291,8 @@ ul.facetapi-facet-field-category ul ul li:before, ul.facetapi-facet-field-catego
 	#banner{ margin-bottom: 10px; }
 	#banner .slick-dots{ bottom: 0; }
 	#banner .slick-dots li button{ padding:4px; }
+	.flex-control-nav{ bottom: 2px; }
+	.flex-control-nav li a, .flex-control-nav li a:hover{ width: 14px; height: 14px; }
 
 	/* product deals slider*/
 	.store_slider .content{ margin:5px 0; padding: 5px; }
@@ -1444,7 +1454,7 @@ ul.facetapi-facet-field-category ul ul li:before, ul.facetapi-facet-field-catego
 
 	/* Loyalty page */
 	.page-user-shubh-shagun .loyalty-page .loyalty-outer-image .shubhshagun_unit{ max-width: 70%; }
-	.page-user-shubh-shagun .loyalty-page .loyalty-outer-text, .page-user-shubh-shagun .loyalty-page .loyalty-outer-points, .page-user-shubh-shagun .loyalty-page .loyalty-outer-terms, .page-user-shubh-shagun .loyalty-page .view-content{ margin: 10px; }
+	.page-user-shubh-shagun .loyalty-page .loyalty-outer-text, .page-user-shubh-shagun .loyalty-page .loyalty-outer-points, .page-user-shubh-shagun .loyalty-page .loyalty-outer-terms, .page-user-shubh-shagun .loyalty-page .view-content, .loyalty-history-title{ margin: 10px; }
 	.loyalty-avilable-points, .loyalty-current-month-points{ width: 100%; margin: 0 0 20px 0; }
 
 	/* Contact page */

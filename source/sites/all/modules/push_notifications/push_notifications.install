@@ -41,8 +41,8 @@ function push_notifications_uninstall() {
   variable_del('push_notifications_gcm_project_id');
   variable_del('push_notifications_gcm_api_key');
   variable_del('push_notifications_gcm_server_post_url');
- variable_del('push_notifications_fcm_sender_id');
-   variable_del('push_notifications_fcm_server_key');
+ // variable_del('push_notifications_fcm_cloud_messaging_token');
+  variable_del('push_notifications_fcm_server_key');
   variable_del('push_notifications_fcm_legacy_server_key');
   variable_del('push_notifications_fcm_server_post_url');
   variable_del('push_notifications_privatemsg_integration');
@@ -239,4 +239,14 @@ function push_notifications_update_7005() {
     'not null' => TRUE,
   );
   db_change_field($table, $field, $field, $field_new);
+}
+
+/**
+ * Rename cloud messaging token variable to push_notifications_fcm_legacy_server_key.
+ */
+function push_notifications_update_7006() {
+  if (!variable_get('push_notifications_fcm_legacy_server_key', '')) {
+    variable_set('push_notifications_fcm_legacy_server_key', variable_get('push_notifications_fcm_cloud_messaging_token', ''));
+  }
+  variable_del('push_notifications_fcm_cloud_messaging_token');
 }

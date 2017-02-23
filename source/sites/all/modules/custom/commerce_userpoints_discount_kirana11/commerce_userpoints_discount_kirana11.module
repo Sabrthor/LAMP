@@ -364,34 +364,62 @@ function ______commerce_userpoints_discount_kirana11_form_commerce_checkout_form
 function get_current_month_loyalty_points() {
   global $user;
 
-  $total_balance = userpoints_get_current_points($user->uid);
-
-  if($total_balance != 0){
-    $query = db_select('userpoints_txn', 'ut');
-    $query->fields('ut',array('points'));
-    $query->condition('status','0')
+  $query = db_select('userpoints_txn', 'ut');
+  $query->fields('ut',array('points'));
+  $query->condition('status','0')
     ->condition('uid', $user->uid);
-    $query->where('MONTH(FROM_UNIXTIME(time_stamp)) = :monthid', array(':monthid' => date('m')));
 
-    //$alias = $query->addExpression('SUM(points)', 'sum_of_points');
+  $query->where('MONTH(FROM_UNIXTIME(time_stamp)) = :monthid', array(':monthid' => date('m')));
 
-    $points_list = $query->execute()->fetchAll();
+  $points_list = $query->execute()->fetchAll();
 
-    $total_points_spend = 0;
-    foreach($points_list as $points){
-      if($points->points != '500'){
-        $total_points_spend += $points->points;
-      }
+  $total_points_spend = 0;
+
+  foreach($points_list as $points){
+    if($points->points != '111'){
+      $total_points_spend += $points->points;
     }
-
-    $monthly_allocated_points = 111;
-    $available_points = $monthly_allocated_points -  (-$total_points_spend);
-  }
-  else{
-    $available_points = 0;
   }
 
-  $html_location = '<p>&#x20B9;<strong>'.$available_points.'</strong><sup>*</sup></p>';
+  $total_points_spend *= -1;
+
+  $monthly_allocated_points = 111;
+  $available_points = $monthly_allocated_points - $total_points_spend;
+
+  $date1 = gmdate("Y-m-d", $user->created);
+  $date2 = date('Y-m-d');
+
+  $ts1 = strtotime($date1);
+  $ts2 = strtotime($date2);
+
+  $year1 = date('Y', $ts1);
+  $year2 = date('Y', $ts2);
+
+  $month1 = date('m', $ts1);
+  $month2 = date('m', $ts2);
+
+  $months_passed = (($year2 - $year1) * 12) + ($month2 - $month1);
+  $a_date = date('d M Y');
+
+  if($months_passed <= 4) {
+    $total_balance_available = 555 - (111 * $months_passed) - $total_points_spend;
+
+    $html_location = '<div class="loyalty-outer-text">
+        <p>It\'s a new beginning and it\'s our promise to make you save every time you shop with us. Just register with us and get your shubh shagun of Rs 555 in your kirana11.com account. Keep shopping with us every month to save more by redeeming your shubh shagun of Rs 555. Happy Kiranaing!</p>
+    </div>
+    <div class="loyalty-outer-points">
+        <div class="loyalty-avilable-points">
+            <span>Available balance</span>
+            <p>&#x20B9;<strong>' . $total_balance_available . '</strong></p>
+        </div>
+    <div class="loyalty-current-month-points">
+    <span>Current month balance</span>
+    <p>&#x20B9;<strong>' . $available_points . '</strong><sup>*</sup></p>
+   </div>
+   <div class="loyalty-notes">*Expires on '. date("t M Y", strtotime($a_date)). '</div></div>';
+  } else {
+    $html_location = "<div class='loyalty-outer-points'><p>Your Shubh shagun voucher is expired. Don't worry you can still save big on your every purchase with our other discount coupons.</p></div>";
+  }
 
   return $html_location;
 }
