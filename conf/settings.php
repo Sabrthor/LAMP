@@ -644,3 +644,4 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
 # $conf['allow_css_double_underscores'] = TRUE;
 $conf['https'] = FALSE;
 #$conf['securepages_enable'] = 0;
+$conf['drupal_http_request_fails'] = FALSE;
