@@ -645,3 +645,16 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
 $conf['https'] = FALSE;
 #$conf['securepages_enable'] = 0;
 $conf['drupal_http_request_fails'] = FALSE;
+
+
+/**
+ *  * Memcache Settings:
+ *   */
+$conf['cache_backends'][] = 'sites/all/modules/memcache_storage/memcache_storage.inc';
+$conf['cache_default_class'] = 'MemcacheStorage';
+$conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
+$conf['cache_class_cache_update'] = 'DrupalDatabaseCache';
+$conf['memcache_storage_debug'] = TRUE;
+$conf['memcache_servers'] = array(
+	'kirana11-dev.xh72pg.cfg.euw1.cache.amazonaws.com:11211' => default,
+  );
