@@ -649,12 +649,11 @@ $conf['drupal_http_request_fails'] = FALSE;
 
 /**
  *  * Memcache Settings:
- *   */
-$conf['cache_backends'][] = 'sites/all/modules/memcache_storage/memcache_storage.inc';
-$conf['cache_default_class'] = 'MemcacheStorage';
+ *   
+$conf['memcache_servers'] = array('kirana11-dev.xh72pg.cfg.euw1.cache.amazonaws.com:11211' => 'default');
+$conf['cache_backends'][] = 'sites/all/modules/memcache/memcache.inc';
+$conf['cache_default_class'] = 'MemCacheDrupal';
 $conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
-$conf['cache_class_cache_update'] = 'DrupalDatabaseCache';
-$conf['memcache_storage_debug'] = TRUE;
-$conf['memcache_servers'] = array(
-	'kirana11-dev.xh72pg.cfg.euw1.cache.amazonaws.com:11211' => default,
-  );
+$conf['page_cache_without_database'] = TRUE;
+$conf['page_cache_invoke_hooks'] = FALSE;
+ */
