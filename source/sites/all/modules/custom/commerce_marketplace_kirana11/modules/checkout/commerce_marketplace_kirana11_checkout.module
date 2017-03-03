@@ -1,0 +1,89 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Vimala
+ * Date: 1/26/2017
+ * Time: 12:42 PM
+ */
+
+function commerce_marketplace_kirana11_checkout_init() {
+    drupal_add_js(drupal_get_path('module', 'commerce_marketplace_kirana11_checkout') . '/js/scripts.js');
+}
+
+/**
+ * Implements hook_menu().
+ */
+function commerce_marketplace_kirana11_checkout_menu(){
+    $items = array();
+    $items['get_disabled_slots/%/%'] = array(
+        'title' => t('Get Available Timeslots'),
+        'file' => 'includes/commerce_marketplace_kirana11_checkout.checkout_pane.inc',
+        'file path' => drupal_get_path('module','commerce_marketplace_kirana11_checkout'),
+        'page callback' => 'get_disabled_timeslots',
+        'page arguments' => array(1,2),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+    );
+    return $items;
+}
+
+
+function commerce_marketplace_kirana11_checkout_commerce_checkout_page_info(){
+    $checkout_pages['delivery_slots'] = array(
+        'name' => t('Delivery Slots'),
+        'title' => t('Delivery Slots'),
+        'weight' => 2,
+        'status_cart' => FALSE,
+        'buttons' => TRUE,
+    );
+    return $checkout_pages;
+}
+
+/**
+ * Implements hook_commerce_checkout_pane_info()
+ */
+function commerce_marketplace_kirana11_checkout_commerce_checkout_pane_info() {
+    $panes['delivery_slots_pane'] = array(
+        'title' => t('Delivery Slots Pane'),
+        'page' => 'addresses',
+        'weight' => 10,
+        'file' => 'includes/commerce_marketplace_kirana11_checkout.checkout_pane.inc',
+        'base' => 'delivery_slots_pane',
+    );
+
+    $panes['loyalty_rewards_pane'] = array(
+        'title' => t('Loyalty Rewards Pane'),
+        'page' => 'checkout',
+        'weight' => 10,
+        'file' => 'includes/commerce_marketplace_kirana11_checkout.checkout_pane.inc',
+        'base' => 'loyalty_rewards_pane',
+    );
+    return $panes;
+}
+
+/**
+ * Implements hook_commerce_checkout_router().
+ *
+ * Create node on complete checkout page.
+ */
+function commerce_marketplace_kirana11_checkout_commerce_checkout_router($order, $checkout_page) {
+    //echo $checkout_page['page_id'];exit;
+    /*if($checkout_page['page_id'] == 'checkout') {
+        $checkout_pages = commerce_checkout_pages();
+
+        $checkout_pages_keys = array_keys($checkout_pages);
+        $checkout_position = array_search($checkout_page, $checkout_pages);
+        if (isset($checkout_pages_keys[$checkout_position + 1])) {
+            $checkout_next_page = $checkout_pages_keys[$checkout_position + 1];
+            commerce_order_status_update($order, 'checkout_checkout');
+            drupal_goto('checkout/' . $order->order_number . '/' . $checkout_next_page);
+        }
+    }*/
+    /*if ($checkout_page['page_id'] != 'complete' || !isset($order->data['node'])) {
+        return;
+    }
+
+    $node = (object) $order->data['node'];
+    node_save($node);
+    unset($order->data['node']);*/
+}

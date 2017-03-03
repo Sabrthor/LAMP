@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */ 
+function geocoder_location_handler_init() {  
+  drupal_add_js('https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDa2LbHo4xvVQ1QrkvDrJdzhGnID2BJm_E');
+  drupal_add_js(drupal_get_path('module', 'geocoder_location_handler') . '/js/detect_location.js');
+}
+
+function geocoder_location_handler_menu() {
+  $items = array();
+
+  $items['get_stores_by_coordinate/%/%'] = array(
+    'title' => t('Get stores by coordinates'),
+    'page callback' => 'geocoder_location_handler_get_stores_by_coordinate',
+    'access arguments' => array('access content'),
+    'file path' => drupal_get_path('module','geocoder_location_handler'),
+    'file' => 'geocoder_location_handler.resource.inc',
+    'page arguments' => array(1, 2),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['set_current_location/%'] = array(
+    'title' => t('Set current location in session'),
+    'page callback' => 'geocoder_location_handler_set_current_location',
+    'access arguments' => array('access content'),
+    'file path' => drupal_get_path('module','geocoder_location_handler'),
+    'file' => 'geocoder_location_handler.resource.inc',
+    'page arguments' => array(1),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function geocoder_location_handler_block_info() {
+  $blocks = [];
+
+  $blocks['find_or_select_location'] = array(
+    'info' => t('Find or select location'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function geocoder_location_handler_block_view($delta = '') {
+  $block = [];
+
+  switch ($delta) {
+    case 'find_or_select_location':
+        $block['content'] = geocoder_location_handler_block_content();
+    break;
+  }
+
+  return $block;
+}
+
+function geocoder_location_handler_block_content() {
+  $html_location = '<div class="form-item"><div id="edit-detect-my-location">Detect my location</div></div>';
+  $html_location .= '<p class="or-text">OR</p>';
+  $html_location .= '<div class="form-item edit-select-location-outer"><input class="form-text" placeholder="Preferred Delivery Location" type="text" id="edit-select-location" /></div>'; 
+  $html_location .= '<div class="error-text-location messages message-alert alert alert-block alert-danger"><a href="#" class="close" data-dismiss="alert">x</a><p class="error-text-location-p"></p></div>';
+
+  return $html_location;
+}
+
+/**
+ * Set the value for user location from session's current location.
+ */
+function geocoder_location_handler_form_alter(&$form, &$form_state, $form_id) {
+  //TOFIX: Need to find the webform by name otherthan id.
+  if (isset($form['#node']) && strtoupper($form['#node']->type) === 'WEBFORM') {
+    if (isset($_SESSION['k11_current_location'])) {
+      $form['submitted']['user_location']['#value'] = $_SESSION['k11_current_location'];   
+    }
+    
+    if (isset($_SESSION['k11_user_coordinates'])) {
+      $form['submitted']['user_coordinates']['#value'] = $_SESSION['k11_user_coordinates'];   
+    }    
+  }
+}

@@ -1,0 +1,516 @@
+<?php
+/**
+ * Implements hook_init().
+ */
+function commerce_marketplace_kirana11_cart_init() {
+  drupal_add_js(drupal_get_path('module', 'commerce_marketplace_kirana11_cart') . '/js/script.js');
+  //drupal_add_js(drupal_get_path('module', 'commerce_marketplace_kirana11_cart') . '/js/kirana11_quantity.js');
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function commerce_marketplace_kirana11_cart_block_info() {
+  $blocks = [];
+
+  $blocks['check_location_change'] = array(
+    'info' => t('Check location change with non-empty cart'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function commerce_marketplace_kirana11_cart_block_view($delta = '') {
+  $block = [];
+
+  switch ($delta) {
+    case 'check_location_change':
+      $block['content'] = commerce_marketplace_kirana11_cart_block_content();
+      break;
+  }
+
+  return $block;
+}
+
+function commerce_marketplace_kirana11_cart_block_content() {
+  global $user;
+  $html_location_change = 'EMPTY_CART';
+
+  $user_order_in_cart = commerce_cart_order_load($user->uid);
+
+  if ($user_order_in_cart) {
+    $html_location_change = '<div class="not-empty-location"><h2>Alert</h2>';
+    $html_location_change .= 'Change of location will empty your cart. Do you want to continue?';
+    $html_location_change .= '<br/><input type="button" id="click-no" class="click-no" value="No" /> <input type="button" id="click-yes" class="click-yes" value="Yes" />';
+    $html_location_change .= '</div>';
+  }
+
+  return $html_location_change;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function commerce_marketplace_kirana11_cart_menu() {
+  $items = array();
+
+  $items['empty_cart_orders'] = array(
+    'title' => t('Empty the cart orders'),
+    'page callback' => 'commerce_marketplace_kirana11_cart_empty_cart_order',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['update_cart/%/%'] = array(
+    'title' => t('Empty the cart orders'),
+    'page callback' => 'update_cart',
+    'access arguments' => array('access content'),
+    'page arguments' => array(1, 2),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Remove all the orders (from each store) in the cart for the current logged in user.
+ */
+function commerce_marketplace_kirana11_cart_empty_cart_order() {
+  global $user;
+
+ if ($orders = commerce_marketplace_cart_order_load_multiple($user->uid)) {
+	foreach ($orders as $order) {
+	  commerce_order_delete($order->order_id);
+	}
+  }
+
+  return drupal_json_output('CART_EMPTY');
+}
+
+/**
+ * Implements hook_form_alter().
+ * Adds additional theme wrappers for add to cart's quantity textfields.
+ */
+function commerce_marketplace_kirana11_cart_form_alter(&$form, &$form_state, $form_id) {
+  // Checkout form submit title change.
+  if ($form_id == 'commerce_checkout_form_checkout') {
+    $form['buttons']['continue']['#value'] = t('Proceed');
+  }
+
+  if ($form_id == 'commerce_checkout_form_addresses') {
+    $form['buttons']['continue']['#value'] = t('Proceed');
+  }
+
+  if ($form_id == 'commerce_checkout_form_review') {
+    $form['buttons']['continue']['#value'] = t('Proceed');
+  }
+
+ /* if ($form_id == 'views_form_commerce_cart_form_default') {
+    $form['actions']['submit']['#access'] = FALSE;
+  }*/
+
+  // Quantity fields from views
+  /*$str = 'views_form_commerce_cart_form_default';
+  if (drupal_substr($form_id, 0, drupal_strlen($str)) == $str) {
+    if (isset($form['edit_quantity'])) {
+      foreach ($form['edit_quantity'] as $key => $value) {
+        if (is_numeric($key) && drupal_substr($key, 0, 1) != '#' && is_array($value)) {
+          $form['edit_quantity'][$key]['#theme_wrappers'] = array(
+            'quantity_plusminus_wrapper',
+            'form_element'
+          );
+        }
+      }
+    }
+
+    $view = &$form_state['build_info']['args'][0];
+
+    if ($view->use_ajax) {
+      $fake_link = 'dc-cart-ajax-' . str_replace('_', '-', $form_id);
+      $fake_link = '<a href="#" id="'. $fake_link .'">&nbsp;</a>';
+      $form['#prefix']  = $form['#prefix'] . '<div id="dc-cart-ajax-form-wrapper">';
+      $form['#suffix']  = '</div>' . $form['#suffix'];
+      $form['#suffix'] .= '<div class="attachment"><div class="views-summary">'. $fake_link .'</div></div>';
+
+      $ajax = array(
+        'callback' => 'commerce_marketplace_kirana11_cart_form_views_form_commerce_cart_form_ajax_submit',
+        'wrapper' => 'dc-cart-ajax-form-wrapper',
+        'method' => 'replace',
+        'progress' => array('type' => 'throbber', 'message' => ''),
+      );
+
+      $form['actions']['submit']['#ajax'] = $ajax;
+      if (!empty($form['edit_delete'])) {
+        foreach (element_children($form['edit_delete']) as $k) {
+          $form['edit_delete'][$k]['#ajax'] = $ajax;
+        }
+      }
+    }
+  }*/
+}
+
+/**
+ * Ajax callback for cart form.
+ */
+function _______commerce_marketplace_kirana11_cart_form_views_form_commerce_cart_form_ajax_submit(&$form, &$form_state) {
+  $is_empty = true;
+  $commands = array();
+
+  if ($orders = commerce_marketplace_cart_order_load_multiple($GLOBALS['user']->uid)) {
+    foreach ($orders as $order) {
+      if (!empty($order)) {
+        $is_empty = $is_empty && empty($order->commerce_line_items);
+
+        $cart_contents_view =  _commerce_userpoints_discount_update_cart_view($order->order_id);
+        $commands[] = ajax_command_html('#views-form-commerce-cart-form-default', render($cart_contents_view));
+      }
+    }
+  }
+
+  $output = '';
+  if ($is_empty) {
+    $output = menu_execute_active_handler('cart', FALSE);
+  }
+
+  $commands[] = array(
+    'command' => 'dc_cart_ajax',
+    'output'  => $output,
+    'message' => theme('status_messages'),
+    'form-id' => str_replace('_', '-', $form['#form_id']),
+  );
+
+  return array('#type' => 'ajax', '#commands' => $commands);
+}
+
+/**
+ * Add to cart form from field api (product listing in home/category page)
+ */
+function _______commerce_marketplace_kirana11_cart_form_commerce_cart_add_to_cart_form_alter(&$form, &$form_state) {
+  $form['submit']['#ajax'] = array(
+    'callback' => 'commerce_ajax_cart_callback',
+  );
+
+  global $user;
+
+  $form['submit']['#attributes']['value'] = t('Add to');
+  $form['submit']['#prefix'] = '<div class="add-to-cart-div">';
+  $form['submit']['#suffix'] = '</div>';
+
+  // Only valid for logged in users, because of Varnish and other caches.
+  if (!empty($user->uid)) {
+    $line_item = $form_state['line_item'];
+
+    // Check if it's in their cart.
+    $cart_order_product_ids = commerce_marketplace_kirana11_cart_get_items_in_cart();
+
+    if (!empty($cart_order_product_ids) && !empty($line_item->commerce_product)) {
+      foreach ($cart_order_product_ids as $order_number =>  $cart_product_ids) {
+        $cart_product_id_list = array_keys($cart_product_ids);
+
+        $line_item_wrapper = entity_metadata_wrapper('commerce_line_item', $line_item);
+
+        if (in_array($line_item_wrapper->commerce_product->product_id->value(), $cart_product_id_list)) {
+
+          $quantity = 0;
+          $order = commerce_order_load($order_number);
+
+          if (!empty($order)) {
+            if (count($order->commerce_line_items) > 0) {
+              $line_items = $order->commerce_line_items;
+
+              foreach ($line_items['und'] as $key => $value) {
+                $line_item = commerce_line_item_load($value['line_item_id']);
+
+                if(!empty($line_item->commerce_product)) {
+                  $products = $line_item->commerce_product['und'];
+
+                  foreach ($products as $product_key => $product_value) {
+                    if ($line_item_wrapper->commerce_product->product_id->value() == $product_value['product_id']) {
+                      $line_item = commerce_line_item_load($value['line_item_id']);
+                      $quantity = floor($line_item->quantity);
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          // Hide submit button.
+          $form['submit']['#attributes']['class'][] = 'element-invisible';
+
+          $form['minus'] = array(
+            '#type' => 'button',
+            '#value' => t('-'),
+            '#prefix' => '<div id="cart_update_section_' . $line_item_wrapper->commerce_product->product_id->value() . '">',
+            '#ajax' => array(
+              'callback' => 'click_on_minus',
+              'wrapper' => 'cart_update_section_' . $line_item_wrapper->commerce_product->product_id->value(),
+            ),
+          );
+
+          $form['cart_count'] = array(
+            '#type' => 'textfield',
+            '#title' => t('Cart count'),
+            '#default_value' => $quantity,
+            '#prefix' => '<div id="cart_update_section_' . $line_item_wrapper->commerce_product->product_id->value() . '" class="add-to-cart-button">',
+            '#suffix' => '</div>'
+          );
+
+          $form['plus'] = array(
+            '#type' => 'button',
+            '#value' => t('+'),
+            '#suffix' => '</div>',
+            '#ajax' => array(
+              'callback' => 'click_on_plus',
+              'wrapper' => 'cart_update_section_' . $line_item_wrapper->commerce_product->product_id->value(),
+            ),
+          );
+
+          $form['product_id'] = array(
+            '#type' => 'hidden',
+            '#value' => $line_item_wrapper->commerce_product->product_id->value(),
+          );
+        }
+      }
+    }
+  }
+
+  return $form;
+}
+
+function _____commerce_ajax_cart_callback($form, &$form_state) {
+  global $user;
+
+  $form = drupal_rebuild_form($form['#form_id'], $form_state, $form);
+
+  $commands[] = ajax_command_replace('.' . drupal_html_class($form['#form_id']), drupal_render($form));
+  $commands[] = array(
+    'command' => 'commerceAjaxCartFireTrigger',
+    'data' => $form['#form_id'],
+  );
+
+  $form_state['rebuild'] = TRUE;
+
+  return array(
+    '#type' => 'ajax',
+    '#commands' => $commands,
+  );
+}
+
+function ____click_on_minus($form, $form_state) {
+  $quantity = isset($form_state['values']['cart_count']) ? (int)$form_state['values']['cart_count'] - 1 : 1;
+  $form['cart_count']['#value'] = $quantity;
+
+  $product_id = $form_state['values']['product_id'];
+
+  update_cart($product_id, $quantity);
+
+  if($quantity == 0) {
+    // Remove the class 'element-invisible' from submit.
+    $classes = &$form['submit']['#attributes']['class'];
+
+    $classes = array_filter($classes , function($e){
+      return $e != 'element-invisible';
+    });
+
+    return $form['submit'];
+  } else {
+    return $form;
+  }
+}
+
+function _____click_on_plus($form, $form_state) {
+  $quantity = isset($form_state['values']['cart_count']) ? (int)$form_state['values']['cart_count'] + 1 : 1;
+  $form['cart_count']['#value'] = $quantity;
+
+  $product_id = $form_state['values']['product_id'];
+
+  update_cart($product_id, $quantity);
+
+  return $form;
+}
+
+function ______update_cart($product_id, $quantity) {
+  global $user;
+
+  $cart_order_product_ids = commerce_marketplace_kirana11_cart_get_items_in_cart();
+
+  if (!empty($cart_order_product_ids)) {
+    foreach ($cart_order_product_ids as $order_number =>  $cart_product_ids) {
+      $cart_product_id_list = array_keys($cart_product_ids);
+
+      if (in_array($product_id, $cart_product_id_list)) {
+        if ($user) {
+          if ($orders = commerce_marketplace_cart_order_load_multiple($user->uid)) {
+            foreach ($orders as $order) {
+              if (!empty($order)) {
+                if ($order->order_number == $order_number) {
+                  if (count($order->commerce_line_items) > 0) {
+                    $line_items = $order->commerce_line_items;
+
+                    foreach ($line_items['und'] as $key => $value) {
+                      $line_item = commerce_line_item_load($value['line_item_id']);
+                      $products = $line_item->commerce_product['und'];
+
+                      foreach ($products as $product_key => $product_value) {
+                        if ($product_id == $product_value['product_id']) {
+                          if($quantity == 0) {
+                            commerce_cart_order_product_line_item_delete($order, $value['line_item_id']);
+                          } else {
+                            $line_item = commerce_line_item_load($value['line_item_id']);
+                            $line_item->quantity = $quantity;
+
+                            commerce_line_item_save($line_item);
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Helper function to return an array of product_ids of the user's current cart.
+ */
+function ______commerce_marketplace_kirana11_cart_get_items_in_cart() {
+  global $user;
+  $cart_product_ids = &drupal_static(__FUNCTION__);
+
+  if (!$cart_product_ids) {
+    if ($orders = commerce_marketplace_cart_order_load_multiple($user->uid)) {
+      foreach ($orders as $order) {
+        if (!empty($order)) {
+          $order_wrapper = entity_metadata_wrapper('commerce_order', $order);
+
+          foreach ($order_wrapper->commerce_line_items as $delta => $line_item_wrapper) {
+            if (!empty($line_item_wrapper->commerce_product)) {
+              $product_wrapper = $line_item_wrapper->commerce_product;
+              $type = $product_wrapper->type->value();
+              $product_id = $product_wrapper->product_id->value();
+              $cart_product_ids[$order->order_number][$product_id] = $type;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return $cart_product_ids;
+}
+
+/**
+ * Continue Shopping cart button added
+ */
+function commerce_marketplace_kirana11_cart_form_views_form_commerce_cart_form_default_alter(&$form, &$form_state, $form_id) {
+  $form['actions']['continue_shopping'] = array(
+    '#type' => 'button',
+    '#value' => t('Continue Shopping'),
+    '#weight' => -999,
+  );
+  $form['actions']['continue_shopping']['#attributes'] = array('ONCLICK' => "history.go(-1); return false;");
+}
+
+/**
+ * Implements hook_theme().
+ */
+function ____commerce_marketplace_kirana11_cart_theme($existing, $type, $theme, $path) {
+  return array(
+    'quantity_plusminus_wrapper' => array(
+      'render element' => 'form',
+    ),
+    'quantity_plusminus_link' => array(
+      'variables' => array(
+        'way' => NULL,
+        'quantity' => NULL,
+        'quantity_input_element' => NULL
+      ),
+    ),
+  );
+}
+
+/**
+ * Returns HTML for quantity textfield having links wrapping the textfield.
+ */
+function _____theme_quantity_plusminus_wrapper($variables) {
+  $amount = isset($variables['form']['#amount']) ? $variables['form']['#amount'] : 1;
+  $limit_down = isset($variables['form']['#limit_down']) ? $variables['form']['#limit_down'] : 1;
+  $decrease = theme('quantity_plusminus_link', array(
+    'way' => COMMERCE_EXTRA_QUANTITY_DECREASE,
+    'quantity' => $variables['form']['#value'],
+    'quantity_input_element' => $variables['form']['#id'],
+    'amount' => $amount,
+    'limit_down' => $limit_down
+  ));
+  $increase = theme('quantity_plusminus_link', array(
+    'way' => COMMERCE_EXTRA_QUANTITY_INCREASE,
+    'quantity' => $variables['form']['#value'],
+    'quantity_input_element' => $variables['form']['#id'],
+    'amount' => $amount,
+    'limit_down' => $limit_down
+  ));
+  return $decrease . $variables['form']['#children'] . $increase;
+}
+
+/**
+ * Returns HTML for link which increases/decreases quantity value.
+ */
+function ____theme_quantity_plusminus_link($variables) {
+  switch ($variables['way']) {
+    case COMMERCE_EXTRA_QUANTITY_DECREASE:
+      $text = '-';
+      $class = 'commerce-quantity-plusminus-link-decrease';
+      $php_callback = 'click_on_minus_in_cart';
+      $js_callback = "Drupal.commerce_extra_quantity_quantity('#" . $variables['quantity_input_element'] . "', " . $variables['way'] . ", " . $variables['amount'] . ", " . $variables['limit_down'] . ")";
+      //$js_callback = '';
+      break;
+    case COMMERCE_EXTRA_QUANTITY_INCREASE:
+      $text = '+';
+      $class = 'commerce-quantity-plusminus-link-increase';
+      $php_callback = 'click_on_plus_in_cart';
+      $js_callback = "Drupal.commerce_extra_quantity_quantity('#" . $variables['quantity_input_element'] . "', " . $variables['way'] . ", " . $variables['amount'] . ", " . $variables['limit_down'] . ")";
+      //$js_callback = '';
+      break;
+    default:
+      $text = '';
+      $class = '';
+      $php_callback = '';
+      $js_callback = '';
+      break;
+  }
+
+  if ($variables['quantity'] <= 1) {
+    $class .= ' commerce-quantity-plusminus-link-disabled';
+  }
+  $options = array(
+    'attributes' => array(
+      'class' => array('button'),
+      'onclick' => $js_callback . ';'
+
+    ),
+    'html' => TRUE,
+  );
+  $element = array(
+    '#theme' => 'link',
+    '#text' => $text,
+    '#ajax' => array(
+      'wrapper' => 'cart-item-wrapper',
+      'callback' => $php_callback,
+      'event' => 'click',
+    ),
+    '#options' => $options,
+    '#prefix' => '<span class="commerce-quantity-plusminus-link ' . $class . '">',
+    '#suffix' => '</span>',
+  );
+  return render($element);
+}

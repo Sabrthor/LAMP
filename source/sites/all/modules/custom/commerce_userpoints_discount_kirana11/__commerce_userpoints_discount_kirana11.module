@@ -1,0 +1,426 @@
+<?php
+
+/**
+ * @file
+ * Discount/offers/loyalty for Kirana11.
+ */
+
+/**
+ * Implements hook_init().
+ */
+function commerce_userpoints_discount_kirana11_init() {
+  drupal_add_js(drupal_get_path('module', 'commerce_userpoints_discount_kirana11') . '/js/script.js');
+}
+
+/**
+ * Implements hook_commerce_cp_info().
+ */
+function _____commerce_userpoints_discount_kirana11_commerce_cp_info()
+{
+  $cart_panes = array();
+
+  $cart_panes['royalty_reward'] = array(
+    'name' => t('Royalty reward'),
+    'pane callback' => 'royalty_reward_info_pane',
+    'page' => 'cart',
+  );
+
+  return $cart_panes;
+}
+
+function ______royalty_reward_info_pane($form, $form_state, $cart_order, $pane_weight) {
+  $form_pane = array();
+
+  if (isset($_SESSION['k11_remaining_discount_amount']) && $_SESSION['k11_remaining_discount_amount'] > 0) {
+    $form_pane['discount_info'] = array(
+      //'#markup' => '<span>' . t('Apply Loyalty Rewards acquired | ') .'<strong>' . $_SESSION['k11_remaining_discount_amount'] . '</strong></span>',
+      '#markup' => '<span>' . t('Apply Loyalty Rewards acquired') .'</span>',
+      '#weight' => $pane_weight,
+      '#prefix' => '<div id="loyalty"><h3 class="loyalty-title">' . ('Loyalty Rewards') . '</h3><div class="loyalty-input"><input type="checkbox" ' . (isset($_SESSION['k11_royalty_set']) && $_SESSION['k11_royalty_set'] == 1 ? 'checked="checked"' : '') . ' name="loyalty_required" id="loyalty_required" />',
+      '#suffix' => '</div>',
+    );
+  }
+
+  return $form_pane;
+}
+
+function commerce_userpoints_discount_kirana11_menu() {
+  $items = array();
+
+  $items['apply_k11_userpoints/%'] = array(
+    'title' => t('Apply K11 userpoints'),
+    'page callback' => 'apply_k11_userpoints_callback',
+    'access arguments' => array('access content'),
+    'page arguments' => array(1),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+function commerce_userpoints_discount_kirana11_form_views_form_commerce_cart_form_default_alter(&$form, &$form_state, $form_id) {
+  global $user;
+
+  $grand_total = 0;
+  $order_details = [];
+
+  foreach($form_state['build_info']['args'][0]->result as $cart_total) {
+    $grand_total +=  floatval($cart_total->_field_data['commerce_line_item_field_data_commerce_line_items_line_item_']['entity']->commerce_total['und'][0]['amount'] / 100);
+    $order_id = $cart_total->_field_data['commerce_line_item_field_data_commerce_line_items_line_item_']['entity']->order_id;
+
+    $order_details[$order_id]['order_id'] = $order_id;
+
+    $line_item_id = commerce_userpoints_discount_order_has_userpoint_line_item($order_id);
+
+    // If there is no existing userpoints line item, we create a new one.
+    if ($line_item_id != NULL) {
+      $_SESSION['k11_royalty_set'] = 1;
+    }
+  }
+
+  // To avoid order_id repeat
+  $order_details = array_values($order_details);
+
+  $grand_total = number_format((float)$grand_total, 2, '.', '');
+
+  $currencies = commerce_userpoints_currencies();
+
+  $default_currency = reset($currencies);
+
+  if (isset($form_state['values']['commerce_userpoints_discount']['currency'])) {
+    $currency_code = $form_state['values']['commerce_userpoints_discount']['currency'];
+  }
+  else {
+    $currency_code = $default_currency['code'];
+  }
+
+  $discount_amount = floatval(($grand_total / 100) * 11);
+
+  // Remaining points.
+  $current_points = userpoints_get_current_points($user->uid);
+
+  // Get exchange rate.
+  $conversion_rate = $currencies[$currency_code]['conversion_rate'];
+
+  if (!isset($conversion_rate)) {
+    $conversion_rate = 1;
+  }
+
+  // Convert exchange rate to currency.
+  $points_as_currency = $current_points * $conversion_rate;
+
+  // Smaller amount in discount amount and remaining points. (4.30 to 4.00)
+  $remaining_discount_amount = floor(min($discount_amount, $points_as_currency));
+
+  $_SESSION['k11_remaining_discount_amount'] = $remaining_discount_amount;
+
+  // Convert points as currency to points
+  $points_can_be_used = $remaining_discount_amount / $conversion_rate;
+
+  $_SESSION['k11_points_can_be_used'] = $points_can_be_used;
+  $_SESSION['k11_order_details'] = $order_details;
+
+   // apply_k11_userpoints($points_can_be_used, $order_details, true);
+}
+
+function apply_k11_userpoints_callback($apply) {
+  $k11_points_can_be_used  = $k11_order_details = NULL;
+
+  if(isset($_SESSION['k11_points_can_be_used'])) {
+    $k11_points_can_be_used = $_SESSION['k11_points_can_be_used'];
+  }
+
+  if(isset($_SESSION['k11_order_details'])) {
+    $k11_order_details = $_SESSION['k11_order_details'];
+  }
+
+  if(!is_null($k11_points_can_be_used  ) && !is_null($k11_order_details)) {
+    apply_k11_userpoints($k11_points_can_be_used, $k11_order_details, $apply);
+  } else {
+    return drupal_json_output('POINTS_OR_ORDERS_NOT_EXISTS');
+  }
+}
+
+function apply_k11_userpoints($points_can_be_used, $order_details, $apply) {
+  global $user;
+
+  if(!$apply) {
+    // Delete all userpoints line items on an order.
+    foreach ($order_details as $order_item) {
+      commerce_userpoints_discount_clear_order($order_item['order_id']);
+    }
+
+    $_SESSION['k11_royalty_set'] = 0;
+
+    return drupal_json_output('ROYALTY_REMOVED');
+  }
+
+  $partial_points  = intval($points_can_be_used/ count($order_details));
+
+  for($i = 0; $i < count($order_details); $i++) {
+    $order_details[$i]['points'] = $partial_points;
+  }
+
+  // Remaining points added to the first order
+  $order_details[0]['points'] += $points_can_be_used - ($partial_points * count($order_details));
+
+  foreach ($order_details as $order_item) {
+    $order_id = $order_item['order_id'];
+    $points = $order_item['points'];
+
+    $line_item_id = commerce_userpoints_discount_order_has_userpoint_line_item($order_id);
+
+    // If there is no existing userpoints line item, we create a new one.
+    if ($line_item_id == NULL) {
+      // Create the line item.
+      $line_item = commerce_userpoints_discount_line_item_factory_new($order_id);
+
+      // Create the userpoints transaction.
+      $userpoints_params = array(
+        'points' => $points * -1,
+        'uid' => $user->uid,
+        'operation' => 'commerce_userpoints_discount_credit',
+        'tid' => variable_get('commerce_userpoints_discount_default_termid', userpoints_get_default_tid()),
+        'display' => FALSE,
+        'entity_id' => $order_id,
+        'entity_type' => 'commerce_order',
+      );
+
+      $result = userpoints_userpointsapi($userpoints_params);
+
+      if ($result['status'] == FALSE) {
+        form_set_error("commerce_userpoints_discount][amount", t("Sorry, you cannot use your !points right now. Please contact us for more information", userpoints_translation()));
+
+        return FALSE;
+      }
+    }
+    else {
+      // If there is an existing userpoints line item for this order, we load it to get its userpoints transaction id.
+      $line_item = commerce_line_item_load($line_item_id);
+
+      // Get the existing transaction.
+      $txn_field = field_get_items('commerce_line_item', $line_item, 'commerce_userpoints_discount_transaction');
+
+      // Clear out the old $line_item.
+      commerce_userpoints_discount_clear_order($order_id);
+      unset($line_item);
+
+      // Update the userpoints transaction.
+      $userpoints_params = array(
+        'points' => $points * -1,
+        'txn_id' => $txn_field[0]['value'],
+        'status' => 0,
+      );
+
+      $result = userpoints_userpointsapi($userpoints_params);
+
+      if ($result['status'] == FALSE) {
+        form_set_error("commerce_userpoints_discount][amount", t("Sorry, you cannot use your !points right now. Please contact us for more information", userpoints_translation()));
+
+        return FALSE;
+      }
+
+      // Create the new line item.
+      $line_item = commerce_userpoints_discount_line_item_factory_new($order_id);
+    }
+
+    $result['transaction']['points'] *= 100;
+    $label = t("User credit");
+
+    commerce_userpoints_discount_line_item_populate(
+      $line_item, $order_id,
+      $result['transaction'], commerce_default_currency(), $label);
+
+    commerce_userpoints_discount_line_item_save($line_item);
+  }
+
+  $_SESSION['k11_royalty_set'] = 1;
+
+  return drupal_json_output('ROYALTY_APPLIED');
+}
+
+/**
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function ______commerce_userpoints_discount_kirana11_form_commerce_checkout_form_checkout_alter(&$form, &$form_state, $form_id) {
+  $currencies = commerce_userpoints_currencies();
+  $default_currency = reset($currencies);
+
+  if (isset($form_state['values']['commerce_userpoints_discount']['currency'])) {
+    $currency_code = $form_state['values']['commerce_userpoints_discount']['currency'];
+  }
+  else {
+    $currency_code = $default_currency['code'];
+  }
+
+  $commerce_order_total = $form_state['build_info']['args'][0]->commerce_order_total;
+  $commerce_order_total_amount = floatval($commerce_order_total['und'][0]['data']['components'][0]['price']['amount'] / 100);
+
+  $discount_amount = floatval(($commerce_order_total_amount / 100) * 11);
+
+  // Remaining points.
+  $current_points = userpoints_get_current_points($form_state['build_info']['args'][0]->uid);
+
+  // Get exchange rate.
+  $conversion_rate = $currencies[$currency_code]['conversion_rate'];
+
+  if (!isset($conversion_rate)) {
+    $conversion_rate = 1;
+  }
+
+  // Convert exchange rate to currency.
+  $points_as_currency = $current_points * $conversion_rate;
+
+  // Smaller amount in discount amount and remaining points. (4.30 to 4.00)
+  $remaining_discount_amount = floor(min($discount_amount, $points_as_currency));
+
+  // Convert points as currency to points
+  $points_can_be_used = $remaining_discount_amount / $conversion_rate;
+
+  $line_item_id = commerce_userpoints_discount_order_has_userpoint_line_item($form_state['build_info']['args'][0]->order_number);
+
+  // If there is no existing userpoints line item, we create a new one.
+  if ($line_item_id == NULL) {
+    // Create the line item.
+    $line_item = commerce_userpoints_discount_line_item_factory_new($form_state['build_info']['args'][0]->order_number);
+
+    // Create the userpoints transaction.
+    $userpoints_params = array(
+      'points' => intval($points_can_be_used) * -1,
+      'uid' => $form_state['build_info']['args'][0]->uid,
+      'operation' => 'commerce_userpoints_discount_credit',
+      'tid' => variable_get('commerce_userpoints_discount_default_termid', userpoints_get_default_tid()),
+      'display' => FALSE,
+      'entity_id' => $form_state['build_info']['args'][0]->order_number,
+      'entity_type' => 'commerce_order',
+    );
+
+    $result = userpoints_userpointsapi($userpoints_params);
+
+    if ($result['status'] == FALSE) {
+      form_set_error("commerce_userpoints_discount][amount", t("Sorry, you cannot use your !points right now. Please contact us for more information", userpoints_translation()));
+      return FALSE;
+    }
+
+    $label = "User credit";
+    commerce_userpoints_discount_line_item_populate(
+      $line_item, $form_state['build_info']['args'][0]->order_number,
+      $result['transaction'], commerce_default_currency(), $label);
+
+    commerce_userpoints_discount_line_item_save($line_item);
+  }
+  else {
+    // If there is an existing userpoints line item for this order, we load it to get its userpoints transaction id.
+    $line_item = commerce_line_item_load($line_item_id);
+
+    // Get the existing transaction.
+    $txn_field = field_get_items('commerce_line_item', $line_item, 'commerce_userpoints_discount_transaction');
+
+    // Clear out the old $line_item.
+    commerce_userpoints_discount_clear_order($form_state['build_info']['args'][0]->order_number);
+    unset($line_item);
+
+    // Update the userpoints transaction.
+    $userpoints_params = array(
+      'points' => intval($points_can_be_used) * -1,
+      'txn_id' => $txn_field[0]['value'],
+      'status' => 0,
+    );
+    $result = userpoints_userpointsapi($userpoints_params);
+
+    if ($result['status'] == FALSE) {
+      form_set_error("commerce_userpoints_discount][amount", t("Sorry, you cannot use your !points right now. Please contact us for more information", userpoints_translation()));
+      return FALSE;
+    }
+
+    // Create the new line item.
+    $line_item = commerce_userpoints_discount_line_item_factory_new($form_state['build_info']['args'][0]->order_number);
+
+    $label = t("User credit");
+    commerce_userpoints_discount_line_item_populate(
+      $line_item, $form_state['build_info']['args'][0]->order_number,
+      $result['transaction'], commerce_default_currency(), $label);
+
+    commerce_userpoints_discount_line_item_save($line_item);
+  }
+
+  // Convert points as currency to points
+  //$points_can_be_used = $remaining_discount_amount / $conversion_rate;
+
+//  $form["commerce_userpoints_discount"]['info']['available']['#access'] = FALSE;
+//  $form["commerce_userpoints_discount"]['info']['exchange']['#access'] = FALSE;
+//  $form["commerce_userpoints_discount"]["amount"]['#disabled'] = TRUE;
+//  $form["commerce_userpoints_discount"]["amount"]['#title'] = t('Eligible loyalty discount amount (₹)');
+//  $form["commerce_userpoints_discount"]["amount"]['#default_value'] = number_format((float)$remaining_discount_amount, 2, '.', '');
+//  $form["commerce_userpoints_discount"]["amount"]['#description'] = '';
+}
+
+
+/**
+ * Function to Get User's current month's Loyalty points Balance.
+*/
+function get_current_month_loyalty_points() {
+  global $user;
+  
+  $total_balance = userpoints_get_current_points($user->uid);
+
+  if($total_balance != 0){
+    $query = db_select('userpoints_txn', 'ut');
+    $query->fields('ut',array('points'));
+    $query->condition('status','0')
+    ->condition('uid', $user->uid);
+    $query->where('MONTH(FROM_UNIXTIME(time_stamp)) = :monthid', array(':monthid' => date('m')));
+
+    //$alias = $query->addExpression('SUM(points)', 'sum_of_points');
+
+    $points_list = $query->execute()->fetchAll();
+
+    $total_points_spend = 0;
+    foreach($points_list as $points){
+      if($points->points != '500'){
+        $total_points_spend += $points->points;
+      }
+    }
+
+    $monthly_allocated_points = 111;
+    $available_points = $monthly_allocated_points -  (-$total_points_spend);
+  }
+  else{
+    $available_points = 0;
+  }  
+  
+  $html_location = '<p>&#x20B9;<strong>'.$available_points.'</strong>*</p>';
+  
+  return $html_location;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function commerce_userpoints_discount_kirana11_block_info() {
+  $blocks = [];
+
+  $blocks['users_loyalty_points_balance'] = array(
+    'info' => t('Users Current Month Loyalty Points Balance'),
+    'cache' => DRUPAL_NO_CACHE,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function commerce_userpoints_discount_kirana11_block_view($delta = '') {
+  $block = [];
+
+  switch ($delta) {
+    case 'users_loyalty_points_balance':
+      $block['content'] = get_current_month_loyalty_points();
+      break;
+  }
+
+  return $block;
+}
