@@ -249,7 +249,7 @@ $databases = array (
   array (
     'default' => 
     array (
-      'database' => 'kirana11db',
+      'database' => 'kirana11dbpprd',
       'username' => 'kirana11',
       'password' => 'IAe2huNYUc',
       'host' => 'kirana11.c3nildruou6q.eu-west-1.rds.amazonaws.com',
