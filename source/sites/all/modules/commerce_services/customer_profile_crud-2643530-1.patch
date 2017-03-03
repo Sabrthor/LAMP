@@ -1,0 +1,534 @@
+diff --git a/commerce_services.info b/commerce_services.info
+index cb88b2e..5cd3b9c 100755
+--- a/commerce_services.info
++++ b/commerce_services.info
+@@ -2,4 +2,6 @@ name = Commerce Services
+ description = Defines Services resources for Drupal Commerce entities and systems.
+ package = Services
+ dependencies[] = entity
++dependencies[] = commerce
++dependencies[] = services
+ core = 7.x
+diff --git a/commerce_services.module b/commerce_services.module
+index e9f606f..8f19460 100644
+--- a/commerce_services.module
++++ b/commerce_services.module
+@@ -1003,6 +1003,215 @@ function commerce_services_services_resources() {
+     );
+   }
+ 
++  if (module_exists('commerce_customer')) {
++    // Define a resource for retrieving a collection of line items.
++    $resources['customer-profile'] = array(
++      '#api_version' => 3002,
++      'operations' => array(
++        // Define the index callback for a GET to /customer-profile.
++        'index' => array(
++          'help' => "Returns a pageable list of commerce customer profiles.",
++          'callback' => 'commerce_services_customer_profile_index',
++          'file' => array('type' => 'inc', 'module' => 'commerce_services', 'name' => 'resources/customer_profile'),
++          'access callback' => 'commerce_services_customer_profile_index_access',
++          'args' => array(
++            array(
++              'name' => 'fields',
++              'type' => 'string',
++              'description' => 'A comma separated list of field or property names from commerce customer profiles to include in the result set.  Will be converted to an array before being passed to the operation callback.',
++              'optional' => TRUE,
++              'source' => array('param' => 'fields'),
++              'default value' => '',
++              'commerce_services_explode' => ',',
++              'commerce_services_required_fields' => array('profile_id'),
++            ),
++            array(
++              'name' => 'expand_entities',
++              'type' => 'int',
++              'description' => 'An integer depth to which entity reference field values should be expanded into full entities in a corresponding property on returned entities.',
++              'optional' => TRUE,
++              'source' => array('param' => 'expand_entities'),
++              'default value' => 1,
++            ),
++            array(
++              'name' => 'flatten_fields',
++              'type' => 'string',
++              'description' => 'A string indicating whether or not field value arrays should be flattened; accepts true or false.',
++              'optional' => TRUE,
++              'source' => array('param' => 'flatten_fields'),
++              'default value' => 'true',
++            ),
++            array(
++              'name' => 'filter',
++              'type' => 'array',
++              'description' => 'An array of field or property names from commerce customer profiles paired with values to use to filter the result set.',
++              'optional' => TRUE,
++              'source' => array('param' => 'filter'),
++              'default value' => array(),
++              'commerce_services_field_populate' => 'commerce_commerce_customer_profile',
++            ),
++            array(
++              'name' => 'filter_op',
++              'type' => 'array',
++              'description' => 'An array of field or property names from commerce customer profiles paired with the operator to use when filtering the result set.',
++              'optional' => TRUE,
++              'source' => array('param' => 'filter_op'),
++              'default value' => array(),
++              'commerce_services_match_keys' => array(
++                'arg' => 'filter',
++                'default value' => '=',
++              ),
++            ),
++            array(
++              'name' => 'sort_by',
++              'type' => 'string',
++              'description' => 'A comma separated list of field or property names from commerce customer profiles by which to sort the result set.',
++              'optional' => TRUE,
++              'source' => array('param' => 'sort_by'),
++              'default value' => 'profile_id',
++              'commerce_services_explode' => ',',
++            ),
++            array(
++              'name' => 'sort_order',
++              'type' => 'string',
++              'description' => 'A comma separated list of sort order specifiers (DESC or ASC) indicating the direction the sort_by values should be applied to the result set.',
++              'optional' => TRUE,
++              'source' => array('param' => 'sort_order'),
++              'default value' => 'DESC',
++              'commerce_services_explode' => ',',
++            ),
++            array(
++              'name' => 'limit',
++              'type' => 'int',
++              'description' => 'The number of commerce customer profiles to retrieve.',
++              'optional' => TRUE,
++              'source' => array('param' => 'limit'),
++              'default value' => 10,
++            ),
++            array(
++              'name' => 'offset',
++              'type' => 'int',
++              'description' => 'The zero-based index from which to start retrieving commerce customer profiles.',
++              'optional' => TRUE,
++              'source' => array('param' => 'offset'),
++              'default value' => 0,
++            ),
++          ),
++        ),
++
++        // Define the retrieve callback for a GET to /customer-profile/%profile_id
++        'retrieve' => array(
++          'help' => 'Returns a single commerce customer profile specified by its commerce customer profile ID.',
++          'callback' => 'commerce_services_customer_profile_retrieve',
++          'file' => array('type' => 'inc', 'module' => 'commerce_services', 'name' => 'resources/customer_profile'),
++          'access callback' => 'commerce_services_customer_profile_retrieve_access',
++          'access arguments append' => TRUE,
++          'args' => array(
++            array(
++              'name' => 'profile_id',
++              'type' => 'int',
++              'description' => 'The commerce customer profile ID of the commerce customer profile to retrieve.',
++              'optional' => FALSE,
++              'source' => array('path' => 0),
++            ),
++            array(
++              'name' => 'expand_entities',
++              'type' => 'int',
++              'description' => 'An integer depth to which entity reference field values should be expanded into full entities in a corresponding property on the returned entity.',
++              'optional' => TRUE,
++              'source' => array('param' => 'expand_entities'),
++              'default value' => 1,
++            ),
++            array(
++              'name' => 'flatten_fields',
++              'type' => 'string',
++              'description' => 'A string indicating whether or not field value arrays should be flattened; accepts true or false.',
++              'optional' => TRUE,
++              'source' => array('param' => 'flatten_fields'),
++              'default value' => 'true',
++            ),
++          ),
++        ),
++
++        // Define the create callback for a POST to /customer-profile.
++        'create' => array(
++          'help' => 'Creates a new commerce customer profile.',
++          'callback' => 'commerce_services_customer_profile_create',
++          'file' => array('type' => 'inc', 'module' => 'commerce_services', 'name' => 'resources/customer_profile'),
++          'access callback' => 'commerce_services_customer_profile_create_access',
++          'args' => array(
++            array(
++              'name' => 'data',
++              'type' => 'array',
++              'description' => 'The commerce customer profile data to set on create.',
++              'optional' => FALSE,
++              'source' => 'data',
++            ),
++            array(
++              'name' => 'flatten_fields',
++              'type' => 'string',
++              'description' => 'A string indicating whether or not field value arrays are flattened; accepts true or false.',
++              'optional' => TRUE,
++              'source' => array('param' => 'flatten_fields'),
++              'default value' => 'true',
++            ),
++          ),
++        ),
++
++        // Define the update callback for a PUT to /customer-profile/%profile_id
++        'update' => array(
++          'help' => 'Updates a single commerce customer profile specified by its commerce customer profile ID.',
++          'callback' => 'commerce_services_customer_profile_update',
++          'file' => array('type' => 'inc', 'module' => 'commerce_services', 'name' => 'resources/customer_profile'),
++          'access callback' => 'commerce_services_customer_profile_update_access',
++          'access arguments append' => TRUE,
++          'args' => array(
++            array(
++              'name' => 'profile_id',
++              'type' => 'int',
++              'description' => 'The commerce customer profile ID of the commerce customer profile to delete.',
++              'optional' => FALSE,
++              'source' => array('path' => 0),
++            ),
++            array(
++              'name' => 'data',
++              'type' => 'array',
++              'description' => 'The commerce customer profile data to update.',
++              'optional' => FALSE,
++              'source' => 'data',
++            ),
++            array(
++              'name' => 'flatten_fields',
++              'type' => 'string',
++              'description' => 'A string indicating whether or not field value arrays are flattened; accepts true or false.',
++              'optional' => TRUE,
++              'source' => array('param' => 'flatten_fields'),
++              'default value' => 'true',
++            ),
++          ),
++        ),
++
++        // Define the delete callback for a DELETE to /customer-profile/%profile_id.
++        'delete' => array(
++          'help' => 'Deletes a single commerce customer profile specified by its commerce customer profile ID.',
++          'callback' => 'commerce_services_customer_profile_delete',
++          'file' => array('type' => 'inc', 'module' => 'commerce_services', 'name' => 'resources/customer_profile'),
++          'access callback' => 'commerce_services_customer_profile_delete_access',
++          'access arguments append' => TRUE,
++          'args' => array(
++            array(
++              'name' => 'profile_id',
++              'type' => 'int',
++              'description' => 'The commerce customer profile ID of the commerce customer profile to delete.',
++              'optional' => FALSE,
++              'source' => array('path' => 0),
++            ),
++          ),
++        ),
++      ),
++    );
++  }
++
+   return $resources;
+ }
+ 
+@@ -1076,13 +1285,14 @@ function commerce_services_services_request_preprocess_alter($controller, &$args
+   // values their numeric key in the $args array.
+   $arg_names = array();
+ 
+-  foreach ($controller['args'] as $key => $value) {
++  $controller_args = (isset($controller['args'])) ? $controller['args'] : array();
++  foreach ($controller_args as $key => $value) {
+     $arg_names[$value['name']] = $key;
+   }
+ 
+   // Loop over the argument metadata in the controller looking for any that
+   // include any of our special keys.
+-  foreach ($controller['args'] as $key => $value) {
++  foreach ($controller_args as $key => $value) {
+     // If this argument needs to be exploded into an array...
+     if (!empty($value['commerce_services_explode'])) {
+       // Explode the argument using the specified delimiter.
+@@ -1362,10 +1572,6 @@ function commerce_services_validate_field_value($entity_type, $entity, $field_na
+     $value = array($value);
+   }
+ 
+-  $properties = entity_get_property_info($entity_type);
+-  $bundle = field_extract_bundle($entity_type, $entity);
+-  $fields = $properties['bundles'][$bundle]['properties'];
+-
+   $wrapper = entity_metadata_wrapper($entity_type, $entity);
+ 
+   // If the field has an options list callback...
+@@ -1441,7 +1647,7 @@ function commerce_services_update_field_value($entity_type, $entity, $field_info
+   // was not zero, so we ensure this is the case by changing the delta key of
+   // the field value array.
+   if ($field_info['cardinality'] == 1) {
+-    $current_delta = key($entity->{$field_name}[$langcode]);
++    $current_delta = isset($entity->{$field_name}[$langcode]) ? key($entity->{$field_name}[$langcode]) : 0;
+ 
+     if ($current_delta != 0) {
+       $entity->{$field_name}[$langcode][0] = $entity->{$field_name}[$langcode][$current_delta];
+@@ -1781,10 +1987,6 @@ function commerce_services_update_entity($entity_type, $entity_id, $data, $flatt
+  *   flattened as in GET requests; accepts true or false, defaults to true.
+  */
+ function commerce_services_set_field_values($entity_type, $entity, $data, $flatten_fields) {
+-  $entity_wrapper = entity_metadata_wrapper($entity_type, $entity);
+-  $properties = entity_get_property_info($entity_type);
+-  $bundle = field_extract_bundle($entity_type, $entity);
+-
+   // Build an array of protected properties, preventing update requests from
+   // changing IDs and other immutable properties of the entity.
+   $entity_info = entity_get_info($entity_type);
+@@ -1946,7 +2148,7 @@ function commerce_services_set_field_values($entity_type, $entity, $data, $flatt
+  */
+ function commerce_services_expand_entities($entity_type, $entity, $depth, $flatten_fields) {
+   // Extract the bundle name.
+-  $bundle = field_extract_bundle($entity_type, $entity);
++  list(, , $bundle) = entity_extract_ids($entity_type, $entity);
+ 
+   // Look for each type of Commerce reference field on the given entity.
+   foreach (array('commerce_product_reference', 'commerce_line_item_reference', 'commerce_customer_profile_reference', 'taxonomy_term_reference') as $field_type) {
+@@ -2030,20 +2232,6 @@ function commerce_services_expand_entities($entity_type, $entity, $depth, $flatt
+ }
+ 
+ /**
+- * Implements hook_entity_info_alter().
+- *
+- * The core Taxonomy module specifies an incorrect bundle key name for the
+- * taxonomy_term entity type. Once core is patched, this alter hook can be
+- * removed, but in the meantime it is essential for flattening fields on
+- * taxonomy term entities.
+- *
+- * @see http://drupal.org/node/1736466
+- */
+-function commerce_services_entity_info_alter(&$info) {
+-  $info['taxonomy_term']['bundle keys']['bundle'] = 'vocabulary_machine_name';
+-}
+-
+-/**
+  * Flattens field value arrays on the given entity.
+  *
+  * Field flattening in Commerce Services involves reducing their value arrays to
+@@ -2062,7 +2250,7 @@ function commerce_services_entity_info_alter(&$info) {
+  *   A clone of the entity whose field value arrays should be flattened.
+  */
+ function commerce_services_flatten_fields($entity_type, $cloned_entity) {
+-  $bundle = field_extract_bundle($entity_type, $cloned_entity);
++  list(, , $bundle) = entity_extract_ids($entity_type, $cloned_entity);
+   $clone_wrapper = entity_metadata_wrapper($entity_type, $cloned_entity);
+ 
+   // Loop over every field instance on the given entity.
+@@ -2091,7 +2279,7 @@ function commerce_services_flatten_fields($entity_type, $cloned_entity) {
+  *   The entity whose field value arrays should be flattened.
+  */
+ function commerce_services_decorate_entity($entity_type, $entity) {
+-  $bundle = field_extract_bundle($entity_type, $entity);
++  list(, , $bundle) = entity_extract_ids($entity_type, $entity);
+ 
+   // If the entity is a line item, add its title to it.
+   if ($entity_type == 'commerce_line_item') {
+diff --git a/resources/customer_profile.inc b/resources/customer_profile.inc
+new file mode 100644
+index 0000000..7e7b28c
+--- /dev/null
++++ b/resources/customer_profile.inc
+@@ -0,0 +1,201 @@
++<?php
++
++/**
++ * @file
++ * Contains the resource callbacks for orders.
++ */
++
++
++/**
++ * Returns a collection of customer profiles.
++ *
++ * @see commerce_services_index_entities()
++ */
++function commerce_services_customer_profile_index($fields, $expand_entities, $flatten_fields, $filter, $filter_op, $sort_by, $sort_order, $limit, $offset) {
++  return commerce_services_index_entities('commerce_customer_profile', $fields, $expand_entities, $flatten_fields, $filter, $filter_op, $sort_by, $sort_order, $limit, $offset);
++}
++
++/**
++ * Determines an API user's access to index customer profiles.
++ */
++function commerce_services_customer_profile_index_access() {
++  // Because the entity access control system will filter any result sets,
++  // there's no reason to limit a particular user's access. Users with the
++  // administer customer profile permission will have access to view any customer profile but
++  // other users will only have access to customer profiles on orders they can view.
++  return TRUE;
++}
++
++/**
++ * Returns a single customer profile.
++ *
++ * @see commerce_services_retrieve_entity()
++ */
++function commerce_services_customer_profile_retrieve($profile_id, $expand_entities, $flatten_fields) {
++  return commerce_services_retrieve_entity('commerce_customer_profile', $profile_id, $expand_entities, $flatten_fields);
++}
++
++/**
++ * Determines an API user's access to retrieve a given customer profile.
++ *
++ * @param $profile_id
++ *   The ID of the customer profile to be retrieved.
++ *
++ * @return
++ *   Boolean indicating the user's access to retrieve the customer profile.
++ */
++function commerce_services_customer_profile_retrieve_access($profile_id) {
++  // Attempt to load the customer profile.
++  if ($customer_profile = commerce_customer_profile_load($profile_id)) {
++    // And perform the view access check.
++    if (commerce_customer_profile_access('view', $customer_profile)) {
++      return TRUE;
++    }
++    else {
++      return services_error(t('Access to this operation not granted'), 401);
++    }
++  }
++  else {
++    return services_error(t('Customer profile not found'), 404);
++  }
++}
++
++/**
++ * Creates a new customer profile on an order.
++ */
++function commerce_services_customer_profile_create($data, $flatten_fields) {
++  // Ensure the create request specifies a valid customer profile type.
++  if (empty($data['type']) || !in_array($data['type'], array_keys(commerce_customer_profile_types()))) {
++    return services_error(t('You must specify a valid customer profile type'), 400);
++  }
++
++  global $user;
++
++  // Create the new customer profile.
++  $customer_profile = commerce_customer_profile_new($data['type'], $user->uid);
++
++  // Remove the type from the data array since they've been set.
++  unset($data['type']);
++
++  // Set the field and property data and save the customer profile.
++  commerce_services_set_field_values('commerce_customer_profile', $customer_profile, $data, $flatten_fields);
++  commerce_customer_profile_save($customer_profile);
++
++  // Add simplified fields to the customer profile object for certain field types.
++  commerce_services_decorate_entity('commerce_customer_profile', $customer_profile);
++
++  // Flatten field value arrays if specified. This must be the last operation
++  // performed as it breaks the standard field data model. An entity whose
++  // fields have thus been flattened is no longer wrappable or writable.
++  if ($flatten_fields == 'true') {
++    $customer_profile = clone($customer_profile);
++    commerce_services_flatten_fields('commerce_customer_profile', $customer_profile);
++  }
++
++  return $customer_profile;
++}
++
++/**
++ * Determines an API user's access to create new customer profiles.
++ */
++function commerce_services_customer_profile_create_access($data) {
++  // If the user has access to update the order...
++  if (commerce_customer_profile_access('create')) {
++    return TRUE;
++  }
++  else {
++    return services_error(t('Access to this operation not granted'), 401);
++  }
++}
++
++/**
++ * Updates a customer profile.
++ *
++ * This callback does not use commerce_services_update_entity(), because we must
++ * ensure that the unit price is rebased if its amount or currency code change
++ * but the data array is not updated to include the requisite price component.
++ */
++function commerce_services_customer_profile_update($profile_id, $data, $flatten_fields) {
++  // Load the customer profile.
++  $customer_profile = commerce_customer_profile_load($profile_id);
++
++  // Set field values using the data provided.
++  commerce_services_set_field_values('commerce_customer_profile', $customer_profile, $data, $flatten_fields);
++
++  // Save the updates to the customer profile.
++  commerce_customer_profile_save($customer_profile);
++
++  // Add simplified fields to the customer profile for certain field types.
++  commerce_services_decorate_entity('commerce_customer_profile', $customer_profile);
++
++  // Flatten field value arrays if specified. This must be the last operation
++  // performed as it breaks the standard field data model. An entity whose
++  // fields have thus been flattened is no longer wrappable or writable.
++  if ($flatten_fields == 'true') {
++    $customer_profile = clone($customer_profile);
++    commerce_services_flatten_fields('commerce_customer_profile', $customer_profile);
++  }
++
++  return $customer_profile;
++}
++
++/**
++ * Determines an API user's access to update a given customer profile.
++ *
++ * @param $profile_id
++ *   The ID of the customer profile to be updated.
++ *
++ * @return
++ *   Boolean indicating the user's access to update the customer profile.
++ */
++function commerce_services_customer_profile_update_access($profile_id) {
++  // Attempt to load the customer profile.
++  watchdog('commerce_services', $profile_id);
++  if ($customer_profile = commerce_customer_profile_load($profile_id)) {
++    // If the user has access to perform the operation...
++    if (commerce_customer_profile_access('update', $customer_profile)) {
++      return TRUE;
++    }
++    else {
++      return services_error(t('Access to this operation not granted'), 401);
++    }
++  }
++  else {
++    return services_error(t('Customer profile not found'), 404);
++  }
++}
++
++/**
++ * Deletes a customer profile.
++ *
++ * @param $profile_id
++ *   The ID of the customer profile to be deleted.
++ */
++function commerce_services_customer_profile_delete($profile_id) {
++  commerce_customer_profile_delete($profile_id);
++}
++
++/**
++ * Determines an API user's access to delete a given customer profile.
++ *
++ * @param $profile_id
++ *   The ID of the customer profile to be deleted.
++ *
++ * @return
++ *   Boolean indicating the user's access to delete the customer profile.
++ */
++function commerce_services_customer_profile_delete_access($profile_id) {
++  // Attempt to load the customer profile.
++  if ($customer_profile = commerce_customer_profile_load($profile_id)) {
++    // If the user has access to perform the operation...
++    if (commerce_customer_profile_access('delete', $customer_profile)) {
++      return TRUE;
++    }
++    else {
++      return services_error(t('Access to this operation not granted'), 401);
++    }
++  }
++  else {
++    return services_error(t('Customer profile not found'), 404);
++  }
++}

@@ -3,6 +3,7 @@
   $show_notify = false;
   $show_location = false;
   $show_location_in_register = false;
+  $form_error = form_set_error();
 
   if (!isset($_SESSION['k11_stores_for_user'])) {
      $show_landing = true;
@@ -66,7 +67,6 @@
         <?php global $user; if($user->uid): ?>
           <section class="col-xs-12 col-sm-8 pull-right landing-content-section landing-address">
             <h2><strong>Welcome</strong> to Kirana11.com</h2>
-            <!-- <h3>Shop from your friendly neighbourhood Kirana store <strong>online!</strong></h3> -->
 
             <div class="find-location-container">
               <?php
@@ -77,11 +77,14 @@
               <?php
                 global $user;
                 if($user->uid):
-                  $user_addressbook = views_embed_view('user_addressbook', 'block_1');
-                  if(!empty($user_addressbook)):
+                  $user_addressbook = views_get_view('user_addressbook');
+                  $user_addressbook->set_display('block_1');
+                  $user_addressbook_output = $user_addressbook->preview();
+                
+                  if ($user_addressbook->result):
                     print '<div class="user-delivery-address">';
                     print "<h4>Select your delivery address</h4>";
-                    print $user_addressbook;
+                    print $user_addressbook_output;
                     print '</div>';
                   endif;
                 endif;
@@ -96,13 +99,12 @@
             </div>
           </section>
           <section class="col-xs-12 col-sm-4 landing-banner-section ">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-            <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-login-banner.png" alt="landing location banner" />
+            <p>Hi! Happy to see you back. Happy shopping </p>
+            <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Login_b_img.png" alt="landing location banner" />
           </section>
         <?php else: ?>
           <section class="col-xs-12 col-sm-6 pull-right landing-content-section">
             <h2><strong>Welcome</strong> to Kirana11.com</h2>
-            <!-- <h3>Shop from your friendly neighbourhood Kirana store <strong>online!</strong></h3> -->
 
             <div class="find-location-container">
               <?php
@@ -119,8 +121,8 @@
             </div>
           </section>
           <section class="col-xs-12 col-sm-6 landing-banner-section">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-            <img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-location-banner.png" alt="landing location banner" />
+            <p>Namaskara! I'm your local shop owner, looking forward to serve you.  </p>
+            <img src="<?php print $base_path; ?><?php print $directory; ?>/images/landingpage_img.png" alt="landing location banner" />
           </section>
         <?php endif; ?>
       <!-- Show Location ends here -->
@@ -128,37 +130,27 @@
       <!-- Show Notify goes here -->
       <?php elseif($show_notify): ?>
         <section class="col-xs-12 col-sm-6 pull-right landing-content-section notify">
-          <h2><strong>Oops!</strong> we're not there yet</h2>
-
-          <!-- Message goes here -->
-              <?php if ($messages): ?>
-              <div id="messages-console" class="clearfix">
-                <div class="row">
-                  <div class="message-outer">
-                    <?php print $messages; ?>
-                  </div>
-                </div>
-              </div>
-              <?php endif; ?>
-              <!-- Message ends here -->
+          <h2><strong>Oops!</strong> We're arriving soon </h2>
 
           <div class="find-location-container">
             <?php
+
               /* Display location goes here */
               $landing_session = block_get_blocks_by_region('landing_session');
                   print render($landing_session);
               /* Display location ends here */
-              /* Notify form goes here */
 
+              /* Notify form goes here */
               if($page['nodify_form']):
                 print render($page['nodify_form']); 
               endif;
               /* Notify form ends here */
+
             ?>
           </div>
         </section>
         <section class="col-xs-12 col-sm-6 landing-banner-section">
-        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+        	<p>Arre re! I will start servicing your location soon </p>
           <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-thankyou-banner.png" alt="landing thankyou banner" />
         </section>
         <div class="col-xs-12">
@@ -169,7 +161,7 @@
         <div id="recent_blogs" class="col-xs-12 col-sm-10 col-sm-offset-1">
           <?php print render($page['recent_blogs']); ?>
         </div>
-        <div class="col-xs-12 text-center read-all-button"><a href="/blog">Read All</a></div>
+        <!--<div class="col-xs-12 text-center read-all-button"><a href="/blog">Read All</a></div>-->
         <?php endif; ?>
         
       <!-- Show Notify goes here -->
@@ -206,7 +198,7 @@
                 ?>
                 <?php print render($page['content']); ?>
                 <?php if($form_class_find == 'register_form'): ?>
-                  <p class="regiter-terms">By clicking Create Account, you acknowledge you have read and agreed to our <a href="javascript:"">Terms of Use</a> and <a href="javascript:">Privacy Policy</a></p>
+                  <p class="regiter-terms">By clicking Create Account, you acknowledge you have read and agreed to our <a href="/our-terms-and-conditions">Terms of Use</a> and <a href="/privacy-policy">Privacy Policy</a></p>
                 <?php endif; ?>
             <?php endif; endif; ?>
 
@@ -229,13 +221,42 @@
           </div>
         </section>
         <section class="col-xs-12 col-sm-6 landing-banner-section">
-        <?php if($form_class_find == 'login_form'): ?>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-          <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-login-banner.png" alt="landing location banner" />
-         <?php else: ?>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p> 
-          <img src="<?php print $base_path; ?><?php print $directory; ?>/images/landing-location-banner.png" alt="landing location banner" />
-         <?php endif; ?>
+          <?php if($form_class_find == 'login_form'): ?>
+            <!-- Form Error content goes here -->
+            <?php if (!empty($form_error)): ?>
+              <p>Hello! Seeing you here for the first time. Sign up to start kiranaing!</p>
+              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Login_a_img_error.png" alt="Login Error Image" />
+            <?php else: ?>
+              <!-- Form without Error content goes here -->
+              <p>Hey! Good to see you again, Happy Kiranaing!</p>
+              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Login_a_img.png" alt="Login Image" />
+            <?php endif; ?>
+          <?php elseif($form_class_find == 'forgot_form'): ?>
+            <!-- Form Error content goes here -->
+            <?php if (!empty($form_error)): ?>
+              <p>Oh oh, use your registered mobile number to login</p>
+              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/forgotpassword_img_rana.png" alt="Forgot Password Error Image" />
+            <?php else: ?>
+              <!-- Form without Error content goes here -->
+              <p>Forgot your password! Don't worry I will get it fixed for you</p>
+              <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/forgotpassword_img.png" alt="Forgot Password Image" />
+            <?php endif; ?>
+          <?php else: ?>
+            <?php if($show_location_in_register): ?>
+              <p>Hello! Soon You will start saving time and money</p> 
+              <img src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_img.png" alt="Signup First Image" />
+            <?php else: ?>
+              <!-- Form Error content goes here -->
+              <?php if (!empty($form_error)): ?>
+                <p>Hello! I see some issues with your information, please help me with right information.</p>
+                <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_detectlocation_img_error.png" alt="Signup Error Image" />
+              <?php else: ?>
+                <!-- Form without Error content goes here -->
+                <p>Hello! Good to know you. Welcome to my shop</p>
+                <img class="thankyou-banner" src="<?php print $base_path; ?><?php print $directory; ?>/images/Signup_detectlocation_img.png" alt="Signup Image" />
+              <?php endif; ?>
+            <?php endif; ?>
+          <?php endif; ?>
         </section>
       <!-- User Form ends here -->
       <?php endif; ?>
@@ -269,20 +290,22 @@
     <?php
       $block = module_invoke('commerce_marketplace_kirana11_cart', 'block_view', 'check_location_change');
       
-      if ($block['content'] != 'EMPTY_CART') {        
-        print render($block['content']);  
-        print "<div class='find-change-location'>";
+      if ($block['content'] != 'EMPTY_CART') {
+        print render($block['content']);
+        print "<div class='find-change-location'><h2 class='change-location-title'>Change Location</h2>";
         $block = module_invoke('geocoder_location_handler', 'block_view', 'find_or_select_location');
         print render($block['content']);
-        print "</div>";  
+        print "</div>";
+
       } else {
+        print "<h2 class='change-location-title'>Change Location</h2>";
         $block = module_invoke('geocoder_location_handler', 'block_view', 'find_or_select_location');
         print render($block['content']);   
       }
               
     ?>
   </div>
-  <div class="col-xs-1 overlay-popup-close">
+  <div class="col-xs-1 overlay-location-popup-close">
     <i class="fa fa-times-circle-o" aria-hidden="true"></i>
   </div>
 </div>
@@ -316,9 +339,14 @@
             <span class="glyphicon glyphicon-remove-circle"></span>
           </div>
         </div>
-        <?php if ($page['sidebar_first']): 
-        	print render($page['sidebar_first']); 
-        endif; ?>
+        <?php
+          $useragent = $_SERVER['HTTP_USER_AGENT'];
+          if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i',$useragent)):
+
+            if ($page['sidebar_first']): print render($page['sidebar_first']); endif;
+
+            endif;
+        ?>
       </div>
     </div>
   </div>
@@ -459,7 +487,7 @@
                 <div class="col-xs-12 col-sm-8">
                   <div class="row">
                   	<?php if ($page['product_slider']):?>
-                  		<h2><?php print "Best Deals from ".$_SESSION['k11_current_location'];?></h2>
+                  		<h2><?php print "Best Deals <span>from ".$_SESSION['k11_current_location'];?></span></h2>
                   		<div class="product_slider">
                   			<?php print render($page['product_slider']); ?>
 	                    </div>
@@ -556,7 +584,7 @@
           <div id="recent_blogs" class="col-xs-12 col-sm-11 front-content-box">
             <?php print render($page['recent_blogs']); ?>
           </div>
-          <div class="col-xs-12 text-center read-all-button"><a href="/blog">Read All</a></div>
+          <!--<div class="col-xs-12 text-center read-all-button"><a href="/blog">Read All</a></div>-->
           <?php endif; ?>
           <!-- Recent blogs ends here -->
 

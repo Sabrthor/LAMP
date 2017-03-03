@@ -1,0 +1,12 @@
+name = Header Blocks
+description = Header blocks
+core = 7.x
+package = Features
+version = 7.x-1.0
+dependencies[] = fe_block
+features[fe_block_boxes][] = header_cart
+features[fe_block_boxes][] = header_login
+features[fe_block_settings][] = block-header_cart
+features[fe_block_settings][] = block-header_login
+features[features_api][] = api:2
+project path = sites/all/modules/custom

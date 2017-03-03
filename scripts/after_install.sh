@@ -17,4 +17,5 @@ mkdir /var/www/html/kirana11/sites/default/files
 mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 fs-c5e5210c.efs.eu-west-1.amazonaws.com:/ /var/www/html/kirana11/sites/default/files
 
 # Restart httpd service
+service php-fpm start
 service httpd graceful

@@ -208,7 +208,8 @@ function commerce_moa_form_alter(&$form, &$form_state, $form_id) {
  */
 function commerce_moa_is_valid_order($order, $set_warning = TRUE) {
   $balance = $order->commerce_order_total[LANGUAGE_NONE][0];
-  $total = commerce_currency_amount_to_decimal($balance['amount'], $balance['currency_code']);
+  //$total = commerce_currency_amount_to_decimal($balance['amount'], $balance['currency_code']);
+  $total = commerce_currency_amount_to_decimal($balance['data']['components'][0]['price']['amount'], $balance['currency_code']);
   $minimum_quantity = commerce_moa_default_quantity();
   $minimum_value = (float) commerce_moa_default_minimum();
   $maximum_value = (float) commerce_moa_default_maximum();
@@ -270,7 +271,8 @@ function commerce_moa_is_valid_order($order, $set_warning = TRUE) {
 function commerce_moa_checkout_form_validate($form, &$form_state) {
   $order = commerce_order_load($form_state['order']->order_id);
   $balance = $order->commerce_order_total[LANGUAGE_NONE][0];
-  $total = commerce_currency_amount_to_decimal($balance['amount'], $balance['currency_code']);
+  //$total = commerce_currency_amount_to_decimal($balance['amount'], $balance['currency_code']);
+  $total = commerce_currency_amount_to_decimal($balance['data']['components'][0]['price']['amount'], $balance['currency_code']);
   $minimum_quantity = commerce_moa_default_quantity();
   $minimum_value = (float) commerce_moa_default_minimum();
   $maximum_value = (float) commerce_moa_default_maximum();

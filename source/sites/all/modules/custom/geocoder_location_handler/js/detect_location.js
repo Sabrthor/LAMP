@@ -6,7 +6,7 @@
         var timeoutVal = 10 * 1000 * 1000;
 
         if(!!navigator.geolocation) {
-          localStorage.setItem('current_location', null); 
+          localStorage.setItem('current_location', null);
           navigator.geolocation.getCurrentPosition(function(position) {
             var geocoder = new google.maps.Geocoder();
             var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -14,14 +14,15 @@
             geocoder.geocode({'latLng': geolocate}, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
                 var result = (results.length > 1) ? results[1] : results[0];
-                var address = Drupal.behaviors.get_address(result.address_components, ['sublocality_level_1', 'locality']);
+                var address = Drupal.behaviors.get_address(result.address_components, ['route', 'sublocality_level_3','sublocality_level_2', 'sublocality_level_1', 'locality']);
+                //var address = result.formatted_address.split(',').slice(0, 3).join(',');
 
                 localStorage.setItem('current_location', address);
 
                 $.post('/set_current_location/' + address, function(result) {
                   if (result) {
                     $.get('/get_stores_by_coordinate/' + position.coords.latitude + '/' + position.coords.longitude, function( result ) {
-                  
+
                       // Redirect to homepage if store(s) available.
                       if (result.length > 0) {
                          if (window.location.pathname.localeCompare('/user/register') === 0) {
@@ -34,19 +35,19 @@
                           } else {
                             window.location.href = '/';
                           }
-                          
+
                          }
                       }
 
-                    }); 
-                  }    
+                    });
+                  }
                 });
 
-                             
-              }  
-            });                  
+
+              }
+            });
           }, function(error) {
-            var errors = { 
+            var errors = {
               1: 'Permission denied',
               2: 'Position unavailable',
               3: 'Request timeout'
@@ -55,18 +56,19 @@
             $(".error-text-location-p").html(errors[error.code]);
             $("#edit-detect-my-location").html("Detect my location");
             console.log("Error: " + errors[error.code]);
-          }, { 
-            enableHighAccuracy: true, 
-            timeout: timeoutVal, 
-            maximumAge: 0 
+          }, {
+            enableHighAccuracy: true,
+            timeout: timeoutVal,
+            maximumAge: 0
           });
-        }  
+        }
 
         return false;
       });
-      
+
       $("#edit-select-location").once().click(function() {
         $("#edit-detect-my-location").html("Detect my location");
+        $(".edit-select-location-outer").addClass('ajax-loader-processed');
         var bangaloreBounds = new google.maps.LatLngBounds(
            new google.maps.LatLng(12.864162, 77.438610),
            new google.maps.LatLng(13.139807, 77.711895));
@@ -86,7 +88,12 @@
             geocoder.geocode({'latLng': geolocate}, function(results, status) {
               if (status == google.maps.GeocoderStatus.OK) {
                 var result = (results.length > 1) ? results[1] : results[0];
-                var address = Drupal.behaviors.get_address(result.address_components, ['sublocality_level_1', 'locality']);
+                //var address = Drupal.behaviors.get_address(result.address_components, ['sublocality_level_2', 'sublocality_level_1', 'locality']);
+                //var address = result.formatted_address.split(',').slice(0, 3).join(',');
+
+                // Selected address
+                var address = $('.edit-select-location-outer input').val();
+                address = address.substr(0, address.indexOf('Bengaluru,') + 9);
 
                 localStorage.setItem('current_location', address);
 
@@ -108,36 +115,36 @@
                           }
                         }
                       }
-                      
-                    });    
-                  }    
+
+                    });
+                  }
                 });
 
-                          
-              }  
-            });  
+
+              }
+            });
           } else {
             $(".error-text-location").show();
             $(".error-text-location-p").html("Not a valid location");
             console.log('Not a valid location');
           }
         });
-      });      
+      });
     }
   };
 
   Drupal.behaviors.get_address = function(address_components, address_types) {
     var show_address = '';
 
-    address_types.forEach(function(address_type) {    
+    address_types.forEach(function(address_type) {
       address_components.forEach(function(address) {
-        address.types.forEach(function(type) {          
+        address.types.forEach(function(type) {
           if (type.localeCompare(address_type) === 0) {
             show_address += address.long_name + ', ';
 
             return false;
           }
-        });  
+        });
       });
     });
 

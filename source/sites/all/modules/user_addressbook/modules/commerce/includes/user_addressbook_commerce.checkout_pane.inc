@@ -376,30 +376,40 @@ function user_addressbook_commerce_field_handler_checkout_select_user_address_su
   $pane_id = reset($form_state['triggering_element']['#array_parents']);
   $user_address = user_address_load($form_state['triggering_element']['#name']);
 
-  $customer_profile = $form_state['pane_' . $pane_id]['customer_profile'];
-  $order = $form_state['order'];
-  $customer_profile_pane = $form_state['customer_profiles_panes'][$form_state['customer_profiles_step']];
+  if($user_address->user_addressbook_address['und'][0]['premise'] == $_SESSION['k11_current_location']){
 
-  // Use this event to do extra operations with Rules to the new account and/or order.
-  rules_invoke_all('user_addressbook_commerce_user_address_select', $user_address, $customer_profile, $order);
-  // Set the user address order data for this type.
-  $order->data['addresses'][$customer_profile->type] = $user_address->address_id;
-  commerce_order_save($order);
-  // Select address message.
-  drupal_set_message(t('Address %address_name was selected for %profile_pane.', array('%address_name' => $user_address->name, '%profile_pane' => $customer_profile_pane['title'])));
-  // Next profile
-  $form_state['customer_profiles_step']++;
-  // Redirect to the next checkout step.
-  if (empty($form_state['customer_profiles_panes'][$form_state['customer_profiles_step']])) {
-    $order = commerce_order_status_update($form_state['order'], 'checkout_' . $form_state['checkout_page']['next_page'], FALSE, NULL, t('Customer continued to the next checkout page via a submit button.'));
-    $form_state['redirect'] = 'checkout/' . $order->order_id . '/' . $form_state['checkout_page']['next_page'];
+    $customer_profile = $form_state['pane_' . $pane_id]['customer_profile'];
+    $order = $form_state['order'];
+    $customer_profile_pane = $form_state['customer_profiles_panes'][$form_state['customer_profiles_step']];
+
+    // Use this event to do extra operations with Rules to the new account and/or order.
+    rules_invoke_all('user_addressbook_commerce_user_address_select', $user_address, $customer_profile, $order);
+    // Set the user address order data for this type.
+    $order->data['addresses'][$customer_profile->type] = $user_address->address_id;
+    commerce_order_save($order);
+    // Select address message.
+    drupal_set_message(t('Address %address_name was selected for %profile_pane.', array('%address_name' => $user_address->name, '%profile_pane' => $customer_profile_pane['title'])));
+    // Next profile
+    $form_state['customer_profiles_step']++;
+    // Redirect to the next checkout step.
+    if (empty($form_state['customer_profiles_panes'][$form_state['customer_profiles_step']])) {
+      $order = commerce_order_status_update($form_state['order'], 'checkout_' . $form_state['checkout_page']['next_page'], FALSE, NULL, t('Customer continued to the next checkout page via a submit button.'));
+      $form_state['redirect'] = 'checkout/' . $order->order_id . '/' . $form_state['checkout_page']['next_page'];
+    }
+    else {
+      $form_state['pane_' . $pane_id]['mode'] = 'select_address';
+      $form_state['pane_' . $pane_id]['action'] = 'select_address';
+      $form_state['rebuild'] = TRUE;
+    }
   }
-  // Form rebuild.
   else {
+    drupal_set_message(t('Selected address %address_name is not matching with your current location selected.', array('%address_name' => $user_address->name, '%profile_pane' => $customer_profile_pane['title'])), 'error');
     $form_state['pane_' . $pane_id]['mode'] = 'select_address';
     $form_state['pane_' . $pane_id]['action'] = 'select_address';
     $form_state['rebuild'] = TRUE;
   }
+  // Form rebuild.
+  
 }
 
 /**

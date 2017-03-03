@@ -1,0 +1,16 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: hanishkeloth
+ * Date: 03/02/17
+ * Time: 6:28 PM
+ */
+function commerce_ajax_cart_open_preprocess_block(&$variables) {
+  if ('commerce_cart' == $variables['block']->module) {
+	drupal_add_js('jQuery("span.commerce-ajax-cart-loader").ready(function() {
+       Drupal.behaviors.commerce_add_to_cart_show_ajax_cart.fillCartBlock();
+       });
+    ',
+	  array('type' => 'inline', 'scope' => 'header', 'weight' => 20)
+	);}
+}

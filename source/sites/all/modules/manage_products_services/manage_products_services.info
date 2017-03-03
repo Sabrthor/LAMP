@@ -1,0 +1,6 @@
+name = Mangae Products Services
+description = Kirana11 Module for adding product from store.
+package = Other
+core = 7.x
+dependencies[] = services
+dependencies[] = rest_server

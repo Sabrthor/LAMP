@@ -213,7 +213,17 @@ function commerce_userpoints_discount_line_item_add_form_submit(&$line_item, $el
 function commerce_userpoints_discount_userpoints_info() {
   return array(
     'commerce_userpoints_discount_credit' => array(
-      'description' => t('Using credit for purchase'),
+      'description' => t('Points used for order'),
+    ),
+    // Maximum character allowed is 48
+    'cu_discount_refund_on_order_cancellation' => array(
+      'description' => t('Points refund on order cancellation'),
+    ),
+    'cu_discount_took_remaining_points' => array(
+      'description' => t('Remaining points took on order edit'),
+    ),
+    'cu_discount_refund_remaining_points' => array(
+      'description' => t('Remaining points refund on order edit'),
     ),
   );
 }
@@ -382,8 +392,8 @@ function commerce_userpoints_discount_entity_delete($entity, $type) {
 function commerce_userpoints_discount_commerce_price_component_type_info() {
   return array(
     'userpoints' => array(
-      'title' => t('K11 Royalties'),
-      'display_title' => t('K11 Royalties'),
+      'title' => t('Shubh shagun'),
+      'display_title' => t('Shubh shagun'),
       'weight' => 1000,
     ),
   );

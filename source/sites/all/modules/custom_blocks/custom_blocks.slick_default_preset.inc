@@ -76,8 +76,8 @@ function custom_blocks_slick_default_presets() {
     ),
     'settings' => array(
       'asNavFor' => '',
-      'prevArrow' => '<button type="button" data-role="none" class="slick-prev" aria-label="Previous" tabindex="0" role="button"><i class="fa fa-angle-left" ></i></button>',
-      'nextArrow' => '<button type="button" data-role="none" class="slick-next" aria-label="Next" tabindex="0" role="button"><i class="fa fa-angle-right" ></i></button>',
+      'prevArrow' => '<button type="button" data-role="none" class="slick-prev" aria-label="Previous" tabindex="0" role="button"><i class="fa fa-chevron-left" ></i></button>',
+      'nextArrow' => '<button type="button" data-role="none" class="slick-next" aria-label="Next" tabindex="0" role="button"><i class="fa fa-chevron-right" ></i></button>',
       'focusOnSelect' => FALSE,
       'initialSlide' => 0,
       'lazyLoad' => 'ondemand',
@@ -122,26 +122,23 @@ function custom_blocks_slick_default_presets() {
     ),
     'settings' => array(
       'asNavFor' => '',
-      'prevArrow' => '<button type="button" data-role="none" class="slick-prev" aria-label="Previous" tabindex="0" role="button"><i class="fa fa-angle-left" ></i></button>',
-      'nextArrow' => '<button type="button" data-role="none" class="slick-next" aria-label="Next" tabindex="0" role="button"><i class="fa fa-angle-right" ></i></button>',
+      'prevArrow' => '<button type="button" data-role="none" class="slick-prev" aria-label="Previous" tabindex="0" role="button"><i class="fa fa-chevron-left" ></i></button>',
+      'nextArrow' => '<button type="button" data-role="none" class="slick-next" aria-label="Next" tabindex="0" role="button"><i class="fa fa-chevron-right" ></i></button>',
       'focusOnSelect' => FALSE,
       'initialSlide' => 0,
       'lazyLoad' => 'ondemand',
       'rtl' => FALSE,
       'rows' => 1,
-      'slidesPerRow' => 6,
+      'slidesPerRow' => 4,
       'slide' => '',
-      'slidesToShow' => 6,
+      'slidesToShow' => 4,
     ),
     'responsives' => array(
       'responsive' => array(
         0 => array(
           'breakpoint' => 767,
           'unslick' => FALSE,
-          'settings' => array(
-            'slidesPerRow' => 2,
-            'slidesToShow' => 2,
-          ),
+          'settings' => array(),
         ),
       ),
     ),

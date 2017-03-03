@@ -173,7 +173,7 @@ function user_addressbook_commerce_commerce_checkout_router($order, $checkout_pa
       $field_name = variable_get('commerce_customer_profile_' . $type . '_field', '');
       // Exit if there is a customer profile defined.
       if (!empty($order->{$field_name})) {
-        return;
+        //return;
       }
       // Define new customer profile and use the default address for it.
       else {

@@ -233,7 +233,7 @@ function kirana11_products_default_fe_block_settings() {
       ),
     ),
     'title' => '',
-    'visibility' => 1,
+    'visibility' => 0,
   );
 
   $export['views-category_products-block_1'] = array(

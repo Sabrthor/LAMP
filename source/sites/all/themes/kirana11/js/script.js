@@ -68,23 +68,51 @@
     attach: function (context) {
       /* mobile Category Menu */
       
+      /* Other Page Left Side bar */
       $(".mobile-category-section a.menu-categories").once().click(function(){
         $(".overlay-popup-menu").show();
         $(".overlay-popup-menu-container").show();
         $(".overlay-popup-filter-container").hide();
       });
+
+      /* Category and Store page left side bar*/
       $(".mobile-category-section a.filter-categories").once().click(function(){
-        $(".overlay-popup-menu, .overlay-popup-filter-container, .filter-categories-title, #edit-category-id-wrapper, #block-block-16").show();
-        $(".overlay-popup-menu-container, .filter-brands-title, .filter-discount-title, #edit-field-brand-tid-wrapper, #edit-brand-wrapper, #edit-deals-wrapper").hide();
+        $(".region-sidebar-first .block:nth-last-child(3)").removeClass("display-none");
+        $(".overlay-popup-menu, .overlay-popup-filter-container, .filter-categories-title, .region-sidebar-first .block:first-child, .page-store-products .region-sidebar-first .block:nth-last-child(3)").show();
+        $(".overlay-popup-menu-container, .filter-brands-title, .filter-discount-title, .region-sidebar-first .block:nth-last-child(2), .region-sidebar-first .block:last-child").hide();
       });
+
       $(".mobile-category-section a.filter-brands").once().click(function(){
-        $(".overlay-popup-menu, .overlay-popup-filter-container, .filter-brands-title, #edit-field-brand-tid-wrapper, #edit-brand-wrapper, .block-facetapi:last-child").show();
-        $(".overlay-popup-menu-container, .filter-categories-title, .filter-discount-title, #edit-category-id-wrapper, #edit-deals-wrapper, #block-block-16, .block-facetapi:first-child").hide();
+        $(".region-sidebar-first .block:last-child").removeClass("display-none");
+        $(".overlay-popup-menu, .overlay-popup-filter-container, .filter-brands-title, .region-sidebar-first .block:last-child").show();
+        $(".overlay-popup-menu-container, .filter-categories-title, .filter-discount-title, .region-sidebar-first .block:nth-last-child(3), .region-sidebar-first .block:nth-last-child(2), .region-sidebar-first .block:first-child").hide();
       });
+
       $(".mobile-category-section a.filter-discount").once().click(function(){
-        $(".overlay-popup-menu, .overlay-popup-filter-container, .filter-discount-title, #edit-deals-wrapper, .block-facetapi:first-child").show();
-        $(".overlay-popup-menu-container, .filter-categories-title, .filter-brands-title, #edit-category-id-wrapper, #edit-field-brand-tid-wrapper, #edit-brand-wrapper, #block-block-16, .block-facetapi:last-child").hide();
+        $(".region-sidebar-first .block:nth-last-child(2)").removeClass("display-none");
+        $(".overlay-popup-menu, .overlay-popup-filter-container, .filter-discount-title, .region-sidebar-first .block:nth-last-child(2)").show();
+        $(".overlay-popup-menu-container, .filter-categories-title, .filter-brands-title, .region-sidebar-first .block:nth-last-child(3), .region-sidebar-first .block:last-child, .region-sidebar-first .block:first-child").hide();
       });
+
+      /* Category Click hide Brand */
+      $(".facetapi-facet-field-category").once().click(function(){
+        $(".region-sidebar-first .block:last-child").addClass("display-none");
+        $(".region-sidebar-first .block:nth-last-child(2)").addClass("display-none");
+      });
+
+      /* Brands Click hide View Discount, Category */
+      $(".facetapi-facet-field-brand").once().click(function(){
+        $(".region-sidebar-first .block:nth-last-child(3)").addClass("display-none");
+        $(".region-sidebar-first .block:nth-last-child(2)").addClass("display-none");
+      });
+
+      /* Discount Click hide Category, brand */
+      $("#views-exposed-form-store-products-index-page, .facetapi-facetapi-ajax-checkboxes").once().click(function(){
+        $(".region-sidebar-first .block:nth-last-child(3)").addClass("display-none");
+        $(".region-sidebar-first .block:last-child").addClass("display-none");
+      });
+
+      /* Close Button Overlay */
       $(".overlay-popup-menu-close").once().click(function(){
         $(".overlay-popup-menu").hide();
       });
@@ -109,7 +137,7 @@
         $(".not-empty-location").show();
         $(".find-change-location").hide();
       });
-      $(".overlay-popup-close").once().click(function(){
+      $(".overlay-popup-close, .overlay-location-popup-close").once().click(function(){
         $(".overlay-popup").hide();
       });
     }
@@ -118,7 +146,7 @@
   Drupal.behaviors.kirana11ChangeMainCategoryHref = {
     attach: function (context) {
       $(document).ready(function(){
-        $(".region-header-menu ul.menu > li > a").attr("href", "javascript:")
+        //$(".region-header-menu ul.menu > li > a").attr("href", "javascript:");
       });
     }
   }
@@ -128,31 +156,52 @@
 
       $(window).on("load", function() {
         var id = $("#selected_tid").html();
-        $(".region-sidebar-first ul.menu_level_1 li").removeClass('cm-expanded');
-        $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li').css({"font-weight": "700", "color" : "#346d35"});
-        $(".region-sidebar-first ." + id).css({"color" : "#346d35"});
-        $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li').addClass('cm-expanded');
-        $(".region-sidebar-first ." + id).parents('ul.menu_level_1 > li').find('a').css({"color" : "#346d35"});
-        $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li > ul.menu_level_2').toggle();
-        $(".region-sidebar-first ." + id).parentsUntil('.menu_level_2').find('ul.menu_level_3').toggle();
+        var lengthLI = $(".region-sidebar-first ." + id).parents('ul').length;
+        if(lengthLI > 1){
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li').addClass('cm-expanded');
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_1 > li').find('a').css({"color" : "#346d35"});
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_1 > li').css({"font-weight": "700"});
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_2 > li').find('a').css({"color" : "#346d35"});
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_2 > li').css({"font-weight": "700"});
+          $(".region-sidebar-first ." + id).parent('li').css({"font-weight": "700"});
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li > ul').show();
+          $(".region-sidebar-first ." + id).next('ul').show();
+        }else{
+          $(".region-sidebar-first ." + id).next('ul').show();
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li').css({"font-weight": "700"});
+          $(".region-sidebar-first ." + id).parents('ul.menu_level_1 li').addClass('cm-expanded');
+          $(".region-sidebar-first ." + id).css({"color" : "#346d35"});
+        }
       });
       
       $(".menu_level_1 > li > a").once().click(function(){
-        $(".menu_level_1 li").removeClass('cm-expanded');
-        $(".menu_level_1 > li > a").css({"font-weight": "400", "color" : "#666"});
-        $(".menu_level_1 > li ul").hide();
-        $(this).next('ul').toggle();
-        $(this).parent('ul li').addClass('cm-expanded');
-        $(this).css({"font-weight": "700", "color" : "#346d35"});
+        if($(this).parent().hasClass('cm-expanded')){
+          $(this).parent().removeClass('cm-expanded');
+          $(this).next('ul').slideUp();
+          $(this).css({"font-weight": "400", "color" : "#666"});
+        }else{
+          $(".menu_level_1 li").removeClass('cm-expanded');
+          $(this).parent().addClass('cm-expanded');
+          $(".menu_level_1 li a").next('ul').slideUp();
+          $(this).next('ul').slideDown();
+          $(".menu_level_1 li a").css({"font-weight": "400", "color" : "#666"});
+          $(this).css({"font-weight": "700", "color" : "#346d35"});
+        }
       });
 
       $(".menu_level_2 > li a").once().click(function(){
-        $(".menu_level_2 li").removeClass('cm-expanded');
-        $(".menu_level_2 > li a").css({"font-weight": "400", "color" : "#666"});
-        $(".menu_level_2 > li ul").hide();
-        $(this).next('ul').toggle();
-        $(this).parents('ul > li').addClass('cm-expanded');
-        $(this).css({"font-weight": "700", "color" : "#346d35"});
+        if($(this).parent().hasClass('cm-expanded')){
+          $(this).parent().removeClass('cm-expanded');
+          $(this).next('ul').slideUp();
+          $(this).css({"font-weight": "400", "color" : "#666"});
+        }else{
+          $(".menu_level_2 li").removeClass('cm-expanded');
+          $(this).parent().addClass('cm-expanded');
+          $(".menu_level_2 li a").next('ul').slideUp();
+          $(this).next('ul').slideDown();
+          $(".menu_level_2 li a").css({"font-weight": "400", "color" : "#666"});
+          $(this).css({"font-weight": "700", "color" : "#346d35"});
+        }
       });
     }
   }
@@ -197,6 +246,55 @@
       $(".loyalty-outer-terms h4").once().click(function(){
         $(".loyalty-outer-terms-text").toggle('slow');
         $(this).toggleClass('change-minus');
+      });
+
+      $(".loyalty-page .view-content caption").once().click(function(){
+        $(this).parent().find("thead").toggle();
+        $(this).parent().find("tbody").toggle();
+        $(this).toggleClass('change-minus');
+      });
+    }
+  }
+
+  Drupal.behaviors.kirana11ProductDetailImage = {
+    attach: function (context) {
+      $(".product-details-left-image-small > img").once().click(function(){
+        var thumbnail_image = $(this).attr('src');
+        $(".product-details-left-image-big img").attr('src', thumbnail_image);
+      });
+    }
+  }
+
+  Drupal.behaviors.kirana11DiscountRemoveFalse = {
+    attach: function (context) {
+      $(document).ready(function(){
+        $(".region-sidebar-first .facetapi-facet-field-productfield-commerce-saleprice-on-sale li label").each(function(){
+          var label = $.trim($(this).html());
+          if(label == "false"){
+            $(this).parent().addClass("display-none-web");
+          }
+        });
+      }); 
+    }
+  }
+
+  Drupal.behaviors.kirana11DealsEntireBlockClick = {
+    attach: function (context) {
+      $(document).ready(function(){
+        $(".view-best-deals ul.jcarousel li").css({"cursor":"pointer"});
+        $(".category-display").each(function(){
+          if($(this).find('.pdp-link').length > 0) {
+            $(this).css({"cursor":"pointer"});
+          }
+        });
+
+      });
+
+      $(".view-best-deals ul.jcarousel li, .category-display").once().click(function(){
+        var redirect_link = $(this).find(".pdp-link").attr('href');
+        if(redirect_link != undefined && redirect_link != ''){
+          window.location.href = redirect_link;
+        }        
       });
     }
   }

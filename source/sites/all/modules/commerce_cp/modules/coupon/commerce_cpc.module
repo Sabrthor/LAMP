@@ -63,7 +63,7 @@ function commerce_cpc_coupon_pane($form, $form_state, $cart_order, $pane_weight)
   $form_pane['coupon']['coupon_code'] = array(
     '#type' => 'textfield',   
     '#title' => t('Coupon Code'),
-    '#description' => t('Enter your coupon code here.'), 
+    '#description' => t('Enter your coupon code to save more'), 
     '#size' => 16,
   );
   $form_pane['coupon']['coupon_add'] = array(

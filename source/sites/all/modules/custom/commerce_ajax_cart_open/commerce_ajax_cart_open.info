@@ -1,0 +1,7 @@
+name = Commerce ajax cart open
+description = Open the damned cart block
+package = Commerce (contrib)
+core = 7.x
+version = 7.x-1.x
+
+dependencies[] = commerce_ajax_cart

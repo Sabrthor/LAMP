@@ -79,28 +79,6 @@ function kirana11_store_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_banner'.
-  $field_bases['field_banner'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_banner',
-    'indexes' => array(
-      'fid' => array(
-        0 => 'fid',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'linkimagefield',
-    'settings' => array(
-      'default_image' => 0,
-      'uri_scheme' => 'public',
-    ),
-    'translatable' => 0,
-    'type' => 'linkimagefield',
-  );
-
   // Exported field_base: 'field_delivery_slots'.
   $field_bases['field_delivery_slots'] = array(
     'active' => 1,
@@ -124,6 +102,7 @@ function kirana11_store_field_default_field_bases() {
         '04pm - 06pm' => '04pm - 06pm',
         '06pm - 08pm' => '06pm - 08pm',
         '08pm - 10pm' => '08pm - 10pm',
+        '10pm - 12am' => '10pm - 12am',
       ),
       'allowed_values_function' => '',
     ),
@@ -280,6 +259,39 @@ function kirana11_store_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'text',
+  );
+
+  // Exported field_base: 'field_stores_list'.
+  $field_bases['field_stores_list'] = array(
+    'active' => 1,
+    'cardinality' => -1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_stores_list',
+    'indexes' => array(
+      'target_id' => array(
+        0 => 'target_id',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'entityreference',
+    'settings' => array(
+      'handler' => 'base',
+      'handler_settings' => array(
+        'behaviors' => array(
+          'views-select-list' => array(
+            'status' => 0,
+          ),
+        ),
+        'sort' => array(
+          'type' => 'none',
+        ),
+        'target_bundles' => array(),
+      ),
+      'target_type' => 'commerce_store',
+    ),
+    'translatable' => 0,
+    'type' => 'entityreference',
   );
 
   // Exported field_base: 'field_tin_number'.

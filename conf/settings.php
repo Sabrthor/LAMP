@@ -642,3 +642,18 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * @see drupal_clean_css_identifier()
  */
 # $conf['allow_css_double_underscores'] = TRUE;
+$conf['https'] = FALSE;
+#$conf['securepages_enable'] = 0;
+$conf['drupal_http_request_fails'] = FALSE;
+
+
+/**
+ *  * Memcache Settings:
+ *   
+$conf['memcache_servers'] = array('kirana11-dev.xh72pg.cfg.euw1.cache.amazonaws.com:11211' => 'default');
+$conf['cache_backends'][] = 'sites/all/modules/memcache/memcache.inc';
+$conf['cache_default_class'] = 'MemCacheDrupal';
+$conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
+$conf['page_cache_without_database'] = TRUE;
+$conf['page_cache_invoke_hooks'] = FALSE;
+ */
